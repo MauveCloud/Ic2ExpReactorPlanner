@@ -12,7 +12,9 @@ public class AdvancedHeatExchanger extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorHeatSwitchDiamond.png";    
+    private static final String imageFilename = "reactorHeatSwitchDiamond.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatExchanger.MATERIALS, 2, MaterialsList.ELECTRONIC_CIRCUIT, "Copper Plate", 4, "Lapis Lazuli");
     
     /**
      * Creates a new instance.
@@ -68,6 +70,11 @@ public class AdvancedHeatExchanger extends ReactorComponent {
         double deltaHeat = Math.min(Math.max(-8.0, Math.min(8.0, reactorTargetHeat - parentReactor.getCurrentHeat())), getCurrentHeat());
         parentReactor.adjustCurrentHeat(deltaHeat);
         this.adjustCurrentHeat(-deltaHeat);
+    }
+
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

@@ -9,7 +9,9 @@ public class AdvancedHeatVent extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorVentDiamond.png";    
+    private static final String imageFilename = "reactorVentDiamond.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatVent.MATERIALS, "Diamond", 6, "Iron Bars");
     
     /**
      * Creates a new instance.
@@ -36,6 +38,11 @@ public class AdvancedHeatVent extends ReactorComponent {
     @Override
     public void dissipate() {
         adjustCurrentHeat(-Math.min(12, getCurrentHeat()));
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

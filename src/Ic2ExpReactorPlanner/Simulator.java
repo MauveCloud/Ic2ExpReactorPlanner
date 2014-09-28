@@ -69,7 +69,9 @@ public class Simulator extends SwingWorker<Void, Void> {
             }
             lastEUoutput = reactor.getCurrentEUoutput();
             totalEUoutput += lastEUoutput;
-            reactorTicks++;
+            if (reactor.getCurrentHeat() <= reactor.getMaxHeat() && lastEUoutput > 0.0) {
+                reactorTicks++;
+            }
             for (int row = 0; row < 6; row++) {
                 for (int col = 0; col < 9; col++) {
                     ReactorComponent component = reactor.getComponentAt(row, col);

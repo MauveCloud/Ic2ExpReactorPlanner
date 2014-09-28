@@ -12,7 +12,9 @@ public class FuelRodUranium extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorUraniumSimple.png";    
+    private static final  String imageFilename = "reactorUraniumSimple.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList("Iron Plate", "Enriched Uranium Nuclear Fuel");
     
     /**
      * Creates a new instance.
@@ -104,4 +106,9 @@ public class FuelRodUranium extends ReactorComponent {
         }
     }
         
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
+    }
+    
 }

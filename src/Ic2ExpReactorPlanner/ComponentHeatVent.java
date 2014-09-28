@@ -12,7 +12,9 @@ public class ComponentHeatVent extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorVentSpread.png";    
+    private static final String imageFilename = "reactorVentSpread.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 4, "Tin Plate", 4, "Iron Bars");
     
     /**
      * Creates a new instance.
@@ -54,6 +56,11 @@ public class ComponentHeatVent extends ReactorComponent {
             heatableNeighbor.adjustCurrentHeat(-Math.min(4, heatableNeighbor.getCurrentHeat()));
         }
 
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

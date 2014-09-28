@@ -9,7 +9,9 @@ public class ContainmentReactorPlating extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorPlatingExplosive.png";    
+    private static final String imageFilename = "reactorPlatingExplosive.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 2, "Advanced Alloy");
     
     /**
      * Creates a new instance.
@@ -35,6 +37,11 @@ public class ContainmentReactorPlating extends ReactorComponent {
     @Override
     public void removeFromReactor() {
         getParent().adjustMaxHeat(-500);
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

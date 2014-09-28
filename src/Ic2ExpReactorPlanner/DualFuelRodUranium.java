@@ -9,7 +9,9 @@ public class DualFuelRodUranium extends FuelRodUranium {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorUraniumDual.png";    
+    private static final String imageFilename = "reactorUraniumDual.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList("Iron Plate", 2, FuelRodUranium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -44,4 +46,9 @@ public class DualFuelRodUranium extends FuelRodUranium {
         parentReactor.addEUOutput(energy);
     }
 
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
+    }
+    
 }

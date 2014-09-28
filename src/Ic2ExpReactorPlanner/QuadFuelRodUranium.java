@@ -9,7 +9,9 @@ public class QuadFuelRodUranium extends FuelRodUranium {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorUraniumQuad.png";    
+    private static final String imageFilename = "reactorUraniumQuad.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(3, "Iron Plate", 2, "Copper Plate", 4, FuelRodUranium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -44,4 +46,9 @@ public class QuadFuelRodUranium extends FuelRodUranium {
         parentReactor.addEUOutput(energy);
     }
 
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
+    }
+    
 }

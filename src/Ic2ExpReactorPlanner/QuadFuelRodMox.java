@@ -9,7 +9,9 @@ public class QuadFuelRodMox extends FuelRodUranium {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorMOXQuad.png";    
+    private static final String imageFilename = "reactorMOXQuad.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(3, "Iron Plate", 2, "Copper Plate", 4, FuelRodMox.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -44,4 +46,9 @@ public class QuadFuelRodMox extends FuelRodUranium {
         parentReactor.addEUOutput(energy);
     }
 
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
+    }
+    
 }

@@ -19,6 +19,9 @@ public class Reactor {
     
     private double maxHeat = 10000.0;
     
+    public static final MaterialsList REACTOR_CHAMBER = new MaterialsList(8, "Iron Plate", 4, "Lead Plate");
+    public static final MaterialsList REACTOR = new MaterialsList(3, REACTOR_CHAMBER, 36, "Lead Plate", MaterialsList.ADVANCED_CIRCUIT, MaterialsList.GENERATOR);
+    
     public ReactorComponent getComponentAt(int row, int column) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
             return grid[row][column];
@@ -99,6 +102,26 @@ public class Reactor {
      */
     public void clearEUOutput() {
         currentEUoutput = 0.0;
+    }
+    
+    /**
+     * Gets a list of the materials needed to build the reactor and components.
+     * @return a list of the materials needed to build the reactor and components.
+     */
+    public MaterialsList getMaterials() {
+        MaterialsList result = new MaterialsList(REACTOR);
+        int lastColumnFilled = 0;
+        for (int col = 0; col < 9; col++) {
+            for (int row = 0; row < 6; row++) {
+                if (grid[row][col] != null) {
+                    lastColumnFilled = Math.max(lastColumnFilled, col);
+                    result.add(grid[row][col].getMaterials());
+                }
+            }
+        }
+        int chambersNeeded = Math.max(0, lastColumnFilled - 2);
+        result.add(chambersNeeded, REACTOR_CHAMBER);
+        return result;
     }
     
 }

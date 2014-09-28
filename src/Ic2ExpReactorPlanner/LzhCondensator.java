@@ -9,7 +9,9 @@ public class LzhCondensator extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorCondensatorLap.png";    
+    private static final String imageFilename = "reactorCondensatorLap.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(2, RshCondensator.MATERIALS, ReactorHeatVent.MATERIALS, ReactorHeatExchanger.MATERIALS, 9, "Lapis Lazuli", 4, "Redstone");
     
     /**
      * Creates a new instance.
@@ -31,6 +33,11 @@ public class LzhCondensator extends ReactorComponent {
     @Override
     public boolean isHeatAcceptor() {
         return !isBroken();
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

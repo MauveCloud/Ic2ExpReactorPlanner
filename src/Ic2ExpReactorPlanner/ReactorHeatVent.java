@@ -9,7 +9,9 @@ public class ReactorHeatVent extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorVentCore.png";    
+    private static final String imageFilename = "reactorVentCore.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 8, "Copper Plate");
     
     /**
      * Creates a new instance.
@@ -40,6 +42,11 @@ public class ReactorHeatVent extends ReactorComponent {
         parentReactor.adjustCurrentHeat(-deltaHeat);
         this.adjustCurrentHeat(deltaHeat);
         adjustCurrentHeat(Math.min(5, getCurrentHeat()));
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

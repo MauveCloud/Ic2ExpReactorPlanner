@@ -12,7 +12,9 @@ public class ComponentHeatExchanger extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorHeatSwitchSpread.png";    
+    private static final String imageFilename = "reactorHeatSwitchSpread.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatExchanger.MATERIALS, 4, "Gold Plate");
     
     /**
      * Creates a new instance.
@@ -63,6 +65,11 @@ public class ComponentHeatExchanger extends ReactorComponent {
             heatableNeighbor.adjustCurrentHeat(deltaHeat);
             this.adjustCurrentHeat(-deltaHeat);
         }
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

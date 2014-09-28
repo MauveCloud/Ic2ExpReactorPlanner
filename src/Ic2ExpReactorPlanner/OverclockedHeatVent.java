@@ -9,7 +9,9 @@ public class OverclockedHeatVent extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorVentGold.png";    
+    private static final String imageFilename = "reactorVentGold.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(ReactorHeatVent.MATERIALS, 4, "Gold Plate");
     
     /**
      * Creates a new instance.
@@ -40,6 +42,11 @@ public class OverclockedHeatVent extends ReactorComponent {
         parentReactor.adjustCurrentHeat(-deltaHeat);
         this.adjustCurrentHeat(deltaHeat);
         adjustCurrentHeat(-Math.min(20, getCurrentHeat()));
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

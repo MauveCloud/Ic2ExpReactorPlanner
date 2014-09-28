@@ -9,7 +9,9 @@ public class HeatCapacityReactorPlating extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorPlatingHeat.png";    
+    private static final String imageFilename = "reactorPlatingHeat.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 8, "Copper Plate");
     
     /**
      * Creates a new instance.
@@ -35,6 +37,11 @@ public class HeatCapacityReactorPlating extends ReactorComponent {
     @Override
     public void removeFromReactor() {
         getParent().adjustMaxHeat(-1700);
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

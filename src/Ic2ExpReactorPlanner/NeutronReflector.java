@@ -9,7 +9,9 @@ public class NeutronReflector extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorReflector.png";    
+    private static final String imageFilename = "reactorReflector.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList("Copper Plate", 4, "Tin Ingot", 4, "Coal");
     
     /**
      * Creates a new instance.
@@ -62,6 +64,11 @@ public class NeutronReflector extends ReactorComponent {
         } else if (component instanceof QuadFuelRodUranium || component instanceof QuadFuelRodMox) {
             applyDamage(4.0);
         }
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

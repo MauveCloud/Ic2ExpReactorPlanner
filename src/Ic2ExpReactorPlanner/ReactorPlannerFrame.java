@@ -45,7 +45,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private CoolantCell60k coolantCell60k = new CoolantCell60k();
     private HeatExchanger heatExchanger = new HeatExchanger();
     private AdvancedHeatExchanger advancedHeatExchanger = new AdvancedHeatExchanger();
-    private CoreHeatExchanger coreHeatExchanger = new CoreHeatExchanger();
+    private ReactorHeatExchanger coreHeatExchanger = new ReactorHeatExchanger();
     private ComponentHeatExchanger componentHeatExchanger = new ComponentHeatExchanger();
     private ReactorPlating reactorPlating = new ReactorPlating();
     private HeatCapacityReactorPlating heatCapacityReactorPlating = new HeatCapacityReactorPlating();
@@ -130,7 +130,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                     componentToPlace = new AdvancedHeatExchanger();
                                     break;
                                 case "coreHeatExchanger":
-                                    componentToPlace = new CoreHeatExchanger();
+                                    componentToPlace = new ReactorHeatExchanger();
                                     break;
                                 case "componentHeatExchanger":
                                     componentToPlace = new ComponentHeatExchanger();
@@ -155,6 +155,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             }
                         }
                         reactor.setComponentAt(finalRow, finalCol, componentToPlace);
+                        materialsArea.setText(reactor.getMaterials().toString());
                         maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
                         SpinnerModel model = heatSpinner.getModel();
                         if (model instanceof SpinnerNumberModel) {
@@ -175,6 +176,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     public void mouseClicked(MouseEvent e) {
                         if (e.getButton() != MouseEvent.BUTTON1) {
                             reactor.setComponentAt(finalRow, finalCol, null);
+                            materialsArea.setText(reactor.getMaterials().toString());
                             maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
                             SpinnerModel model = heatSpinner.getModel();
                             if (model instanceof SpinnerNumberModel) {
@@ -244,6 +246,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        materialsArea = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         resourcePackItem = new javax.swing.JMenuItem();
@@ -453,6 +457,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Simulation", jScrollPane1);
 
+        materialsArea.setEditable(false);
+        materialsArea.setColumns(20);
+        materialsArea.setRows(5);
+        materialsArea.setText(Reactor.REACTOR.toString());
+        jScrollPane2.setViewportView(materialsArea);
+
+        jTabbedPane1.addTab("Materials", jScrollPane2);
+
         jSplitPane1.setRightComponent(jTabbedPane1);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -623,7 +635,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             coolantCell60k = new CoolantCell60k();
             heatExchanger = new HeatExchanger();
             advancedHeatExchanger = new AdvancedHeatExchanger();
-            coreHeatExchanger = new CoreHeatExchanger();
+            coreHeatExchanger = new ReactorHeatExchanger();
             componentHeatExchanger = new ComponentHeatExchanger();
             reactorPlating = new ReactorPlating();
             heatCapacityReactorPlating = new HeatCapacityReactorPlating();
@@ -683,11 +695,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton lzhCondensatorButton;
+    private javax.swing.JTextArea materialsArea;
     private javax.swing.JLabel maxHeatLabel;
     private javax.swing.JToggleButton neutronReflectorButton;
     private javax.swing.JTextArea outputArea;

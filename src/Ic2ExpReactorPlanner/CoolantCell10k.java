@@ -9,7 +9,9 @@ public class CoolantCell10k extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorCoolantSimple.png";    
+    private static final String imageFilename = "reactorCoolantSimple.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList("Tin Plate", "Water", 8, "Lapis Lazuli");
     
     /**
      * Creates a new instance.
@@ -31,6 +33,11 @@ public class CoolantCell10k extends ReactorComponent {
     @Override
     public boolean isHeatAcceptor() {
         return !isBroken();
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }

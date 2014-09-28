@@ -9,7 +9,9 @@ public class ThickNeutronReflector extends NeutronReflector {
     /**
      * The filename for the image to show for the component.
      */
-    private final static String imageFilename = "reactorReflectorThick.png";    
+    private static final String imageFilename = "reactorReflectorThick.png";    
+    
+    public static final MaterialsList MATERIALS = new MaterialsList(4, NeutronReflector.MATERIALS, 5, "Copper Plate");
     
     /**
      * Creates a new instance.
@@ -26,6 +28,11 @@ public class ThickNeutronReflector extends NeutronReflector {
     @Override
     public String toString() {
         return "Thick Neutron Reflector";
+    }
+    
+    @Override
+    public MaterialsList getMaterials() {
+        return MATERIALS;
     }
     
 }
