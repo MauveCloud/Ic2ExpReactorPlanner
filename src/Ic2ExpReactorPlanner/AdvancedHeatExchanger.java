@@ -16,6 +16,9 @@ public class AdvancedHeatExchanger extends ReactorComponent {
     
     public static final MaterialsList MATERIALS = new MaterialsList(2, HeatExchanger.MATERIALS, 2, MaterialsList.ELECTRONIC_CIRCUIT, "Copper Plate", 4, "Lapis Lazuli");
     
+    private static final int switchSide = 24;
+    private static final int switchReactor = 8;
+    
     /**
      * Creates a new instance.
      */
@@ -42,15 +45,7 @@ public class AdvancedHeatExchanger extends ReactorComponent {
     public void transfer() {
         final Reactor parentReactor = getParent();
         List<ReactorComponent> heatableNeighbors = new ArrayList<>(4);
-        ReactorComponent component = parentReactor.getComponentAt(getRow() + 1, getColumn());
-        if (component != null && component.isHeatAcceptor()) {
-            heatableNeighbors.add(component);
-        }
-        component = parentReactor.getComponentAt(getRow() - 1, getColumn());
-        if (component != null && component.isHeatAcceptor()) {
-            heatableNeighbors.add(component);
-        }
-        component = parentReactor.getComponentAt(getRow(), getColumn() - 1);
+        ReactorComponent component = parentReactor.getComponentAt(getRow(), getColumn() - 1);
         if (component != null && component.isHeatAcceptor()) {
             heatableNeighbors.add(component);
         }
@@ -58,18 +53,71 @@ public class AdvancedHeatExchanger extends ReactorComponent {
         if (component != null && component.isHeatAcceptor()) {
             heatableNeighbors.add(component);
         }
-        for (ReactorComponent heatableNeighbor : heatableNeighbors) {
-            double targetHeatRatio = (getCurrentHeat() + heatableNeighbor.getCurrentHeat()) / (getMaxHeat() + heatableNeighbor.getMaxHeat());
-            double neighborTargetHeat = targetHeatRatio * heatableNeighbor.getMaxHeat();
-            double deltaHeat = Math.min(Math.max(-24.0, Math.min(24.0, neighborTargetHeat - heatableNeighbor.getCurrentHeat())), getCurrentHeat());
-            heatableNeighbor.adjustCurrentHeat(deltaHeat);
-            this.adjustCurrentHeat(-deltaHeat);
+        component = parentReactor.getComponentAt(getRow() - 1, getColumn());
+        if (component != null && component.isHeatAcceptor()) {
+            heatableNeighbors.add(component);
         }
-        double targetHeatRatio = (getCurrentHeat() + parentReactor.getCurrentHeat()) / (getMaxHeat() + parentReactor.getMaxHeat());
-        double reactorTargetHeat = targetHeatRatio * parentReactor.getMaxHeat();
-        double deltaHeat = Math.min(Math.max(-8.0, Math.min(8.0, reactorTargetHeat - parentReactor.getCurrentHeat())), getCurrentHeat());
-        parentReactor.adjustCurrentHeat(deltaHeat);
-        this.adjustCurrentHeat(-deltaHeat);
+        component = parentReactor.getComponentAt(getRow() + 1, getColumn());
+        if (component != null && component.isHeatAcceptor()) {
+            heatableNeighbors.add(component);
+        }
+        // Code adapted from decompiled IC2 code, class ItemReactorHeatSwitch, with permission from Thunderdark.
+        int myHeat = 0;
+        for (ReactorComponent heatableNeighbor : heatableNeighbors) {
+            double mymed = getCurrentHeat() * 100.0 / getMaxHeat();
+            double heatablemed = heatableNeighbor.getCurrentHeat() * 100.0 / heatableNeighbor.getMaxHeat();
+
+            int add = (int) (heatableNeighbor.getMaxHeat() / 100.0 * (heatablemed + mymed / 2.0));
+            if (add > switchSide) {
+                add = switchSide;
+            }
+            if (heatablemed + mymed / 2.0 < 1.0) {
+                add = switchSide / 2;
+            }
+            if (heatablemed + mymed / 2.0 < 0.75) {
+                add = switchSide / 4;
+            }
+            if (heatablemed + mymed / 2.0 < 0.5) {
+                add = switchSide / 8;
+            }
+            if (heatablemed + mymed / 2.0 < 0.25) {
+                add = 1;
+            }
+            if (Math.round(heatablemed * 10.0) / 10.0 > Math.round(mymed * 10.0) / 10.0) {
+                add -= 2 * add;
+            } else if (Math.round(heatablemed * 10.0) / 10.0 == Math.round(mymed * 10.0) / 10.0) {
+                add = 0;
+            }
+            myHeat -= add;
+            heatableNeighbor.adjustCurrentHeat(add);
+        }
+        double mymed = getCurrentHeat() * 100.0 / getMaxHeat();
+        double Reactormed = parentReactor.getCurrentHeat() * 100.0 / parentReactor.getMaxHeat();
+
+        int add = (int) Math.round(parentReactor.getMaxHeat() / 100.0 * (Reactormed + mymed / 2.0));
+        if (add > switchReactor) {
+            add = switchReactor;
+        }
+        if (Reactormed + mymed / 2.0 < 1.0) {
+            add = switchSide / 2;
+        }
+        if (Reactormed + mymed / 2.0 < 0.75) {
+            add = switchSide / 4;
+        }
+        if (Reactormed + mymed / 2.0 < 0.5) {
+            add = switchSide / 8;
+        }
+        if (Reactormed + mymed / 2.0 < 0.25) {
+            add = 1;
+        }
+        if (Math.round(Reactormed * 10.0) / 10.0 > Math.round(mymed * 10.0) / 10.0) {
+            add -= 2 * add;
+        } else if (Math.round(Reactormed * 10.0) / 10.0 == Math.round(mymed * 10.0) / 10.0) {
+            add = 0;
+        }
+        myHeat -= add;
+        parentReactor.adjustCurrentHeat(add);
+        adjustCurrentHeat(myHeat);
     }
 
     @Override

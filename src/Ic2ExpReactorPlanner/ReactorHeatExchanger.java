@@ -13,6 +13,9 @@ public class ReactorHeatExchanger extends ReactorComponent {
     
     public static final MaterialsList MATERIALS = new MaterialsList(HeatExchanger.MATERIALS, 8, "Copper Plate");
     
+    private static final int switchSide = 0;
+    private static final int switchReactor = 72;
+    
     /**
      * Creates a new instance.
      */
@@ -38,11 +41,35 @@ public class ReactorHeatExchanger extends ReactorComponent {
     @Override
     public void transfer() {
         final Reactor parentReactor = getParent();
-        double targetHeatRatio = (getCurrentHeat() + parentReactor.getCurrentHeat()) / (getMaxHeat() + parentReactor.getMaxHeat());
-        double reactorTargetHeat = targetHeatRatio * parentReactor.getMaxHeat();
-        double deltaHeat = Math.min(Math.max(-72.0, Math.min(72.0, reactorTargetHeat - parentReactor.getCurrentHeat())), getCurrentHeat());
-        parentReactor.adjustCurrentHeat(deltaHeat);
-        this.adjustCurrentHeat(-deltaHeat);
+        // Code adapted from decompiled IC2 code, class ItemReactorHeatSwitch, with permission from Thunderdark.
+        int myHeat = 0;
+        double mymed = getCurrentHeat() * 100.0 / getMaxHeat();
+        double Reactormed = parentReactor.getCurrentHeat() * 100.0 / parentReactor.getMaxHeat();
+
+        int add = (int) Math.round(parentReactor.getMaxHeat() / 100.0 * (Reactormed + mymed / 2.0));
+        if (add > switchReactor) {
+            add = switchReactor;
+        }
+        if (Reactormed + mymed / 2.0 < 1.0) {
+            add = switchSide / 2;
+        }
+        if (Reactormed + mymed / 2.0 < 0.75) {
+            add = switchSide / 4;
+        }
+        if (Reactormed + mymed / 2.0 < 0.5) {
+            add = switchSide / 8;
+        }
+        if (Reactormed + mymed / 2.0 < 0.25) {
+            add = 1;
+        }
+        if (Math.round(Reactormed * 10.0) / 10.0 > Math.round(mymed * 10.0) / 10.0) {
+            add -= 2 * add;
+        } else if (Math.round(Reactormed * 10.0) / 10.0 == Math.round(mymed * 10.0) / 10.0) {
+            add = 0;
+        }
+        myHeat -= add;
+        parentReactor.adjustCurrentHeat(add);
+        adjustCurrentHeat(myHeat);
     }
     
 }

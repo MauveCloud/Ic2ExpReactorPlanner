@@ -42,7 +42,7 @@ public class DualFuelRodUranium extends FuelRodUranium {
     public void generateEnergy() {
         int pulses = countNeutronNeighbors() + 2;
         final Reactor parentReactor = getParent();
-        double energy = 100 * pulses;
+        double energy = 200 * pulses;
         parentReactor.addEUOutput(energy);
     }
 
