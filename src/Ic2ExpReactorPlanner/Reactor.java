@@ -115,22 +115,18 @@ public class Reactor {
     }
     
     /**
-     * Gets a list of the materials needed to build the reactor and components.
-     * @return a list of the materials needed to build the reactor and components.
+     * Gets a list of the materials needed to build the components.
+     * @return a list of the materials needed to build the components.
      */
     public MaterialsList getMaterials() {
-        MaterialsList result = new MaterialsList(REACTOR);
-        int lastColumnFilled = 0;
+        MaterialsList result = new MaterialsList();
         for (int col = 0; col < grid[0].length; col++) {
             for (int row = 0; row < grid.length; row++) {
                 if (grid[row][col] != null) {
-                    lastColumnFilled = Math.max(lastColumnFilled, col);
                     result.add(grid[row][col].getMaterials());
                 }
             }
         }
-        int chambersNeeded = Math.max(0, lastColumnFilled - 2);
-        result.add(chambersNeeded, REACTOR_CHAMBER);
         return result;
     }
 
