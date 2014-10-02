@@ -19,6 +19,14 @@ public class Simulator extends SwingWorker<Void, Void> {
     
     private final int initialHeat;
     
+    private double minEUoutput = Double.MAX_VALUE;
+    
+    private double maxEUoutput = 0.0;
+    
+    private double minHeatOutput = Double.MAX_VALUE;
+    
+    private double maxHeatOutput = 0.0;
+    
     public Simulator(final Reactor reactor, final JTextArea output, final JButton[][] reactorButtons, final int initialHeat) {
         this.reactor = reactor;
         this.output = output;
@@ -31,6 +39,7 @@ public class Simulator extends SwingWorker<Void, Void> {
         long startTime = System.nanoTime();
         output.setText("Simulation started.\n");
         reactor.setCurrentHeat(initialHeat);
+        reactor.clearVentedHeat();
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 9; col++) {
                 ReactorComponent component = reactor.getComponentAt(row, col);
@@ -46,9 +55,12 @@ public class Simulator extends SwingWorker<Void, Void> {
         }
         double lastEUoutput = 0.0;
         double totalEUoutput = 0.0;
+        double lastHeatOutput = 0.0;
+        double totalHeatOutput = 0.0;
         int reactorTicks = 0;
         do {
             reactor.clearEUOutput();
+            reactor.clearVentedHeat();
             for (int row = 0; row < 6; row++) {
                 for (int col = 0; col < 9; col++) {
                     ReactorComponent component = reactor.getComponentAt(row, col);
@@ -69,13 +81,19 @@ public class Simulator extends SwingWorker<Void, Void> {
             }
             lastEUoutput = reactor.getCurrentEUoutput();
             totalEUoutput += lastEUoutput;
+            lastHeatOutput = reactor.getVentedHeat();
+            totalHeatOutput += lastHeatOutput;
             if (reactor.getCurrentHeat() <= reactor.getMaxHeat() && lastEUoutput > 0.0) {
                 reactorTicks++;
+                minEUoutput = Math.min(lastEUoutput, minEUoutput);
+                maxEUoutput = Math.max(lastEUoutput, maxEUoutput);
+                minHeatOutput = Math.min(lastHeatOutput, minHeatOutput);
+                maxHeatOutput = Math.max(lastHeatOutput, maxHeatOutput);
             }
             for (int row = 0; row < 6; row++) {
                 for (int col = 0; col < 9; col++) {
                     ReactorComponent component = reactor.getComponentAt(row, col);
-                    if (component != null && component.isBroken() && !Color.RED.equals(reactorButtons[row][col].getBackground())  && !component.getClass().getName().contains("FuelRod")) {
+                    if (component != null && component.isBroken() && !Color.RED.equals(reactorButtons[row][col].getBackground()) && !component.getClass().getName().contains("FuelRod")) {
                         reactorButtons[row][col].setBackground(Color.RED);
                         reactorButtons[row][col].setToolTipText(String.format("%s, broke after %,d seconds", component.toString(), reactorTicks));
                     }
@@ -137,7 +155,7 @@ public class Simulator extends SwingWorker<Void, Void> {
                     output.append(String.format("Reactor took %,d seconds to cool down.\n", reactorCooldownTime));
                 } else {
                     output.append(String.format("Reactor remained at %,.2f heat after cool down period.\n", reactor.getCurrentHeat()));
-                }                
+                }
                 output.append(String.format("Other components took %,d seconds to cool down (as much as they would).\n", cooldownTicks));
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
@@ -157,7 +175,10 @@ public class Simulator extends SwingWorker<Void, Void> {
         } else {
             output.append(String.format("Reactor stopped for an unknown reason at %d seconds.\n", reactorTicks));
         }
-        output.append(String.format("Total EU output: %,.0f (%.2f EU/t average)\n", totalEUoutput, totalEUoutput / (reactorTicks * 20)));
+        if (reactorTicks > 0) {
+            output.append(String.format("Total EU output: %,.0f (%.2f EU/t min, %.2f EU/t max, %.2f EU/t average)\n", totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
+            output.append(String.format("Average heat output: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+        }
         long endTime = System.nanoTime();
         output.append(String.format("Simulation took %.2f seconds.\n", (endTime - startTime) / 1e9));
         return null;

@@ -19,6 +19,8 @@ public class Reactor {
     
     private double maxHeat = 10000.0;
     
+    private double ventedHeat = 0.0;
+    
     public static final MaterialsList REACTOR_CHAMBER = new MaterialsList(8, "Iron Plate", 4, "Lead Plate");
     public static final MaterialsList REACTOR = new MaterialsList(3, REACTOR_CHAMBER, 36, "Lead Plate", MaterialsList.ADVANCED_CIRCUIT, MaterialsList.GENERATOR);
     
@@ -44,6 +46,14 @@ public class Reactor {
         }
     }
 
+    public void clearGrid() {
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[row].length; col++) {
+                grid[row][col] = null;
+            }
+        }
+    }
+    
     /**
      * @return the amount of EU output in the reactor tick just simulated.
      */
@@ -111,8 +121,8 @@ public class Reactor {
     public MaterialsList getMaterials() {
         MaterialsList result = new MaterialsList(REACTOR);
         int lastColumnFilled = 0;
-        for (int col = 0; col < 9; col++) {
-            for (int row = 0; row < 6; row++) {
+        for (int col = 0; col < grid[0].length; col++) {
+            for (int row = 0; row < grid.length; row++) {
                 if (grid[row][col] != null) {
                     lastColumnFilled = Math.max(lastColumnFilled, col);
                     result.add(grid[row][col].getMaterials());
@@ -122,6 +132,61 @@ public class Reactor {
         int chambersNeeded = Math.max(0, lastColumnFilled - 2);
         result.add(chambersNeeded, REACTOR_CHAMBER);
         return result;
+    }
+
+    /**
+     * @return the amount of heat vented this reactor tick.
+     */
+    public double getVentedHeat() {
+        return ventedHeat;
+    }
+    
+    /**
+     * Adds to the amount of heat vented this reactor tick, in case it is a new-style reactor with a pressure vessel and outputting heat to fluid instead of EU.
+     * @param amount the amount to add.
+     */
+    public void ventHeat(double amount) {
+        ventedHeat += amount;
+    }
+    
+    /**
+     * Clears the amount of vented heat, in case a new reactor tick is starting.
+     */
+    public void clearVentedHeat() {
+        ventedHeat = 0;
+    }
+    
+    /**
+     * Get a code that represents the component set, which can be passed between forum users, etc.
+     * @return a code representing some ids for the components and arrangement.  Passing the same code to setCode() should re-create an identical reactor setup, even if other changes have happened in the meantime.
+     */
+    public String getCode() {
+        StringBuilder result = new StringBuilder(108);
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[row].length; col++) {
+                final ReactorComponent component = grid[row][col];
+                final int id = ComponentFactory.getID(component);
+                result.append(String.format("%02X", id));
+            }
+        }
+        return result.toString();
+    }
+    
+    /**
+     * Sets a code to configure the entire grid all at once.  Expects the code to have originally been output by getCode().
+     * @param code the code of the reactor setup to use.
+     */
+    public void setCode(String code) {
+        int pos = 0;
+        if (code.length() == 108 && code.matches("[0-9A-Fa-f]+")) {
+            for (int row = 0; row < grid.length; row++) {
+                for (int col = 0; col < grid[row].length; col++) {
+                    int id = Integer.parseInt(code.substring(pos, pos + 2), 16);
+                    setComponentAt(row, col, ComponentFactory.createComponent(id));
+                    pos += 2;
+                }
+            }
+        }
     }
     
 }

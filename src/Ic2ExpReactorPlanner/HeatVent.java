@@ -37,6 +37,7 @@ public class HeatVent extends ReactorComponent {
 
     @Override
     public void dissipate() {
+        getParent().ventHeat(Math.min(6, getCurrentHeat()));
         adjustCurrentHeat(-Math.min(6, getCurrentHeat()));
     }
     

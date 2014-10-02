@@ -11,7 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 import java.util.prefs.Preferences;
+import javax.swing.AbstractButton;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +21,8 @@ import javax.swing.JFileChooser;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -27,35 +31,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class ReactorPlannerFrame extends javax.swing.JFrame {
 
-    private FuelRodUranium fuelRodUranium = new FuelRodUranium();
-    private DualFuelRodUranium dualFuelRodUranium = new DualFuelRodUranium();
-    private QuadFuelRodUranium quadFuelRodUranium = new QuadFuelRodUranium();
-    private FuelRodMox fuelRodMox = new FuelRodMox();
-    private DualFuelRodMox dualFuelRodMox = new DualFuelRodMox();
-    private QuadFuelRodMox quadFuelRodMox = new QuadFuelRodMox();
-    private NeutronReflector neutronReflector = new NeutronReflector();
-    private ThickNeutronReflector thickNeutronReflector = new ThickNeutronReflector();
-    private HeatVent heatVent = new HeatVent();
-    private AdvancedHeatVent advancedHeatVent = new AdvancedHeatVent();
-    private ReactorHeatVent reactorHeatVent = new ReactorHeatVent();
-    private ComponentHeatVent componentHeatVent = new ComponentHeatVent();
-    private OverclockedHeatVent overclockedHeatVent = new OverclockedHeatVent();
-    private CoolantCell10k coolantCell10k = new CoolantCell10k();
-    private CoolantCell30k coolantCell30k = new CoolantCell30k();
-    private CoolantCell60k coolantCell60k = new CoolantCell60k();
-    private HeatExchanger heatExchanger = new HeatExchanger();
-    private AdvancedHeatExchanger advancedHeatExchanger = new AdvancedHeatExchanger();
-    private ReactorHeatExchanger coreHeatExchanger = new ReactorHeatExchanger();
-    private ComponentHeatExchanger componentHeatExchanger = new ComponentHeatExchanger();
-    private ReactorPlating reactorPlating = new ReactorPlating();
-    private HeatCapacityReactorPlating heatCapacityReactorPlating = new HeatCapacityReactorPlating();
-    private ContainmentReactorPlating containmentReactorPlating = new ContainmentReactorPlating();
-    private RshCondensator rshCondensator = new RshCondensator();
-    private LzhCondensator lzhCondensator = new LzhCondensator();
-    
     private final Reactor reactor = new Reactor();
     
     private final JButton[][] reactorButtons = new JButton[6][9];
+    
+    private boolean changingCode = false;
     
     /**
      * Creates new form ReactorPlannerFrame
@@ -74,85 +54,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         ReactorComponent componentToPlace = null;
                         final ButtonModel selection = componentsGroup.getSelection();
                         if (selection != null) {
-                            switch (selection.getActionCommand()) {
-                                case "fuelRodUranium":
-                                    componentToPlace = new FuelRodUranium();
-                                    break;
-                                case "dualFuelRodUranium":
-                                    componentToPlace = new DualFuelRodUranium();
-                                    break;
-                                case "quadFuelRodUranium":
-                                    componentToPlace = new QuadFuelRodUranium();
-                                    break;
-                                case "fuelRodMox":
-                                    componentToPlace = new FuelRodMox();
-                                    break;
-                                case "dualFuelRodMox":
-                                    componentToPlace = new DualFuelRodMox();
-                                    break;
-                                case "quadFuelRodMox":
-                                    componentToPlace = new QuadFuelRodMox();
-                                    break;
-                                case "neutronReflector":
-                                    componentToPlace = new NeutronReflector();
-                                    break;
-                                case "thickNeutronReflector":
-                                    componentToPlace = new ThickNeutronReflector();
-                                    break;
-                                case "heatVent":
-                                    componentToPlace = new HeatVent();
-                                    break;
-                                case "advancedHeatVent":
-                                    componentToPlace = new AdvancedHeatVent();
-                                    break;
-                                case "reactorHeatVent":
-                                    componentToPlace = new ReactorHeatVent();
-                                    break;
-                                case "componentHeatVent":
-                                    componentToPlace = new ComponentHeatVent();
-                                    break;
-                                case "overclockedHeatVent":
-                                    componentToPlace = new OverclockedHeatVent();
-                                    break;
-                                case "coolantCell10k":
-                                    componentToPlace = new CoolantCell10k();
-                                    break;
-                                case "coolantCell30k":
-                                    componentToPlace = new CoolantCell30k();
-                                    break;
-                                case "coolantCell60k":
-                                    componentToPlace = new CoolantCell60k();
-                                    break;
-                                case "heatExchanger":
-                                    componentToPlace = new HeatExchanger();
-                                    break;
-                                case "advancedHeatExchanger":
-                                    componentToPlace = new AdvancedHeatExchanger();
-                                    break;
-                                case "coreHeatExchanger":
-                                    componentToPlace = new ReactorHeatExchanger();
-                                    break;
-                                case "componentHeatExchanger":
-                                    componentToPlace = new ComponentHeatExchanger();
-                                    break;
-                                case "reactorPlating":
-                                    componentToPlace = new ReactorPlating();
-                                    break;
-                                case "heatCapacityReactorPlating":
-                                    componentToPlace = new HeatCapacityReactorPlating();
-                                    break;
-                                case "containmentReactorPlating":
-                                    componentToPlace = new ContainmentReactorPlating();
-                                    break;
-                                case "rshCondensator":
-                                    componentToPlace = new RshCondensator();
-                                    break;
-                                case "lzhCondensator":
-                                    componentToPlace = new LzhCondensator();
-                                    break;
-                                default:
-                                    throw new AssertionError("Unrecognized component: " + selection.getActionCommand());
-                            }
+                            componentToPlace = ComponentFactory.createComponent(selection.getActionCommand());
                         }
                         reactor.setComponentAt(finalRow, finalCol, componentToPlace);
                         materialsArea.setText(reactor.getMaterials().toString());
@@ -166,7 +68,28 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             reactorButtons[finalRow][finalCol].setIcon(new ImageIcon(componentToPlace.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
                             reactorButtons[finalRow][finalCol].setToolTipText(componentToPlace.toString());
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
+                        } else {
+                            reactorButtons[finalRow][finalCol].setIcon(null);
+                            if (componentToPlace != null) {
+                                reactorButtons[finalRow][finalCol].setToolTipText(componentToPlace.toString());
+                            } else {
+                                reactorButtons[finalRow][finalCol].setToolTipText(null);
+                            }
+                            reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
                         }
+                        if (simulator != null) {
+                            simulator.cancel(true);
+                        }
+                        int initialHeat = 0;
+                        Object value = heatSpinner.getValue();
+                        if (value instanceof Number) {
+                            initialHeat = ((Number) value).intValue();
+                        }
+                        simulator = new Simulator(reactor, outputArea, reactorButtons, initialHeat);
+                        simulator.execute();
+                        changingCode = true;
+                        codeField.setText(reactor.getCode());
+                        changingCode = false;
                     }
                 });
 
@@ -185,6 +108,16 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             reactorButtons[finalRow][finalCol].setIcon(null);
                             reactorButtons[finalRow][finalCol].setToolTipText(null);
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
+                            int initialHeat = 0;
+                            Object value = heatSpinner.getValue();
+                            if (value instanceof Number) {
+                                initialHeat = ((Number) value).intValue();
+                            }
+                            simulator = new Simulator(reactor, outputArea, reactorButtons, initialHeat);
+                            simulator.execute();
+                            changingCode = true;
+                            codeField.setText(reactor.getCode());
+                            changingCode = false;
                         }
                     }
                     
@@ -195,6 +128,32 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 reactorPanel.add(reactorButtons[row][col]);
             }
         }
+        codeField.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (!changingCode) {
+                    reactor.setCode(codeField.getText());
+                    updateReactorButtons();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (!changingCode) {
+                    reactor.setCode(codeField.getText());
+                    updateReactorButtons();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                if (!changingCode) {
+                    reactor.setCode(codeField.getText());
+                    updateReactorButtons();
+                }
+            }
+        });
     }
 
     /**
@@ -213,6 +172,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         reactorPanel = new javax.swing.JPanel();
         jSplitPane3 = new javax.swing.JSplitPane();
         componentsPanel = new javax.swing.JPanel();
+        emptyButton = new javax.swing.JToggleButton();
         fuelRodUraniumButton = new javax.swing.JToggleButton();
         dualFuelRodUraniumButton = new javax.swing.JToggleButton();
         quadFuelRodUraniumButton = new javax.swing.JToggleButton();
@@ -239,10 +199,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         rshCondensatorButton = new javax.swing.JToggleButton();
         lzhCondensatorButton = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
+        clearGridButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         heatSpinner = new javax.swing.JSpinner();
         maxHeatLabel = new javax.swing.JLabel();
-        simulateButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        codeField = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
@@ -276,7 +238,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         componentsPanel.setMinimumSize(new java.awt.Dimension(160, 80));
         componentsPanel.setPreferredSize(new java.awt.Dimension(160, 80));
-        componentsPanel.setLayout(new java.awt.GridLayout(5, 5));
+        componentsPanel.setLayout(new java.awt.GridLayout(4, 7));
+
+        componentsGroup.add(emptyButton);
+        emptyButton.setActionCommand("empty");
+        componentsPanel.add(emptyButton);
 
         componentsGroup.add(fuelRodUraniumButton);
         fuelRodUraniumButton.setToolTipText("Fuel Rod (Uranium)");
@@ -407,42 +373,58 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
+        clearGridButton.setText("Clear Grid");
+        clearGridButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearGridButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        jPanel1.add(clearGridButton, gridBagConstraints);
+
         jLabel1.setText("Initial Reactor Heat:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(jLabel1, gridBagConstraints);
 
         heatSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 10000.0d, 1.0d));
         heatSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
         heatSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(heatSpinner, gridBagConstraints);
 
         maxHeatLabel.setText("/10,000");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(maxHeatLabel, gridBagConstraints);
 
-        simulateButton.setText("Simulate");
-        simulateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                simulateButtonActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("Code:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(jLabel2, gridBagConstraints);
+
+        codeField.setMaximumSize(new java.awt.Dimension(200, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(simulateButton, gridBagConstraints);
+        jPanel1.add(codeField, gridBagConstraints);
 
         jSplitPane3.setRightComponent(jPanel1);
 
@@ -493,110 +475,22 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void plannerResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_plannerResized
-        int buttonSize = Math.min(fuelRodUraniumButton.getWidth(), fuelRodUraniumButton.getHeight());
-        if (buttonSize > 2) {
-            fuelRodUraniumButton.setIcon(new ImageIcon(fuelRodUranium.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
+        Enumeration<AbstractButton> elements = componentsGroup.getElements();
+        while (elements.hasMoreElements()) {
+            AbstractButton button = elements.nextElement();
+            int buttonSize = Math.min(button.getWidth(), button.getHeight());
+            if (buttonSize > 2) {
+                final ReactorComponent component = ComponentFactory.getDefaultComponent(button.getActionCommand());
+                if (component != null) {
+                    button.setIcon(new ImageIcon(component.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
+                } else {
+                    button.setIcon(null);
+                }
+            }
         }
-        buttonSize = Math.min(dualFuelRodUraniumButton.getWidth(), dualFuelRodUraniumButton.getHeight());
-        if (buttonSize > 2) {
-            dualFuelRodUraniumButton.setIcon(new ImageIcon(dualFuelRodUranium.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(quadFuelRodUraniumButton.getWidth(), quadFuelRodUraniumButton.getHeight());
-        if (buttonSize > 2) {
-            quadFuelRodUraniumButton.setIcon(new ImageIcon(quadFuelRodUranium.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(fuelRodMoxButton.getWidth(), fuelRodMoxButton.getHeight());
-        if (buttonSize > 2) {
-            fuelRodMoxButton.setIcon(new ImageIcon(fuelRodMox.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(dualFuelRodMoxButton.getWidth(), dualFuelRodMoxButton.getHeight());
-        if (buttonSize > 2) {
-            dualFuelRodMoxButton.setIcon(new ImageIcon(dualFuelRodMox.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(quadFuelRodMoxButton.getWidth(), quadFuelRodMoxButton.getHeight());
-        if (buttonSize > 2) {
-            quadFuelRodMoxButton.setIcon(new ImageIcon(quadFuelRodMox.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(neutronReflectorButton.getWidth(), neutronReflectorButton.getHeight());
-        if (buttonSize > 2) {
-            neutronReflectorButton.setIcon(new ImageIcon(neutronReflector.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(thickNeutronReflectorButton.getWidth(), thickNeutronReflectorButton.getHeight());
-        if (buttonSize > 2) {
-            thickNeutronReflectorButton.setIcon(new ImageIcon(thickNeutronReflector.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(heatVentButton.getWidth(), heatVentButton.getHeight());
-        if (buttonSize > 2) {
-            heatVentButton.setIcon(new ImageIcon(heatVent.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(advancedHeatVentButton.getWidth(), advancedHeatVentButton.getHeight());
-        if (buttonSize > 2) {
-            advancedHeatVentButton.setIcon(new ImageIcon(advancedHeatVent.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(reactorHeatVentButton.getWidth(), reactorHeatVentButton.getHeight());
-        if (buttonSize > 2) {
-            reactorHeatVentButton.setIcon(new ImageIcon(reactorHeatVent.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(componentHeatVentButton.getWidth(), componentHeatVentButton.getHeight());
-        if (buttonSize > 2) {
-            componentHeatVentButton.setIcon(new ImageIcon(componentHeatVent.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(overclockedHeatVentButton.getWidth(), overclockedHeatVentButton.getHeight());
-        if (buttonSize > 2) {
-            overclockedHeatVentButton.setIcon(new ImageIcon(overclockedHeatVent.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(coolantCell10kButton.getWidth(), coolantCell10kButton.getHeight());
-        if (buttonSize > 2) {
-            coolantCell10kButton.setIcon(new ImageIcon(coolantCell10k.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(coolantCell30kButton.getWidth(), coolantCell30kButton.getHeight());
-        if (buttonSize > 2) {
-            coolantCell30kButton.setIcon(new ImageIcon(coolantCell30k.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(coolantCell60kButton.getWidth(), coolantCell60kButton.getHeight());
-        if (buttonSize > 2) {
-            coolantCell60kButton.setIcon(new ImageIcon(coolantCell60k.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(heatExchangerButton.getWidth(), heatExchangerButton.getHeight());
-        if (buttonSize > 2) {
-            heatExchangerButton.setIcon(new ImageIcon(heatExchanger.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(advancedHeatExchangerButton.getWidth(), advancedHeatExchangerButton.getHeight());
-        if (buttonSize > 2) {
-            advancedHeatExchangerButton.setIcon(new ImageIcon(advancedHeatExchanger.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(coreHeatExchangerButton.getWidth(), coreHeatExchangerButton.getHeight());
-        if (buttonSize > 2) {
-            coreHeatExchangerButton.setIcon(new ImageIcon(coreHeatExchanger.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(componentHeatExchangerButton.getWidth(), componentHeatExchangerButton.getHeight());
-        if (buttonSize > 2) {
-            componentHeatExchangerButton.setIcon(new ImageIcon(componentHeatExchanger.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(reactorPlatingButton.getWidth(), reactorPlatingButton.getHeight());
-        if (buttonSize > 2) {
-            reactorPlatingButton.setIcon(new ImageIcon(reactorPlating.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(heatCapacityReactorPlatingButton.getWidth(), heatCapacityReactorPlatingButton.getHeight());
-        if (buttonSize > 2) {
-            heatCapacityReactorPlatingButton.setIcon(new ImageIcon(heatCapacityReactorPlating.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(containmentReactorPlatingButton.getWidth(), containmentReactorPlatingButton.getHeight());
-        if (buttonSize > 2) {
-            containmentReactorPlatingButton.setIcon(new ImageIcon(containmentReactorPlating.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(rshCondensatorButton.getWidth(), rshCondensatorButton.getHeight());
-        if (buttonSize > 2) {
-            rshCondensatorButton.setIcon(new ImageIcon(rshCondensator.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        buttonSize = Math.min(lzhCondensatorButton.getWidth(), lzhCondensatorButton.getHeight());
-        if (buttonSize > 2) {
-            lzhCondensatorButton.setIcon(new ImageIcon(lzhCondensator.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
-        }
-        
         for (int row = 0; row < reactorButtons.length; row++) {
             for (int col = 0; col < reactorButtons[row].length; col++) {
-                buttonSize = Math.min(reactorButtons[row][col].getWidth(), reactorButtons[row][col].getHeight());
+                int buttonSize = Math.min(reactorButtons[row][col].getWidth(), reactorButtons[row][col].getHeight());
                 if (buttonSize > 2) {
                     final ReactorComponent component = reactor.getComponentAt(row, col);
                     if (component != null) {
@@ -617,44 +511,69 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
             resourcePackPath = chooser.getSelectedFile().getAbsolutePath();
             Preferences.userRoot().put("Ic2ExpReactorPlanner.ResourcePack", resourcePackPath);
-            fuelRodUranium = new FuelRodUranium();
-            dualFuelRodUranium = new DualFuelRodUranium();
-            quadFuelRodUranium = new QuadFuelRodUranium();
-            fuelRodMox = new FuelRodMox();
-            dualFuelRodMox = new DualFuelRodMox();
-            quadFuelRodMox = new QuadFuelRodMox();
-            neutronReflector = new NeutronReflector();
-            thickNeutronReflector = new ThickNeutronReflector();
-            heatVent = new HeatVent();
-            advancedHeatVent = new AdvancedHeatVent();
-            reactorHeatVent = new ReactorHeatVent();
-            componentHeatVent = new ComponentHeatVent();
-            overclockedHeatVent = new OverclockedHeatVent();
-            coolantCell10k = new CoolantCell10k();
-            coolantCell30k = new CoolantCell30k();
-            coolantCell60k = new CoolantCell60k();
-            heatExchanger = new HeatExchanger();
-            advancedHeatExchanger = new AdvancedHeatExchanger();
-            coreHeatExchanger = new ReactorHeatExchanger();
-            componentHeatExchanger = new ComponentHeatExchanger();
-            reactorPlating = new ReactorPlating();
-            heatCapacityReactorPlating = new HeatCapacityReactorPlating();
-            containmentReactorPlating = new ContainmentReactorPlating();
-            rshCondensator = new RshCondensator();
-            lzhCondensator = new LzhCondensator();
             plannerResized(null);
         }
     }//GEN-LAST:event_resourcePackItemActionPerformed
 
-    private void simulateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulateButtonActionPerformed
+    private void clearGridButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearGridButtonActionPerformed
+        reactor.clearGrid();
+        for (int i = 0; i < reactorButtons.length; i++) {
+            for (int j = 0; j < reactorButtons[i].length; j++) {
+                reactorButtons[i][j].setIcon(null);
+                reactorButtons[i][j].setToolTipText(null);
+                reactorButtons[i][j].setBackground(Color.LIGHT_GRAY);
+            }
+        }
+        outputArea.setText(null);
+        materialsArea.setText(reactor.getMaterials().toString());
+        maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
+        changingCode = true;
+        codeField.setText(null);
+        changingCode = false;
+    }//GEN-LAST:event_clearGridButtonActionPerformed
+    
+    private Simulator simulator;
+
+    private void updateReactorButtons() {
+        for (int row = 0; row < reactorButtons.length; row++) {
+            final int finalRow = row;
+            for (int col = 0; col < reactorButtons[row].length; col++) {
+                final int finalCol = col;
+                ReactorComponent componentToPlace = reactor.getComponentAt(row, col);
+                int buttonSize = Math.min(reactorButtons[finalRow][finalCol].getWidth(), reactorButtons[finalRow][finalCol].getHeight());
+                if (buttonSize > 2 && componentToPlace != null) {
+                    reactorButtons[finalRow][finalCol].setIcon(new ImageIcon(componentToPlace.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
+                    reactorButtons[finalRow][finalCol].setToolTipText(componentToPlace.toString());
+                    reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
+                } else {
+                    reactorButtons[finalRow][finalCol].setIcon(null);
+                    if (componentToPlace != null) {
+                        reactorButtons[finalRow][finalCol].setToolTipText(componentToPlace.toString());
+                    } else {
+                        reactorButtons[finalRow][finalCol].setToolTipText(null);
+                    }
+                    reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
+                }
+            }
+        }
+        materialsArea.setText(reactor.getMaterials().toString());
+        maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
+        SpinnerModel model = heatSpinner.getModel();
+        if (model instanceof SpinnerNumberModel) {
+            ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
+        }
+        if (simulator != null) {
+            simulator.cancel(true);
+        }
         int initialHeat = 0;
         Object value = heatSpinner.getValue();
         if (value instanceof Number) {
-            initialHeat = ((Number)value).intValue();
+            initialHeat = ((Number) value).intValue();
         }
-        new Simulator(reactor, outputArea, reactorButtons, initialHeat).execute();
-    }//GEN-LAST:event_simulateButtonActionPerformed
-
+        simulator = new Simulator(reactor, outputArea, reactorButtons, initialHeat);
+        simulator.execute();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -673,6 +592,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton advancedHeatExchangerButton;
     private javax.swing.JToggleButton advancedHeatVentButton;
+    private javax.swing.JButton clearGridButton;
+    private javax.swing.JTextField codeField;
     private javax.swing.JToggleButton componentHeatExchangerButton;
     private javax.swing.JToggleButton componentHeatVentButton;
     private javax.swing.ButtonGroup componentsGroup;
@@ -684,6 +605,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton coreHeatExchangerButton;
     private javax.swing.JToggleButton dualFuelRodMoxButton;
     private javax.swing.JToggleButton dualFuelRodUraniumButton;
+    private javax.swing.JToggleButton emptyButton;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JToggleButton fuelRodMoxButton;
     private javax.swing.JToggleButton fuelRodUraniumButton;
@@ -692,6 +614,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner heatSpinner;
     private javax.swing.JToggleButton heatVentButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -713,7 +636,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton reactorPlatingButton;
     private javax.swing.JMenuItem resourcePackItem;
     private javax.swing.JToggleButton rshCondensatorButton;
-    private javax.swing.JButton simulateButton;
     private javax.swing.JToggleButton thickNeutronReflectorButton;
     // End of variables declaration//GEN-END:variables
 }

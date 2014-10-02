@@ -41,7 +41,8 @@ public class ReactorHeatVent extends ReactorComponent {
         double deltaHeat = Math.min(5, parentReactor.getCurrentHeat());
         parentReactor.adjustCurrentHeat(-deltaHeat);
         this.adjustCurrentHeat(deltaHeat);
-        adjustCurrentHeat(Math.min(5, getCurrentHeat()));
+        parentReactor.ventHeat(Math.min(5, getCurrentHeat()));
+        adjustCurrentHeat(-Math.min(5, getCurrentHeat()));
     }
     
     @Override

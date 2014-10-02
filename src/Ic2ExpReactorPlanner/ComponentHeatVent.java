@@ -53,6 +53,7 @@ public class ComponentHeatVent extends ReactorComponent {
             heatableNeighbors.add(component);
         }
         for (ReactorComponent heatableNeighbor : heatableNeighbors) {
+            parentReactor.ventHeat(Math.min(4, heatableNeighbor.getCurrentHeat()));
             heatableNeighbor.adjustCurrentHeat(-Math.min(4, heatableNeighbor.getCurrentHeat()));
         }
 
