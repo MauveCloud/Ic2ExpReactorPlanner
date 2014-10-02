@@ -21,9 +21,6 @@ public class Reactor {
     
     private double ventedHeat = 0.0;
     
-    public static final MaterialsList REACTOR_CHAMBER = new MaterialsList(8, "Iron Plate", 4, "Lead Plate");
-    public static final MaterialsList REACTOR = new MaterialsList(3, REACTOR_CHAMBER, 36, "Lead Plate", MaterialsList.ADVANCED_CIRCUIT, MaterialsList.GENERATOR);
-    
     public ReactorComponent getComponentAt(int row, int column) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
             return grid[row][column];

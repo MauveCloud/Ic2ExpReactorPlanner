@@ -455,7 +455,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         materialsArea.setEditable(false);
         materialsArea.setColumns(20);
         materialsArea.setRows(5);
-        materialsArea.setText(Reactor.REACTOR.toString());
         jScrollPane2.setViewportView(materialsArea);
 
         jTabbedPane1.addTab("Materials", jScrollPane2);
