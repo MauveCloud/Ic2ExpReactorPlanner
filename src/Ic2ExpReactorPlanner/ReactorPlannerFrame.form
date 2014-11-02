@@ -112,259 +112,280 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="componentsPanel">
-                  <Properties>
-                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[160, 80]"/>
-                    </Property>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[160, 80]"/>
-                    </Property>
-                  </Properties>
+                <Container class="javax.swing.JPanel" name="temperatureAndComponentsPanel">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                      <JSplitPaneConstraints position="left"/>
+                      <JSplitPaneConstraints position="top"/>
                     </Constraint>
                   </Constraints>
 
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-                    <Property name="columns" type="int" value="7"/>
-                    <Property name="rows" type="int" value="4"/>
-                  </Layout>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JToggleButton" name="emptyButton">
+                    <Component class="javax.swing.JLabel" name="temperatureEffectsLabel">
                       <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="actionCommand" type="java.lang.String" value="empty"/>
+                        <Property name="text" type="java.lang.String" value="Burn: 4,000  Evaporate: 5,000  Hurt: 7,000  Lava: 8,500  Explode: 10,000"/>
                       </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
+                        </Constraint>
+                      </Constraints>
                     </Component>
-                    <Component class="javax.swing.JToggleButton" name="fuelRodUraniumButton">
+                    <Container class="javax.swing.JPanel" name="componentsPanel">
                       <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[160, 80]"/>
                         </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Fuel Rod (Uranium)"/>
-                        <Property name="actionCommand" type="java.lang.String" value="fuelRodUranium"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="dualFuelRodUraniumButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[160, 80]"/>
                         </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Dual Fuel Rod (Uranium)"/>
-                        <Property name="actionCommand" type="java.lang.String" value="dualFuelRodUranium"/>
                       </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="quadFuelRodUraniumButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Quad Fuel Rod (Uranium)"/>
-                        <Property name="actionCommand" type="java.lang.String" value="quadFuelRodUranium"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="fuelRodMoxButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Fuel Rod (MOX)"/>
-                        <Property name="actionCommand" type="java.lang.String" value="fuelRodMox"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="dualFuelRodMoxButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Dual Fuel Rod (MOX)"/>
-                        <Property name="actionCommand" type="java.lang.String" value="dualFuelRodMox"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="quadFuelRodMoxButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Quad Fuel Rod (MOX)"/>
-                        <Property name="actionCommand" type="java.lang.String" value="quadFuelRodMox"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="neutronReflectorButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Neutron Reflector"/>
-                        <Property name="actionCommand" type="java.lang.String" value="neutronReflector"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="thickNeutronReflectorButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Thick Neutron Reflector"/>
-                        <Property name="actionCommand" type="java.lang.String" value="thickNeutronReflector"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="heatVentButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Heat Vent"/>
-                        <Property name="actionCommand" type="java.lang.String" value="heatVent"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="advancedHeatVentButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Advanced Heat Vent"/>
-                        <Property name="actionCommand" type="java.lang.String" value="advancedHeatVent"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="reactorHeatVentButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Reactor Heat Vent"/>
-                        <Property name="actionCommand" type="java.lang.String" value="reactorHeatVent"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="componentHeatVentButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Component Heat Vent"/>
-                        <Property name="actionCommand" type="java.lang.String" value="componentHeatVent"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="overclockedHeatVentButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Overclocked Heat Vent"/>
-                        <Property name="actionCommand" type="java.lang.String" value="overclockedHeatVent"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="coolantCell10kButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="10k Coolant Cell"/>
-                        <Property name="actionCommand" type="java.lang.String" value="coolantCell10k"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="coolantCell30kButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="30k Coolant Cell"/>
-                        <Property name="actionCommand" type="java.lang.String" value="coolantCell30k"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="coolantCell60kButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="60k Coolant Cell"/>
-                        <Property name="actionCommand" type="java.lang.String" value="coolantCell60k"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="heatExchangerButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Heat Exchanger"/>
-                        <Property name="actionCommand" type="java.lang.String" value="heatExchanger"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="advancedHeatExchangerButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Advanced Heat Exchanger"/>
-                        <Property name="actionCommand" type="java.lang.String" value="advancedHeatExchanger"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="coreHeatExchangerButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Core Heat Exchanger"/>
-                        <Property name="actionCommand" type="java.lang.String" value="coreHeatExchanger"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="componentHeatExchangerButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Component Heat Exchanger"/>
-                        <Property name="actionCommand" type="java.lang.String" value="componentHeatExchanger"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="reactorPlatingButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Reactor Plating"/>
-                        <Property name="actionCommand" type="java.lang.String" value="reactorPlating"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="heatCapacityReactorPlatingButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Heat-Capacity Reactor Plating"/>
-                        <Property name="actionCommand" type="java.lang.String" value="heatCapacityReactorPlating"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="containmentReactorPlatingButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="Containment Reactor Plating"/>
-                        <Property name="actionCommand" type="java.lang.String" value="containmentReactorPlating"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="rshCondensatorButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="RSH-Condensator"/>
-                        <Property name="actionCommand" type="java.lang.String" value="rshCondensator"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JToggleButton" name="lzhCondensatorButton">
-                      <Properties>
-                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="componentsGroup"/>
-                        </Property>
-                        <Property name="toolTipText" type="java.lang.String" value="LZH-Condensator"/>
-                        <Property name="actionCommand" type="java.lang.String" value="lzhCondensator"/>
-                      </Properties>
-                    </Component>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="10" weightX="1.0" weightY="1.0"/>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                        <Property name="columns" type="int" value="7"/>
+                        <Property name="rows" type="int" value="4"/>
+                      </Layout>
+                      <SubComponents>
+                        <Component class="javax.swing.JToggleButton" name="emptyButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="actionCommand" type="java.lang.String" value="empty"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="fuelRodUraniumButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Fuel Rod (Uranium)"/>
+                            <Property name="actionCommand" type="java.lang.String" value="fuelRodUranium"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="dualFuelRodUraniumButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Dual Fuel Rod (Uranium)"/>
+                            <Property name="actionCommand" type="java.lang.String" value="dualFuelRodUranium"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="quadFuelRodUraniumButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Quad Fuel Rod (Uranium)"/>
+                            <Property name="actionCommand" type="java.lang.String" value="quadFuelRodUranium"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="fuelRodMoxButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Fuel Rod (MOX)"/>
+                            <Property name="actionCommand" type="java.lang.String" value="fuelRodMox"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="dualFuelRodMoxButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Dual Fuel Rod (MOX)"/>
+                            <Property name="actionCommand" type="java.lang.String" value="dualFuelRodMox"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="quadFuelRodMoxButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Quad Fuel Rod (MOX)"/>
+                            <Property name="actionCommand" type="java.lang.String" value="quadFuelRodMox"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="neutronReflectorButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Neutron Reflector"/>
+                            <Property name="actionCommand" type="java.lang.String" value="neutronReflector"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="thickNeutronReflectorButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Thick Neutron Reflector"/>
+                            <Property name="actionCommand" type="java.lang.String" value="thickNeutronReflector"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="heatVentButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Heat Vent"/>
+                            <Property name="actionCommand" type="java.lang.String" value="heatVent"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="advancedHeatVentButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Advanced Heat Vent"/>
+                            <Property name="actionCommand" type="java.lang.String" value="advancedHeatVent"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="reactorHeatVentButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Reactor Heat Vent"/>
+                            <Property name="actionCommand" type="java.lang.String" value="reactorHeatVent"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="componentHeatVentButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Component Heat Vent"/>
+                            <Property name="actionCommand" type="java.lang.String" value="componentHeatVent"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="overclockedHeatVentButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Overclocked Heat Vent"/>
+                            <Property name="actionCommand" type="java.lang.String" value="overclockedHeatVent"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="coolantCell10kButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="10k Coolant Cell"/>
+                            <Property name="actionCommand" type="java.lang.String" value="coolantCell10k"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="coolantCell30kButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="30k Coolant Cell"/>
+                            <Property name="actionCommand" type="java.lang.String" value="coolantCell30k"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="coolantCell60kButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="60k Coolant Cell"/>
+                            <Property name="actionCommand" type="java.lang.String" value="coolantCell60k"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="heatExchangerButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Heat Exchanger"/>
+                            <Property name="actionCommand" type="java.lang.String" value="heatExchanger"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="advancedHeatExchangerButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Advanced Heat Exchanger"/>
+                            <Property name="actionCommand" type="java.lang.String" value="advancedHeatExchanger"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="coreHeatExchangerButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Core Heat Exchanger"/>
+                            <Property name="actionCommand" type="java.lang.String" value="coreHeatExchanger"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="componentHeatExchangerButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Component Heat Exchanger"/>
+                            <Property name="actionCommand" type="java.lang.String" value="componentHeatExchanger"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="reactorPlatingButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Reactor Plating"/>
+                            <Property name="actionCommand" type="java.lang.String" value="reactorPlating"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="heatCapacityReactorPlatingButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Heat-Capacity Reactor Plating"/>
+                            <Property name="actionCommand" type="java.lang.String" value="heatCapacityReactorPlating"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="containmentReactorPlatingButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Containment Reactor Plating"/>
+                            <Property name="actionCommand" type="java.lang.String" value="containmentReactorPlating"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="rshCondensatorButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="RSH-Condensator"/>
+                            <Property name="actionCommand" type="java.lang.String" value="rshCondensator"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="lzhCondensatorButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="LZH-Condensator"/>
+                            <Property name="actionCommand" type="java.lang.String" value="lzhCondensator"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="jPanel1">
