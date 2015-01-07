@@ -140,6 +140,9 @@ public class ReactorComponent {
      */
     public final void adjustCurrentHeat(final double heat) {
         currentHeat += heat;
+        if (currentHeat < 0.0) {
+            currentHeat = 0.0;
+        }
     }
     
     /**

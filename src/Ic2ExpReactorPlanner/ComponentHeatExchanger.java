@@ -88,8 +88,9 @@ public class ComponentHeatExchanger extends ReactorComponent {
             } else if (Math.round(heatablemed * 10.0) / 10.0 == Math.round(mymed * 10.0) / 10.0) {
                 add = 0;
             }
-            myHeat -= add;
-            heatableNeighbor.adjustCurrentHeat(add);
+            double tempAdd = Math.max(-heatableNeighbor.getCurrentHeat(), add);
+            myHeat -= tempAdd;
+            heatableNeighbor.adjustCurrentHeat(tempAdd);
         }
         adjustCurrentHeat(myHeat);
     }

@@ -97,6 +97,9 @@ public class Reactor {
      */
     public void adjustCurrentHeat(double adjustment) {
         currentHeat += adjustment;
+        if (currentHeat < 0.0) {
+            currentHeat = 0.0;
+        }
     }
     
     /**

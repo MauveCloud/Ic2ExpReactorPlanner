@@ -78,16 +78,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             }
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
                         }
-                        if (simulator != null) {
-                            simulator.cancel(true);
-                        }
-                        int initialHeat = 0;
-                        Object value = heatSpinner.getValue();
-                        if (value instanceof Number) {
-                            initialHeat = ((Number) value).intValue();
-                        }
-                        simulator = new Simulator(reactor, outputArea, reactorButtons, initialHeat);
-                        simulator.execute();
+                        refreshSimulationButtonActionPerformed(null);
                         changingCode = true;
                         codeField.setText(reactor.getCode());
                         changingCode = false;
@@ -110,13 +101,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             reactorButtons[finalRow][finalCol].setIcon(null);
                             reactorButtons[finalRow][finalCol].setToolTipText(null);
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
-                            int initialHeat = 0;
-                            Object value = heatSpinner.getValue();
-                            if (value instanceof Number) {
-                                initialHeat = ((Number) value).intValue();
-                            }
-                            simulator = new Simulator(reactor, outputArea, reactorButtons, initialHeat);
-                            simulator.execute();
+                            refreshSimulationButtonActionPerformed(null);
                             changingCode = true;
                             codeField.setText(reactor.getCode());
                             changingCode = false;
@@ -409,7 +394,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         refrfeshSimulationButton.setText("Refresh Simulation");
         refrfeshSimulationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refrfeshSimulationButtonActionPerformed(evt);
+                refreshSimulationButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -568,7 +553,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         changingCode = false;
     }//GEN-LAST:event_clearGridButtonActionPerformed
 
-    private void refrfeshSimulationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refrfeshSimulationButtonActionPerformed
+    private void refreshSimulationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshSimulationButtonActionPerformed
         SpinnerModel model = heatSpinner.getModel();
         if (model instanceof SpinnerNumberModel) {
             ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
@@ -581,9 +566,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (value instanceof Number) {
             initialHeat = ((Number) value).intValue();
         }
-        simulator = new Simulator(reactor, outputArea, reactorButtons, initialHeat);
+        Reactor tempReactor = new Reactor();
+        tempReactor.setCode(reactor.getCode());
+        simulator = new Simulator(tempReactor, outputArea, reactorButtons, initialHeat);
         simulator.execute();
-    }//GEN-LAST:event_refrfeshSimulationButtonActionPerformed
+    }//GEN-LAST:event_refreshSimulationButtonActionPerformed
     
     private Simulator simulator;
 
@@ -616,7 +603,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (model instanceof SpinnerNumberModel) {
             ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
         }
-        refrfeshSimulationButtonActionPerformed(null);
+        refreshSimulationButtonActionPerformed(null);
     }
     
     /**
