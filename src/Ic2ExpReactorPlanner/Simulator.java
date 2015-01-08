@@ -199,7 +199,7 @@ public class Simulator extends SwingWorker<Void, String> {
             } else {
                 publish(String.format("Reactor stopped for an unknown reason at %d seconds.\n", reactorTicks));
             }
-            if (reactorTicks > 0) {
+            if (reactor.getCurrentHeat() < reactor.getMaxHeat() && reactorTicks > 0) {
                 publish(String.format("Average heat output after fuel rods depleted: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
             }
             //return null;
@@ -223,7 +223,7 @@ public class Simulator extends SwingWorker<Void, String> {
                 if (chunk.isEmpty()) {
                     output.setText("");
                 } else {
-                    if (chunk.matches("R\\dC\\d:.+")) {
+                    if (chunk.matches("R\\dC\\d:.*")) {
                         String temp = chunk.substring(5);
                         int row = chunk.charAt(1) - '0';
                         int col = chunk.charAt(3) - '0';
