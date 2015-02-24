@@ -55,6 +55,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         final ButtonModel selection = componentsGroup.getSelection();
                         if (selection != null) {
                             componentToPlace = ComponentFactory.createComponent(selection.getActionCommand());
+                            if (componentToPlace != null) {
+                                componentToPlace.setInitialHeat(((Number)componentHeatSpinner.getValue()).intValue());
+                            }
                         }
                         reactor.setComponentAt(finalRow, finalCol, componentToPlace);
                         materialsArea.setText(reactor.getMaterials().toString());
@@ -154,6 +157,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         componentsGroup = new javax.swing.ButtonGroup();
+        reactorStyleGroup = new javax.swing.ButtonGroup();
         jSplitPane1 = new javax.swing.JSplitPane();
         jSplitPane2 = new javax.swing.JSplitPane();
         reactorPanel = new javax.swing.JPanel();
@@ -187,7 +191,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         containmentReactorPlatingButton = new javax.swing.JToggleButton();
         rshCondensatorButton = new javax.swing.JToggleButton();
         lzhCondensatorButton = new javax.swing.JToggleButton();
+        jLabel5 = new javax.swing.JLabel();
+        componentHeatSpinner = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
+        euReactorRadio = new javax.swing.JRadioButton();
+        fluidReactorRadio = new javax.swing.JRadioButton();
         clearGridButton = new javax.swing.JButton();
         refrfeshSimulationButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -195,6 +203,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         maxHeatLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         codeField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        timeSpinner = new javax.swing.JSpinner();
+        secondsLabel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        nuclearControlSpinner = new javax.swing.JSpinner();
+        heatLabel = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         outputPane = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
@@ -224,7 +238,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jSplitPane2.setLeftComponent(reactorPanel);
 
         jSplitPane3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane3.setResizeWeight(0.8);
+        jSplitPane3.setResizeWeight(0.7);
 
         temperatureAndComponentsPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -232,6 +246,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(temperatureEffectsLabel, gridBagConstraints);
 
         componentsPanel.setMinimumSize(new java.awt.Dimension(160, 80));
@@ -368,15 +383,60 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentsPanel.add(lzhCondensatorButton);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(componentsPanel, gridBagConstraints);
 
+        jLabel5.setText("Initial Component Heat:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        temperatureAndComponentsPanel.add(jLabel5, gridBagConstraints);
+
+        componentHeatSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100000, 1));
+        componentHeatSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
+        componentHeatSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        temperatureAndComponentsPanel.add(componentHeatSpinner, gridBagConstraints);
+
         jSplitPane3.setTopComponent(temperatureAndComponentsPanel);
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(392, 151));
+        jPanel1.setPreferredSize(new java.awt.Dimension(392, 151));
         jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        reactorStyleGroup.add(euReactorRadio);
+        euReactorRadio.setSelected(true);
+        euReactorRadio.setText("EU Reactor");
+        euReactorRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                euReactorRadioActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel1.add(euReactorRadio, gridBagConstraints);
+
+        reactorStyleGroup.add(fluidReactorRadio);
+        fluidReactorRadio.setText("Fluid Reactor");
+        fluidReactorRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fluidReactorRadioActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel1.add(fluidReactorRadio, gridBagConstraints);
 
         clearGridButton.setText("Clear Grid");
         clearGridButton.addActionListener(new java.awt.event.ActionListener() {
@@ -387,7 +447,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
-        gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
         jPanel1.add(clearGridButton, gridBagConstraints);
 
@@ -439,9 +498,57 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(codeField, gridBagConstraints);
+
+        jLabel3.setText("Stop redstone signal after:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(jLabel3, gridBagConstraints);
+
+        timeSpinner.setModel(new javax.swing.SpinnerNumberModel(25000, 0, 25000, 1));
+        timeSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
+        timeSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel1.add(timeSpinner, gridBagConstraints);
+
+        secondsLabel.setText("seconds");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(secondsLabel, gridBagConstraints);
+
+        jLabel4.setText("Or if reactor heat reaches:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(jLabel4, gridBagConstraints);
+
+        nuclearControlSpinner.setModel(new javax.swing.SpinnerNumberModel(120000, 0, 120000, 1));
+        nuclearControlSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
+        nuclearControlSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel1.add(nuclearControlSpinner, gridBagConstraints);
+
+        heatLabel.setText("heat");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(heatLabel, gridBagConstraints);
 
         jSplitPane3.setRightComponent(jPanel1);
 
@@ -568,9 +675,20 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
         Reactor tempReactor = new Reactor();
         tempReactor.setCode(reactor.getCode());
-        simulator = new Simulator(tempReactor, outputArea, reactorButtons, initialHeat);
+        tempReactor.setFluid(reactor.isFluid());
+        simulator = new Simulator(tempReactor, outputArea, reactorButtons, initialHeat, ((Number)timeSpinner.getValue()).intValue(), ((Number)nuclearControlSpinner.getValue()).intValue());
         simulator.execute();
     }//GEN-LAST:event_refreshSimulationButtonActionPerformed
+
+    private void euReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_euReactorRadioActionPerformed
+        reactor.setFluid(false);
+        refreshSimulationButtonActionPerformed(null);
+    }//GEN-LAST:event_euReactorRadioActionPerformed
+
+    private void fluidReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fluidReactorRadioActionPerformed
+        reactor.setFluid(true);
+        refreshSimulationButtonActionPerformed(null);
+    }//GEN-LAST:event_fluidReactorRadioActionPerformed
     
     private Simulator simulator;
 
@@ -627,6 +745,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JButton clearGridButton;
     private javax.swing.JTextField codeField;
     private javax.swing.JToggleButton componentHeatExchangerButton;
+    private javax.swing.JSpinner componentHeatSpinner;
     private javax.swing.JToggleButton componentHeatVentButton;
     private javax.swing.ButtonGroup componentsGroup;
     private javax.swing.JPanel componentsPanel;
@@ -638,15 +757,21 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton dualFuelRodMoxButton;
     private javax.swing.JToggleButton dualFuelRodUraniumButton;
     private javax.swing.JToggleButton emptyButton;
+    private javax.swing.JRadioButton euReactorRadio;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JRadioButton fluidReactorRadio;
     private javax.swing.JToggleButton fuelRodMoxButton;
     private javax.swing.JToggleButton fuelRodUraniumButton;
     private javax.swing.JToggleButton heatCapacityReactorPlatingButton;
     private javax.swing.JToggleButton heatExchangerButton;
+    private javax.swing.JLabel heatLabel;
     private javax.swing.JSpinner heatSpinner;
     private javax.swing.JToggleButton heatVentButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -658,6 +783,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea materialsArea;
     private javax.swing.JLabel maxHeatLabel;
     private javax.swing.JToggleButton neutronReflectorButton;
+    private javax.swing.JSpinner nuclearControlSpinner;
     private javax.swing.JTextArea outputArea;
     private javax.swing.JScrollPane outputPane;
     private javax.swing.JToggleButton overclockedHeatVentButton;
@@ -666,11 +792,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton reactorHeatVentButton;
     private javax.swing.JPanel reactorPanel;
     private javax.swing.JToggleButton reactorPlatingButton;
+    private javax.swing.ButtonGroup reactorStyleGroup;
     private javax.swing.JButton refrfeshSimulationButton;
     private javax.swing.JMenuItem resourcePackItem;
     private javax.swing.JToggleButton rshCondensatorButton;
+    private javax.swing.JLabel secondsLabel;
     private javax.swing.JPanel temperatureAndComponentsPanel;
     private javax.swing.JLabel temperatureEffectsLabel;
     private javax.swing.JToggleButton thickNeutronReflectorButton;
+    private javax.swing.JSpinner timeSpinner;
     // End of variables declaration//GEN-END:variables
 }

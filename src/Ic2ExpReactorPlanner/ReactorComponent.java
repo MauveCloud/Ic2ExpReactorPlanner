@@ -18,6 +18,7 @@ public class ReactorComponent {
     private int row = -10;
     private int column = -10;
     
+    private double initialHeat = 0.0;
     private double currentHeat = 0.0;
     private double maxHeat = 1.0;
     
@@ -131,7 +132,7 @@ public class ReactorComponent {
      * Resets heat to 0 (used when resetting simulation).
      */
     public final void clearCurrentHeat() {
-        currentHeat = 0.0;
+        currentHeat = initialHeat;
     }
     
     /**
@@ -229,6 +230,26 @@ public class ReactorComponent {
      */
     public MaterialsList getMaterials() {
         return null;
+    }
+
+    /**
+     * Gets the initial heat previously set for the component.
+     * @return the initial heat.
+     */
+    public double getInitialHeat() {
+        return initialHeat;
+    }
+
+    /**
+     * Set the initial heat of the component, as long as the component can accept heat, 
+     * and the initial heat greater than or equal to zero and less than the max heat.
+     * If any condition is false, the value is ignored.
+     * @param initialHeat the initial heat to set
+     */
+    public void setInitialHeat(double initialHeat) {
+        if (this.isHeatAcceptor() && initialHeat >= 0 && initialHeat < this.getMaxHeat()) {
+            this.initialHeat = initialHeat;
+        }
     }
     
 }

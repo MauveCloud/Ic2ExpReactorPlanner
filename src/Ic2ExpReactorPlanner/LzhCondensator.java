@@ -27,7 +27,11 @@ public class LzhCondensator extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "LZH-Condensator";
+        String result = "LZH-Condensator";
+        if (getInitialHeat() > 0) {
+            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+        }
+        return result;
     }
 
     @Override

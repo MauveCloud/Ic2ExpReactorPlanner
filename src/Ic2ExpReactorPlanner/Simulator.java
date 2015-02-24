@@ -33,11 +33,17 @@ public class Simulator extends SwingWorker<Void, String> {
     
     private double maxHeatOutput = 0.0;
     
-    public Simulator(final Reactor reactor, final JTextArea output, final JButton[][] reactorButtons, final int initialHeat) {
+    private double stopTime = 25000;
+    
+    private double stopTemp = 120000;
+    
+    public Simulator(final Reactor reactor, final JTextArea output, final JButton[][] reactorButtons, final int initialHeat, final int stopTime, final int stopTemp) {
         this.reactor = reactor;
         this.output = output;
         this.reactorButtons = reactorButtons;
         this.initialHeat = initialHeat;
+        this.stopTime = stopTime;
+        this.stopTemp = stopTemp;
     }
     
     @Override
@@ -109,12 +115,15 @@ public class Simulator extends SwingWorker<Void, String> {
                         }
                     }
                 }
-            } while (reactor.getCurrentHeat() <= reactor.getMaxHeat() && lastEUoutput > 0.0);
-            if (lastEUoutput == 0.0) {
-                publish(String.format("Reactor stopped outputting EU after %,d seconds.\n", reactorTicks));
+            } while (reactor.getCurrentHeat() <= reactor.getMaxHeat() && lastEUoutput > 0.0 && reactorTicks < stopTime && reactor.getCurrentHeat() < stopTemp);
+            if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
+                publish(String.format("Fuel rods (if any) stopped after %,d seconds.\n", reactorTicks));
                 if (reactorTicks > 0) {
-                    publish(String.format("Total EU output: %,.0f (%.2f EU/t min, %.2f EU/t max, %.2f EU/t average)\n", totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
-                    publish(String.format("Average heat output before fuel rods depleted: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                    if (reactor.isFluid()) {
+                        publish(String.format("Average heat output before fuel rods stopped: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                    } else {
+                        publish(String.format("Total EU output: %,.0f (%.2f EU/t min, %.2f EU/t max, %.2f EU/t average)\n", totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
+                    }
                 }
                 lastHeatOutput = 0.0;
                 totalHeatOutput = 0.0;
@@ -194,13 +203,11 @@ public class Simulator extends SwingWorker<Void, String> {
                         }
                     }
                 }
-            } else if (reactor.getCurrentHeat() >= reactor.getMaxHeat()) {
-                publish(String.format("Reactor overheated at %,d seconds.\n", reactorTicks));
             } else {
-                publish(String.format("Reactor stopped for an unknown reason at %d seconds.\n", reactorTicks));
+                publish(String.format("Reactor overheated at %,d seconds.\n", reactorTicks));
             }
-            if (reactor.getCurrentHeat() < reactor.getMaxHeat() && reactorTicks > 0) {
-                publish(String.format("Average heat output after fuel rods depleted: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+            if (reactor.isFluid() && reactor.getCurrentHeat() < reactor.getMaxHeat()) {
+                publish(String.format("Average heat output after fuel rods stopped: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / cooldownTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
             }
             //return null;
         } catch (Throwable e) {

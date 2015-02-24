@@ -33,7 +33,11 @@ public class AdvancedHeatExchanger extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Advanced Heat Exchanger";
+        String result = "Advanced Heat Exchanger";
+        if (getInitialHeat() > 0) {
+            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+        }
+        return result;
     }
 
     @Override

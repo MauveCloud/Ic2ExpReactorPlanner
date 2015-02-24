@@ -27,7 +27,11 @@ public class CoolantCell60k extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "60k Coolant Cell";
+        String result = "60k Coolant Cell";
+        if (getInitialHeat() > 0) {
+            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+        }
+        return result;
     }
 
     @Override

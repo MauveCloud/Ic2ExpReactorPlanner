@@ -27,7 +27,11 @@ public class HeatVent extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Heat Vent";
+        String result = "Heat Vent";
+        if (getInitialHeat() > 0) {
+            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+        }
+        return result;
     }
 
     @Override

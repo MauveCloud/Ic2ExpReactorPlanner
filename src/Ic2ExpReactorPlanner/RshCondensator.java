@@ -27,7 +27,11 @@ public class RshCondensator extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "RSH-Condensator";
+        String result = "RSH-Condensator";
+        if (getInitialHeat() > 0) {
+            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+        }
+        return result;
     }
 
     @Override

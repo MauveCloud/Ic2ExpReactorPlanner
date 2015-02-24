@@ -34,6 +34,10 @@ public class DualFuelRodMox extends FuelRodUranium {
     public void generateHeat() {
         int pulses = countNeutronNeighbors() + 2;
         int heat = 4 * pulses * (pulses + 1);
+        final Reactor parentReactor = getParent();
+        if (parentReactor.isFluid() && (parentReactor.getCurrentHeat() / parentReactor.getMaxHeat()) > 0.5) {
+            heat *= 2;
+        }
         handleHeat(heat);
         applyDamage(1.0);
     }

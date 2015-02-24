@@ -33,7 +33,11 @@ public class ComponentHeatExchanger extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Component Heat Exchanger";
+        String result = "Component Heat Exchanger";
+        if (getInitialHeat() > 0) {
+            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+        }
+        return result;
     }
 
     @Override

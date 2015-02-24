@@ -21,6 +21,8 @@ public class Reactor {
     
     private double ventedHeat = 0.0;
     
+    private boolean fluid = false;
+    
     public ReactorComponent getComponentAt(int row, int column) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
             return grid[row][column];
@@ -166,6 +168,9 @@ public class Reactor {
                 final ReactorComponent component = grid[row][col];
                 final int id = ComponentFactory.getID(component);
                 result.append(String.format("%02X", id));
+                if (component != null && component.getInitialHeat() > 0) {
+                    result.append(String.format("(h%s)", Integer.toString((int)component.getInitialHeat(), 36)));
+                }
             }
         }
         return result.toString();
@@ -177,15 +182,58 @@ public class Reactor {
      */
     public void setCode(String code) {
         int pos = 0;
-        if (code.length() == 108 && code.matches("[0-9A-Fa-f]+")) {
-            for (int row = 0; row < grid.length; row++) {
-                for (int col = 0; col < grid[row].length; col++) {
-                    int id = Integer.parseInt(code.substring(pos, pos + 2), 16);
-                    setComponentAt(row, col, ComponentFactory.createComponent(id));
-                    pos += 2;
+        int[][] ids = new int[grid.length][grid[0].length];
+        char[][] paramTypes = new char[grid.length][grid[0].length];
+        int[][] params = new int[grid.length][grid[0].length];
+        if (code.length() >= 108 && code.matches("[0-9A-Za-z()]+")) {
+            try {
+                for (int row = 0; row < grid.length; row++) {
+                    for (int col = 0; col < grid[row].length; col++) {
+                        ids[row][col] = Integer.parseInt(code.substring(pos, pos + 2), 16);
+//                    setComponentAt(row, col, ComponentFactory.createComponent(id));
+                        pos += 2;
+                        if (pos < code.length() && code.charAt(pos) == '(') {
+                            paramTypes[row][col] = code.charAt(pos + 1);
+                            int tempPos = pos + 2;
+                            StringBuilder param = new StringBuilder(10);
+                            while (code.charAt(tempPos) != ')') {
+                                param.append(code.charAt(tempPos));
+                                tempPos++;
+                            }
+                            params[row][col] = Integer.parseInt(param.toString(), 36);
+                            pos = tempPos + 1;
+                        }
+                    }
                 }
+                for (int row = 0; row < grid.length; row++) {
+                    for (int col = 0; col < grid[row].length; col++) {
+                        final ReactorComponent component = ComponentFactory.createComponent(ids[row][col]);
+                        if (paramTypes[row][col] == 'h') {
+                            component.setInitialHeat(params[row][col]);
+                        }
+                        setComponentAt(row, col, component);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace(System.err);
             }
         }
+    }
+
+    /**
+     * Checks whether the reactor is to simulate a fluid-style reactor, rather than a direct EU-output reactor.
+     * @return true if this was set to be a fluid-style reactor, false if this was set to be direct EU-output reactor.
+     */
+    public boolean isFluid() {
+        return fluid;
+    }
+
+    /**
+     * Sets whether the reactor is to simulate a fluid-style reactor, rather than a direct EU-output reactor.
+     * @param fluid true if this is to be a fluid-style reactor, false if this is to be direct EU-output reactor.
+     */
+    public void setFluid(boolean fluid) {
+        this.fluid = fluid;
     }
     
 }

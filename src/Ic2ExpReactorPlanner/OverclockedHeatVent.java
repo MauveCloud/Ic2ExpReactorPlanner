@@ -27,7 +27,11 @@ public class OverclockedHeatVent extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Overclocked Heat Vent";
+        String result = "Overclocked Heat Vent";
+        if (getInitialHeat() > 0) {
+            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+        }
+        return result;
     }
     
     @Override
