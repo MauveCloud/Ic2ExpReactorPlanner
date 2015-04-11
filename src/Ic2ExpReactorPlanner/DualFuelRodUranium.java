@@ -31,11 +31,12 @@ public class DualFuelRodUranium extends FuelRodUranium {
     }
     
     @Override
-    public void generateHeat() {
+    public double generateHeat() {
         int pulses = countNeutronNeighbors() + 2;
         int heat = 4 * pulses * (pulses + 1);
         handleHeat(heat);
         applyDamage(1.0);
+        return heat;
     }
 
     @Override
@@ -49,6 +50,11 @@ public class DualFuelRodUranium extends FuelRodUranium {
     @Override
     public MaterialsList getMaterials() {
         return MATERIALS;
+    }
+    
+    @Override
+    public int getRodCount() {
+        return 2;
     }
     
 }

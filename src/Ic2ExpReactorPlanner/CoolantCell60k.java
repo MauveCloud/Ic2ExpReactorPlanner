@@ -44,4 +44,11 @@ public class CoolantCell60k extends ReactorComponent {
         return MATERIALS;
     }
     
+    @Override
+    public double adjustCurrentHeat(double heat) {
+        currentCellCooling += heat;
+        bestCellCooling = Math.max(currentCellCooling, bestCellCooling);
+        return super.adjustCurrentHeat(heat);
+    }
+    
 }

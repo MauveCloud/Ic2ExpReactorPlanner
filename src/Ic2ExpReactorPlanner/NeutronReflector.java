@@ -36,7 +36,7 @@ public class NeutronReflector extends ReactorComponent {
     }
 
     @Override
-    public void generateHeat() {
+    public double generateHeat() {
         final Reactor parentReactor = getParent();
         ReactorComponent component = parentReactor.getComponentAt(getRow() + 1, getColumn());
         if (component != null && component.isNeutronReflector()) {
@@ -54,6 +54,7 @@ public class NeutronReflector extends ReactorComponent {
         if (component != null && component.isNeutronReflector()) {
             handleFuelRodDamage(component);
         }
+        return 0.0;
     }
 
     private void handleFuelRodDamage(ReactorComponent component) {

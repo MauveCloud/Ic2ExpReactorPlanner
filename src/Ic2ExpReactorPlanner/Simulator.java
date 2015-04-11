@@ -51,9 +51,11 @@ public class Simulator extends SwingWorker<Void, String> {
         long startTime = System.nanoTime();
         int reactorTicks = 0;
         int cooldownTicks = 0;
+        int totalRodCount = 0;
         try {
             publish("");
             publish("Simulation started.\n");
+            // Checking for temperature thresholds only
             reactor.setCurrentHeat(initialHeat);
             reactor.clearVentedHeat();
             for (int row = 0; row < 6; row++) {
@@ -62,7 +64,73 @@ public class Simulator extends SwingWorker<Void, String> {
                     if (component != null) {
                         component.clearCurrentHeat();
                         component.clearDamage();
+                    }
+                }
+            }
+            double minReactorHeat = initialHeat;
+            double maxReactorHeat = initialHeat;
+            boolean reachedBurn = initialHeat >= 0.4 * reactor.getMaxHeat();
+            boolean reachedEvaporate = initialHeat >= 0.5 * reactor.getMaxHeat();
+            boolean reachedHurt = initialHeat >= 0.7 * reactor.getMaxHeat();
+            boolean reachedLava = initialHeat >= 0.85 * reactor.getMaxHeat();
+            boolean reachedExplode = false;
+            do {
+                reactor.clearEUOutput();
+                reactor.clearVentedHeat();
+                reactorTicks++;
+                for (int row = 0; row < 6; row++) {
+                    for (int col = 0; col < 9; col++) {
+                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        if (component != null && !component.isBroken()) {
+                            component.generateHeat();
+                            maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
+                            minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
+                            component.dissipate();
+                            maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
+                            minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
+                            component.transfer();
+                            maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
+                            minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
+                        }
+                        if (maxReactorHeat >= 0.4 * reactor.getMaxHeat() && !reachedBurn) {
+                            publish(String.format("Reactor will reach \"Burn\" temperature at %d seconds.\n", reactorTicks));
+                            reachedBurn = true;
+                        }
+                        if (maxReactorHeat >= 0.5 * reactor.getMaxHeat() && !reachedEvaporate) {
+                            publish(String.format("Reactor will reach \"Evaporate\" temperature at %d seconds.\n", reactorTicks));
+                            reachedEvaporate = true;
+                        }
+                        if (maxReactorHeat >= 0.7 * reactor.getMaxHeat() && !reachedHurt) {
+                            publish(String.format("Reactor will reach \"Hurt\" temperature at %d seconds.\n", reactorTicks));
+                            reachedHurt = true;
+                        }
+                        if (maxReactorHeat >= 0.85 * reactor.getMaxHeat() && !reachedLava) {
+                            publish(String.format("Reactor will reach \"Lava\" temperature at %d seconds.\n", reactorTicks));
+                            reachedLava = true;
+                        }
+                        if (maxReactorHeat >= reactor.getMaxHeat() && !reachedExplode) {
+                            publish(String.format("Reactor will explode at %d seconds.\n", reactorTicks));
+                            reachedExplode = true;
+                        }
+                    }
+                }
+            } while (reactor.getCurrentHeat() <= reactor.getMaxHeat() && reactorTicks <= 20000);
+            publish(String.format("Reactor minimum temperature: %,.2f\n", minReactorHeat));
+            publish(String.format("Reactor maximum temperature (if unchecked): %,.2f\n", maxReactorHeat));
+            // full simulation
+            reactorTicks = 0;
+            reactor.setCurrentHeat(initialHeat);
+            reactor.clearVentedHeat();
+            minReactorHeat = initialHeat;
+            maxReactorHeat = initialHeat;
+            for (int row = 0; row < 6; row++) {
+                for (int col = 0; col < 9; col++) {
+                    ReactorComponent component = reactor.getComponentAt(row, col);
+                    if (component != null) {
+                        component.clearCurrentHeat();
+                        component.clearDamage();
                         publish(String.format("R%dC%d:%s", row, col, component.toString()));
+                        totalRodCount += component.getRodCount();
                     } else {
                         publish(String.format("R%dC%d:", row, col));
                     }
@@ -73,19 +141,36 @@ public class Simulator extends SwingWorker<Void, String> {
             double totalEUoutput = 0.0;
             double lastHeatOutput = 0.0;
             double totalHeatOutput = 0.0;
+            double maxGeneratedHeat = 0.0;
             do {
                 reactor.clearEUOutput();
                 reactor.clearVentedHeat();
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
                         ReactorComponent component = reactor.getComponentAt(row, col);
-                        if (component != null && !component.isBroken()) {
-                            component.generateHeat();
-                            component.dissipate();
-                            component.transfer();
+                        if (component != null) {
+                            component.preReactorTick();
                         }
                     }
                 }
+                double generatedHeat = 0.0;
+                for (int row = 0; row < 6; row++) {
+                    for (int col = 0; col < 9; col++) {
+                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        if (component != null && !component.isBroken()) {
+                            generatedHeat += component.generateHeat();
+                            maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
+                            minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
+                            component.dissipate();
+                            maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
+                            minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
+                            component.transfer();
+                            maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
+                            minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
+                        }
+                    }
+                }
+                maxGeneratedHeat = Math.max(generatedHeat, maxGeneratedHeat);
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
                         ReactorComponent component = reactor.getComponentAt(row, col);
@@ -121,8 +206,10 @@ public class Simulator extends SwingWorker<Void, String> {
                 if (reactorTicks > 0) {
                     if (reactor.isFluid()) {
                         publish(String.format("Average heat output before fuel rods stopped: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                        publish(String.format("Efficiency: %.2f average, %.2f minimum, %.2f maximum\n", totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                     } else {
                         publish(String.format("Total EU output: %,.0f (%.2f EU/t min, %.2f EU/t max, %.2f EU/t average)\n", totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
+                        publish(String.format("Efficiency: %.2f average, %.2f minimum, %.2f maximum\n", totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
                     }
                 }
                 lastHeatOutput = 0.0;
@@ -209,12 +296,47 @@ public class Simulator extends SwingWorker<Void, String> {
             if (reactor.isFluid() && reactor.getCurrentHeat() < reactor.getMaxHeat()) {
                 publish(String.format("Average heat output after fuel rods stopped: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / cooldownTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
             }
+            double totalEffectiveVentCooling = 0.0;
+            double totalVentCoolingCapacity = 0.0;
+            double totalCellCooling = 0.0;
+            double totalCondensatorCooling = 0.0;
+            
+            for (int row = 0; row < 6; row++) {
+                for (int col = 0; col < 9; col++) {
+                    ReactorComponent component = reactor.getComponentAt(row, col);
+                    if (component != null) {
+                        if (component.getVentCoolingCapacity() > 0) {
+                            publish(String.format("R%dC%d:+ (%.2f of %.2f cooling)", row, col, component.getEffectiveVentCooling(), component.getVentCoolingCapacity()));
+                            totalEffectiveVentCooling += component.getEffectiveVentCooling();
+                            totalVentCoolingCapacity += component.getVentCoolingCapacity();
+                        } else if (component.getBestCellCooling() > 0) {
+                            publish(String.format("R%dC%d:+ (received at most %.2f heat per reactor tick)", row, col, component.getBestCellCooling()));
+                            totalCellCooling += component.getBestCellCooling();
+                        } else if (component.getBestCondensatorCooling() > 0) {
+                            publish(String.format("R%dC%d:+ (received at most %.2f heat per reactor tick)", row, col, component.getBestCondensatorCooling()));
+                            totalCondensatorCooling += component.getBestCondensatorCooling();
+                        }
+                    }
+                }
+            }
+                    
+            publish(String.format("Total Vent Cooling: %,.2f of %,.2f\n", totalEffectiveVentCooling, totalVentCoolingCapacity));
+            publish(String.format("Total Cell Cooling: %,.2f\n", totalCellCooling));
+            publish(String.format("Total Condensator Cooling: %,.2f\n", totalCondensatorCooling));
+            publish(String.format("Max Heat Generated: %.2f\n", maxGeneratedHeat));
+            publish(String.format("Reactor maximum temperature (when limited by settings): %,.2f\n", maxReactorHeat));
+            double totalCooling = totalEffectiveVentCooling + totalCellCooling + totalCondensatorCooling;
+            if (totalCooling >= maxGeneratedHeat) {
+                publish(String.format("Excess cooling: %.2f\n", totalCooling - maxGeneratedHeat));
+            } else {
+                publish(String.format("Excess heating: %.2f\n", maxGeneratedHeat - totalCooling));
+            }
             //return null;
         } catch (Throwable e) {
             if (cooldownTicks == 0) {
-                publish(String.format("Error at reactor tick %d", reactorTicks));
+                publish(String.format("Error at reactor tick %d\n", reactorTicks));
             } else {
-                publish(String.format("Error at cooldown tick %d", cooldownTicks));
+                publish(String.format("Error at cooldown tick %d\n", cooldownTicks));
             }
             publish(e.toString(), " ", Arrays.toString(e.getStackTrace()));
         }

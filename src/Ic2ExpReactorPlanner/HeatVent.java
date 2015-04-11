@@ -41,13 +41,20 @@ public class HeatVent extends ReactorComponent {
 
     @Override
     public void dissipate() {
-        getParent().ventHeat(Math.min(6, getCurrentHeat()));
-        adjustCurrentHeat(-Math.min(6, getCurrentHeat()));
+        final double currentDissipation = Math.min(6, getCurrentHeat());
+        getParent().ventHeat(currentDissipation);
+        adjustCurrentHeat(-currentDissipation);
+        effectiveVentCooling = Math.max(effectiveVentCooling, currentDissipation);
     }
     
     @Override
     public MaterialsList getMaterials() {
         return MATERIALS;
     }
-    
+
+    @Override
+    public double getVentCoolingCapacity() {
+        return 6;
+    }
+
 }

@@ -43,5 +43,18 @@ public class LzhCondensator extends ReactorComponent {
     public MaterialsList getMaterials() {
         return MATERIALS;
     }
+
+    @Override
+    public double adjustCurrentHeat(final double heat) {
+        if (heat < 0.0) {
+            return heat;
+        }
+        currentCondensatorCooling += heat;
+        bestCondensatorCooling = Math.max(currentCondensatorCooling, bestCondensatorCooling);
+        double acceptedHeat = Math.min(heat, getMaxHeat() - heat);
+        double result = heat - acceptedHeat;
+        currentHeat += acceptedHeat;
+        return result;
+    }
     
 }

@@ -61,11 +61,12 @@ public class FuelRodUranium extends ReactorComponent {
     }
     
     @Override
-    public void generateHeat() {
+    public double generateHeat() {
         int pulses = countNeutronNeighbors() + 1;
         int heat = 2 * pulses * (pulses + 1);
         handleHeat(heat);
         applyDamage(1.0);
+        return heat;
     }
 
     @Override
@@ -109,6 +110,11 @@ public class FuelRodUranium extends ReactorComponent {
     @Override
     public MaterialsList getMaterials() {
         return MATERIALS;
+    }
+
+    @Override
+    public int getRodCount() {
+        return 1;
     }
     
 }

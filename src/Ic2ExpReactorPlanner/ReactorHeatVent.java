@@ -45,13 +45,20 @@ public class ReactorHeatVent extends ReactorComponent {
         double deltaHeat = Math.min(5, parentReactor.getCurrentHeat());
         parentReactor.adjustCurrentHeat(-deltaHeat);
         this.adjustCurrentHeat(deltaHeat);
-        parentReactor.ventHeat(Math.min(5, getCurrentHeat()));
-        adjustCurrentHeat(-Math.min(5, getCurrentHeat()));
+        final double currentDissipation = Math.min(5, getCurrentHeat());
+        parentReactor.ventHeat(currentDissipation);
+        adjustCurrentHeat(-currentDissipation);
+        effectiveVentCooling = Math.max(effectiveVentCooling, currentDissipation);
     }
     
     @Override
     public MaterialsList getMaterials() {
         return MATERIALS;
     }
-    
+
+    @Override
+    public double getVentCoolingCapacity() {
+        return 5;
+    }
+
 }

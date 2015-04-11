@@ -31,7 +31,7 @@ public class QuadFuelRodMox extends FuelRodUranium {
     }
         
     @Override
-    public void generateHeat() {
+    public double generateHeat() {
         int pulses = countNeutronNeighbors() + 3;
         int heat = 8 * pulses * (pulses + 1);
         final Reactor parentReactor = getParent();
@@ -40,6 +40,7 @@ public class QuadFuelRodMox extends FuelRodUranium {
         }
         handleHeat(heat);
         applyDamage(1.0);
+        return heat;
     }
 
     @Override
@@ -53,6 +54,11 @@ public class QuadFuelRodMox extends FuelRodUranium {
     @Override
     public MaterialsList getMaterials() {
         return MATERIALS;
+    }
+    
+    @Override
+    public int getRodCount() {
+        return 4;
     }
     
 }

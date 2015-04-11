@@ -66,12 +66,12 @@ public class ComponentHeatExchanger extends ReactorComponent {
             heatableNeighbors.add(component);
         }
         // Code adapted from decompiled IC2 code, class ItemReactorHeatSwitch, with permission from Thunderdark.
-        int myHeat = 0;
+        double myHeat = 0.0;
         for (ReactorComponent heatableNeighbor : heatableNeighbors) {
             double mymed = getCurrentHeat() * 100.0 / getMaxHeat();
             double heatablemed = heatableNeighbor.getCurrentHeat() * 100.0 / heatableNeighbor.getMaxHeat();
 
-            int add = (int) (heatableNeighbor.getMaxHeat() / 100.0 * (heatablemed + mymed / 2.0));
+            double add = (int) (heatableNeighbor.getMaxHeat() / 100.0 * (heatablemed + mymed / 2.0));
             if (add > switchSide) {
                 add = switchSide;
             }
@@ -92,9 +92,9 @@ public class ComponentHeatExchanger extends ReactorComponent {
             } else if (Math.round(heatablemed * 10.0) / 10.0 == Math.round(mymed * 10.0) / 10.0) {
                 add = 0;
             }
-            double tempAdd = Math.max(-heatableNeighbor.getCurrentHeat(), add);
-            myHeat -= tempAdd;
-            heatableNeighbor.adjustCurrentHeat(tempAdd);
+            myHeat -= add;
+            add = heatableNeighbor.adjustCurrentHeat(add);
+            myHeat += add;
         }
         adjustCurrentHeat(myHeat);
     }

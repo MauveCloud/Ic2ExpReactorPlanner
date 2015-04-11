@@ -62,7 +62,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         reactor.setComponentAt(finalRow, finalCol, componentToPlace);
                         materialsArea.setText(reactor.getMaterials().toString());
                         maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
-                        temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.3), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
+                        temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
                         SpinnerModel model = heatSpinner.getModel();
                         if (model instanceof SpinnerNumberModel) {
                             ((SpinnerNumberModel)model).setMaximum(reactor.getMaxHeat());
@@ -96,7 +96,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             reactor.setComponentAt(finalRow, finalCol, null);
                             materialsArea.setText(reactor.getMaterials().toString());
                             maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
-                            temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.3), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
+                            temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
                             SpinnerModel model = heatSpinner.getModel();
                             if (model instanceof SpinnerNumberModel) {
                                 ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
@@ -650,7 +650,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         outputArea.setText(null);
         materialsArea.setText(reactor.getMaterials().toString());
         maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
-        temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.3), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
+        temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
         SpinnerModel model = heatSpinner.getModel();
         if (model instanceof SpinnerNumberModel) {
             ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
@@ -716,7 +716,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
         materialsArea.setText(reactor.getMaterials().toString());
         maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
-        temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.3), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
+        temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
         SpinnerModel model = heatSpinner.getModel();
         if (model instanceof SpinnerNumberModel) {
             ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
