@@ -191,6 +191,16 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         containmentReactorPlatingButton = new javax.swing.JToggleButton();
         rshCondensatorButton = new javax.swing.JToggleButton();
         lzhCondensatorButton = new javax.swing.JToggleButton();
+        fuelRodThoriumButton = new javax.swing.JToggleButton();
+        dualFuelRodThoriumButton = new javax.swing.JToggleButton();
+        quadFuelRodThoriumButton = new javax.swing.JToggleButton();
+        coolantCellHelium60kButton = new javax.swing.JToggleButton();
+        coolantCellHelium180kButton = new javax.swing.JToggleButton();
+        coolantCellHelium360kButton = new javax.swing.JToggleButton();
+        coolantCellNak60kButton = new javax.swing.JToggleButton();
+        coolantCellNak180kButton = new javax.swing.JToggleButton();
+        coolantCellNak360kButton = new javax.swing.JToggleButton();
+        iridiumNeutronReflectorButton = new javax.swing.JToggleButton();
         jLabel5 = new javax.swing.JLabel();
         componentHeatSpinner = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
@@ -251,7 +261,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         componentsPanel.setMinimumSize(new java.awt.Dimension(160, 80));
         componentsPanel.setPreferredSize(new java.awt.Dimension(160, 80));
-        componentsPanel.setLayout(new java.awt.GridLayout(4, 7));
+        componentsPanel.setLayout(new java.awt.GridLayout(4, 9));
 
         componentsGroup.add(emptyButton);
         emptyButton.setActionCommand("empty");
@@ -382,6 +392,56 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         lzhCondensatorButton.setActionCommand("lzhCondensator");
         componentsPanel.add(lzhCondensatorButton);
 
+        componentsGroup.add(fuelRodThoriumButton);
+        fuelRodThoriumButton.setToolTipText("Fuel Rod (Thorium)");
+        fuelRodThoriumButton.setActionCommand("fuelRodThorium");
+        componentsPanel.add(fuelRodThoriumButton);
+
+        componentsGroup.add(dualFuelRodThoriumButton);
+        dualFuelRodThoriumButton.setToolTipText("Double Fuel Rod (Thorium)");
+        dualFuelRodThoriumButton.setActionCommand("dualFuelRodThorium");
+        componentsPanel.add(dualFuelRodThoriumButton);
+
+        componentsGroup.add(quadFuelRodThoriumButton);
+        quadFuelRodThoriumButton.setToolTipText("Quad Fuel Rod (Thorium)");
+        quadFuelRodThoriumButton.setActionCommand("quadFuelRodThorium");
+        componentsPanel.add(quadFuelRodThoriumButton);
+
+        componentsGroup.add(coolantCellHelium60kButton);
+        coolantCellHelium60kButton.setToolTipText("60k He Coolant Cell");
+        coolantCellHelium60kButton.setActionCommand("coolantCellHelium60k");
+        componentsPanel.add(coolantCellHelium60kButton);
+
+        componentsGroup.add(coolantCellHelium180kButton);
+        coolantCellHelium180kButton.setToolTipText("180k He Coolant Cell");
+        coolantCellHelium180kButton.setActionCommand("coolantCellHelium180k");
+        componentsPanel.add(coolantCellHelium180kButton);
+
+        componentsGroup.add(coolantCellHelium360kButton);
+        coolantCellHelium360kButton.setToolTipText("360k He Coolant Cell");
+        coolantCellHelium360kButton.setActionCommand("coolantCellHelium360k");
+        componentsPanel.add(coolantCellHelium360kButton);
+
+        componentsGroup.add(coolantCellNak60kButton);
+        coolantCellNak60kButton.setToolTipText("60k NaK Coolant Cell");
+        coolantCellNak60kButton.setActionCommand("coolantCellNak60k");
+        componentsPanel.add(coolantCellNak60kButton);
+
+        componentsGroup.add(coolantCellNak180kButton);
+        coolantCellNak180kButton.setToolTipText("180k NaK Coolant Cell");
+        coolantCellNak180kButton.setActionCommand("coolantCellNak180k");
+        componentsPanel.add(coolantCellNak180kButton);
+
+        componentsGroup.add(coolantCellNak360kButton);
+        coolantCellNak360kButton.setToolTipText("360k NaK Coolant Cell");
+        coolantCellNak360kButton.setActionCommand("coolantCellNak360k");
+        componentsPanel.add(coolantCellNak360kButton);
+
+        componentsGroup.add(iridiumNeutronReflectorButton);
+        iridiumNeutronReflectorButton.setToolTipText("Iridium Neutron Reflector");
+        iridiumNeutronReflectorButton.setActionCommand("iridiumNeutronReflector");
+        componentsPanel.add(iridiumNeutronReflectorButton);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -396,7 +456,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(jLabel5, gridBagConstraints);
 
-        componentHeatSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100000, 1));
+        componentHeatSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 360000, 1));
         componentHeatSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
         componentHeatSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -509,7 +569,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        timeSpinner.setModel(new javax.swing.SpinnerNumberModel(25000, 0, 25000, 1));
+        timeSpinner.setModel(new javax.swing.SpinnerNumberModel(100000, 0, 100000, 1));
         timeSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
         timeSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -550,7 +610,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(heatLabel, gridBagConstraints);
 
-        jSplitPane3.setRightComponent(jPanel1);
+        jSplitPane3.setBottomComponent(jPanel1);
 
         jSplitPane2.setRightComponent(jSplitPane3);
 
@@ -604,7 +664,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             int buttonSize = Math.min(button.getWidth(), button.getHeight());
             if (buttonSize > 2) {
                 final ReactorComponent component = ComponentFactory.getDefaultComponent(button.getActionCommand());
-                if (component != null) {
+                if (component != null && component.getImage() != null) {
                     button.setIcon(new ImageIcon(component.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
                 } else {
                     button.setIcon(null);
@@ -753,20 +813,29 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton coolantCell10kButton;
     private javax.swing.JToggleButton coolantCell30kButton;
     private javax.swing.JToggleButton coolantCell60kButton;
+    private javax.swing.JToggleButton coolantCellHelium180kButton;
+    private javax.swing.JToggleButton coolantCellHelium360kButton;
+    private javax.swing.JToggleButton coolantCellHelium60kButton;
+    private javax.swing.JToggleButton coolantCellNak180kButton;
+    private javax.swing.JToggleButton coolantCellNak360kButton;
+    private javax.swing.JToggleButton coolantCellNak60kButton;
     private javax.swing.JToggleButton coreHeatExchangerButton;
     private javax.swing.JToggleButton dualFuelRodMoxButton;
+    private javax.swing.JToggleButton dualFuelRodThoriumButton;
     private javax.swing.JToggleButton dualFuelRodUraniumButton;
     private javax.swing.JToggleButton emptyButton;
     private javax.swing.JRadioButton euReactorRadio;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JRadioButton fluidReactorRadio;
     private javax.swing.JToggleButton fuelRodMoxButton;
+    private javax.swing.JToggleButton fuelRodThoriumButton;
     private javax.swing.JToggleButton fuelRodUraniumButton;
     private javax.swing.JToggleButton heatCapacityReactorPlatingButton;
     private javax.swing.JToggleButton heatExchangerButton;
     private javax.swing.JLabel heatLabel;
     private javax.swing.JSpinner heatSpinner;
     private javax.swing.JToggleButton heatVentButton;
+    private javax.swing.JToggleButton iridiumNeutronReflectorButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -788,6 +857,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane outputPane;
     private javax.swing.JToggleButton overclockedHeatVentButton;
     private javax.swing.JToggleButton quadFuelRodMoxButton;
+    private javax.swing.JToggleButton quadFuelRodThoriumButton;
     private javax.swing.JToggleButton quadFuelRodUraniumButton;
     private javax.swing.JToggleButton reactorHeatVentButton;
     private javax.swing.JPanel reactorPanel;

@@ -1,7 +1,7 @@
 package Ic2ExpReactorPlanner;
 
 /**
- * Represents a 10k Coolant Cell.
+ * Represents a 60k Coolant Cell.
  * @author Brian McCloud
  */
 public class CoolantCell60k extends ReactorComponent {

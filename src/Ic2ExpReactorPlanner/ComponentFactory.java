@@ -44,7 +44,18 @@ public class ComponentFactory {
         {"heatCapacityReactorPlating", new HeatCapacityReactorPlating()},
         {"containmentReactorPlating", new ContainmentReactorPlating()},
         {"rshCondensator", new RshCondensator()},
-        {"lzhCondensator", new LzhCondensator()},        
+        {"lzhCondensator", new LzhCondensator()}, 
+        {"fuelRodThorium", new FuelRodThorium()},
+        {"dualFuelRodThorium", new DualFuelRodThorium()},
+        {"quadFuelRodThorium", new QuadFuelRodThorium()},
+        {"coolantCellHelium60k", new CoolantCell60kHelium()},
+        {"coolantCellHelium180k", new CoolantCell180kHelium()},
+        {"coolantCellHelium360k", new CoolantCell360kHelium()},
+        {"coolantCellNak60k", new CoolantCell60kNak()},
+        {"coolantCellNak180k", new CoolantCell180kNak()},
+        {"coolantCellNak360k", new CoolantCell360kNak()},
+        {"iridiumNeutronReflector", new IridiumNeutronReflector()},
+        
     };
     
     /**

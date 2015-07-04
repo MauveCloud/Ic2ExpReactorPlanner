@@ -36,11 +36,28 @@ public class TextureFactory {
                         return entryImage;
                     }
                 }
+                entry = zip.getEntry("assets/gregtech/textures/items/" + imageName);
+                if (entry != null) {
+                    InputStream entryStream = zip.getInputStream(entry);
+                    BufferedImage entryImage = ImageIO.read(entryStream);
+                    if (entryImage != null) {
+                        return entryImage;
+                    }
+                }
             } catch (IOException ex) {
                 Logger.getLogger(TextureFactory.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         InputStream stream = TextureFactory.class.getResourceAsStream("/assets/ic2/textures/items/" + imageName);
+        if (stream != null) {
+            try {
+                BufferedImage image = ImageIO.read(stream);
+                return image;
+            } catch (IOException ex) {
+                Logger.getLogger(TextureFactory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        stream = TextureFactory.class.getResourceAsStream("/assets/gregtech/textures/items/" + imageName);
         if (stream != null) {
             try {
                 BufferedImage image = ImageIO.read(stream);
