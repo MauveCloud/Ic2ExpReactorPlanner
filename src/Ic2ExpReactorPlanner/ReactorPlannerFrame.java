@@ -81,7 +81,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             }
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
                         }
-                        refreshSimulationButtonActionPerformed(null);
                         changingCode = true;
                         codeField.setText(reactor.getCode());
                         changingCode = false;
@@ -104,7 +103,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             reactorButtons[finalRow][finalCol].setIcon(null);
                             reactorButtons[finalRow][finalCol].setToolTipText(null);
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
-                            refreshSimulationButtonActionPerformed(null);
                             changingCode = true;
                             codeField.setText(reactor.getCode());
                             changingCode = false;
@@ -207,7 +205,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         euReactorRadio = new javax.swing.JRadioButton();
         fluidReactorRadio = new javax.swing.JRadioButton();
         clearGridButton = new javax.swing.JButton();
-        refrfeshSimulationButton = new javax.swing.JButton();
+        simulateButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         heatSpinner = new javax.swing.JSpinner();
         maxHeatLabel = new javax.swing.JLabel();
@@ -510,17 +508,17 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
         jPanel1.add(clearGridButton, gridBagConstraints);
 
-        refrfeshSimulationButton.setText("Refresh Simulation");
-        refrfeshSimulationButton.addActionListener(new java.awt.event.ActionListener() {
+        simulateButton.setText("Simulate");
+        simulateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshSimulationButtonActionPerformed(evt);
+                simulateButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
-        jPanel1.add(refrfeshSimulationButton, gridBagConstraints);
+        jPanel1.add(simulateButton, gridBagConstraints);
 
         jLabel1.setText("Initial Reactor Heat:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -720,7 +718,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         changingCode = false;
     }//GEN-LAST:event_clearGridButtonActionPerformed
 
-    private void refreshSimulationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshSimulationButtonActionPerformed
+    private void simulateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulateButtonActionPerformed
         SpinnerModel model = heatSpinner.getModel();
         if (model instanceof SpinnerNumberModel) {
             ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
@@ -738,16 +736,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         tempReactor.setFluid(reactor.isFluid());
         simulator = new Simulator(tempReactor, outputArea, reactorButtons, initialHeat, ((Number)timeSpinner.getValue()).intValue(), ((Number)nuclearControlSpinner.getValue()).intValue());
         simulator.execute();
-    }//GEN-LAST:event_refreshSimulationButtonActionPerformed
+    }//GEN-LAST:event_simulateButtonActionPerformed
 
     private void euReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_euReactorRadioActionPerformed
         reactor.setFluid(false);
-        refreshSimulationButtonActionPerformed(null);
     }//GEN-LAST:event_euReactorRadioActionPerformed
 
     private void fluidReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fluidReactorRadioActionPerformed
         reactor.setFluid(true);
-        refreshSimulationButtonActionPerformed(null);
     }//GEN-LAST:event_fluidReactorRadioActionPerformed
     
     private Simulator simulator;
@@ -781,7 +777,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (model instanceof SpinnerNumberModel) {
             ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
         }
-        refreshSimulationButtonActionPerformed(null);
     }
     
     /**
@@ -863,10 +858,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JPanel reactorPanel;
     private javax.swing.JToggleButton reactorPlatingButton;
     private javax.swing.ButtonGroup reactorStyleGroup;
-    private javax.swing.JButton refrfeshSimulationButton;
     private javax.swing.JMenuItem resourcePackItem;
     private javax.swing.JToggleButton rshCondensatorButton;
     private javax.swing.JLabel secondsLabel;
+    private javax.swing.JButton simulateButton;
     private javax.swing.JPanel temperatureAndComponentsPanel;
     private javax.swing.JLabel temperatureEffectsLabel;
     private javax.swing.JToggleButton thickNeutronReflectorButton;

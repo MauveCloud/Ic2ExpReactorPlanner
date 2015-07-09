@@ -47,3 +47,4 @@ private
 .project
 .settings
 composer.lock
+nbproject/private/private.xml
