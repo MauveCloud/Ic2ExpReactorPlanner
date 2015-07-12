@@ -4,6 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/GitHub/Ic2ExpReactorPlanner/src/Ic2ExpReactorPlanner/ReactorPlannerFrame.java</file>
+            <file>file:/E:/GitHub/Ic2ExpReactorPlanner/src/Ic2ExpReactorPlanner/PulsedSimulator.java</file>
+            <file>file:/E:/GitHub/Ic2ExpReactorPlanner/src/Ic2ExpReactorPlanner/SimpleSimulator.java</file>
             <file>file:/E:/GitHub/Ic2ExpReactorPlanner/src/Ic2ExpReactorPlanner/Reactor.java</file>
             <file>file:/E:/GitHub/Ic2ExpReactorPlanner/src/Ic2ExpReactorPlanner/ReactorComponent.java</file>
         </group>

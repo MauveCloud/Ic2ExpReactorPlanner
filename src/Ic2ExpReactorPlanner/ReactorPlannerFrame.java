@@ -6,7 +6,12 @@
 package Ic2ExpReactorPlanner;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
@@ -21,13 +26,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -42,6 +52,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private final JButton[][] reactorButtons = new JButton[6][9];
     
+    private final JPanel[][] reactorButtonPanels = new JPanel[6][9];
+    
     private boolean changingCode = false;
     
     /**
@@ -53,6 +65,41 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             final int finalRow = row;
             for (int col = 0; col < reactorButtons[row].length; col++) {
                 final int finalCol = col;
+                reactorButtonPanels[row][col] = new JPanel();
+                reactorButtonPanels[row][col].setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.lightGray, Color.darkGray));
+                reactorButtonPanels[row][col].setLayout(new GridBagLayout());
+                GridBagConstraints constraints = new GridBagConstraints();
+                constraints.weightx = 0;
+                constraints.weighty = 0;
+                reactorButtonPanels[row][col].add(new JLabel(), constraints);
+                constraints.gridwidth = GridBagConstraints.REMAINDER;
+                constraints.anchor = GridBagConstraints.EAST;
+                JButton infoButton = new JButton("i");
+                infoButton.setFont(Font.decode("Arial 10"));
+                infoButton.setMargin(new Insets(-2, 0, -2, 0));
+                infoButton.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (simulatedReactor != null) {
+                            final ReactorComponent component = simulatedReactor.getComponentAt(finalRow, finalCol);
+                            if (component == null) {
+                                componentArea.setText("No component here during last simulation.");
+                            } else {
+                                componentArea.setText(String.format("%s at row %d column %d\n%s", component.toString(), finalRow, finalCol, component.info));
+                            }
+                        } else {
+                            componentArea.setText("No simulation run yet.");
+                        }
+                        outputTabs.setSelectedIndex(2);
+                    }
+                });
+                infoButton.setToolTipText("Click for information about this component");
+                reactorButtonPanels[row][col].add(infoButton, constraints);
+                constraints.weightx = 1.0;
+                constraints.weighty = 1.0;
+                constraints.fill = GridBagConstraints.BOTH;
+                constraints.gridwidth = 2;
                 reactorButtons[row][col] = new JButton();
                 reactorButtons[row][col].addActionListener(new ActionListener() {
 
@@ -120,7 +167,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 reactorButtons[row][col].setContentAreaFilled(false);
                 reactorButtons[row][col].setOpaque(true);
                 reactorButtons[row][col].setBackground(Color.LIGHT_GRAY);
-                reactorPanel.add(reactorButtons[row][col]);
+                reactorButtonPanels[row][col].add(reactorButtons[row][col], constraints);
+                reactorPanel.add(reactorButtonPanels[row][col]);
             }
         }
         codeField.getDocument().addDocumentListener(new DocumentListener() {
@@ -163,6 +211,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         componentsGroup = new javax.swing.ButtonGroup();
         reactorStyleGroup = new javax.swing.ButtonGroup();
+        pulseTypeGroup = new javax.swing.ButtonGroup();
         jSplitPane1 = new javax.swing.JSplitPane();
         jSplitPane2 = new javax.swing.JSplitPane();
         reactorPanel = new javax.swing.JPanel();
@@ -220,17 +269,28 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         codeField = new javax.swing.JTextField();
         copyCodeButton = new javax.swing.JButton();
         pasteCodeButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        timeSpinner = new javax.swing.JSpinner();
-        secondsLabel = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        nuclearControlSpinner = new javax.swing.JSpinner();
-        heatLabel = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jLabel6 = new javax.swing.JLabel();
+        simulationStyleCombo = new javax.swing.JComboBox();
+        outputTabs = new javax.swing.JTabbedPane();
         outputPane = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         materialsArea = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        componentArea = new javax.swing.JTextArea();
+        pulsePanel = new javax.swing.JPanel();
+        timeRadio = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        onPulseSpinner = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        offPulseSpinner = new javax.swing.JSpinner();
+        jLabel8 = new javax.swing.JLabel();
+        tempRadio = new javax.swing.JRadioButton();
+        jLabel9 = new javax.swing.JLabel();
+        suspendTempSpinner = new javax.swing.JSpinner();
+        jLabel10 = new javax.swing.JLabel();
+        resumeTempSpinner = new javax.swing.JSpinner();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         resourcePackItem = new javax.swing.JMenuItem();
@@ -488,6 +548,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
+        gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(euReactorRadio, gridBagConstraints);
 
@@ -592,54 +653,19 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(pasteCodeButton, gridBagConstraints);
 
-        jLabel3.setText("Stop redstone signal after:");
+        jLabel6.setText("Simulation Style:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel1.add(jLabel3, gridBagConstraints);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weighty = 0.5;
+        jPanel1.add(jLabel6, gridBagConstraints);
 
-        timeSpinner.setModel(new javax.swing.SpinnerNumberModel(100000, 0, 100000, 1));
-        timeSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
-        timeSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(timeSpinner, gridBagConstraints);
-
-        secondsLabel.setText("seconds");
+        simulationStyleCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Simple Cycle", "Pulsed Cycle" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel1.add(secondsLabel, gridBagConstraints);
-
-        jLabel4.setText("Or if reactor heat reaches:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel1.add(jLabel4, gridBagConstraints);
-
-        nuclearControlSpinner.setModel(new javax.swing.SpinnerNumberModel(120000, 0, 120000, 1));
-        nuclearControlSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
-        nuclearControlSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(nuclearControlSpinner, gridBagConstraints);
-
-        heatLabel.setText("heat");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel1.add(heatLabel, gridBagConstraints);
+        jPanel1.add(simulationStyleCombo, gridBagConstraints);
 
         jSplitPane3.setBottomComponent(jPanel1);
 
@@ -652,16 +678,102 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         outputArea.setRows(5);
         outputPane.setViewportView(outputArea);
 
-        jTabbedPane1.addTab("Simulation", outputPane);
+        outputTabs.addTab("Simulation", outputPane);
 
         materialsArea.setEditable(false);
         materialsArea.setColumns(20);
         materialsArea.setRows(5);
         jScrollPane2.setViewportView(materialsArea);
 
-        jTabbedPane1.addTab("Materials", jScrollPane2);
+        outputTabs.addTab("Materials", jScrollPane2);
 
-        jSplitPane1.setRightComponent(jTabbedPane1);
+        componentArea.setColumns(20);
+        componentArea.setRows(5);
+        jScrollPane1.setViewportView(componentArea);
+
+        outputTabs.addTab("Component", jScrollPane1);
+
+        pulsePanel.setLayout(new java.awt.GridBagLayout());
+
+        pulseTypeGroup.add(timeRadio);
+        timeRadio.setSelected(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(timeRadio, gridBagConstraints);
+
+        jLabel3.setText("On-pulse duration:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel3, gridBagConstraints);
+
+        onPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(30, 0, 1000, 1));
+        onPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
+        onPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(onPulseSpinner, gridBagConstraints);
+
+        jLabel4.setText("seconds");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel4, gridBagConstraints);
+
+        jLabel7.setText("Off-pulse duration:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 12, 2, 2);
+        pulsePanel.add(jLabel7, gridBagConstraints);
+
+        offPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(30, 0, 1000, 1));
+        offPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
+        offPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(offPulseSpinner, gridBagConstraints);
+
+        jLabel8.setText("seconds");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel8, gridBagConstraints);
+
+        pulseTypeGroup.add(tempRadio);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(tempRadio, gridBagConstraints);
+
+        jLabel9.setText("Suspend when reactor temp >=");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel9, gridBagConstraints);
+
+        suspendTempSpinner.setModel(new javax.swing.SpinnerNumberModel(8400, 0, 100000, 1));
+        suspendTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
+        suspendTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(suspendTempSpinner, gridBagConstraints);
+
+        jLabel10.setText("Resume when reactor temp <=");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 12, 2, 2);
+        pulsePanel.add(jLabel10, gridBagConstraints);
+
+        resumeTempSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100000, 1));
+        resumeTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
+        resumeTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(resumeTempSpinner, gridBagConstraints);
+
+        outputTabs.addTab("Pulse Configuration", pulsePanel);
+
+        jSplitPane1.setRightComponent(outputTabs);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -764,12 +876,44 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (value instanceof Number) {
             initialHeat = ((Number) value).intValue();
         }
-        Reactor tempReactor = new Reactor();
-        tempReactor.setCode(reactor.getCode());
-        tempReactor.setFluid(reactor.isFluid());
-        simulator = new Simulator(tempReactor, outputArea, reactorButtons, initialHeat, ((Number)timeSpinner.getValue()).intValue(), ((Number)nuclearControlSpinner.getValue()).intValue());
-        simulator.execute();
+        simulatedReactor = new Reactor();
+        simulatedReactor.setCode(reactor.getCode());
+        simulatedReactor.setFluid(reactor.isFluid());
+        outputTabs.setSelectedIndex(0);
+        if ("Simple Cycle".equals(simulationStyleCombo.getSelectedItem().toString())) {
+            simulator = new SimpleSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat);
+            simulator.execute();
+        } else if ("Pulsed Cycle".equals(simulationStyleCombo.getSelectedItem().toString())) {
+            int onPulseDuration = 30;
+            int offPulseDuration = 30;
+            int suspendTemp = 8400;
+            int resumeTemp = 0;
+            value = onPulseSpinner.getValue();
+            if (value instanceof Number) {
+                onPulseDuration = ((Number) value).intValue();
+            }
+            value = offPulseSpinner.getValue();
+            if (value instanceof Number) {
+                offPulseDuration = ((Number) value).intValue();
+            }
+            value = suspendTempSpinner.getValue();
+            if (value instanceof Number) {
+                suspendTemp = ((Number) value).intValue();
+            }
+            value = resumeTempSpinner.getValue();
+            if (value instanceof Number) {
+                resumeTemp = ((Number) value).intValue();
+            }
+            simulator = new PulsedSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat, tempRadio.isSelected(), onPulseDuration, offPulseDuration, suspendTemp, resumeTemp);
+            simulator.execute();
+        }
+        
     }//GEN-LAST:event_simulateButtonActionPerformed
+    
+    /**
+     * The reactor that was last simulated.
+     */
+    private Reactor simulatedReactor = null;
 
     private void euReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_euReactorRadioActionPerformed
         reactor.setFluid(false);
@@ -793,7 +937,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pasteCodeButtonActionPerformed
     
-    private Simulator simulator;
+    private SwingWorker<Void, String> simulator;
 
     private void updateReactorButtons() {
         for (int row = 0; row < reactorButtons.length; row++) {
@@ -846,6 +990,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton advancedHeatVentButton;
     private javax.swing.JButton clearGridButton;
     private javax.swing.JTextField codeField;
+    private javax.swing.JTextArea componentArea;
     private javax.swing.JToggleButton componentHeatExchangerButton;
     private javax.swing.JSpinner componentHeatSpinner;
     private javax.swing.JToggleButton componentHeatVentButton;
@@ -875,31 +1020,39 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton fuelRodUraniumButton;
     private javax.swing.JToggleButton heatCapacityReactorPlatingButton;
     private javax.swing.JToggleButton heatExchangerButton;
-    private javax.swing.JLabel heatLabel;
     private javax.swing.JSpinner heatSpinner;
     private javax.swing.JToggleButton heatVentButton;
     private javax.swing.JToggleButton iridiumNeutronReflectorButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton lzhCondensatorButton;
     private javax.swing.JTextArea materialsArea;
     private javax.swing.JLabel maxHeatLabel;
     private javax.swing.JToggleButton neutronReflectorButton;
-    private javax.swing.JSpinner nuclearControlSpinner;
+    private javax.swing.JSpinner offPulseSpinner;
+    private javax.swing.JSpinner onPulseSpinner;
     private javax.swing.JTextArea outputArea;
     private javax.swing.JScrollPane outputPane;
+    private javax.swing.JTabbedPane outputTabs;
     private javax.swing.JToggleButton overclockedHeatVentButton;
     private javax.swing.JButton pasteCodeButton;
+    private javax.swing.JPanel pulsePanel;
+    private javax.swing.ButtonGroup pulseTypeGroup;
     private javax.swing.JToggleButton quadFuelRodMoxButton;
     private javax.swing.JToggleButton quadFuelRodThoriumButton;
     private javax.swing.JToggleButton quadFuelRodUraniumButton;
@@ -908,12 +1061,15 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton reactorPlatingButton;
     private javax.swing.ButtonGroup reactorStyleGroup;
     private javax.swing.JMenuItem resourcePackItem;
+    private javax.swing.JSpinner resumeTempSpinner;
     private javax.swing.JToggleButton rshCondensatorButton;
-    private javax.swing.JLabel secondsLabel;
     private javax.swing.JButton simulateButton;
+    private javax.swing.JComboBox simulationStyleCombo;
+    private javax.swing.JSpinner suspendTempSpinner;
+    private javax.swing.JRadioButton tempRadio;
     private javax.swing.JPanel temperatureAndComponentsPanel;
     private javax.swing.JLabel temperatureEffectsLabel;
     private javax.swing.JToggleButton thickNeutronReflectorButton;
-    private javax.swing.JSpinner timeSpinner;
+    private javax.swing.JRadioButton timeRadio;
     // End of variables declaration//GEN-END:variables
 }

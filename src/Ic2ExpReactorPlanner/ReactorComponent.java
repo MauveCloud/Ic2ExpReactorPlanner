@@ -38,6 +38,11 @@ public class ReactorComponent {
     protected double currentCellCooling = 0.0;
     
     /**
+     * Information about this component from the last simulation.
+     */
+    public String info = "";
+    
+    /**
      * Get the image to show in the planner for this component.
      * @return the image.
      */
