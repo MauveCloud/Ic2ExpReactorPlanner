@@ -7,11 +7,18 @@ package Ic2ExpReactorPlanner;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonModel;
@@ -211,6 +218,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         maxHeatLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         codeField = new javax.swing.JTextField();
+        copyCodeButton = new javax.swing.JButton();
+        pasteCodeButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         timeSpinner = new javax.swing.JSpinner();
         secondsLabel = new javax.swing.JLabel();
@@ -559,6 +568,30 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(codeField, gridBagConstraints);
 
+        copyCodeButton.setText("Copy Code");
+        copyCodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copyCodeButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel1.add(copyCodeButton, gridBagConstraints);
+
+        pasteCodeButton.setText("Paste Code");
+        pasteCodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pasteCodeButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel1.add(pasteCodeButton, gridBagConstraints);
+
         jLabel3.setText("Stop redstone signal after:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 2;
@@ -745,6 +778,20 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private void fluidReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fluidReactorRadioActionPerformed
         reactor.setFluid(true);
     }//GEN-LAST:event_fluidReactorRadioActionPerformed
+
+    private void copyCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyCodeButtonActionPerformed
+        StringSelection selection = new StringSelection(codeField.getText());
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
+    }//GEN-LAST:event_copyCodeButtonActionPerformed
+
+    private void pasteCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasteCodeButtonActionPerformed
+        try {
+            String code = Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor).toString();
+            codeField.setText(code);
+        } catch (UnsupportedFlavorException | IOException ex) {
+            Logger.getLogger(ReactorPlannerFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_pasteCodeButtonActionPerformed
     
     private Simulator simulator;
 
@@ -814,6 +861,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton coolantCellNak180kButton;
     private javax.swing.JToggleButton coolantCellNak360kButton;
     private javax.swing.JToggleButton coolantCellNak60kButton;
+    private javax.swing.JButton copyCodeButton;
     private javax.swing.JToggleButton coreHeatExchangerButton;
     private javax.swing.JToggleButton dualFuelRodMoxButton;
     private javax.swing.JToggleButton dualFuelRodThoriumButton;
@@ -851,6 +899,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea outputArea;
     private javax.swing.JScrollPane outputPane;
     private javax.swing.JToggleButton overclockedHeatVentButton;
+    private javax.swing.JButton pasteCodeButton;
     private javax.swing.JToggleButton quadFuelRodMoxButton;
     private javax.swing.JToggleButton quadFuelRodThoriumButton;
     private javax.swing.JToggleButton quadFuelRodUraniumButton;

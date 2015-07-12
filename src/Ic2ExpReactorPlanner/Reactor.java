@@ -5,6 +5,8 @@
  */
 package Ic2ExpReactorPlanner;
 
+import javax.swing.JOptionPane;
+
 /**
  * Represents an IndustrialCraft2 Nuclear Reactor.
  * @author Brian McCloud
@@ -180,7 +182,7 @@ public class Reactor {
      * Sets a code to configure the entire grid all at once.  Expects the code to have originally been output by getCode().
      * @param code the code of the reactor setup to use.
      */
-    public void setCode(String code) {
+    public void setCode(final String code) {
         int pos = 0;
         int[][] ids = new int[grid.length][grid[0].length];
         char[][] paramTypes = new char[grid.length][grid[0].length];
@@ -190,7 +192,6 @@ public class Reactor {
                 for (int row = 0; row < grid.length; row++) {
                     for (int col = 0; col < grid[row].length; col++) {
                         ids[row][col] = Integer.parseInt(code.substring(pos, pos + 2), 16);
-//                    setComponentAt(row, col, ComponentFactory.createComponent(id));
                         pos += 2;
                         if (pos < code.length() && code.charAt(pos) == '(') {
                             paramTypes[row][col] = code.charAt(pos + 1);
@@ -216,6 +217,153 @@ public class Reactor {
                 }
             } catch (Exception e) {
                 e.printStackTrace(System.err);
+            }
+        } else {
+            String tempCode = code;
+            if (code.startsWith("http://www.talonfiremage.pwp.blueyonder.co.uk/v3/reactorplanner.html?")) {
+                tempCode = code.replace("http://www.talonfiremage.pwp.blueyonder.co.uk/v3/reactorplanner.html?", "");
+            }
+            if (tempCode.matches("[0-9a-z]+")) {
+                StringBuilder warnings = new StringBuilder(500);
+                // Possibly a code from Talonius's old planner
+                TaloniusDecoder decoder = new TaloniusDecoder(tempCode);
+                // initial heat, ignored by new planner.
+                decoder.readInt(10);
+                // reactor grid
+                for (int x = 8; x >= 0; x--) {
+                    for (int y = 5; y >= 0; y--) {
+                        int nextValue = decoder.readInt(7);
+
+                        // items are no longer stackable in IC2 reactors, but stack sizes from the planner code still need to be handled
+                        if (nextValue > 64) {
+                            nextValue = decoder.readInt(7);
+                        }
+
+                        switch (nextValue) {
+                            case 0:
+                                setComponentAt(y, x, null);
+                                break;
+                            case 1:
+                                setComponentAt(y, x, new FuelRodUranium());
+                                break;
+                            case 2:
+                                setComponentAt(y, x, new DualFuelRodUranium());
+                                break;
+                            case 3:
+                                setComponentAt(y, x, new QuadFuelRodUranium());
+                                break;
+                            case 4:
+                                warnings.append(String.format("Obsolete component (depleted isotope cell) at row %d column %d removed.\n", y, x));
+                                break;
+                            case 5:
+                                setComponentAt(y, x, new NeutronReflector());
+                                break;
+                            case 6:
+                                setComponentAt(y, x, new ThickNeutronReflector());
+                                break;
+                            case 7:
+                                setComponentAt(y, x, new HeatVent());
+                                break;
+                            case 8:
+                                setComponentAt(y, x, new ReactorHeatVent());
+                                break;
+                            case 9:
+                                setComponentAt(y, x, new OverclockedHeatVent());
+                                break;
+                            case 10:
+                                setComponentAt(y, x, new AdvancedHeatVent());
+                                break;
+                            case 11:
+                                setComponentAt(y, x, new ComponentHeatVent());
+                                break;
+                            case 12:
+                                setComponentAt(y, x, new RshCondensator());
+                                break;
+                            case 13:
+                                setComponentAt(y, x, new LzhCondensator());
+                                break;
+                            case 14:
+                                setComponentAt(y, x, new HeatExchanger());
+                                break;
+                            case 15:
+                                setComponentAt(y, x, new ReactorHeatExchanger());
+                                break;
+                            case 16:
+                                setComponentAt(y, x, new ComponentHeatExchanger());
+                                break;
+                            case 17:
+                                setComponentAt(y, x, new AdvancedHeatExchanger());
+                                break;
+                            case 18:
+                                setComponentAt(y, x, new ReactorPlating());
+                                break;
+                            case 19:
+                                setComponentAt(y, x, new HeatCapacityReactorPlating());
+                                break;
+                            case 20:
+                                setComponentAt(y, x, new ContainmentReactorPlating());
+                                break;
+                            case 21:
+                                setComponentAt(y, x, new CoolantCell10k());
+                                break;
+                            case 22:
+                                setComponentAt(y, x, new CoolantCell30k());
+                                break;
+                            case 23:
+                                setComponentAt(y, x, new CoolantCell60k());
+                                break;
+                            case 24:
+                                warnings.append(String.format("Obsolete component (heating cell) at row %d column %d removed.\n", y, x));
+                                break;
+                            case 32:
+                                setComponentAt(y, x, new FuelRodThorium());
+                                break;
+                            case 33:
+                                setComponentAt(y, x, new DualFuelRodThorium());
+                                break;
+                            case 34:
+                                setComponentAt(y, x, new QuadFuelRodThorium());
+                                break;
+                            case 35:
+                                warnings.append(String.format("Obsolete component (plutonium cell) at row %d column %d removed.\n", y, x));
+                                break;
+                            case 36:
+                                warnings.append(String.format("Obsolete component (dual plutonium cell) at row %d column %d removed.\n", y, x));
+                                break;
+                            case 37:
+                                warnings.append(String.format("Obsolete component (quad plutonium cell) at row %d column %d removed.\n", y, x));
+                                break;
+                            case 38:
+                                setComponentAt(y, x, new IridiumNeutronReflector());
+                                break;
+                            case 39:
+                                setComponentAt(y, x, new CoolantCell60kHelium());
+                                break;
+                            case 40:
+                                setComponentAt(y, x, new CoolantCell180kHelium());
+                                break;
+                            case 41:
+                                setComponentAt(y, x, new CoolantCell360kHelium());
+                                break;
+                            case 42:
+                                setComponentAt(y, x, new CoolantCell60kNak());
+                                break;
+                            case 43:
+                                setComponentAt(y, x, new CoolantCell180kNak());
+                                break;
+                            case 44:
+                                setComponentAt(y, x, new CoolantCell360kNak());
+                                break;
+                            default:
+                                warnings.append(String.format("Unrecognized component (id %d) at row %d column %d removed.\n", nextValue, y, x));
+                                break;
+                        }
+                    }
+                }
+                if (warnings.length() > 0) {
+                    warnings.setLength(warnings.length() - 1);  // to remove last newline character
+                    JOptionPane.showMessageDialog(null, warnings, "Warning(s)", JOptionPane.WARNING_MESSAGE);
+                }
             }
         }
     }
