@@ -61,6 +61,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
      */
     public ReactorPlannerFrame() {
         initComponents();
+        for (int i = 1; i < ComponentFactory.getComponentCount(); i++) {
+            automationComponentCombo.addItem(ComponentFactory.getDefaultComponent(i).toString());
+        }
         for (int row = 0; row < reactorButtons.length; row++) {
             final int finalRow = row;
             for (int col = 0; col < reactorButtons[row].length; col++) {
@@ -291,6 +294,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         suspendTempSpinner = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
         resumeTempSpinner = new javax.swing.JSpinner();
+        automationPanel = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        automationComponentCombo = new javax.swing.JComboBox<String>();
+        jLabel12 = new javax.swing.JLabel();
+        temperatureThresholdSpinner = new javax.swing.JSpinner();
+        jLabel13 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         resourcePackItem = new javax.swing.JMenuItem();
@@ -660,7 +669,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.weighty = 0.5;
         jPanel1.add(jLabel6, gridBagConstraints);
 
-        simulationStyleCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Simple Cycle", "Pulsed Cycle" }));
+        simulationStyleCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Simple Cycle", "Pulsed Cycle", "Continuous Automation" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -773,6 +782,47 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         outputTabs.addTab("Pulse Configuration", pulsePanel);
 
+        automationPanel.setLayout(new java.awt.GridBagLayout());
+
+        jLabel11.setText("Component type to replace:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        automationPanel.add(jLabel11, gridBagConstraints);
+
+        automationComponentCombo.setMinimumSize(new java.awt.Dimension(200, 20));
+        automationComponentCombo.setPreferredSize(new java.awt.Dimension(200, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        automationPanel.add(automationComponentCombo, gridBagConstraints);
+
+        jLabel12.setText("Temperature Threshold:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        automationPanel.add(jLabel12, gridBagConstraints);
+
+        temperatureThresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, 360000, 1));
+        temperatureThresholdSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
+        temperatureThresholdSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        automationPanel.add(temperatureThresholdSpinner, gridBagConstraints);
+
+        jLabel13.setText("(Set higher than component's initial heat to replace the component when it gets this hot, or lower to replace a component that has cooled)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        automationPanel.add(jLabel13, gridBagConstraints);
+
+        outputTabs.addTab("Automation Configuration", automationPanel);
+
         jSplitPane1.setRightComponent(outputTabs);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -847,7 +897,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             for (int j = 0; j < reactorButtons[i].length; j++) {
                 reactorButtons[i][j].setIcon(null);
                 reactorButtons[i][j].setToolTipText(null);
-                reactorButtons[i][j].setBackground(Color.LIGHT_GRAY);
+                reactorButtonPanels[i][j].setBackground(Color.LIGHT_GRAY);
             }
         }
         outputArea.setText(null);
@@ -905,6 +955,22 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 resumeTemp = ((Number) value).intValue();
             }
             simulator = new PulsedSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat, tempRadio.isSelected(), onPulseDuration, offPulseDuration, suspendTemp, resumeTemp);
+            simulator.execute();
+        } else if ("Continuous Automation".equals(simulationStyleCombo.getSelectedItem().toString())) {
+            String replacementComponent = automationComponentCombo.getSelectedItem().toString();
+            int replacementComponentId = 0;
+            for (int i = 1; i < ComponentFactory.getComponentCount(); i++) {
+                if (ComponentFactory.getDefaultComponent(i).toString().equals(replacementComponent)) {
+                    replacementComponentId = i;
+                    break;
+                }
+            }
+            int temperatureThreshold = 9000;
+            value = temperatureThresholdSpinner.getValue();
+            if (value instanceof Number) {
+                temperatureThreshold = ((Number) value).intValue();
+            }
+            simulator = new AutomationSimulator(reactor, outputArea, reactorButtonPanels, initialHeat, replacementComponentId, temperatureThreshold);
             simulator.execute();
         }
         
@@ -988,6 +1054,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton advancedHeatExchangerButton;
     private javax.swing.JToggleButton advancedHeatVentButton;
+    private javax.swing.JComboBox<String> automationComponentCombo;
+    private javax.swing.JPanel automationPanel;
     private javax.swing.JButton clearGridButton;
     private javax.swing.JTextField codeField;
     private javax.swing.JTextArea componentArea;
@@ -1025,6 +1093,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton iridiumNeutronReflectorButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1069,6 +1140,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton tempRadio;
     private javax.swing.JPanel temperatureAndComponentsPanel;
     private javax.swing.JLabel temperatureEffectsLabel;
+    private javax.swing.JSpinner temperatureThresholdSpinner;
     private javax.swing.JToggleButton thickNeutronReflectorButton;
     private javax.swing.JRadioButton timeRadio;
     // End of variables declaration//GEN-END:variables

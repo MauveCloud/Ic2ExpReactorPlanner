@@ -211,7 +211,7 @@ public class ReactorComponent {
     }
 
     /**
-     * Clears the damage back to 0 (used when resetting simulation).
+     * Clears the damage back to 0 (used when resetting simulation, or replacing the component in an automation simulation).
      */
     public final void clearDamage() {
         currentDamage = 0.0;

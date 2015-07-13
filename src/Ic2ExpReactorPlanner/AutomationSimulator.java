@@ -11,7 +11,7 @@ import javax.swing.SwingWorker;
  *
  * @author Brian McCloud
  */
-public class PulsedSimulator extends SwingWorker<Void, String> {
+public class AutomationSimulator extends SwingWorker<Void, String> {
 
     private final Reactor reactor;
     
@@ -30,35 +30,18 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
     private double minHeatOutput = Double.MAX_VALUE;
     
     private double maxHeatOutput = 0.0;
+
+    private final int replacedComponentId;
     
-    private final boolean useTemp;
+    private final int temperatureThreshold;
     
-    private final int onPulseDuration;
-    
-    private final int offPulseDuration;
-    
-    private final int suspendTemp;
-    
-    private final int resumeTemp;
-    
-    private boolean active = true;
-    
-    private int nextOffTime;
-    
-    private int nextOnTime;
-    
-    public PulsedSimulator(final Reactor reactor, final JTextArea output, final JPanel[][] reactorButtonPanels, final int initialHeat, final boolean useTemp, 
-            final int onPulseDuration, final int offPulseDuration, final int suspendTemp, final int resumeTemp) {
+    public AutomationSimulator(final Reactor reactor, final JTextArea output, final JPanel[][] reactorButtonPanels, final int initialHeat, int replacedComponentId, int temperatureThreshold) {
         this.reactor = reactor;
         this.output = output;
         this.reactorButtonPanels = reactorButtonPanels;
         this.initialHeat = initialHeat;
-        this.useTemp = useTemp;
-        this.onPulseDuration = onPulseDuration;
-        this.offPulseDuration = offPulseDuration;
-        this.suspendTemp = suspendTemp;
-        this.resumeTemp = resumeTemp;
-        this.nextOffTime = onPulseDuration;
+        this.replacedComponentId = replacedComponentId;
+        this.temperatureThreshold = temperatureThreshold;
     }
     
     @Override
@@ -67,6 +50,7 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
         int reactorTicks = 0;
         int cooldownTicks = 0;
         int totalRodCount = 0;
+        int replacementCount = 0;
         try {
             publish("");
             publish("Simulation started.\n");
@@ -90,16 +74,11 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                     publish(String.format("R%dC%d:0xC0C0C0", row, col));
                 }
             }
-            if (totalRodCount == 0) {
-                publish("No fuel rods found! Simulating a pulsed cycle makes no sense!");
-                return null;
-            }
             double lastEUoutput = 0.0;
             double totalEUoutput = 0.0;
             double lastHeatOutput = 0.0;
             double totalHeatOutput = 0.0;
             double maxGeneratedHeat = 0.0;
-            boolean allFuelRodsDepleted = false;
             do {
                 reactor.clearEUOutput();
                 reactor.clearVentedHeat();
@@ -111,20 +90,12 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                         }
                     }
                 }
-                if (active) {
-                    allFuelRodsDepleted = true;
-                }
                 double generatedHeat = 0.0;
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
                         ReactorComponent component = reactor.getComponentAt(row, col);
                         if (component != null && !component.isBroken()) {
-                            if (allFuelRodsDepleted && component.getRodCount() > 0) {
-                                allFuelRodsDepleted = false;
-                            }
-                            if (active) {
-                                generatedHeat += component.generateHeat();
-                            }
+                            generatedHeat += component.generateHeat();
                             maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
                             minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
                             component.dissipate();
@@ -157,13 +128,11 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                     }
                 }
                 maxGeneratedHeat = Math.max(generatedHeat, maxGeneratedHeat);
-                if (active) {
-                    for (int row = 0; row < 6; row++) {
-                        for (int col = 0; col < 9; col++) {
-                            ReactorComponent component = reactor.getComponentAt(row, col);
-                            if (component != null && !component.isBroken()) {
-                                component.generateEnergy();
-                            }
+                for (int row = 0; row < 6; row++) {
+                    for (int col = 0; col < 9; col++) {
+                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        if (component != null && !component.isBroken()) {
+                            component.generateEnergy();
                         }
                     }
                 }
@@ -173,33 +142,29 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                 totalHeatOutput += lastHeatOutput;
                 if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
                     reactorTicks++;
-                    if (active) {
-                        if (useTemp) {
-                            if (reactor.getCurrentHeat() >= suspendTemp) {
-                                active = false;
-                            }
-                        } else {
-                            if (reactorTicks == nextOffTime) {
-                                active = false;
-                                nextOnTime = reactorTicks + offPulseDuration;
-                            }
-                        }
-                    } else {
-                        if (useTemp) {
-                            if (reactor.getCurrentHeat() <= resumeTemp) {
-                                active = true;
-                            }
-                        } else {
-                            if (reactorTicks == nextOnTime) {
-                                active = true;
-                                nextOffTime = reactorTicks + onPulseDuration;
-                            }
-                        }
-                    }
                     minEUoutput = Math.min(lastEUoutput, minEUoutput);
                     maxEUoutput = Math.max(lastEUoutput, maxEUoutput);
                     minHeatOutput = Math.min(lastHeatOutput, minHeatOutput);
                     maxHeatOutput = Math.max(lastHeatOutput, maxHeatOutput);
+                }
+                for (int row = 0; row < 6; row++) {
+                    for (int col = 0; col < 9; col++) {
+                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        if (component != null && ComponentFactory.getID(component) == replacedComponentId) {
+                            if (component.getMaxHeat() > 1) {
+                                if (temperatureThreshold > component.getInitialHeat() && component.getCurrentHeat() >= temperatureThreshold) {
+                                    component.clearCurrentHeat();
+                                    replacementCount++;
+                                } else if (temperatureThreshold < component.getInitialHeat() && component.getCurrentHeat() <= temperatureThreshold) {
+                                    component.clearCurrentHeat();
+                                    replacementCount++;
+                                }
+                            } else if (component.isBroken()) {
+                                component.clearDamage();
+                                replacementCount++;
+                            }
+                        }
+                    }
                 }
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
@@ -211,18 +176,28 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                         }
                     }
                 }
-            } while (reactor.getCurrentHeat() <= reactor.getMaxHeat() && (!allFuelRodsDepleted || lastEUoutput > 0 || lastHeatOutput > 0) && reactorTicks < 5000000);
+            } while (reactor.getCurrentHeat() <= reactor.getMaxHeat() && reactorTicks < 5000000);
             publish(String.format("Reactor minimum temperature: %,.2f\n", minReactorHeat));
             publish(String.format("Reactor maximum temperature: %,.2f\n", maxReactorHeat));
             if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
-                publish(String.format("Cycle complete after %,d seconds.\n", reactorTicks));
+                publish(String.format("Reactor ran for %,d seconds without exploding.\n", reactorTicks));
+                if (replacementCount > 0) {
+                    publish(String.format("Components replaced: %,d (every %,d reactor ticks average).\n", replacementCount, reactorTicks / replacementCount));
+                } else {
+                    publish("No components replaced in that duration.\n");
+                }
+                
                 if (reactorTicks > 0) {
                     if (reactor.isFluid()) {
                         publish(String.format("Average heat output: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
-                        publish(String.format("Efficiency: %.2f average, %.2f minimum, %.2f maximum\n", totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
+                        if (totalRodCount > 0) {
+                            publish(String.format("Efficiency: %.2f average, %.2f minimum, %.2f maximum\n", totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
+                        }
                     } else {
                         publish(String.format("Total EU output: %,.0f (%.2f EU/t min, %.2f EU/t max, %.2f EU/t average)\n", totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
-                        publish(String.format("Efficiency: %.2f average, %.2f minimum, %.2f maximum\n", totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
+                        if (totalRodCount > 0) {
+                            publish(String.format("Efficiency: %.2f average, %.2f minimum, %.2f maximum\n", totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
+                        }
                     }
                 }
 
