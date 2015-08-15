@@ -11,7 +11,7 @@ public class HeatCapacityReactorPlating extends ReactorComponent {
      */
     private static final String imageFilename = "reactorPlatingHeat.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 8, "Copper Plate");
+    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 8, "Copper");
     
     /**
      * Creates a new instance.

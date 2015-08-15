@@ -14,7 +14,7 @@ public class ComponentHeatVent extends ReactorComponent {
      */
     private static final String imageFilename = "reactorVentSpread.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 4, "Tin Plate", 4, "Iron Bars");
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 4, "Tin", 3, "Iron");
     
     /**
      * Creates a new instance.

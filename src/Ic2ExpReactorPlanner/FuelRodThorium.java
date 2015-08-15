@@ -14,7 +14,7 @@ public class FuelRodThorium extends ReactorComponent {
      */
     private static final  String imageFilename = "gt.Thoriumcell.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron Plate", "Thorium Dust");
+    public static final MaterialsList MATERIALS = new MaterialsList("Iron", "Thorium");
     
     /**
      * Creates a new instance.
@@ -22,6 +22,7 @@ public class FuelRodThorium extends ReactorComponent {
     public FuelRodThorium() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(50000.0);
+        automationThreshold = 51000;
     }
     
     /**

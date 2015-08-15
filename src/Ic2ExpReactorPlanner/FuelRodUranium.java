@@ -14,7 +14,7 @@ public class FuelRodUranium extends ReactorComponent {
      */
     private static final  String imageFilename = "reactorUraniumSimple.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron Plate", "Enriched Uranium Nuclear Fuel");
+    public static final MaterialsList MATERIALS = new MaterialsList("Iron", "Uranium Fuel");
     
     /**
      * Creates a new instance.
@@ -22,6 +22,7 @@ public class FuelRodUranium extends ReactorComponent {
     public FuelRodUranium() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(20000.0);
+        automationThreshold = 21000;
     }
     
     /**

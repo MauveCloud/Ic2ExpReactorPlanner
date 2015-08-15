@@ -11,7 +11,7 @@ public class OverclockedHeatVent extends ReactorComponent {
      */
     private static final String imageFilename = "reactorVentGold.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(ReactorHeatVent.MATERIALS, 4, "Gold Plate");
+    public static final MaterialsList MATERIALS = new MaterialsList(ReactorHeatVent.MATERIALS, 4, "Gold");
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class OverclockedHeatVent extends ReactorComponent {
     public OverclockedHeatVent() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(1000);
+        automationThreshold = 900;
     }
     
     /**

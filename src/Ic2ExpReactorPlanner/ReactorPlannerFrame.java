@@ -6,7 +6,6 @@
 package Ic2ExpReactorPlanner;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -54,6 +53,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private final JPanel[][] reactorButtonPanels = new JPanel[6][9];
     
+    private int selectedRow = -1;
+    
+    private int selectedColumn = -1;
+    
     private boolean changingCode = false;
     
     /**
@@ -61,9 +64,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
      */
     public ReactorPlannerFrame() {
         initComponents();
-        for (int i = 1; i < ComponentFactory.getComponentCount(); i++) {
-            automationComponentCombo.addItem(ComponentFactory.getDefaultComponent(i).toString());
-        }
         for (int row = 0; row < reactorButtons.length; row++) {
             final int finalRow = row;
             for (int col = 0; col < reactorButtons[row].length; col++) {
@@ -74,6 +74,28 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 GridBagConstraints constraints = new GridBagConstraints();
                 constraints.weightx = 0;
                 constraints.weighty = 0;
+                JButton automationButton = new JButton("a");
+                automationButton.setFont(Font.decode("Arial 10"));
+                automationButton.setMargin(new Insets(-2, 0, -2, 0));
+                automationButton.setToolTipText("Click to define automation rules for this component.");
+                automationButton.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(final ActionEvent e) {
+                        final ReactorComponent component = reactor.getComponentAt(finalRow, finalCol);
+                        selectedRow = finalRow;
+                        selectedColumn = finalCol;
+                        if (component == null) {
+                            selectedComponentLabel.setText(String.format("No component at row %d column %d.", finalRow, finalCol));
+                        } else {
+                            selectedComponentLabel.setText(String.format("%s at row %d column %d\n", component.toString(), finalRow, finalCol));
+                            thresholdSpinner.setValue(component.automationThreshold);
+                            pauseSpinner.setValue(component.reactorPause);
+                        }
+                        outputTabs.setSelectedIndex(4);
+                    }
+                });
+                reactorButtonPanels[row][col].add(automationButton, constraints);
                 reactorButtonPanels[row][col].add(new JLabel(), constraints);
                 constraints.gridwidth = GridBagConstraints.REMAINDER;
                 constraints.anchor = GridBagConstraints.EAST;
@@ -83,11 +105,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 infoButton.addActionListener(new ActionListener() {
 
                     @Override
-                    public void actionPerformed(ActionEvent e) {
+                    public void actionPerformed(final ActionEvent e) {
                         if (simulatedReactor != null) {
                             final ReactorComponent component = simulatedReactor.getComponentAt(finalRow, finalCol);
                             if (component == null) {
-                                componentArea.setText("No component here during last simulation.");
+                                componentArea.setText(String.format("No component at row %d column %d during last simulation.", finalRow, finalCol));
                             } else {
                                 componentArea.setText(String.format("%s at row %d column %d\n%s", component.toString(), finalRow, finalCol, component.info));
                             }
@@ -102,7 +124,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 constraints.weightx = 1.0;
                 constraints.weighty = 1.0;
                 constraints.fill = GridBagConstraints.BOTH;
-                constraints.gridwidth = 2;
+                constraints.gridwidth = GridBagConstraints.REMAINDER;
                 reactorButtons[row][col] = new JButton();
                 reactorButtons[row][col].addActionListener(new ActionListener() {
 
@@ -282,24 +304,25 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         componentArea = new javax.swing.JTextArea();
         pulsePanel = new javax.swing.JPanel();
-        timeRadio = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         onPulseSpinner = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         offPulseSpinner = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
-        tempRadio = new javax.swing.JRadioButton();
+        jLabel11 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         suspendTempSpinner = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
         resumeTempSpinner = new javax.swing.JSpinner();
         automationPanel = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        automationComponentCombo = new javax.swing.JComboBox<String>();
+        selectedComponentLabel = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        temperatureThresholdSpinner = new javax.swing.JSpinner();
+        thresholdSpinner = new javax.swing.JSpinner();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        pauseSpinner = new javax.swing.JSpinner();
+        jLabel15 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         resourcePackItem = new javax.swing.JMenuItem();
@@ -669,7 +692,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.weighty = 0.5;
         jPanel1.add(jLabel6, gridBagConstraints);
 
-        simulationStyleCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Simple Cycle", "Pulsed Cycle", "Continuous Automation" }));
+        simulationStyleCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Simple Cycle", "Pulsed Cycle", "Pulsed Automation" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -704,19 +727,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         pulsePanel.setLayout(new java.awt.GridBagLayout());
 
-        pulseTypeGroup.add(timeRadio);
-        timeRadio.setSelected(true);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(timeRadio, gridBagConstraints);
-
         jLabel3.setText("On-pulse duration:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(jLabel3, gridBagConstraints);
 
-        onPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(30, 0, 1000, 1));
+        onPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(30, 0, 5000000, 1));
         onPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         onPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -734,7 +751,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 12, 2, 2);
         pulsePanel.add(jLabel7, gridBagConstraints);
 
-        offPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(30, 0, 1000, 1));
+        offPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(30, 0, 5000000, 1));
         offPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         offPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -749,10 +766,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(jLabel8, gridBagConstraints);
 
-        pulseTypeGroup.add(tempRadio);
+        jLabel11.setText("(on-pulse can be set to 5 million to mimic having no redstone timing)");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(tempRadio, gridBagConstraints);
+        pulsePanel.add(jLabel11, gridBagConstraints);
 
         jLabel9.setText("Suspend when reactor temp >=");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -784,44 +803,72 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         automationPanel.setLayout(new java.awt.GridBagLayout());
 
-        jLabel11.setText("Component type to replace:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        automationPanel.add(jLabel11, gridBagConstraints);
-
-        automationComponentCombo.setMinimumSize(new java.awt.Dimension(200, 20));
-        automationComponentCombo.setPreferredSize(new java.awt.Dimension(200, 20));
+        selectedComponentLabel.setText("No component selected");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        automationPanel.add(automationComponentCombo, gridBagConstraints);
+        automationPanel.add(selectedComponentLabel, gridBagConstraints);
 
-        jLabel12.setText("Temperature Threshold:");
+        jLabel12.setText("Replacement Threshold:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         automationPanel.add(jLabel12, gridBagConstraints);
 
-        temperatureThresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, 360000, 1));
-        temperatureThresholdSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
-        temperatureThresholdSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
+        thresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, 360000, 1));
+        thresholdSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
+        thresholdSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
+        thresholdSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                thresholdSpinnerStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        automationPanel.add(temperatureThresholdSpinner, gridBagConstraints);
+        automationPanel.add(thresholdSpinner, gridBagConstraints);
 
-        jLabel13.setText("(Set higher than component's initial heat to replace the component when it gets this hot, or lower to replace a component that has cooled)");
+        jLabel13.setText("<html>(Set higher than component's initial heat/damage to replace the component when it gets this hot/damaged, or lower to replace a component that has cooled; broken components will be replaced during automation runs regardless of this setting)</html>");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         automationPanel.add(jLabel13, gridBagConstraints);
 
-        outputTabs.addTab("Automation Configuration", automationPanel);
+        jLabel14.setText("Reactor Pause (seconds):");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        automationPanel.add(jLabel14, gridBagConstraints);
+
+        pauseSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, 10000, 1));
+        pauseSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
+        pauseSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
+        pauseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                pauseSpinnerStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        automationPanel.add(pauseSpinner, gridBagConstraints);
+
+        jLabel15.setText("<html>(This is how long the reactor will pause while replacing this component)</html>");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        automationPanel.add(jLabel15, gridBagConstraints);
+
+        outputTabs.addTab("Component Automation", automationPanel);
 
         jSplitPane1.setRightComponent(outputTabs);
 
@@ -954,23 +1001,30 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             if (value instanceof Number) {
                 resumeTemp = ((Number) value).intValue();
             }
-            simulator = new PulsedSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat, tempRadio.isSelected(), onPulseDuration, offPulseDuration, suspendTemp, resumeTemp);
+            simulator = new PulsedSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat, onPulseDuration, offPulseDuration, suspendTemp, resumeTemp);
             simulator.execute();
-        } else if ("Continuous Automation".equals(simulationStyleCombo.getSelectedItem().toString())) {
-            String replacementComponent = automationComponentCombo.getSelectedItem().toString();
-            int replacementComponentId = 0;
-            for (int i = 1; i < ComponentFactory.getComponentCount(); i++) {
-                if (ComponentFactory.getDefaultComponent(i).toString().equals(replacementComponent)) {
-                    replacementComponentId = i;
-                    break;
-                }
-            }
-            int temperatureThreshold = 9000;
-            value = temperatureThresholdSpinner.getValue();
+        } else if ("Pulsed Automation".equals(simulationStyleCombo.getSelectedItem().toString())) {
+            int onPulseDuration = 30;
+            int offPulseDuration = 30;
+            int suspendTemp = 8400;
+            int resumeTemp = 0;
+            value = onPulseSpinner.getValue();
             if (value instanceof Number) {
-                temperatureThreshold = ((Number) value).intValue();
+                onPulseDuration = ((Number) value).intValue();
             }
-            simulator = new AutomationSimulator(reactor, outputArea, reactorButtonPanels, initialHeat, replacementComponentId, temperatureThreshold);
+            value = offPulseSpinner.getValue();
+            if (value instanceof Number) {
+                offPulseDuration = ((Number) value).intValue();
+            }
+            value = suspendTempSpinner.getValue();
+            if (value instanceof Number) {
+                suspendTemp = ((Number) value).intValue();
+            }
+            value = resumeTempSpinner.getValue();
+            if (value instanceof Number) {
+                resumeTemp = ((Number) value).intValue();
+            }
+            simulator = new AutomationSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat, onPulseDuration, offPulseDuration, suspendTemp, resumeTemp);
             simulator.execute();
         }
         
@@ -1002,6 +1056,20 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             Logger.getLogger(ReactorPlannerFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_pasteCodeButtonActionPerformed
+
+    private void thresholdSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_thresholdSpinnerStateChanged
+        if (selectedColumn >= 0 && selectedRow >= 0 && reactor.getComponentAt(selectedRow, selectedColumn) != null) {
+            ReactorComponent component = reactor.getComponentAt(selectedRow, selectedColumn);
+            component.automationThreshold = ((Number)thresholdSpinner.getValue()).intValue();
+        }
+    }//GEN-LAST:event_thresholdSpinnerStateChanged
+
+    private void pauseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pauseSpinnerStateChanged
+        if (selectedColumn >= 0 && selectedRow >= 0 && reactor.getComponentAt(selectedRow, selectedColumn) != null) {
+            ReactorComponent component = reactor.getComponentAt(selectedRow, selectedColumn);
+            component.reactorPause = ((Number)pauseSpinner.getValue()).intValue();
+        }
+    }//GEN-LAST:event_pauseSpinnerStateChanged
     
     private SwingWorker<Void, String> simulator;
 
@@ -1054,7 +1122,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton advancedHeatExchangerButton;
     private javax.swing.JToggleButton advancedHeatVentButton;
-    private javax.swing.JComboBox<String> automationComponentCombo;
     private javax.swing.JPanel automationPanel;
     private javax.swing.JButton clearGridButton;
     private javax.swing.JTextField codeField;
@@ -1096,6 +1163,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1122,6 +1191,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane outputTabs;
     private javax.swing.JToggleButton overclockedHeatVentButton;
     private javax.swing.JButton pasteCodeButton;
+    private javax.swing.JSpinner pauseSpinner;
     private javax.swing.JPanel pulsePanel;
     private javax.swing.ButtonGroup pulseTypeGroup;
     private javax.swing.JToggleButton quadFuelRodMoxButton;
@@ -1134,14 +1204,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem resourcePackItem;
     private javax.swing.JSpinner resumeTempSpinner;
     private javax.swing.JToggleButton rshCondensatorButton;
+    private javax.swing.JLabel selectedComponentLabel;
     private javax.swing.JButton simulateButton;
     private javax.swing.JComboBox simulationStyleCombo;
     private javax.swing.JSpinner suspendTempSpinner;
-    private javax.swing.JRadioButton tempRadio;
     private javax.swing.JPanel temperatureAndComponentsPanel;
     private javax.swing.JLabel temperatureEffectsLabel;
-    private javax.swing.JSpinner temperatureThresholdSpinner;
     private javax.swing.JToggleButton thickNeutronReflectorButton;
-    private javax.swing.JRadioButton timeRadio;
+    private javax.swing.JSpinner thresholdSpinner;
     // End of variables declaration//GEN-END:variables
 }

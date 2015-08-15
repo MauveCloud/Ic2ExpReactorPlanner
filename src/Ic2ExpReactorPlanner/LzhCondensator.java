@@ -19,6 +19,7 @@ public class LzhCondensator extends ReactorComponent {
     public LzhCondensator() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(100000);
+        automationThreshold = 110000;
     }
     
     /**

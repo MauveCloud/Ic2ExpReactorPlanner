@@ -14,7 +14,7 @@ public class HeatExchanger extends ReactorComponent {
      */
     private static final String imageFilename = "reactorHeatSwitch.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(MaterialsList.ELECTRONIC_CIRCUIT, 3, "Tin Plate", 5, "Copper Plate");
+    public static final MaterialsList MATERIALS = new MaterialsList(MaterialsList.ELECTRONIC_CIRCUIT, 3, "Tin", 5, "Copper");
     
     private static final int switchSide = 12;
     private static final int switchReactor = 4;
@@ -25,6 +25,7 @@ public class HeatExchanger extends ReactorComponent {
     public HeatExchanger() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(2500);
+        automationThreshold = 2250;
     }
     
     /**

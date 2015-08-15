@@ -11,7 +11,7 @@ public class DualFuelRodUranium extends FuelRodUranium {
      */
     private static final String imageFilename = "reactorUraniumDual.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron Plate", 2, FuelRodUranium.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList("Iron", 2, FuelRodUranium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class DualFuelRodUranium extends FuelRodUranium {
     public DualFuelRodUranium() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(20000);
+        automationThreshold = 21000;
     }
     
     /**

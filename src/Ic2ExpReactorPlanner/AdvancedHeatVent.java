@@ -11,7 +11,7 @@ public class AdvancedHeatVent extends ReactorComponent {
      */
     private static final String imageFilename = "reactorVentDiamond.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatVent.MATERIALS, "Diamond", 6, "Iron Bars");
+    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatVent.MATERIALS, "Diamond", 4.5, "Iron");
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class AdvancedHeatVent extends ReactorComponent {
     public AdvancedHeatVent() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(1000);
+        automationThreshold = 900;
     }
     
     /**

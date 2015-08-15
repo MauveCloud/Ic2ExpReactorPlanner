@@ -11,7 +11,7 @@ public class CoolantCell60kNak extends ReactorComponent {
      */
     private static final String imageFilename = "gt.60k_NaK_Coolantcell.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(CoolantCell10k.MATERIALS, 2, "Sodium Dust", 4, "Potassium Dust", 4, "Tin Plate");
+    public static final MaterialsList MATERIALS = new MaterialsList(CoolantCell10k.MATERIALS, 2, "Sodium", 4, "Potassium", 4, "Tin");
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class CoolantCell60kNak extends ReactorComponent {
     public CoolantCell60kNak() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(60000);
+        automationThreshold = 54000;
     }
     
     /**

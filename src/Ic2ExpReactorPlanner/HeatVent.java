@@ -11,7 +11,7 @@ public class HeatVent extends ReactorComponent {
      */
     private static final String imageFilename = "reactorVent.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(4, "Iron Bars", 4, "Iron Plate", 3, "Iron Ingot", 1, "Tin Plate", 16, "Copper Cable");
+    public static final MaterialsList MATERIALS = new MaterialsList(10, "Iron", 1, "Tin", 16.0 / 3, "Copper");
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class HeatVent extends ReactorComponent {
     public HeatVent() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(1000);
+        automationThreshold = 900;
     }
     
     /**

@@ -11,7 +11,7 @@ public class QuadFuelRodThorium extends FuelRodUranium {
      */
     private static final String imageFilename = "gt.Quad_Thoriumcell.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(3, "Iron Plate", 2, "Copper Plate", 4, FuelRodThorium.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(3, "Iron", 2, "Copper", 4, FuelRodThorium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class QuadFuelRodThorium extends FuelRodUranium {
     public QuadFuelRodThorium() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(50000);
+        automationThreshold = 51000;
     }
     
     /**

@@ -11,7 +11,7 @@ public class CoolantCell360kHelium extends ReactorComponent {
      */
     private static final String imageFilename = "gt.360k_Helium_Coolantcell.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(2, CoolantCell180kHelium.MATERIALS, 6, "Tin Plate", "Dense Copper Plate");
+    public static final MaterialsList MATERIALS = new MaterialsList(2, CoolantCell180kHelium.MATERIALS, 6, "Tin", 9, "Copper");
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class CoolantCell360kHelium extends ReactorComponent {
     public CoolantCell360kHelium() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(360000);
+        automationThreshold = 350000;
     }
     
     /**

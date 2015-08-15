@@ -11,7 +11,7 @@ public class DualFuelRodMox extends FuelRodUranium {
      */
     private static final String imageFilename = "reactorMOXDual.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron Plate", 2, FuelRodMox.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList("Iron", 2, FuelRodMox.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class DualFuelRodMox extends FuelRodUranium {
     public DualFuelRodMox() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(10000);
+        automationThreshold = 11000;
     }
     
     /**

@@ -31,8 +31,6 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
     
     private double maxHeatOutput = 0.0;
     
-    private final boolean useTemp;
-    
     private final int onPulseDuration;
     
     private final int offPulseDuration;
@@ -43,17 +41,16 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
     
     private boolean active = true;
     
-    private int nextOffTime;
+    private int nextOffTime = 0;
     
-    private int nextOnTime;
+    private int nextOnTime = 0;
     
-    public PulsedSimulator(final Reactor reactor, final JTextArea output, final JPanel[][] reactorButtonPanels, final int initialHeat, final boolean useTemp, 
+    public PulsedSimulator(final Reactor reactor, final JTextArea output, final JPanel[][] reactorButtonPanels, final int initialHeat, 
             final int onPulseDuration, final int offPulseDuration, final int suspendTemp, final int resumeTemp) {
         this.reactor = reactor;
         this.output = output;
         this.reactorButtonPanels = reactorButtonPanels;
         this.initialHeat = initialHeat;
-        this.useTemp = useTemp;
         this.onPulseDuration = onPulseDuration;
         this.offPulseDuration = offPulseDuration;
         this.suspendTemp = suspendTemp;
@@ -174,26 +171,14 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                 if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
                     reactorTicks++;
                     if (active) {
-                        if (useTemp) {
-                            if (reactor.getCurrentHeat() >= suspendTemp) {
-                                active = false;
-                            }
-                        } else {
-                            if (reactorTicks == nextOffTime) {
-                                active = false;
-                                nextOnTime = reactorTicks + offPulseDuration;
-                            }
+                        if (reactor.getCurrentHeat() >= suspendTemp || reactorTicks >= nextOffTime) {
+                            active = false;
+                            nextOnTime = reactorTicks + offPulseDuration;
                         }
                     } else {
-                        if (useTemp) {
-                            if (reactor.getCurrentHeat() <= resumeTemp) {
-                                active = true;
-                            }
-                        } else {
-                            if (reactorTicks == nextOnTime) {
-                                active = true;
-                                nextOffTime = reactorTicks + onPulseDuration;
-                            }
+                        if (reactor.getCurrentHeat() <= resumeTemp && reactorTicks >= nextOnTime) {
+                            active = true;
+                            nextOffTime = reactorTicks + onPulseDuration;
                         }
                     }
                     minEUoutput = Math.min(lastEUoutput, minEUoutput);
@@ -218,7 +203,7 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                 publish(String.format("Cycle complete after %,d seconds.\n", reactorTicks));
                 if (reactorTicks > 0) {
                     if (reactor.isFluid()) {
-                        publish(String.format("Average heat output: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                        publish(String.format("Total heat output: %,.0f\nAverage heat output before fuel rods stopped: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
                         publish(String.format("Efficiency: %.2f average, %.2f minimum, %.2f maximum\n", totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                     } else {
                         publish(String.format("Total EU output: %,.0f (%.2f EU/t min, %.2f EU/t max, %.2f EU/t average)\n", totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));

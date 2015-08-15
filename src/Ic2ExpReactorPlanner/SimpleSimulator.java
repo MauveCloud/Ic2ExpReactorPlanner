@@ -148,7 +148,7 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                         if (component != null && component.isBroken() && !alreadyBroken[row][col] && !component.getClass().getName().contains("FuelRod")) {
                             publish(String.format("R%dC%d:0xFF0000", row, col));
                             alreadyBroken[row][col] = true;
-                            publish(String.format("R%dC%d:%s+Broke after %,d seconds.", row, col, component.toString(), reactorTicks));
+                            publish(String.format("R%dC%d:+Broke after %,d seconds.", row, col, reactorTicks));
                         }
                     }
                 }
@@ -159,7 +159,7 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                 publish(String.format("Fuel rods (if any) stopped after %,d seconds.\n", reactorTicks));
                 if (reactorTicks > 0) {
                     if (reactor.isFluid()) {
-                        publish(String.format("Average heat output before fuel rods stopped: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                        publish(String.format("Total heat output: %,.0f\nAverage heat output before fuel rods stopped: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
                         if (totalRodCount > 0) {
                             publish(String.format("Efficiency: %.2f average, %.2f minimum, %.2f maximum\n", totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                         }

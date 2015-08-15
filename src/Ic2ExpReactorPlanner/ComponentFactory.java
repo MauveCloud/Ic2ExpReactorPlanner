@@ -154,6 +154,16 @@ public class ComponentFactory {
         return "empty";
     }
     
+    public static String getDisplayName(ReactorComponent component) {
+        if (component != null) {
+            final ReactorComponent tempComponent = getDefaultComponent(getID(component));
+            if (tempComponent != null) {
+                return tempComponent.toString();
+            }
+        }
+        return null;
+    }
+    
     /**
      * Get the number of defined components.
      * @return the number of defined components.

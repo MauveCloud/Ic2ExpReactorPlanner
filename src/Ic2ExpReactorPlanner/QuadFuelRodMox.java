@@ -11,7 +11,7 @@ public class QuadFuelRodMox extends FuelRodUranium {
      */
     private static final String imageFilename = "reactorMOXQuad.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(3, "Iron Plate", 2, "Copper Plate", 4, FuelRodMox.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(3, "Iron", 2, "Copper", 4, FuelRodMox.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class QuadFuelRodMox extends FuelRodUranium {
     public QuadFuelRodMox() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(10000);
+        automationThreshold = 11000;
     }
     
     /**

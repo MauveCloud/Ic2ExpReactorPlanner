@@ -11,7 +11,7 @@ public class ThickNeutronReflector extends NeutronReflector {
      */
     private static final String imageFilename = "reactorReflectorThick.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(4, NeutronReflector.MATERIALS, 5, "Copper Plate");
+    public static final MaterialsList MATERIALS = new MaterialsList(4, NeutronReflector.MATERIALS, 5, "Copper");
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class ThickNeutronReflector extends NeutronReflector {
     public ThickNeutronReflector() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(40000);
+        automationThreshold = 41000;
     }
     
     /**

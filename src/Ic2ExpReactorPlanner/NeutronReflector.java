@@ -11,7 +11,7 @@ public class NeutronReflector extends ReactorComponent {
      */
     private static final String imageFilename = "reactorReflector.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Copper Plate", 4, "Tin Ingot", 4, "Coal");
+    public static final MaterialsList MATERIALS = new MaterialsList("Copper", 4, "Tin", 4, "Coal");
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class NeutronReflector extends ReactorComponent {
     public NeutronReflector() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(10000);
+        automationThreshold = 11000;
     }
     
     /**

@@ -11,7 +11,7 @@ public class ReactorPlating extends ReactorComponent {
      */
     private static final String imageFilename = "reactorPlating.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Lead Plate", "Advanced Alloy");
+    public static final MaterialsList MATERIALS = new MaterialsList("Lead", "Advanced Alloy");
     
     /**
      * Creates a new instance.

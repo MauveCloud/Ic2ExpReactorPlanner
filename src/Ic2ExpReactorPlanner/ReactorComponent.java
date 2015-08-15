@@ -43,6 +43,16 @@ public class ReactorComponent {
     public String info = "";
     
     /**
+     * Threshold for heat/damage for removing this component during an automation run.
+     */
+    public int automationThreshold = 9000;
+    
+    /**
+     * Time to pause the reactor while replacing the component during an automation run.
+     */
+    public int reactorPause = 1;
+    
+    /**
      * Get the image to show in the planner for this component.
      * @return the image.
      */

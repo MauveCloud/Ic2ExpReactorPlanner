@@ -11,7 +11,7 @@ public class DualFuelRodThorium extends FuelRodUranium {
      */
     private static final String imageFilename = "gt.Double_Thoriumcell.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron Plate", 2, FuelRodThorium.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList("Iron", 2, FuelRodThorium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -19,6 +19,7 @@ public class DualFuelRodThorium extends FuelRodUranium {
     public DualFuelRodThorium() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(50000);
+        automationThreshold = 51000;
     }
     
     /**
