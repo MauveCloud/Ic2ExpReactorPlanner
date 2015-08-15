@@ -11,7 +11,7 @@ public class CoolantCell60kNak extends ReactorComponent {
      */
     private static final String imageFilename = "gt.60k_NaK_Coolantcell.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(CoolantCell10k.MATERIALS, 2, "Sodium", 4, "Potassium", 4, "Tin");
+    public static final MaterialsList MATERIALS = new MaterialsList(CoolantCell10k.MATERIALS, 2, "Sodium", 2, "Potassium", 4, "Tin");
     
     /**
      * Creates a new instance.
