@@ -68,12 +68,11 @@ public final class MaterialsList {
         StringBuilder result = new StringBuilder(1000);
         for (Map.Entry<String, Double> entrySet : materials.entrySet()) {
             double count = entrySet.getValue();
-            if (count - Math.floor(count) < 0.001) {
-                result.append(String.format("%,d * %s\n", entrySet.getValue().intValue(), entrySet.getKey()));
-            } else {
-                result.append(String.format("%,.3f * %s\n", entrySet.getValue(), entrySet.getKey()));
+            String formattedNumber = String.format("%,.3f", count);
+            if (formattedNumber.endsWith(".000")) {
+                formattedNumber = String.format("%,d", (int)count);
             }
-            
+            result.append(String.format("%s * %s\n", formattedNumber, entrySet.getKey()));
         }
         return result.toString();
     }
