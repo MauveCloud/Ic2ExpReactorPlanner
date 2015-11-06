@@ -23,13 +23,11 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpinnerModel;
@@ -39,7 +37,6 @@ import javax.swing.SwingWorker;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * JFrame to display a gui for planning a Nuclear Reactor using IndustrialCraft2 Experimental.
@@ -237,6 +234,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentsGroup = new javax.swing.ButtonGroup();
         reactorStyleGroup = new javax.swing.ButtonGroup();
         pulseTypeGroup = new javax.swing.ButtonGroup();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        resourcePackItem = new javax.swing.JMenuItem();
         jSplitPane1 = new javax.swing.JSplitPane();
         jSplitPane2 = new javax.swing.JSplitPane();
         reactorPanel = new javax.swing.JPanel();
@@ -295,7 +295,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         copyCodeButton = new javax.swing.JButton();
         pasteCodeButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        simulationStyleCombo = new javax.swing.JComboBox();
+        simulationStyleCombo = new javax.swing.JComboBox<String>();
         outputTabs = new javax.swing.JTabbedPane();
         outputPane = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
@@ -323,9 +323,18 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         pauseSpinner = new javax.swing.JSpinner();
         jLabel15 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        fileMenu = new javax.swing.JMenu();
-        resourcePackItem = new javax.swing.JMenuItem();
+
+        fileMenu.setText("File");
+
+        resourcePackItem.setText("Choose Resource Pack");
+        resourcePackItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resourcePackItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(resourcePackItem);
+
+        jMenuBar1.add(fileMenu);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("IC2 Experimental Reactor Planner");
@@ -879,20 +888,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(jSplitPane1, gridBagConstraints);
 
-        fileMenu.setText("File");
-
-        resourcePackItem.setText("Choose Resource Pack");
-        resourcePackItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resourcePackItemActionPerformed(evt);
-            }
-        });
-        fileMenu.add(resourcePackItem);
-
-        jMenuBar1.add(fileMenu);
-
-        setJMenuBar(jMenuBar1);
-
         setSize(new java.awt.Dimension(1109, 760));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -927,15 +922,15 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_plannerResized
 
     private void resourcePackItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resourcePackItemActionPerformed
-        String resourcePackPath = Preferences.userRoot().get("Ic2ExpReactorPlanner.ResourcePack", null);
-        JFileChooser chooser = new JFileChooser(resourcePackPath);
-        chooser.setFileFilter(new FileNameExtensionFilter("Resource Packs", "jar", "zip"));
-        int result = chooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            resourcePackPath = chooser.getSelectedFile().getAbsolutePath();
-            Preferences.userRoot().put("Ic2ExpReactorPlanner.ResourcePack", resourcePackPath);
-            plannerResized(null);
-        }
+//        String resourcePackPath = Preferences.userRoot().get("Ic2ExpReactorPlanner.ResourcePack", null);
+//        JFileChooser chooser = new JFileChooser(resourcePackPath);
+//        chooser.setFileFilter(new FileNameExtensionFilter("Resource Packs", "jar", "zip"));
+//        int result = chooser.showOpenDialog(this);
+//        if (result == JFileChooser.APPROVE_OPTION) {
+//            resourcePackPath = chooser.getSelectedFile().getAbsolutePath();
+//            Preferences.userRoot().put("Ic2ExpReactorPlanner.ResourcePack", resourcePackPath);
+//            plannerResized(null);
+//        }
     }//GEN-LAST:event_resourcePackItemActionPerformed
 
     private void clearGridButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearGridButtonActionPerformed
@@ -1206,7 +1201,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton rshCondensatorButton;
     private javax.swing.JLabel selectedComponentLabel;
     private javax.swing.JButton simulateButton;
-    private javax.swing.JComboBox simulationStyleCombo;
+    private javax.swing.JComboBox<String> simulationStyleCombo;
     private javax.swing.JSpinner suspendTempSpinner;
     private javax.swing.JPanel temperatureAndComponentsPanel;
     private javax.swing.JLabel temperatureEffectsLabel;
