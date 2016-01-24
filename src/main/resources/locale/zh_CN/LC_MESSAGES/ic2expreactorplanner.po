@@ -1,0 +1,739 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-24 18:02+0800\n"
+"PO-Revision-Date: 2016-01-24 18:42+0800\n"
+"Last-Translator: Lasm_Gratel <lasm_gratel@hotmail.com>\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:39
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:450
+msgid "Advanced Heat Exchanger"
+msgstr "高级热交换器"
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:41
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:35
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:41
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:34
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:36
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:35
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:41
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:35
+#: src/main/java/Ic2ExpReactorPlanner/LzhCondensator.java:36
+#: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:35
+#: src/main/java/Ic2ExpReactorPlanner/ReactorHeatExchanger.java:38
+#: src/main/java/Ic2ExpReactorPlanner/ReactorHeatVent.java:35
+#: src/main/java/Ic2ExpReactorPlanner/RshCondensator.java:35
+msgid " (initial heat: %,d)"
+msgstr " (初始热量: %,d)"
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:410
+msgid "Advanced Heat Vent"
+msgstr "高级散热片"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:76
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:51
+msgid "Simulation started.\n"
+msgstr "模拟器启动.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:94
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:69
+msgid "R%dC%d:0xC0C0C0"
+msgstr "R%dC%d:0xC0C0C0"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:131
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:135
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:104
+msgid "Reactor will reach \"Burn\" temperature at %d seconds.\n"
+msgstr "反应堆在%d秒后会达到\"燃烧\"温度.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:135
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:139
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:108
+msgid "Reactor will reach \"Evaporate\" temperature at %d seconds.\n"
+msgstr "反应堆在%d秒后会达到\"蒸发\"温度.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:139
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:143
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:112
+msgid "Reactor will reach \"Hurt\" temperature at %d seconds.\n"
+msgstr "反应堆在%d秒后会达到\"伤害\"温度.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:143
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:147
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:116
+msgid "Reactor will reach \"Lava\" temperature at %d seconds.\n"
+msgstr "反应堆在%d秒后会达到\"岩浆\"温度.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:147
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:151
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:120
+msgid "Reactor will explode at %d seconds.\n"
+msgstr "反应堆在%d秒后会爆炸.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:201
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:211
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:222
+msgid "R%dC%d:+Replaced at %,d seconds."
+msgstr "R%dC%d:+在%,d秒时替换."
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:240
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:149
+msgid "R%dC%d:0xFF0000"
+msgstr "R%dC%d:0xFF0000"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:242
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:151
+msgid "R%dC%d:+Broke after %,d seconds."
+msgstr "R%dC%d:+在%,d秒后损坏."
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:247
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:200
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:156
+msgid "Reactor minimum temperature: %,.2f\n"
+msgstr "反应堆最低温度: %,.2f\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:248
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:201
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:157
+msgid "Reactor maximum temperature: %,.2f\n"
+msgstr "反应堆最高温度: %,.2f\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:250
+msgid "Reactor ran for %,d seconds without exploding.\n"
+msgstr "反应堆稳定运行%,d秒并不爆炸.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:251
+msgid ""
+"Reactor was active for a total of %,d seconds (%,d to %,d seconds at a "
+"time).\n"
+msgstr "反应堆总共激活%,d秒(%,d 至 %,d 秒一次).\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:252
+msgid "Reactor was inactive for a total of %,d seconds.\n"
+msgstr "反应堆总共%,d秒处于非活动状态.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:253
+msgid ""
+"Components replaced:\n"
+"%s"
+msgstr ""
+"需要更换的组件:\n"
+"%s"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:257
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:206
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:162
+msgid ""
+"Total heat output: %,.0f\n"
+"Average heat output before fuel rods stopped: %.2f Hu/s\n"
+"Minimum heat output: %.2f Hu/s\n"
+"Maximum heat output: %.2f Hu/s\n"
+msgstr ""
+"总共热输出: %,.0f\n"
+"在燃料棒燃尽之前平均热输出: %.2f Hu/s\n"
+"最低热输出: %.2f Hu/s\n"
+"最高热输出: %.2f Hu/s\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:259
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:264
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:207
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:210
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:164
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:169
+msgid "Efficiency: %.2f average, %.2f minimum, %.2f maximum\n"
+msgstr "效率: 平均%.2f, 最低%.2f, 最高%.2f\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:262
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:209
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:167
+msgid ""
+"Total EU output: %,.0f (%.2f EU/t min, %.2f EU/t max, %.2f EU/t average)\n"
+msgstr "总共输出EU: %,.0f (最低%.2f EU/t, 最高%.2f EU/t, 平均%.2f EU/t)\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:270
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:215
+msgid "Reactor remained at %,.2f heat after cycle.\n"
+msgstr "反应堆在运行完周期后仍留有%,.2f 热量.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:277
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:244
+msgid "R%dC%d:0xFFA500"
+msgstr "R%dC%d:0xFFA500"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:278
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:223
+msgid "R%dC%d:+Had %,.2f heat left after cycle."
+msgstr "R%dC%d:+运行完周期后仍留有%,.2f 热量."
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:284
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:229
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:252
+msgid "Reactor overheated at %,d seconds.\n"
+msgstr "反应堆在%,d秒后过热.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:296
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:241
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:267
+msgid "R%dC%d:+Used %.2f of %.2f cooling."
+msgstr "R%dC%d:+使用了%.2f 之中的 %.2f 用来冷却."
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:300
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:303
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:248
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:274
+msgid "R%dC%d:+Received at most %.2f heat per reactor tick."
+msgstr "R%dC%d:+每个反应堆tick最多收到%.2f 热."
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:310
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:255
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:281
+msgid "Total Vent Cooling: %,.2f of %,.2f\n"
+msgstr "总共散热片散热: %,.2f之中的%,.2f\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:311
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:256
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:282
+msgid "Total Cell Cooling: %,.2f\n"
+msgstr "总共单元散热: %,.2f\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:312
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:257
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:283
+msgid "Total Condensator Cooling: %,.2f\n"
+msgstr "总共冷凝器散热: %,.2f\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:313
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:258
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:284
+msgid "Max Heat Generated: %.2f\n"
+msgstr "最多生成热量: %.2f\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:316
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:261
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:287
+msgid "Excess cooling: %.2f\n"
+msgstr "剩余冷却: %.2f\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:318
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:263
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:289
+msgid "Excess heating: %.2f\n"
+msgstr "剩余热量: %.2f\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:323
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:268
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:294
+msgid "Error at reactor tick %d\n"
+msgstr "在反应堆tick %d时发生了错误\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:325
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:270
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:296
+msgid "Error at cooldown tick %d\n"
+msgstr "在反应堆冷却tick %d时发生了错误\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:330
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:275
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:301
+msgid "Simulation took %.2f seconds.\n"
+msgstr "模拟总共持续了%.2f秒.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:39
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:460
+msgid "Component Heat Exchanger"
+msgstr "元件热交换器"
+
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatVent.java:34
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:420
+msgid "Component Heat Vent"
+msgstr "元件散热片"
+
+#: src/main/java/Ic2ExpReactorPlanner/ContainmentReactorPlating.java:31
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:475
+msgid "Containment Reactor Plating"
+msgstr "反应堆隔板"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:32
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:430
+msgid "10k Coolant Cell"
+msgstr "10k冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:34
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:435
+msgid "30k Coolant Cell"
+msgstr "30k冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:440
+msgid "60k Coolant Cell"
+msgstr "60k冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:505
+msgid "60k He Coolant Cell"
+msgstr "60k氦冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:520
+msgid "60k NaK Coolant Cell"
+msgstr "60k钠钾合金冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodMox.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:385
+msgid "Dual Fuel Rod (MOX)"
+msgstr "双联燃料棒(MOX)"
+
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
+msgid "Tin"
+msgstr "锡"
+
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/ThickNeutronReflector.java:16
+msgid "Copper"
+msgstr "铜"
+
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:39
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:445
+msgid "Heat Exchanger"
+msgstr "热交换器"
+
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
+msgid "Iron"
+msgstr "铁"
+
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:405
+msgid "Heat Vent"
+msgstr "散热片"
+
+#: src/main/java/Ic2ExpReactorPlanner/IridiumNeutronReflector.java:16
+msgid "Iridium Reinforced Plate"
+msgstr "增强铱板"
+
+#: src/main/java/Ic2ExpReactorPlanner/IridiumNeutronReflector.java:32
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:535
+msgid "Iridium Neutron Reflector"
+msgstr "铱中子反射板"
+
+#: src/main/java/Ic2ExpReactorPlanner/LzhCondensator.java:34
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:485
+msgid "LZH-Condensator"
+msgstr "青金石冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
+msgid "Redstone"
+msgstr "红石"
+
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+msgid "Rubber"
+msgstr "橡胶"
+
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
+msgid "Lapis Lazuli"
+msgstr "青金石"
+
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
+msgid "Glowstone Dust"
+msgstr "萤石"
+
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
+msgid "Coal"
+msgstr "煤炭"
+
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:395
+msgid "Neutron Reflector"
+msgstr "中子反射板"
+
+#: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:16
+msgid "Gold"
+msgstr "金"
+
+#: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:425
+msgid "Overclocked Heat Vent"
+msgstr "超频散热片"
+
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:91
+msgid "No fuel rods found! Simulating a pulsed cycle makes no sense!"
+msgstr "没有放入燃料棒! 模拟没有意义!"
+
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:195
+msgid "R%dC%d:%s+Broke after %,d seconds."
+msgstr "R%dC%d:%s+在%,d秒后被破坏."
+
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:203
+msgid "Cycle complete after %,d seconds.\n"
+msgstr "在%,d秒后完成周期.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:245
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:271
+msgid "R%dC%d:+Received at most %.2f heat per reactor tick.)"
+msgstr "R%dC%d:+最多获得%.2f热/反应堆tick.)"
+
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:390
+msgid "Quad Fuel Rod (MOX)"
+msgstr "四联燃料棒(MOX)"
+
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:500
+msgid "Quad Fuel Rod (Thorium)"
+msgstr "四联燃料棒(钍)"
+
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:375
+msgid "Quad Fuel Rod (Uranium)"
+msgstr "四联燃料棒(铀)"
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:258
+msgid ""
+"Obsolete component (depleted isotope cell) at row %d column %d removed.\n"
+msgstr "在%d行%d列移除损坏的组件(枯竭燃料棒).\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:318
+msgid "Obsolete component (heating cell) at row %d column %d removed.\n"
+msgstr "在%d行%d列移除损坏的组件(加热组件).\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:330
+msgid "Obsolete component (plutonium cell) at row %d column %d removed.\n"
+msgstr "在%d行%d列移除损坏的组件(钍燃料棒).\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:333
+msgid ""
+"Obsolete component (dual plutonium cell) at row %d column %d removed.\n"
+msgstr "在%d行%d列移除损坏的组件(双联钍燃料棒).\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:336
+msgid ""
+"Obsolete component (quad plutonium cell) at row %d column %d removed.\n"
+msgstr "在%d行%d列移除损坏的组件(四联钍燃料棒).\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:360
+msgid "Unrecognized component (id %d) at row %d column %d removed.\n"
+msgstr "在%d行%d列移除未知组件(ID %d).\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:367
+msgid "Warning(s)"
+msgstr "警告"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorHeatExchanger.java:36
+msgid "Reactor Heat Exchanger"
+msgstr "反应堆热交换器"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorHeatVent.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:415
+msgid "Reactor Heat Vent"
+msgstr "反应堆散热片"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:63
+msgid "Click to define automation rules for this component."
+msgstr "点击该组件来设置自动化规则,"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:72
+msgid "No component at row %d column %d."
+msgstr "在%d行%d列没有找到组件."
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:74
+msgid "%s at row %d column %d\n"
+msgstr "%s在%d行%d列\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:95
+msgid "No component at row %d column %d during last simulation."
+msgstr "在上次模拟过程中, %d行%d列没有找到组件."
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:97
+msgid ""
+"%s at row %d column %d\n"
+"%s"
+msgstr ""
+"%s在%d行%d列\n"
+"%s"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:100
+msgid "No simulation run yet."
+msgstr "没有正在运行的模拟过程."
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:105
+msgid "Click for information about this component"
+msgstr "点击来查看该组件的更多信息."
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:127
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:160
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:934
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:1081
+msgid "Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d"
+msgstr "烧毁: %,d 蒸发: %,d 伤害: %,d 岩浆: %,d 爆炸: %,d"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:365
+msgid "Fuel Rod (Uranium)"
+msgstr "燃料棒(铀)"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:370
+msgid "Dual Fuel Rod (Uranium)"
+msgstr "双联燃料棒(铀)"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:380
+msgid "Fuel Rod (MOX)"
+msgstr "燃料棒(MOX)"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:400
+#: src/main/java/Ic2ExpReactorPlanner/ThickNeutronReflector.java:33
+msgid "Thick Neutron Reflector"
+msgstr "加厚中子反射板"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:455
+msgid "Core Heat Exchanger"
+msgstr "反应堆热交换器"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:465
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:31
+msgid "Reactor Plating"
+msgstr "反应堆隔板"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:470
+msgid "Heat-Capacity Reactor Plating"
+msgstr "高热容反应堆隔板"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:480
+#: src/main/java/Ic2ExpReactorPlanner/RshCondensator.java:33
+msgid "RSH-Condensator"
+msgstr "红石冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:490
+msgid "Fuel Rod (Thorium)"
+msgstr "燃料棒(钍)"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:495
+msgid "Double Fuel Rod (Thorium)"
+msgstr "双联燃料棒(钍)"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:510
+msgid "180k He Coolant Cell"
+msgstr "180k氦冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:515
+msgid "360k He Coolant Cell"
+msgstr "360k氦冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:525
+msgid "180k NaK Coolant Cell"
+msgstr "180k钠钾合金冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:530
+msgid "360k NaK Coolant Cell"
+msgstr "360k钠钾合金冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:547
+msgid "Initial Component Heat:"
+msgstr "初始组件热量:"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:569
+msgid "EU Reactor"
+msgstr "EU反应堆"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:583
+msgid "Fluid Reactor"
+msgstr "冷却液反应堆"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:596
+msgid "Clear Grid"
+msgstr "清除Grid"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:608
+msgid "Simulate"
+msgstr "开始模拟！"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:620
+msgid "Initial Reactor Heat:"
+msgstr "初始反应堆热量:"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:644
+msgid "Code:"
+msgstr "代码:"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:659
+msgid "Copy Code"
+msgstr "拷贝代码"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:671
+msgid "Paste Code"
+msgstr "粘贴代码"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:683
+msgid "Simulation Style:"
+msgstr "模拟风格:"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:690
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:961
+msgid "Simple Cycle"
+msgstr "简单周期"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:690
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:964
+msgid "Pulsed Cycle"
+msgstr "脉冲周期"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:690
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:987
+msgid "Pulsed Automation"
+msgstr "脉冲自动化"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:708
+msgid "Simulation"
+msgstr "模拟"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:715
+msgid "Materials"
+msgstr "材料"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:721
+msgid "Component"
+msgstr "组件"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:725
+msgid "On-pulse duration:"
+msgstr "开始脉冲持续时间:"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:738
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:756
+msgid "seconds"
+msgstr "秒"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:743
+msgid "Off-pulse duration:"
+msgstr "关闭脉冲持续时间:"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:764
+msgid "(on-pulse can be set to 5 million to mimic having no redstone timing)"
+msgstr "(脉冲开始时间可以设置为 500 万来模拟没有红石的情况)"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:771
+msgid "Suspend when reactor temp >="
+msgstr "暂停时反应堆温度 >="
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:783
+msgid "Resume when reactor temp <="
+msgstr "恢复时反应堆温度 >="
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:797
+msgid "Pulse Configuration"
+msgstr "脉冲配置"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:801
+msgid "No component selected"
+msgstr "没有选择的组件"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:808
+msgid "Replacement Threshold:"
+msgstr "替换阈值"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:829
+msgid ""
+"<html>(Set higher than component's initial heat/damage to replace the "
+"component when it gets this hot/damaged, or lower to replace a component "
+"that has cooled; broken components will be replaced during automation runs "
+"regardless of this setting)</html>"
+msgstr ""
+"<html>(设置高于组件的初始热/损坏更换组件时它获取这热的所损坏的或降低替换元"
+"件，破碎的冷却组件将取代在此自动化运行期间)</html>"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:837
+msgid "Reactor Pause (seconds):"
+msgstr "反应堆暂停(秒):"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:858
+msgid ""
+"<html>(This is how long the reactor will pause while replacing this "
+"component)</html>"
+msgstr "<html>(指反应堆在更换该组件时的停止时间)</html>"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:866
+msgid "Component Automation"
+msgstr "组件自动化"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:16
+msgid "Lead"
+msgstr "铅"
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:16
+msgid "Advanced Alloy"
+msgstr "高级合金"
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:159
+msgid "Fuel rods (if any) stopped after %,d seconds.\n"
+msgstr "燃料棒(如果有的话)在%,d秒后停止.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:183
+msgid "R%dC%d:0xFFFF00"
+msgstr "R%dC%d:0xFFFF00"
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:184
+msgid "R%dC%d:+Had %,.2f heat left when reactor stopped."
+msgstr "R%dC%d:+在反应堆停止时还有%,.2f热量."
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:191
+msgid "No cooldown needed.\n"
+msgstr "不需要冷却.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:225
+msgid "R%dC%d:+Took %,d seconds to cool down."
+msgstr "R%dC%d:+冷却花费了%,d秒."
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:233
+msgid "Reactor took %,d seconds to cool down.\n"
+msgstr "反应堆使用了%,d秒来进行冷却.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:235
+msgid ""
+"Reactor remained at %,.2f heat even after cool down period of %,d "
+"seconds.\n"
+msgstr "反应堆仍然留有%,.2f热在冷却的%d秒期间.\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:237
+msgid ""
+"Other components took %,d seconds to cool down (as much as they would).\n"
+msgstr "其他组件花费了%,d秒来冷却(尽可能多).\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:245
+msgid "R%dC%d:+Had %,.2f heat left after cooldown period."
+msgstr "R%dC%d:+在冷却之后仍留有%,.2f热量."
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:255
+msgid ""
+"Average heat output after fuel rods stopped: %.2f Hu/s\n"
+"Minimum heat output: %.2f Hu/s\n"
+"Maximum heat output: %.2f Hu/s\n"
+msgstr ""
+"在燃料棒停止后平均热输出: %.2f Hu/s\n"
+"最低热输出: %.2f Hu/s\n"
+"最高热输出: %.2f Hu/s\n"
