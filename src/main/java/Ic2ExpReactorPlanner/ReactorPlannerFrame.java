@@ -310,9 +310,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         pauseSpinner = new javax.swing.JSpinner();
         jLabel15 = new javax.swing.JLabel();
 
-        fileMenu.setText("File");
+        fileMenu.setText(_("File"));
 
-        resourcePackItem.setText("Choose Resource Pack");
+        resourcePackItem.setText(_("Choose Resource Pack"));
         resourcePackItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resourcePackItemActionPerformed(evt);
@@ -323,7 +323,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jMenuBar1.add(fileMenu);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("IC2 Experimental Reactor Planner");
+        setTitle(_("IC2 Experimental Reactor Planner"));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 plannerResized(evt);
@@ -346,7 +346,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         temperatureAndComponentsPanel.setLayout(new java.awt.GridBagLayout());
 
-        temperatureEffectsLabel.setText("Burn: 4,000  Evaporate: 5,000  Hurt: 7,000  Lava: 8,500  Explode: 10,000");
+        temperatureEffectsLabel.setText(_("Burn: 4,000  Evaporate: 5,000  Hurt: 7,000  Lava: 8,500  Explode: 10,000"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
