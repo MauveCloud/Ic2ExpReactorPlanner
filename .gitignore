@@ -9,7 +9,7 @@
 # Description Files #
 #####################
 !LICENSE
-!README.md
+!*.md
 
 # Gradle Wrapper #
 ##################
