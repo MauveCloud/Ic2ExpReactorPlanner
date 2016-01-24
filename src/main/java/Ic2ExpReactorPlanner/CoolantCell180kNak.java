@@ -1,5 +1,7 @@
 package Ic2ExpReactorPlanner;
 
+import static Ic2ExpReactorPlanner.S._;
+
 /**
  * Represents a 180k NaK Coolant Cell.
  * @author Brian McCloud
@@ -11,7 +13,7 @@ public class CoolantCell180kNak extends ReactorComponent {
      */
     private static final String imageFilename = "gt.180k_NaK_Coolantcell.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(3, CoolantCell60kNak.MATERIALS, 6, "Tin");
+    public static final MaterialsList MATERIALS = new MaterialsList(3, CoolantCell60kNak.MATERIALS, 6, _("Tin"));
     
     /**
      * Creates a new instance.
@@ -28,9 +30,9 @@ public class CoolantCell180kNak extends ReactorComponent {
      */
     @Override
     public String toString() {
-        String result = "180k NaK Coolant Cell";
+        String result = _("180k NaK Coolant Cell");
         if (getInitialHeat() > 0) {
-            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+            result += String.format(_(" (initial heat: %,d)"), (int)getInitialHeat());
         }
         return result;
     }

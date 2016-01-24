@@ -13,7 +13,7 @@ public class ContainmentReactorPlating extends ReactorComponent {
      */
     private static final String imageFilename = "reactorPlatingExplosive.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 2, "Advanced Alloy");
+    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 2, _("Advanced Alloy"));
     
     /**
      * Creates a new instance.

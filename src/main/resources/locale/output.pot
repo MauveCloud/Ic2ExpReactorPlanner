@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-24 11:01+0000\n"
+"POT-Creation-Date: 2016-01-24 11:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,27 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:20
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/HeatCapacityReactorPlating.java:16
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/ThickNeutronReflector.java:16
+msgid "Copper"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:20
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
+msgid "Lapis Lazuli"
+msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:39
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:450
@@ -26,7 +47,11 @@ msgstr ""
 #: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:35
 #: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:41
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:34
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kHelium.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kNak.java:35
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:36
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:35
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:35
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:35
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:35
@@ -38,6 +63,27 @@ msgstr ""
 #: src/main/java/Ic2ExpReactorPlanner/ReactorHeatVent.java:35
 #: src/main/java/Ic2ExpReactorPlanner/RshCondensator.java:35
 msgid " (initial heat: %,d)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:16
+msgid "Diamond"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatVent.java:19
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodUranium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodThorium.java:19
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodUranium.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
+msgid "Iron"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:33
@@ -247,9 +293,30 @@ msgstr ""
 msgid "Simulation took %.2f seconds.\n"
 msgstr ""
 
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:16
+msgid "Gold"
+msgstr ""
+
 #: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:39
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:460
 msgid "Component Heat Exchanger"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatVent.java:19
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:17
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
+msgid "Tin"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/ComponentHeatVent.java:34
@@ -257,9 +324,18 @@ msgstr ""
 msgid "Component Heat Vent"
 msgstr ""
 
+#: src/main/java/Ic2ExpReactorPlanner/ContainmentReactorPlating.java:16
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:16
+msgid "Advanced Alloy"
+msgstr ""
+
 #: src/main/java/Ic2ExpReactorPlanner/ContainmentReactorPlating.java:31
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:475
 msgid "Containment Reactor Plating"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:16
+msgid "Distilled Water"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:32
@@ -267,9 +343,29 @@ msgstr ""
 msgid "10k Coolant Cell"
 msgstr ""
 
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kHelium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:510
+msgid "180k He Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kNak.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:525
+msgid "180k NaK Coolant Cell"
+msgstr ""
+
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:34
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:435
 msgid "30k Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:515
+msgid "360k He Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:530
+msgid "360k NaK Coolant Cell"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:33
@@ -277,9 +373,21 @@ msgstr ""
 msgid "60k Coolant Cell"
 msgstr ""
 
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:16
+msgid "Helium Cell"
+msgstr ""
+
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:33
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:505
 msgid "60k He Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:16
+msgid "Sodium"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:16
+msgid "Potassium"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:33
@@ -292,34 +400,51 @@ msgstr ""
 msgid "Dual Fuel Rod (MOX)"
 msgstr ""
 
-#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
-#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
-#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
-msgid "Tin"
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodThorium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:495
+msgid "Double Fuel Rod (Thorium)"
 msgstr ""
 
-#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
-#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
-#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
-#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
-#: src/main/java/Ic2ExpReactorPlanner/ThickNeutronReflector.java:16
-msgid "Copper"
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodUranium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:370
+msgid "Dual Fuel Rod (Uranium)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodMox.java:16
+msgid "MOX Fuel"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodMox.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:380
+msgid "Fuel Rod (MOX)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodThorium.java:19
+msgid "Thorium"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodThorium.java:36
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:490
+msgid "Fuel Rod (Thorium)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodUranium.java:19
+msgid "Uranium Fuel"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodUranium.java:36
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:365
+msgid "Fuel Rod (Uranium)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/HeatCapacityReactorPlating.java:31
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:470
+msgid "Heat-Capacity Reactor Plating"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:39
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:445
 msgid "Heat Exchanger"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
-#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
-msgid "Iron"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:33
@@ -351,10 +476,6 @@ msgid "Rubber"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
-msgid "Lapis Lazuli"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
 msgid "Glowstone Dust"
 msgstr ""
 
@@ -365,10 +486,6 @@ msgstr ""
 #: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:33
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:395
 msgid "Neutron Reflector"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:16
-msgid "Gold"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:33
@@ -500,18 +617,6 @@ msgid ""
 "Burn: 4,000  Evaporate: 5,000  Hurt: 7,000  Lava: 8,500  Explode: 10,000"
 msgstr ""
 
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:365
-msgid "Fuel Rod (Uranium)"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:370
-msgid "Dual Fuel Rod (Uranium)"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:380
-msgid "Fuel Rod (MOX)"
-msgstr ""
-
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:400
 #: src/main/java/Ic2ExpReactorPlanner/ThickNeutronReflector.java:33
 msgid "Thick Neutron Reflector"
@@ -526,37 +631,9 @@ msgstr ""
 msgid "Reactor Plating"
 msgstr ""
 
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:470
-msgid "Heat-Capacity Reactor Plating"
-msgstr ""
-
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:480
 #: src/main/java/Ic2ExpReactorPlanner/RshCondensator.java:33
 msgid "RSH-Condensator"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:490
-msgid "Fuel Rod (Thorium)"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:495
-msgid "Double Fuel Rod (Thorium)"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:510
-msgid "180k He Coolant Cell"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:515
-msgid "360k He Coolant Cell"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:525
-msgid "180k NaK Coolant Cell"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:530
-msgid "360k NaK Coolant Cell"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:547
@@ -687,10 +764,6 @@ msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:16
 msgid "Lead"
-msgstr ""
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:16
-msgid "Advanced Alloy"
 msgstr ""
 
 #: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:159

@@ -1,5 +1,7 @@
 package Ic2ExpReactorPlanner;
 
+import static Ic2ExpReactorPlanner.S._;
+
 /**
  * Represents a double thorium fuel rod.
  * @author Brian McCloud
@@ -11,7 +13,7 @@ public class DualFuelRodThorium extends FuelRodUranium {
      */
     private static final String imageFilename = "gt.Double_Thoriumcell.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron", 2, FuelRodThorium.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(_("Iron"), 2, FuelRodThorium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -28,7 +30,7 @@ public class DualFuelRodThorium extends FuelRodUranium {
      */
     @Override
     public String toString() {
-        return "Double Fuel Rod (Thorium)";
+        return _("Double Fuel Rod (Thorium)");
     }
     
     @Override

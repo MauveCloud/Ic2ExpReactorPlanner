@@ -16,7 +16,7 @@ public class ComponentHeatExchanger extends ReactorComponent {
      */
     private static final String imageFilename = "reactorHeatSwitchSpread.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(HeatExchanger.MATERIALS, 4, "Gold");
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatExchanger.MATERIALS, 4, _("Gold"));
     
     private static final int switchSide = 36;
     private static final int switchReactor = 0;

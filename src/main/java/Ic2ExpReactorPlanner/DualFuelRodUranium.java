@@ -1,5 +1,7 @@
 package Ic2ExpReactorPlanner;
 
+import static Ic2ExpReactorPlanner.S._;
+
 /**
  * Represents a dual uranium fuel rod.
  * @author Brian McCloud
@@ -11,7 +13,7 @@ public class DualFuelRodUranium extends FuelRodUranium {
      */
     private static final String imageFilename = "reactorUraniumDual.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron", 2, FuelRodUranium.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(_("Iron"), 2, FuelRodUranium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -28,7 +30,7 @@ public class DualFuelRodUranium extends FuelRodUranium {
      */
     @Override
     public String toString() {
-        return "Dual Fuel Rod (Uranium)";
+        return _("Dual Fuel Rod (Uranium)");
     }
     
     @Override

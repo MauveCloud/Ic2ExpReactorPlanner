@@ -1,5 +1,7 @@
 package Ic2ExpReactorPlanner;
 
+import static Ic2ExpReactorPlanner.S._;
+
 /**
  * Represents a single MOX fuel rod.
  * @author Brian McCloud
@@ -11,7 +13,7 @@ public class FuelRodMox extends FuelRodUranium {
      */
     private static final String imageFilename = "reactorMOXSimple.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron", "MOX Fuel");
+    public static final MaterialsList MATERIALS = new MaterialsList(_("Iron"), _("MOX Fuel"));
     
     /**
      * Creates a new instance.
@@ -28,7 +30,7 @@ public class FuelRodMox extends FuelRodUranium {
      */
     @Override
     public String toString() {
-        return "Fuel Rod (MOX)";
+        return _("Fuel Rod (MOX)");
     }
     
     @Override

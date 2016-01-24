@@ -3,6 +3,8 @@ package Ic2ExpReactorPlanner;
 import java.util.List;
 import java.util.ArrayList;
 
+import static Ic2ExpReactorPlanner.S._;
+
 /**
  * Represents a single uranium fuel rod.
  * @author Brian McCloud
@@ -14,7 +16,7 @@ public class FuelRodUranium extends ReactorComponent {
      */
     private static final  String imageFilename = "reactorUraniumSimple.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron", "Uranium Fuel");
+    public static final MaterialsList MATERIALS = new MaterialsList(_("Iron"), _("Uranium Fuel"));
     
     /**
      * Creates a new instance.
@@ -31,7 +33,7 @@ public class FuelRodUranium extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Fuel Rod (Uranium)";
+        return _("Fuel Rod (Uranium)");
     }
 
     @Override

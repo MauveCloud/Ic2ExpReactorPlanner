@@ -1,5 +1,7 @@
 package Ic2ExpReactorPlanner;
 
+import static Ic2ExpReactorPlanner.S._;
+
 /**
  * Represents some heat-capacity reactor plating.
  * @author Brian McCloud
@@ -11,7 +13,7 @@ public class HeatCapacityReactorPlating extends ReactorComponent {
      */
     private static final String imageFilename = "reactorPlatingHeat.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 8, "Copper");
+    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 8, _("Copper"));
     
     /**
      * Creates a new instance.
@@ -26,7 +28,7 @@ public class HeatCapacityReactorPlating extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Heat-Capacity Reactor Plating";
+        return _("Heat-Capacity Reactor Plating");
     }
 
     @Override

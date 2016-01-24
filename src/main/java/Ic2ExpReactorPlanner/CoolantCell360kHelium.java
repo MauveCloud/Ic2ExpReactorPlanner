@@ -1,5 +1,7 @@
 package Ic2ExpReactorPlanner;
 
+import static Ic2ExpReactorPlanner.S._;
+
 /**
  * Represents a 360k Helium Coolant Cell.
  * @author Brian McCloud
@@ -11,7 +13,7 @@ public class CoolantCell360kHelium extends ReactorComponent {
      */
     private static final String imageFilename = "gt.360k_Helium_Coolantcell.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(2, CoolantCell180kHelium.MATERIALS, 6, "Tin", 9, "Copper");
+    public static final MaterialsList MATERIALS = new MaterialsList(2, CoolantCell180kHelium.MATERIALS, 6, _("Tin"), 9, _("Copper"));
     
     /**
      * Creates a new instance.
@@ -28,9 +30,9 @@ public class CoolantCell360kHelium extends ReactorComponent {
      */
     @Override
     public String toString() {
-        String result = "360k He Coolant Cell";
+        String result = _("360k He Coolant Cell");
         if (getInitialHeat() > 0) {
-            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+            result += String.format(_(" (initial heat: %,d)"), (int)getInitialHeat());
         }
         return result;
     }

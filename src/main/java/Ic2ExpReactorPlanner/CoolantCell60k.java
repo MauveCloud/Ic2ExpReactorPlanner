@@ -13,7 +13,7 @@ public class CoolantCell60k extends ReactorComponent {
      */
     private static final String imageFilename = "reactorCoolantSix.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(2, CoolantCell30k.MATERIALS, "Iron", 6, "Tin");
+    public static final MaterialsList MATERIALS = new MaterialsList(2, CoolantCell30k.MATERIALS, _("Iron"), 6, _("Tin"));
     
     /**
      * Creates a new instance.

@@ -13,7 +13,7 @@ public class AdvancedHeatVent extends ReactorComponent {
      */
     private static final String imageFilename = "reactorVentDiamond.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatVent.MATERIALS, "Diamond", 4.5, "Iron");
+    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatVent.MATERIALS, _("Diamond"), 4.5, _("Iron"));
     
     /**
      * Creates a new instance.

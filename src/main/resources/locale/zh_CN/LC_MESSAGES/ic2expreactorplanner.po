@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-24 19:01+0800\n"
-"PO-Revision-Date: 2016-01-24 19:03+0800\n"
+"POT-Creation-Date: 2016-01-24 19:15+0800\n"
+"PO-Revision-Date: 2016-01-24 19:18+0800\n"
 "Last-Translator: Lasm_Gratel <lasm_gratel@hotmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -17,6 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.6\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:20
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/HeatCapacityReactorPlating.java:16
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/ThickNeutronReflector.java:16
+msgid "Copper"
+msgstr "铜"
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:20
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
+msgid "Lapis Lazuli"
+msgstr "青金石"
 
 #: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:39
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:450
@@ -27,7 +48,11 @@ msgstr "高级热交换器"
 #: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:35
 #: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:41
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:34
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kHelium.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kNak.java:35
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:36
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:35
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:35
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:35
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:35
@@ -40,6 +65,27 @@ msgstr "高级热交换器"
 #: src/main/java/Ic2ExpReactorPlanner/RshCondensator.java:35
 msgid " (initial heat: %,d)"
 msgstr " (初始热量: %,d)"
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:16
+msgid "Diamond"
+msgstr "钻石"
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatVent.java:19
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodUranium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodThorium.java:19
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodUranium.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
+msgid "Iron"
+msgstr "铁"
 
 #: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:33
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:410
@@ -254,40 +300,102 @@ msgstr "在反应堆冷却tick %d时发生了错误\n"
 msgid "Simulation took %.2f seconds.\n"
 msgstr "模拟总共持续了%.2f秒.\n"
 
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:16
+msgid "Gold"
+msgstr "金"
+
 #: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:39
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:460
 msgid "Component Heat Exchanger"
 msgstr "元件热交换器"
+
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatVent.java:19
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:17
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
+msgid "Tin"
+msgstr "锡"
 
 #: src/main/java/Ic2ExpReactorPlanner/ComponentHeatVent.java:34
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:420
 msgid "Component Heat Vent"
 msgstr "元件散热片"
 
+#: src/main/java/Ic2ExpReactorPlanner/ContainmentReactorPlating.java:16
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:16
+msgid "Advanced Alloy"
+msgstr "高级合金"
+
 #: src/main/java/Ic2ExpReactorPlanner/ContainmentReactorPlating.java:31
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:475
 msgid "Containment Reactor Plating"
 msgstr "反应堆隔板"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:16
+msgid "Distilled Water"
+msgstr "蒸馏水"
 
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:32
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:430
 msgid "10k Coolant Cell"
 msgstr "10k冷却单元"
 
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kHelium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:510
+msgid "180k He Coolant Cell"
+msgstr "180k氦冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kNak.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:525
+msgid "180k NaK Coolant Cell"
+msgstr "180k钠钾合金冷却单元"
+
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:34
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:435
 msgid "30k Coolant Cell"
 msgstr "30k冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:515
+msgid "360k He Coolant Cell"
+msgstr "360k氦冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:530
+msgid "360k NaK Coolant Cell"
+msgstr "360k钠钾合金冷却单元"
 
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:33
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:440
 msgid "60k Coolant Cell"
 msgstr "60k冷却单元"
 
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:16
+msgid "Helium Cell"
+msgstr "氦单元"
+
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:33
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:505
 msgid "60k He Coolant Cell"
 msgstr "60k氦冷却单元"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:16
+msgid "Sodium"
+msgstr "钠"
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:16
+msgid "Potassium"
+msgstr "钾"
 
 #: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:33
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:520
@@ -299,35 +407,52 @@ msgstr "60k钠钾合金冷却单元"
 msgid "Dual Fuel Rod (MOX)"
 msgstr "双联燃料棒(MOX)"
 
-#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
-#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
-#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
-msgid "Tin"
-msgstr "锡"
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodThorium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:495
+msgid "Double Fuel Rod (Thorium)"
+msgstr "双联燃料棒(钍)"
 
-#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
-#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
-#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
-#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
-#: src/main/java/Ic2ExpReactorPlanner/ThickNeutronReflector.java:16
-msgid "Copper"
-msgstr "铜"
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodUranium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:370
+msgid "Dual Fuel Rod (Uranium)"
+msgstr "双联燃料棒(铀)"
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodMox.java:16
+msgid "MOX Fuel"
+msgstr "钚铀混合氧化物核燃料(MOX)"
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodMox.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:380
+msgid "Fuel Rod (MOX)"
+msgstr "燃料棒(MOX)"
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodThorium.java:19
+msgid "Thorium"
+msgstr "钍"
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodThorium.java:36
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:490
+msgid "Fuel Rod (Thorium)"
+msgstr "燃料棒(钍)"
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodUranium.java:19
+msgid "Uranium Fuel"
+msgstr "铀燃料"
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodUranium.java:36
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:365
+msgid "Fuel Rod (Uranium)"
+msgstr "燃料棒(铀)"
+
+#: src/main/java/Ic2ExpReactorPlanner/HeatCapacityReactorPlating.java:31
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:470
+msgid "Heat-Capacity Reactor Plating"
+msgstr "高热容反应堆隔板"
 
 #: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:39
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:445
 msgid "Heat Exchanger"
 msgstr "热交换器"
-
-#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
-#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
-#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
-msgid "Iron"
-msgstr "铁"
 
 #: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:33
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:405
@@ -358,10 +483,6 @@ msgid "Rubber"
 msgstr "橡胶"
 
 #: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
-msgid "Lapis Lazuli"
-msgstr "青金石"
-
-#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
 msgid "Glowstone Dust"
 msgstr "萤石"
 
@@ -373,10 +494,6 @@ msgstr "煤炭"
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:395
 msgid "Neutron Reflector"
 msgstr "中子反射板"
-
-#: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:16
-msgid "Gold"
-msgstr "金"
 
 #: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:33
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:425
@@ -511,18 +628,6 @@ msgid ""
 "Burn: 4,000  Evaporate: 5,000  Hurt: 7,000  Lava: 8,500  Explode: 10,000"
 msgstr "燃烧: 4000 蒸发: 5000 伤害: 7000 岩浆: 8500 爆炸: 10000"
 
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:365
-msgid "Fuel Rod (Uranium)"
-msgstr "燃料棒(铀)"
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:370
-msgid "Dual Fuel Rod (Uranium)"
-msgstr "双联燃料棒(铀)"
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:380
-msgid "Fuel Rod (MOX)"
-msgstr "燃料棒(MOX)"
-
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:400
 #: src/main/java/Ic2ExpReactorPlanner/ThickNeutronReflector.java:33
 msgid "Thick Neutron Reflector"
@@ -537,38 +642,10 @@ msgstr "反应堆热交换器"
 msgid "Reactor Plating"
 msgstr "反应堆隔板"
 
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:470
-msgid "Heat-Capacity Reactor Plating"
-msgstr "高热容反应堆隔板"
-
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:480
 #: src/main/java/Ic2ExpReactorPlanner/RshCondensator.java:33
 msgid "RSH-Condensator"
 msgstr "红石冷却单元"
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:490
-msgid "Fuel Rod (Thorium)"
-msgstr "燃料棒(钍)"
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:495
-msgid "Double Fuel Rod (Thorium)"
-msgstr "双联燃料棒(钍)"
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:510
-msgid "180k He Coolant Cell"
-msgstr "180k氦冷却单元"
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:515
-msgid "360k He Coolant Cell"
-msgstr "360k氦冷却单元"
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:525
-msgid "180k NaK Coolant Cell"
-msgstr "180k钠钾合金冷却单元"
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:530
-msgid "360k NaK Coolant Cell"
-msgstr "360k钠钾合金冷却单元"
 
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:547
 msgid "Initial Component Heat:"
@@ -701,10 +778,6 @@ msgstr "组件自动化"
 #: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:16
 msgid "Lead"
 msgstr "铅"
-
-#: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:16
-msgid "Advanced Alloy"
-msgstr "高级合金"
 
 #: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:159
 msgid "Fuel rods (if any) stopped after %,d seconds.\n"

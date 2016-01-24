@@ -3,6 +3,8 @@ package Ic2ExpReactorPlanner;
 import java.util.List;
 import java.util.ArrayList;
 
+import static Ic2ExpReactorPlanner.S._;
+
 /**
  * Represents a single thorium fuel rod.
  * @author Brian McCloud
@@ -14,7 +16,7 @@ public class FuelRodThorium extends ReactorComponent {
      */
     private static final  String imageFilename = "gt.Thoriumcell.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron", "Thorium");
+    public static final MaterialsList MATERIALS = new MaterialsList(_("Iron"), _("Thorium"));
     
     /**
      * Creates a new instance.
@@ -31,7 +33,7 @@ public class FuelRodThorium extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Fuel Rod (Thorium)";
+        return _("Fuel Rod (Thorium)");
     }
 
     @Override

@@ -17,7 +17,7 @@ public class AdvancedHeatExchanger extends ReactorComponent {
      */
     private static final String imageFilename = "reactorHeatSwitchDiamond.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatExchanger.MATERIALS, 2, MaterialsList.ELECTRONIC_CIRCUIT, "Copper", 4, "Lapis Lazuli");
+    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatExchanger.MATERIALS, 2, MaterialsList.ELECTRONIC_CIRCUIT, _("Copper"), 4, _("Lapis Lazuli"));
     
     private static final int switchSide = 24;
     private static final int switchReactor = 8;

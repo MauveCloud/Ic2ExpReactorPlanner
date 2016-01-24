@@ -13,7 +13,7 @@ public class DualFuelRodMox extends FuelRodUranium {
      */
     private static final String imageFilename = "reactorMOXDual.png";    
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron", 2, FuelRodMox.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(_("Iron"), 2, FuelRodMox.MATERIALS);
     
     /**
      * Creates a new instance.
