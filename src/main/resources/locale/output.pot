@@ -1,0 +1,812 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-24 11:15+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:20
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/HeatCapacityReactorPlating.java:16
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/ThickNeutronReflector.java:16
+msgid "Copper"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:20
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
+msgid "Lapis Lazuli"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:39
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:450
+msgid "Advanced Heat Exchanger"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatExchanger.java:41
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:35
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:41
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:34
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kHelium.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kNak.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:36
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:35
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:35
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:41
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:35
+#: src/main/java/Ic2ExpReactorPlanner/LzhCondensator.java:36
+#: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:35
+#: src/main/java/Ic2ExpReactorPlanner/ReactorHeatExchanger.java:38
+#: src/main/java/Ic2ExpReactorPlanner/ReactorHeatVent.java:35
+#: src/main/java/Ic2ExpReactorPlanner/RshCondensator.java:35
+msgid " (initial heat: %,d)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:16
+msgid "Diamond"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatVent.java:19
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodUranium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodThorium.java:19
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodUranium.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:16
+msgid "Iron"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AdvancedHeatVent.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:410
+msgid "Advanced Heat Vent"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:76
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:51
+msgid "Simulation started.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:94
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:69
+msgid "R%dC%d:0xC0C0C0"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:131
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:135
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:104
+msgid "Reactor will reach \"Burn\" temperature at %d seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:135
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:139
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:108
+msgid "Reactor will reach \"Evaporate\" temperature at %d seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:139
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:143
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:112
+msgid "Reactor will reach \"Hurt\" temperature at %d seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:143
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:147
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:116
+msgid "Reactor will reach \"Lava\" temperature at %d seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:147
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:151
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:120
+msgid "Reactor will explode at %d seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:201
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:211
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:222
+msgid "R%dC%d:+Replaced at %,d seconds."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:240
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:149
+msgid "R%dC%d:0xFF0000"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:242
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:151
+msgid "R%dC%d:+Broke after %,d seconds."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:247
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:200
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:156
+msgid "Reactor minimum temperature: %,.2f\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:248
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:201
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:157
+msgid "Reactor maximum temperature: %,.2f\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:250
+msgid "Reactor ran for %,d seconds without exploding.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:251
+msgid ""
+"Reactor was active for a total of %,d seconds (%,d to %,d seconds at a "
+"time).\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:252
+msgid "Reactor was inactive for a total of %,d seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:253
+msgid ""
+"Components replaced:\n"
+"%s"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:257
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:206
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:162
+msgid ""
+"Total heat output: %,.0f\n"
+"Average heat output before fuel rods stopped: %.2f Hu/s\n"
+"Minimum heat output: %.2f Hu/s\n"
+"Maximum heat output: %.2f Hu/s\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:259
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:264
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:207
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:210
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:164
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:169
+msgid "Efficiency: %.2f average, %.2f minimum, %.2f maximum\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:262
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:209
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:167
+msgid ""
+"Total EU output: %,.0f (%.2f EU/t min, %.2f EU/t max, %.2f EU/t average)\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:270
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:215
+msgid "Reactor remained at %,.2f heat after cycle.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:277
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:244
+msgid "R%dC%d:0xFFA500"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:278
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:223
+msgid "R%dC%d:+Had %,.2f heat left after cycle."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:284
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:229
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:252
+msgid "Reactor overheated at %,d seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:296
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:241
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:267
+msgid "R%dC%d:+Used %.2f of %.2f cooling."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:300
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:303
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:248
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:274
+msgid "R%dC%d:+Received at most %.2f heat per reactor tick."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:310
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:255
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:281
+msgid "Total Vent Cooling: %,.2f of %,.2f\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:311
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:256
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:282
+msgid "Total Cell Cooling: %,.2f\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:312
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:257
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:283
+msgid "Total Condensator Cooling: %,.2f\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:313
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:258
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:284
+msgid "Max Heat Generated: %.2f\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:316
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:261
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:287
+msgid "Excess cooling: %.2f\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:318
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:263
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:289
+msgid "Excess heating: %.2f\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:323
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:268
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:294
+msgid "Error at reactor tick %d\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:325
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:270
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:296
+msgid "Error at cooldown tick %d\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/AutomationSimulator.java:330
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:275
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:301
+msgid "Simulation took %.2f seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:16
+msgid "Gold"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatExchanger.java:39
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:460
+msgid "Component Heat Exchanger"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatVent.java:19
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:17
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:16
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:16
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:19
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:16
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
+msgid "Tin"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ComponentHeatVent.java:34
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:420
+msgid "Component Heat Vent"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ContainmentReactorPlating.java:16
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:16
+msgid "Advanced Alloy"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ContainmentReactorPlating.java:31
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:475
+msgid "Containment Reactor Plating"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:16
+msgid "Distilled Water"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell10k.java:32
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:430
+msgid "10k Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kHelium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:510
+msgid "180k He Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell180kNak.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:525
+msgid "180k NaK Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell30k.java:34
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:435
+msgid "30k Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kHelium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:515
+msgid "360k He Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell360kNak.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:530
+msgid "360k NaK Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60k.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:440
+msgid "60k Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:16
+msgid "Helium Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kHelium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:505
+msgid "60k He Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:16
+msgid "Sodium"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:16
+msgid "Potassium"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/CoolantCell60kNak.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:520
+msgid "60k NaK Coolant Cell"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodMox.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:385
+msgid "Dual Fuel Rod (MOX)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodThorium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:495
+msgid "Double Fuel Rod (Thorium)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/DualFuelRodUranium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:370
+msgid "Dual Fuel Rod (Uranium)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodMox.java:16
+msgid "MOX Fuel"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodMox.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:380
+msgid "Fuel Rod (MOX)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodThorium.java:19
+msgid "Thorium"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodThorium.java:36
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:490
+msgid "Fuel Rod (Thorium)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodUranium.java:19
+msgid "Uranium Fuel"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/FuelRodUranium.java:36
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:365
+msgid "Fuel Rod (Uranium)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/HeatCapacityReactorPlating.java:31
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:470
+msgid "Heat-Capacity Reactor Plating"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/HeatExchanger.java:39
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:445
+msgid "Heat Exchanger"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/HeatVent.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:405
+msgid "Heat Vent"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/IridiumNeutronReflector.java:16
+msgid "Iridium Reinforced Plate"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/IridiumNeutronReflector.java:32
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:535
+msgid "Iridium Neutron Reflector"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/LzhCondensator.java:34
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:485
+msgid "LZH-Condensator"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
+msgid "Redstone"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:18
+msgid "Rubber"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/MaterialsList.java:19
+msgid "Glowstone Dust"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:16
+msgid "Coal"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/NeutronReflector.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:395
+msgid "Neutron Reflector"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/OverclockedHeatVent.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:425
+msgid "Overclocked Heat Vent"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:91
+msgid "No fuel rods found! Simulating a pulsed cycle makes no sense!"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:195
+msgid "R%dC%d:%s+Broke after %,d seconds."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:203
+msgid "Cycle complete after %,d seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/PulsedSimulator.java:245
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:271
+msgid "R%dC%d:+Received at most %.2f heat per reactor tick.)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodMox.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:390
+msgid "Quad Fuel Rod (MOX)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodThorium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:500
+msgid "Quad Fuel Rod (Thorium)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/QuadFuelRodUranium.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:375
+msgid "Quad Fuel Rod (Uranium)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:258
+msgid ""
+"Obsolete component (depleted isotope cell) at row %d column %d removed.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:318
+msgid "Obsolete component (heating cell) at row %d column %d removed.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:330
+msgid "Obsolete component (plutonium cell) at row %d column %d removed.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:333
+msgid "Obsolete component (dual plutonium cell) at row %d column %d removed.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:336
+msgid "Obsolete component (quad plutonium cell) at row %d column %d removed.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:360
+msgid "Unrecognized component (id %d) at row %d column %d removed.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/Reactor.java:367
+msgid "Warning(s)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorHeatExchanger.java:36
+msgid "Reactor Heat Exchanger"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorHeatVent.java:33
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:415
+msgid "Reactor Heat Vent"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:63
+msgid "Click to define automation rules for this component."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:72
+msgid "No component at row %d column %d."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:74
+msgid "%s at row %d column %d\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:95
+msgid "No component at row %d column %d during last simulation."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:97
+msgid ""
+"%s at row %d column %d\n"
+"%s"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:100
+msgid "No simulation run yet."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:105
+msgid "Click for information about this component"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:127
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:160
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:934
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:1081
+msgid "Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:313
+msgid "File"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:315
+msgid "Choose Resource Pack"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:326
+msgid "IC2 Experimental Reactor Planner"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:349
+msgid ""
+"Burn: 4,000  Evaporate: 5,000  Hurt: 7,000  Lava: 8,500  Explode: 10,000"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:400
+#: src/main/java/Ic2ExpReactorPlanner/ThickNeutronReflector.java:33
+msgid "Thick Neutron Reflector"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:455
+msgid "Core Heat Exchanger"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:465
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:31
+msgid "Reactor Plating"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:480
+#: src/main/java/Ic2ExpReactorPlanner/RshCondensator.java:33
+msgid "RSH-Condensator"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:547
+msgid "Initial Component Heat:"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:569
+msgid "EU Reactor"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:583
+msgid "Fluid Reactor"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:596
+msgid "Clear Grid"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:608
+msgid "Simulate"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:620
+msgid "Initial Reactor Heat:"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:644
+msgid "Code:"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:659
+msgid "Copy Code"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:671
+msgid "Paste Code"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:683
+msgid "Simulation Style:"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:690
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:961
+msgid "Simple Cycle"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:690
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:964
+msgid "Pulsed Cycle"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:690
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:987
+msgid "Pulsed Automation"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:708
+msgid "Simulation"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:715
+msgid "Materials"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:721
+msgid "Component"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:725
+msgid "On-pulse duration:"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:738
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:756
+msgid "seconds"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:743
+msgid "Off-pulse duration:"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:764
+msgid "(on-pulse can be set to 5 million to mimic having no redstone timing)"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:771
+msgid "Suspend when reactor temp >="
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:783
+msgid "Resume when reactor temp <="
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:797
+msgid "Pulse Configuration"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:801
+msgid "No component selected"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:808
+msgid "Replacement Threshold:"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:829
+msgid ""
+"<html>(Set higher than component's initial heat/damage to replace the "
+"component when it gets this hot/damaged, or lower to replace a component "
+"that has cooled; broken components will be replaced during automation runs "
+"regardless of this setting)</html>"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:837
+msgid "Reactor Pause (seconds):"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:858
+msgid ""
+"<html>(This is how long the reactor will pause while replacing this "
+"component)</html>"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlannerFrame.java:866
+msgid "Component Automation"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/ReactorPlating.java:16
+msgid "Lead"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:159
+msgid "Fuel rods (if any) stopped after %,d seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:183
+msgid "R%dC%d:0xFFFF00"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:184
+msgid "R%dC%d:+Had %,.2f heat left when reactor stopped."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:191
+msgid "No cooldown needed.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:225
+msgid "R%dC%d:+Took %,d seconds to cool down."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:233
+msgid "Reactor took %,d seconds to cool down.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:235
+msgid ""
+"Reactor remained at %,.2f heat even after cool down period of %,d seconds.\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:237
+msgid ""
+"Other components took %,d seconds to cool down (as much as they would).\n"
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:245
+msgid "R%dC%d:+Had %,.2f heat left after cooldown period."
+msgstr ""
+
+#: src/main/java/Ic2ExpReactorPlanner/SimpleSimulator.java:255
+msgid ""
+"Average heat output after fuel rods stopped: %.2f Hu/s\n"
+"Minimum heat output: %.2f Hu/s\n"
+"Maximum heat output: %.2f Hu/s\n"
+msgstr ""
