@@ -9,9 +9,9 @@ public class ReactorHeatVent extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorVentCore.png";    
+    private static final String imageFilename = "reactorVentCore.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 8, "Copper");
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 8, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"));
     
     /**
      * Creates a new instance.
@@ -28,9 +28,9 @@ public class ReactorHeatVent extends ReactorComponent {
      */
     @Override
     public String toString() {
-        String result = "Reactor Heat Vent";
+        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR HEAT VENT");
         if (getInitialHeat() > 0) {
-            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
         }
         return result;
     }

@@ -9,9 +9,9 @@ public class HeatCapacityReactorPlating extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorPlatingHeat.png";    
+    private static final String imageFilename = "reactorPlatingHeat.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 8, "Copper");
+    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 8, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"));
     
     /**
      * Creates a new instance.
@@ -26,7 +26,7 @@ public class HeatCapacityReactorPlating extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Heat-Capacity Reactor Plating";
+        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("HEAT-CAPACITY REACTOR PLATING");
     }
 
     @Override

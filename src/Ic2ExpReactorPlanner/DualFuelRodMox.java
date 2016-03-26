@@ -9,9 +9,9 @@ public class DualFuelRodMox extends FuelRodUranium {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorMOXDual.png";    
+    private static final String imageFilename = "reactorMOXDual.png"; //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron", 2, FuelRodMox.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), 2, FuelRodMox.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -28,7 +28,7 @@ public class DualFuelRodMox extends FuelRodUranium {
      */
     @Override
     public String toString() {
-        return "Dual Fuel Rod (MOX)";
+        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DUAL FUEL ROD (MOX)");
     }
         
     @Override

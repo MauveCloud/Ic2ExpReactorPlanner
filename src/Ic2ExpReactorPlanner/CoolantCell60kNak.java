@@ -9,9 +9,9 @@ public class CoolantCell60kNak extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "gt.60k_NaK_Coolantcell.png";    
+    private static final String imageFilename = "gt.60k_NaK_Coolantcell.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(CoolantCell10k.MATERIALS, 2, "Sodium", 2, "Potassium", 4, "Tin");
+    public static final MaterialsList MATERIALS = new MaterialsList(CoolantCell10k.MATERIALS, 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("SODIUM"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("POTASSIUM"), 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TIN"));
     
     /**
      * Creates a new instance.
@@ -28,9 +28,9 @@ public class CoolantCell60kNak extends ReactorComponent {
      */
     @Override
     public String toString() {
-        String result = "60k NaK Coolant Cell";
+        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("60K NAK COOLANT CELL");
         if (getInitialHeat() > 0) {
-            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
         }
         return result;
     }

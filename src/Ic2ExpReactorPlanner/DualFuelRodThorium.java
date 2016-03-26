@@ -9,9 +9,9 @@ public class DualFuelRodThorium extends FuelRodUranium {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "gt.Double_Thoriumcell.png";    
+    private static final String imageFilename = "gt.Double_Thoriumcell.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron", 2, FuelRodThorium.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), 2, FuelRodThorium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -28,7 +28,7 @@ public class DualFuelRodThorium extends FuelRodUranium {
      */
     @Override
     public String toString() {
-        return "Double Fuel Rod (Thorium)";
+        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DOUBLE FUEL ROD (THORIUM)");
     }
     
     @Override

@@ -324,9 +324,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         pauseSpinner = new javax.swing.JSpinner();
         jLabel15 = new javax.swing.JLabel();
 
-        fileMenu.setText("File");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
+        fileMenu.setText(bundle.getString("ReactorPlannerFrame.fileMenu.text_1")); // NOI18N
 
-        resourcePackItem.setText("Choose Resource Pack");
+        resourcePackItem.setText(bundle.getString("ReactorPlannerFrame.resourcePackItem.text_1")); // NOI18N
         resourcePackItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resourcePackItemActionPerformed(evt);
@@ -337,7 +338,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jMenuBar1.add(fileMenu);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("IC2 Experimental Reactor Planner");
+        setTitle(bundle.getString("ReactorPlannerFrame.title_1")); // NOI18N
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 plannerResized(evt);
@@ -360,7 +361,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         temperatureAndComponentsPanel.setLayout(new java.awt.GridBagLayout());
 
-        temperatureEffectsLabel.setText("Burn: 4,000  Evaporate: 5,000  Hurt: 7,000  Lava: 8,500  Explode: 10,000");
+        temperatureEffectsLabel.setText(bundle.getString("ReactorPlannerFrame.temperatureEffectsLabel.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -372,182 +373,182 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentsPanel.setLayout(new java.awt.GridLayout(4, 9));
 
         componentsGroup.add(emptyButton);
-        emptyButton.setActionCommand("empty");
+        emptyButton.setActionCommand("empty"); // NOI18N
         componentsPanel.add(emptyButton);
 
         componentsGroup.add(fuelRodUraniumButton);
-        fuelRodUraniumButton.setToolTipText("Fuel Rod (Uranium)");
-        fuelRodUraniumButton.setActionCommand("fuelRodUranium");
+        fuelRodUraniumButton.setToolTipText(bundle.getString("ReactorPlannerFrame.fuelRodUraniumButton.toolTipText_1")); // NOI18N
+        fuelRodUraniumButton.setActionCommand("fuelRodUranium"); // NOI18N
         componentsPanel.add(fuelRodUraniumButton);
 
         componentsGroup.add(dualFuelRodUraniumButton);
-        dualFuelRodUraniumButton.setToolTipText("Dual Fuel Rod (Uranium)");
-        dualFuelRodUraniumButton.setActionCommand("dualFuelRodUranium");
+        dualFuelRodUraniumButton.setToolTipText(bundle.getString("ReactorPlannerFrame.dualFuelRodUraniumButton.toolTipText_1")); // NOI18N
+        dualFuelRodUraniumButton.setActionCommand("dualFuelRodUranium"); // NOI18N
         componentsPanel.add(dualFuelRodUraniumButton);
 
         componentsGroup.add(quadFuelRodUraniumButton);
-        quadFuelRodUraniumButton.setToolTipText("Quad Fuel Rod (Uranium)");
-        quadFuelRodUraniumButton.setActionCommand("quadFuelRodUranium");
+        quadFuelRodUraniumButton.setToolTipText(bundle.getString("ReactorPlannerFrame.quadFuelRodUraniumButton.toolTipText_1")); // NOI18N
+        quadFuelRodUraniumButton.setActionCommand("quadFuelRodUranium"); // NOI18N
         componentsPanel.add(quadFuelRodUraniumButton);
 
         componentsGroup.add(fuelRodMoxButton);
-        fuelRodMoxButton.setToolTipText("Fuel Rod (MOX)");
-        fuelRodMoxButton.setActionCommand("fuelRodMox");
+        fuelRodMoxButton.setToolTipText(bundle.getString("ReactorPlannerFrame.fuelRodMoxButton.toolTipText_1")); // NOI18N
+        fuelRodMoxButton.setActionCommand("fuelRodMox"); // NOI18N
         componentsPanel.add(fuelRodMoxButton);
 
         componentsGroup.add(dualFuelRodMoxButton);
-        dualFuelRodMoxButton.setToolTipText("Dual Fuel Rod (MOX)");
-        dualFuelRodMoxButton.setActionCommand("dualFuelRodMox");
+        dualFuelRodMoxButton.setToolTipText(bundle.getString("ReactorPlannerFrame.dualFuelRodMoxButton.toolTipText_1")); // NOI18N
+        dualFuelRodMoxButton.setActionCommand("dualFuelRodMox"); // NOI18N
         componentsPanel.add(dualFuelRodMoxButton);
 
         componentsGroup.add(quadFuelRodMoxButton);
-        quadFuelRodMoxButton.setToolTipText("Quad Fuel Rod (MOX)");
-        quadFuelRodMoxButton.setActionCommand("quadFuelRodMox");
+        quadFuelRodMoxButton.setToolTipText(bundle.getString("ReactorPlannerFrame.quadFuelRodMoxButton.toolTipText_1")); // NOI18N
+        quadFuelRodMoxButton.setActionCommand("quadFuelRodMox"); // NOI18N
         componentsPanel.add(quadFuelRodMoxButton);
 
         componentsGroup.add(neutronReflectorButton);
-        neutronReflectorButton.setToolTipText("Neutron Reflector");
-        neutronReflectorButton.setActionCommand("neutronReflector");
+        neutronReflectorButton.setToolTipText(bundle.getString("ReactorPlannerFrame.neutronReflectorButton.toolTipText_1")); // NOI18N
+        neutronReflectorButton.setActionCommand("neutronReflector"); // NOI18N
         componentsPanel.add(neutronReflectorButton);
 
         componentsGroup.add(thickNeutronReflectorButton);
-        thickNeutronReflectorButton.setToolTipText("Thick Neutron Reflector");
-        thickNeutronReflectorButton.setActionCommand("thickNeutronReflector");
+        thickNeutronReflectorButton.setToolTipText(bundle.getString("ReactorPlannerFrame.thickNeutronReflectorButton.toolTipText_1")); // NOI18N
+        thickNeutronReflectorButton.setActionCommand("thickNeutronReflector"); // NOI18N
         componentsPanel.add(thickNeutronReflectorButton);
 
         componentsGroup.add(heatVentButton);
-        heatVentButton.setToolTipText("Heat Vent");
-        heatVentButton.setActionCommand("heatVent");
+        heatVentButton.setToolTipText(bundle.getString("ReactorPlannerFrame.heatVentButton.toolTipText_1")); // NOI18N
+        heatVentButton.setActionCommand("heatVent"); // NOI18N
         componentsPanel.add(heatVentButton);
 
         componentsGroup.add(advancedHeatVentButton);
-        advancedHeatVentButton.setToolTipText("Advanced Heat Vent");
-        advancedHeatVentButton.setActionCommand("advancedHeatVent");
+        advancedHeatVentButton.setToolTipText(bundle.getString("ReactorPlannerFrame.advancedHeatVentButton.toolTipText_1")); // NOI18N
+        advancedHeatVentButton.setActionCommand("advancedHeatVent"); // NOI18N
         componentsPanel.add(advancedHeatVentButton);
 
         componentsGroup.add(reactorHeatVentButton);
-        reactorHeatVentButton.setToolTipText("Reactor Heat Vent");
-        reactorHeatVentButton.setActionCommand("reactorHeatVent");
+        reactorHeatVentButton.setToolTipText(bundle.getString("ReactorPlannerFrame.reactorHeatVentButton.toolTipText_1")); // NOI18N
+        reactorHeatVentButton.setActionCommand("reactorHeatVent"); // NOI18N
         componentsPanel.add(reactorHeatVentButton);
 
         componentsGroup.add(componentHeatVentButton);
-        componentHeatVentButton.setToolTipText("Component Heat Vent");
-        componentHeatVentButton.setActionCommand("componentHeatVent");
+        componentHeatVentButton.setToolTipText(bundle.getString("ReactorPlannerFrame.componentHeatVentButton.toolTipText_1")); // NOI18N
+        componentHeatVentButton.setActionCommand("componentHeatVent"); // NOI18N
         componentsPanel.add(componentHeatVentButton);
 
         componentsGroup.add(overclockedHeatVentButton);
-        overclockedHeatVentButton.setToolTipText("Overclocked Heat Vent");
-        overclockedHeatVentButton.setActionCommand("overclockedHeatVent");
+        overclockedHeatVentButton.setToolTipText(bundle.getString("ReactorPlannerFrame.overclockedHeatVentButton.toolTipText_1")); // NOI18N
+        overclockedHeatVentButton.setActionCommand("overclockedHeatVent"); // NOI18N
         componentsPanel.add(overclockedHeatVentButton);
 
         componentsGroup.add(coolantCell10kButton);
-        coolantCell10kButton.setToolTipText("10k Coolant Cell");
-        coolantCell10kButton.setActionCommand("coolantCell10k");
+        coolantCell10kButton.setToolTipText(bundle.getString("ReactorPlannerFrame.coolantCell10kButton.toolTipText_1")); // NOI18N
+        coolantCell10kButton.setActionCommand("coolantCell10k"); // NOI18N
         componentsPanel.add(coolantCell10kButton);
 
         componentsGroup.add(coolantCell30kButton);
-        coolantCell30kButton.setToolTipText("30k Coolant Cell");
-        coolantCell30kButton.setActionCommand("coolantCell30k");
+        coolantCell30kButton.setToolTipText(bundle.getString("ReactorPlannerFrame.coolantCell30kButton.toolTipText_1")); // NOI18N
+        coolantCell30kButton.setActionCommand("coolantCell30k"); // NOI18N
         componentsPanel.add(coolantCell30kButton);
 
         componentsGroup.add(coolantCell60kButton);
-        coolantCell60kButton.setToolTipText("60k Coolant Cell");
-        coolantCell60kButton.setActionCommand("coolantCell60k");
+        coolantCell60kButton.setToolTipText(bundle.getString("ReactorPlannerFrame.coolantCell60kButton.toolTipText_1")); // NOI18N
+        coolantCell60kButton.setActionCommand("coolantCell60k"); // NOI18N
         componentsPanel.add(coolantCell60kButton);
 
         componentsGroup.add(heatExchangerButton);
-        heatExchangerButton.setToolTipText("Heat Exchanger");
-        heatExchangerButton.setActionCommand("heatExchanger");
+        heatExchangerButton.setToolTipText(bundle.getString("ReactorPlannerFrame.heatExchangerButton.toolTipText_1")); // NOI18N
+        heatExchangerButton.setActionCommand("heatExchanger"); // NOI18N
         componentsPanel.add(heatExchangerButton);
 
         componentsGroup.add(advancedHeatExchangerButton);
-        advancedHeatExchangerButton.setToolTipText("Advanced Heat Exchanger");
-        advancedHeatExchangerButton.setActionCommand("advancedHeatExchanger");
+        advancedHeatExchangerButton.setToolTipText(bundle.getString("ReactorPlannerFrame.advancedHeatExchangerButton.toolTipText_1")); // NOI18N
+        advancedHeatExchangerButton.setActionCommand("advancedHeatExchanger"); // NOI18N
         componentsPanel.add(advancedHeatExchangerButton);
 
         componentsGroup.add(coreHeatExchangerButton);
-        coreHeatExchangerButton.setToolTipText("Core Heat Exchanger");
-        coreHeatExchangerButton.setActionCommand("coreHeatExchanger");
+        coreHeatExchangerButton.setToolTipText(bundle.getString("ReactorPlannerFrame.coreHeatExchangerButton.toolTipText_1")); // NOI18N
+        coreHeatExchangerButton.setActionCommand("coreHeatExchanger"); // NOI18N
         componentsPanel.add(coreHeatExchangerButton);
 
         componentsGroup.add(componentHeatExchangerButton);
-        componentHeatExchangerButton.setToolTipText("Component Heat Exchanger");
-        componentHeatExchangerButton.setActionCommand("componentHeatExchanger");
+        componentHeatExchangerButton.setToolTipText(bundle.getString("ReactorPlannerFrame.componentHeatExchangerButton.toolTipText_1")); // NOI18N
+        componentHeatExchangerButton.setActionCommand("componentHeatExchanger"); // NOI18N
         componentsPanel.add(componentHeatExchangerButton);
 
         componentsGroup.add(reactorPlatingButton);
-        reactorPlatingButton.setToolTipText("Reactor Plating");
-        reactorPlatingButton.setActionCommand("reactorPlating");
+        reactorPlatingButton.setToolTipText(bundle.getString("ReactorPlannerFrame.reactorPlatingButton.toolTipText_1")); // NOI18N
+        reactorPlatingButton.setActionCommand("reactorPlating"); // NOI18N
         componentsPanel.add(reactorPlatingButton);
 
         componentsGroup.add(heatCapacityReactorPlatingButton);
-        heatCapacityReactorPlatingButton.setToolTipText("Heat-Capacity Reactor Plating");
-        heatCapacityReactorPlatingButton.setActionCommand("heatCapacityReactorPlating");
+        heatCapacityReactorPlatingButton.setToolTipText(bundle.getString("ReactorPlannerFrame.heatCapacityReactorPlatingButton.toolTipText_1")); // NOI18N
+        heatCapacityReactorPlatingButton.setActionCommand("heatCapacityReactorPlating"); // NOI18N
         componentsPanel.add(heatCapacityReactorPlatingButton);
 
         componentsGroup.add(containmentReactorPlatingButton);
-        containmentReactorPlatingButton.setToolTipText("Containment Reactor Plating");
-        containmentReactorPlatingButton.setActionCommand("containmentReactorPlating");
+        containmentReactorPlatingButton.setToolTipText(bundle.getString("ReactorPlannerFrame.containmentReactorPlatingButton.toolTipText_1")); // NOI18N
+        containmentReactorPlatingButton.setActionCommand("containmentReactorPlating"); // NOI18N
         componentsPanel.add(containmentReactorPlatingButton);
 
         componentsGroup.add(rshCondensatorButton);
-        rshCondensatorButton.setToolTipText("RSH-Condensator");
-        rshCondensatorButton.setActionCommand("rshCondensator");
+        rshCondensatorButton.setToolTipText(bundle.getString("ReactorPlannerFrame.rshCondensatorButton.toolTipText_1")); // NOI18N
+        rshCondensatorButton.setActionCommand("rshCondensator"); // NOI18N
         componentsPanel.add(rshCondensatorButton);
 
         componentsGroup.add(lzhCondensatorButton);
-        lzhCondensatorButton.setToolTipText("LZH-Condensator");
-        lzhCondensatorButton.setActionCommand("lzhCondensator");
+        lzhCondensatorButton.setToolTipText(bundle.getString("ReactorPlannerFrame.lzhCondensatorButton.toolTipText_1")); // NOI18N
+        lzhCondensatorButton.setActionCommand("lzhCondensator"); // NOI18N
         componentsPanel.add(lzhCondensatorButton);
 
         componentsGroup.add(fuelRodThoriumButton);
-        fuelRodThoriumButton.setToolTipText("Fuel Rod (Thorium)");
-        fuelRodThoriumButton.setActionCommand("fuelRodThorium");
+        fuelRodThoriumButton.setToolTipText(bundle.getString("ReactorPlannerFrame.fuelRodThoriumButton.toolTipText_1")); // NOI18N
+        fuelRodThoriumButton.setActionCommand("fuelRodThorium"); // NOI18N
         componentsPanel.add(fuelRodThoriumButton);
 
         componentsGroup.add(dualFuelRodThoriumButton);
-        dualFuelRodThoriumButton.setToolTipText("Double Fuel Rod (Thorium)");
-        dualFuelRodThoriumButton.setActionCommand("dualFuelRodThorium");
+        dualFuelRodThoriumButton.setToolTipText(bundle.getString("ReactorPlannerFrame.dualFuelRodThoriumButton.toolTipText_1")); // NOI18N
+        dualFuelRodThoriumButton.setActionCommand("dualFuelRodThorium"); // NOI18N
         componentsPanel.add(dualFuelRodThoriumButton);
 
         componentsGroup.add(quadFuelRodThoriumButton);
-        quadFuelRodThoriumButton.setToolTipText("Quad Fuel Rod (Thorium)");
-        quadFuelRodThoriumButton.setActionCommand("quadFuelRodThorium");
+        quadFuelRodThoriumButton.setToolTipText(bundle.getString("ReactorPlannerFrame.quadFuelRodThoriumButton.toolTipText_1")); // NOI18N
+        quadFuelRodThoriumButton.setActionCommand("quadFuelRodThorium"); // NOI18N
         componentsPanel.add(quadFuelRodThoriumButton);
 
         componentsGroup.add(coolantCellHelium60kButton);
-        coolantCellHelium60kButton.setToolTipText("60k He Coolant Cell");
-        coolantCellHelium60kButton.setActionCommand("coolantCellHelium60k");
+        coolantCellHelium60kButton.setToolTipText(bundle.getString("ReactorPlannerFrame.coolantCellHelium60kButton.toolTipText_1")); // NOI18N
+        coolantCellHelium60kButton.setActionCommand("coolantCellHelium60k"); // NOI18N
         componentsPanel.add(coolantCellHelium60kButton);
 
         componentsGroup.add(coolantCellHelium180kButton);
-        coolantCellHelium180kButton.setToolTipText("180k He Coolant Cell");
-        coolantCellHelium180kButton.setActionCommand("coolantCellHelium180k");
+        coolantCellHelium180kButton.setToolTipText(bundle.getString("ReactorPlannerFrame.coolantCellHelium180kButton.toolTipText_1")); // NOI18N
+        coolantCellHelium180kButton.setActionCommand("coolantCellHelium180k"); // NOI18N
         componentsPanel.add(coolantCellHelium180kButton);
 
         componentsGroup.add(coolantCellHelium360kButton);
-        coolantCellHelium360kButton.setToolTipText("360k He Coolant Cell");
-        coolantCellHelium360kButton.setActionCommand("coolantCellHelium360k");
+        coolantCellHelium360kButton.setToolTipText(bundle.getString("ReactorPlannerFrame.coolantCellHelium360kButton.toolTipText_1")); // NOI18N
+        coolantCellHelium360kButton.setActionCommand("coolantCellHelium360k"); // NOI18N
         componentsPanel.add(coolantCellHelium360kButton);
 
         componentsGroup.add(coolantCellNak60kButton);
-        coolantCellNak60kButton.setToolTipText("60k NaK Coolant Cell");
-        coolantCellNak60kButton.setActionCommand("coolantCellNak60k");
+        coolantCellNak60kButton.setToolTipText(bundle.getString("ReactorPlannerFrame.coolantCellNak60kButton.toolTipText_1")); // NOI18N
+        coolantCellNak60kButton.setActionCommand("coolantCellNak60k"); // NOI18N
         componentsPanel.add(coolantCellNak60kButton);
 
         componentsGroup.add(coolantCellNak180kButton);
-        coolantCellNak180kButton.setToolTipText("180k NaK Coolant Cell");
-        coolantCellNak180kButton.setActionCommand("coolantCellNak180k");
+        coolantCellNak180kButton.setToolTipText(bundle.getString("ReactorPlannerFrame.coolantCellNak180kButton.toolTipText_1")); // NOI18N
+        coolantCellNak180kButton.setActionCommand("coolantCellNak180k"); // NOI18N
         componentsPanel.add(coolantCellNak180kButton);
 
         componentsGroup.add(coolantCellNak360kButton);
-        coolantCellNak360kButton.setToolTipText("360k NaK Coolant Cell");
-        coolantCellNak360kButton.setActionCommand("coolantCellNak360k");
+        coolantCellNak360kButton.setToolTipText(bundle.getString("ReactorPlannerFrame.coolantCellNak360kButton.toolTipText_1")); // NOI18N
+        coolantCellNak360kButton.setActionCommand("coolantCellNak360k"); // NOI18N
         componentsPanel.add(coolantCellNak360kButton);
 
         componentsGroup.add(iridiumNeutronReflectorButton);
-        iridiumNeutronReflectorButton.setToolTipText("Iridium Neutron Reflector");
-        iridiumNeutronReflectorButton.setActionCommand("iridiumNeutronReflector");
+        iridiumNeutronReflectorButton.setToolTipText(bundle.getString("ReactorPlannerFrame.iridiumNeutronReflectorButton.toolTipText_1")); // NOI18N
+        iridiumNeutronReflectorButton.setActionCommand("iridiumNeutronReflector"); // NOI18N
         componentsPanel.add(iridiumNeutronReflectorButton);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -558,7 +559,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(componentsPanel, gridBagConstraints);
 
-        jLabel5.setText("Initial Component Heat:");
+        jLabel5.setText(bundle.getString("ReactorPlannerFrame.jLabel5.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
@@ -580,7 +581,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         reactorStyleGroup.add(euReactorRadio);
         euReactorRadio.setSelected(true);
-        euReactorRadio.setText("EU Reactor");
+        euReactorRadio.setText(bundle.getString("ReactorPlannerFrame.euReactorRadio.text_1")); // NOI18N
         euReactorRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 euReactorRadioActionPerformed(evt);
@@ -594,7 +595,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jPanel1.add(euReactorRadio, gridBagConstraints);
 
         reactorStyleGroup.add(fluidReactorRadio);
-        fluidReactorRadio.setText("Fluid Reactor");
+        fluidReactorRadio.setText(bundle.getString("ReactorPlannerFrame.fluidReactorRadio.text_1")); // NOI18N
         fluidReactorRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fluidReactorRadioActionPerformed(evt);
@@ -607,7 +608,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(fluidReactorRadio, gridBagConstraints);
 
-        clearGridButton.setText("Clear Grid");
+        clearGridButton.setText(bundle.getString("ReactorPlannerFrame.clearGridButton.text_1")); // NOI18N
         clearGridButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearGridButtonActionPerformed(evt);
@@ -619,7 +620,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
         jPanel1.add(clearGridButton, gridBagConstraints);
 
-        simulateButton.setText("Simulate");
+        simulateButton.setText(bundle.getString("ReactorPlannerFrame.simulateButton.text_1")); // NOI18N
         simulateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 simulateButtonActionPerformed(evt);
@@ -631,7 +632,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
         jPanel1.add(simulateButton, gridBagConstraints);
 
-        jLabel1.setText("Initial Reactor Heat:");
+        jLabel1.setText(bundle.getString("ReactorPlannerFrame.jLabel1.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
@@ -647,7 +648,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(heatSpinner, gridBagConstraints);
 
-        maxHeatLabel.setText("/10,000");
+        maxHeatLabel.setText(bundle.getString("ReactorPlannerFrame.maxHeatLabel.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -655,7 +656,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(maxHeatLabel, gridBagConstraints);
 
-        jLabel2.setText("Code:");
+        jLabel2.setText(bundle.getString("ReactorPlannerFrame.jLabel2.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
@@ -670,7 +671,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(codeField, gridBagConstraints);
 
-        copyCodeButton.setText("Copy Code");
+        copyCodeButton.setText(bundle.getString("ReactorPlannerFrame.copyCodeButton.text_1")); // NOI18N
         copyCodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copyCodeButtonActionPerformed(evt);
@@ -682,7 +683,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(copyCodeButton, gridBagConstraints);
 
-        pasteCodeButton.setText("Paste Code");
+        pasteCodeButton.setText(bundle.getString("ReactorPlannerFrame.pasteCodeButton.text_1")); // NOI18N
         pasteCodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pasteCodeButtonActionPerformed(evt);
@@ -694,7 +695,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(pasteCodeButton, gridBagConstraints);
 
-        jLabel6.setText("Simulation Style:");
+        jLabel6.setText(bundle.getString("ReactorPlannerFrame.jLabel6.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
@@ -719,24 +720,24 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         outputArea.setRows(5);
         outputPane.setViewportView(outputArea);
 
-        outputTabs.addTab("Simulation", outputPane);
+        outputTabs.addTab(bundle.getString("ReactorPlannerFrame.outputPane.TabConstraints.tabTitle_1"), outputPane); // NOI18N
 
         materialsArea.setEditable(false);
         materialsArea.setColumns(20);
         materialsArea.setRows(5);
         jScrollPane2.setViewportView(materialsArea);
 
-        outputTabs.addTab("Materials", jScrollPane2);
+        outputTabs.addTab(bundle.getString("ReactorPlannerFrame.jScrollPane2.TabConstraints.tabTitle_1"), jScrollPane2); // NOI18N
 
         componentArea.setColumns(20);
         componentArea.setRows(5);
         jScrollPane1.setViewportView(componentArea);
 
-        outputTabs.addTab("Component", jScrollPane1);
+        outputTabs.addTab(bundle.getString("ReactorPlannerFrame.jScrollPane1.TabConstraints.tabTitle_1"), jScrollPane1); // NOI18N
 
         pulsePanel.setLayout(new java.awt.GridBagLayout());
 
-        jLabel3.setText("On-pulse duration:");
+        jLabel3.setText(bundle.getString("ReactorPlannerFrame.jLabel3.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
@@ -749,12 +750,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(onPulseSpinner, gridBagConstraints);
 
-        jLabel4.setText("seconds");
+        jLabel4.setText(bundle.getString("ReactorPlannerFrame.jLabel4.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(jLabel4, gridBagConstraints);
 
-        jLabel7.setText("Off-pulse duration:");
+        jLabel7.setText(bundle.getString("ReactorPlannerFrame.jLabel7.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 12, 2, 2);
@@ -767,7 +768,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(offPulseSpinner, gridBagConstraints);
 
-        jLabel8.setText("seconds");
+        jLabel8.setText(bundle.getString("ReactorPlannerFrame.jLabel8.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -775,14 +776,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(jLabel8, gridBagConstraints);
 
-        jLabel11.setText("(on-pulse can be set to 5 million to mimic having no redstone timing)");
+        jLabel11.setText(bundle.getString("ReactorPlannerFrame.jLabel11.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(jLabel11, gridBagConstraints);
 
-        jLabel9.setText("Suspend when reactor temp >=");
+        jLabel9.setText(bundle.getString("ReactorPlannerFrame.jLabel9.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(jLabel9, gridBagConstraints);
@@ -794,7 +795,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(suspendTempSpinner, gridBagConstraints);
 
-        jLabel10.setText("Resume when reactor temp <=");
+        jLabel10.setText(bundle.getString("ReactorPlannerFrame.jLabel10.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
@@ -808,18 +809,18 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(resumeTempSpinner, gridBagConstraints);
 
-        outputTabs.addTab("Pulse Configuration", pulsePanel);
+        outputTabs.addTab(bundle.getString("ReactorPlannerFrame.pulsePanel.TabConstraints.tabTitle_1"), pulsePanel); // NOI18N
 
         automationPanel.setLayout(new java.awt.GridBagLayout());
 
-        selectedComponentLabel.setText("No component selected");
+        selectedComponentLabel.setText(bundle.getString("ReactorPlannerFrame.selectedComponentLabel.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         automationPanel.add(selectedComponentLabel, gridBagConstraints);
 
-        jLabel12.setText("Replacement Threshold:");
+        jLabel12.setText(bundle.getString("ReactorPlannerFrame.jLabel12.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
@@ -840,7 +841,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         automationPanel.add(thresholdSpinner, gridBagConstraints);
 
-        jLabel13.setText("<html>(Set higher than component's initial heat/damage to replace the component when it gets this hot/damaged, or lower to replace a component that has cooled; broken components will be replaced during automation runs regardless of this setting)</html>");
+        jLabel13.setText(bundle.getString("ReactorPlannerFrame.jLabel13.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -848,7 +849,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         automationPanel.add(jLabel13, gridBagConstraints);
 
-        jLabel14.setText("Reactor Pause (seconds):");
+        jLabel14.setText(bundle.getString("ReactorPlannerFrame.jLabel14.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
@@ -869,7 +870,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         automationPanel.add(pauseSpinner, gridBagConstraints);
 
-        jLabel15.setText("<html>(This is how long the reactor will pause while replacing this component)</html>");
+        jLabel15.setText(bundle.getString("ReactorPlannerFrame.jLabel15.text_1")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -877,7 +878,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         automationPanel.add(jLabel15, gridBagConstraints);
 
-        outputTabs.addTab("Component Automation", automationPanel);
+        outputTabs.addTab(bundle.getString("ReactorPlannerFrame.automationPanel.TabConstraints.tabTitle_1"), automationPanel); // NOI18N
 
         jSplitPane1.setRightComponent(outputTabs);
 

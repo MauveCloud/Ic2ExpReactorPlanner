@@ -9,9 +9,9 @@ public class NeutronReflector extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorReflector.png";    
+    private static final String imageFilename = "reactorReflector.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Copper", 4, "Tin", 4, "Coal");
+    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"), 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TIN"), 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COAL"));
     
     /**
      * Creates a new instance.
@@ -28,7 +28,7 @@ public class NeutronReflector extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Neutron Reflector";
+        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("NEUTRON REFLECTOR");
     }
 
     @Override

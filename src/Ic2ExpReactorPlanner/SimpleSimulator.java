@@ -47,8 +47,8 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
         int cooldownTicks = 0;
         int totalRodCount = 0;
         try {
-            publish("");
-            publish("Simulation started.\n");
+            publish(""); //NOI18N
+            publish(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("SIMULATION_STARTED"));
             reactor.setCurrentHeat(initialHeat);
             reactor.clearVentedHeat();
             double minReactorHeat = initialHeat;
@@ -66,7 +66,7 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                         component.clearDamage();
                         totalRodCount += component.getRodCount();
                     }
-                    publish(String.format("R%dC%d:0xC0C0C0", row, col));
+                    publish(String.format("R%dC%d:0xC0C0C0", row, col)); //NOI18N
                 }
             }
             double lastEUoutput = 0.0;
@@ -101,23 +101,23 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                             minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
                         }
                         if (maxReactorHeat >= 0.4 * reactor.getMaxHeat() && !reachedBurn) {
-                            publish(String.format("Reactor will reach \"Burn\" temperature at %d seconds.\n", reactorTicks));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_BURN_TIME"), reactorTicks));
                             reachedBurn = true;
                         }
                         if (maxReactorHeat >= 0.5 * reactor.getMaxHeat() && !reachedEvaporate) {
-                            publish(String.format("Reactor will reach \"Evaporate\" temperature at %d seconds.\n", reactorTicks));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_EVAPORATE_TIME"), reactorTicks));
                             reachedEvaporate = true;
                         }
                         if (maxReactorHeat >= 0.7 * reactor.getMaxHeat() && !reachedHurt) {
-                            publish(String.format("Reactor will reach \"Hurt\" temperature at %d seconds.\n", reactorTicks));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_HURT_TIME"), reactorTicks));
                             reachedHurt = true;
                         }
                         if (maxReactorHeat >= 0.85 * reactor.getMaxHeat() && !reachedLava) {
-                            publish(String.format("Reactor will reach \"Lava\" temperature at %d seconds.\n", reactorTicks));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_LAVA_TIME"), reactorTicks));
                             reachedLava = true;
                         }
                         if (maxReactorHeat >= reactor.getMaxHeat() && !reachedExplode) {
-                            publish(String.format("Reactor will explode at %d seconds.\n", reactorTicks));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_EXPLODE_TIME"), reactorTicks));
                             reachedExplode = true;
                         }
                     }
@@ -145,28 +145,28 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
                         ReactorComponent component = reactor.getComponentAt(row, col);
-                        if (component != null && component.isBroken() && !alreadyBroken[row][col] && !component.getClass().getName().contains("FuelRod")) {
-                            publish(String.format("R%dC%d:0xFF0000", row, col));
+                        if (component != null && component.isBroken() && !alreadyBroken[row][col] && !component.getClass().getName().contains("FuelRod")) { //NOI18N
+                            publish(String.format("R%dC%d:0xFF0000", row, col)); //NOI18N
                             alreadyBroken[row][col] = true;
-                            publish(String.format("R%dC%d:+Broke after %,d seconds.", row, col, reactorTicks));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("BROKE_TIME"), row, col, reactorTicks));
                         }
                     }
                 }
             } while (reactor.getCurrentHeat() <= reactor.getMaxHeat() && lastEUoutput > 0.0);
-            publish(String.format("Reactor minimum temperature: %,.2f\n", minReactorHeat));
-            publish(String.format("Reactor maximum temperature: %,.2f\n", maxReactorHeat));
+            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("MIN_TEMP"), minReactorHeat));
+            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("MAX_TEMP"), maxReactorHeat));
             if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
-                publish(String.format("Fuel rods (if any) stopped after %,d seconds.\n", reactorTicks));
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("FUEL_RODS_TIME"), reactorTicks));
                 if (reactorTicks > 0) {
                     if (reactor.isFluid()) {
-                        publish(String.format("Total heat output: %,.0f\nAverage heat output before fuel rods stopped: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                        publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("HEAT_OUTPUTS"), 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
                         if (totalRodCount > 0) {
-                            publish(String.format("Efficiency: %.2f average, %.2f minimum, %.2f maximum\n", totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("EFFICIENCY"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                         }
                     } else {
-                        publish(String.format("Total EU output: %,.0f (%.2f EU/t min, %.2f EU/t max, %.2f EU/t average)\n", totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
+                        publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("EU_OUTPUTS"), totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
                         if (totalRodCount > 0) {
-                            publish(String.format("Efficiency: %.2f average, %.2f minimum, %.2f maximum\n", totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("EFFICIENCY"), totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
                         }
                     }
                 }
@@ -181,14 +181,14 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                             prevTotalComponentHeat += component.getCurrentHeat();
                             if (component.getCurrentHeat() > 0.0) {
                                 publish(String.format("R%dC%d:0xFFFF00", row, col));
-                                publish(String.format("R%dC%d:+Had %,.2f heat left when reactor stopped.", row, col, component.getCurrentHeat()));
+                                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COMPONENT_REMAINING_HEAT"), row, col, component.getCurrentHeat()));
                                 needsCooldown[row][col] = true;
                             }
                         }
                     }
                 }
                 if (prevReactorHeat == 0.0 && prevTotalComponentHeat == 0.0) {
-                    output.append("No cooldown needed.\n");
+                    output.append(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("NO_COOLDOWN_NEEDED"));
                 } else {
                     double currentTotalComponentHeat = prevTotalComponentHeat;
                     int reactorCooldownTime = 0;
@@ -222,7 +222,7 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                                 if (component != null && !component.isBroken()) {
                                     currentTotalComponentHeat += component.getCurrentHeat();
                                     if (component.getCurrentHeat() == 0.0 && needsCooldown[row][col]) {
-                                        publish(String.format("R%dC%d:+Took %,d seconds to cool down.", row, col, cooldownTicks));
+                                        publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COMPONENT_COOLDOWN_TIME"), row, col, cooldownTicks));
                                         needsCooldown[row][col] = false;
                                     }
                                 }
@@ -230,29 +230,29 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                         }
                     } while (lastHeatOutput > 0 && cooldownTicks < 20000);
                     if (reactor.getCurrentHeat() == 0.0) {
-                        publish(String.format("Reactor took %,d seconds to cool down.\n", reactorCooldownTime));
+                        publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_COOLDOWN_TIME"), reactorCooldownTime));
                     } else {
-                        publish(String.format("Reactor remained at %,.2f heat even after cool down period of %,d seconds.\n", reactor.getCurrentHeat(), reactorCooldownTime));
+                        publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_RESIDUAL_HEAT"), reactor.getCurrentHeat(), reactorCooldownTime));
                     }
-                    publish(String.format("Other components took %,d seconds to cool down (as much as they would).\n", cooldownTicks));
+                    publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TOTAL_COOLDOWN_TIME"), cooldownTicks));
                     for (int row = 0; row < 6; row++) {
                         for (int col = 0; col < 9; col++) {
                             ReactorComponent component = reactor.getComponentAt(row, col);
                             if (component != null && !component.isBroken()) {
                                 prevTotalComponentHeat += component.getCurrentHeat();
                                 if (component.getCurrentHeat() > 0.0) {
-                                    publish(String.format("R%dC%d:0xFFA500", row, col));
-                                    publish(String.format("R%dC%d:+Had %,.2f heat left after cooldown period.", row, col, component.getCurrentHeat()));
+                                    publish(String.format("R%dC%d:0xFFA500", row, col)); //NOI18N
+                                    publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COMPONENT_RESIDUAL_HEAT"), row, col, component.getCurrentHeat()));
                                 }
                             }
                         }
                     }
                 }
             } else {
-                publish(String.format("Reactor overheated at %,d seconds.\n", reactorTicks));
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_OVERHEATED_TIME"), reactorTicks));
             }
             if (reactor.isFluid() && reactor.getCurrentHeat() < reactor.getMaxHeat()) {
-                publish(String.format("Average heat output after fuel rods stopped: %.2f Hu/s\nMinimum heat output: %.2f Hu/s\nMaximum heat output: %.2f Hu/s\n", 2 * totalHeatOutput / cooldownTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("HEAT_OUTPUTS"), 2 * totalHeatOutput / cooldownTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
             }
             double totalEffectiveVentCooling = 0.0;
             double totalVentCoolingCapacity = 0.0;
@@ -264,41 +264,41 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                     ReactorComponent component = reactor.getComponentAt(row, col);
                     if (component != null) {
                         if (component.getVentCoolingCapacity() > 0) {
-                            publish(String.format("R%dC%d:+Used %.2f of %.2f cooling.", row, col, component.getEffectiveVentCooling(), component.getVentCoolingCapacity()));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("USED_COOLING"), row, col, component.getEffectiveVentCooling(), component.getVentCoolingCapacity()));
                             totalEffectiveVentCooling += component.getEffectiveVentCooling();
                             totalVentCoolingCapacity += component.getVentCoolingCapacity();
                         } else if (component.getBestCellCooling() > 0) {
-                            publish(String.format("R%dC%d:+Received at most %.2f heat per reactor tick.)", row, col, component.getBestCellCooling()));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("RECEIVED_HEAT"), row, col, component.getBestCellCooling()));
                             totalCellCooling += component.getBestCellCooling();
                         } else if (component.getBestCondensatorCooling() > 0) {
-                            publish(String.format("R%dC%d:+Received at most %.2f heat per reactor tick.", row, col, component.getBestCondensatorCooling()));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("RECEIVED_HEAT"), row, col, component.getBestCondensatorCooling()));
                             totalCondensatorCooling += component.getBestCondensatorCooling();
                         }
                     }
                 }
             }
                     
-            publish(String.format("Total Vent Cooling: %,.2f of %,.2f\n", totalEffectiveVentCooling, totalVentCoolingCapacity));
-            publish(String.format("Total Cell Cooling: %,.2f\n", totalCellCooling));
-            publish(String.format("Total Condensator Cooling: %,.2f\n", totalCondensatorCooling));
-            publish(String.format("Max Heat Generated: %.2f\n", maxGeneratedHeat));
+            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TOTAL_VENT_COOLING"), totalEffectiveVentCooling, totalVentCoolingCapacity));
+            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TOTAL_CELL_COOLING"), totalCellCooling));
+            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TOTAL_CONDENSATOR_COOLING"), totalCondensatorCooling));
+            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("MAX_HEAT_GENERATED"), maxGeneratedHeat));
             double totalCooling = totalEffectiveVentCooling + totalCellCooling + totalCondensatorCooling;
             if (totalCooling >= maxGeneratedHeat) {
-                publish(String.format("Excess cooling: %.2f\n", totalCooling - maxGeneratedHeat));
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("EXCESS_COOLING"), totalCooling - maxGeneratedHeat));
             } else {
-                publish(String.format("Excess heating: %.2f\n", maxGeneratedHeat - totalCooling));
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("EXCESS_HEATING"), maxGeneratedHeat - totalCooling));
             }
             //return null;
         } catch (Throwable e) {
             if (cooldownTicks == 0) {
-                publish(String.format("Error at reactor tick %d\n", reactorTicks));
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ERROR_AT_REACTOR_TICK"), reactorTicks));
             } else {
-                publish(String.format("Error at cooldown tick %d\n", cooldownTicks));
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ERROR_AT_COOLDOWN_TICK"), cooldownTicks));
             }
             publish(e.toString(), " ", Arrays.toString(e.getStackTrace()));
         }
         long endTime = System.nanoTime();
-        publish(String.format("Simulation took %.2f seconds.\n", (endTime - startTime) / 1e9));
+        publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("SIMULATION_TIME"), (endTime - startTime) / 1e9));
         return null;
     }
 
@@ -309,16 +309,16 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                 if (chunk.isEmpty()) {
                     output.setText("");
                 } else {
-                    if (chunk.matches("R\\dC\\d:.*")) {
+                    if (chunk.matches("R\\dC\\d:.*")) { //NOI18N
                         String temp = chunk.substring(5);
                         int row = chunk.charAt(1) - '0';
                         int col = chunk.charAt(3) - '0';
-                        if (temp.startsWith("0x")) {
+                        if (temp.startsWith("0x")) { //NOI18N
                             reactorButtonPanels[row][col].setBackground(Color.decode(temp));
-                        } else if (temp.startsWith("+")) {
+                        } else if (temp.startsWith("+")) { //NOI18N
                             final ReactorComponent component = reactor.getComponentAt(row, col);
                             if (component != null) {
-                                component.info += "\n" + temp.substring(1);
+                                component.info += "\n" + temp.substring(1); //NOI18N
                             }
                         } else {
                             final ReactorComponent component = reactor.getComponentAt(row, col);

@@ -12,9 +12,9 @@ public class FuelRodUranium extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final  String imageFilename = "reactorUraniumSimple.png";    
+    private static final  String imageFilename = "reactorUraniumSimple.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron", "Uranium Fuel");
+    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("URANIUM FUEL"));
     
     /**
      * Creates a new instance.
@@ -31,7 +31,7 @@ public class FuelRodUranium extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Fuel Rod (Uranium)";
+        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("FUEL ROD (URANIUM)");
     }
 
     @Override

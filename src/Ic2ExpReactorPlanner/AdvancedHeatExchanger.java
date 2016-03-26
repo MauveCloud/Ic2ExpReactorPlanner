@@ -12,9 +12,9 @@ public class AdvancedHeatExchanger extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorHeatSwitchDiamond.png";    
+    private static final String imageFilename = "reactorHeatSwitchDiamond.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatExchanger.MATERIALS, 2, MaterialsList.ELECTRONIC_CIRCUIT, "Copper", 4, "Lapis Lazuli");
+    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatExchanger.MATERIALS, 2, MaterialsList.ELECTRONIC_CIRCUIT, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"), 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("LAPIS LAZULI"));
     
     private static final int switchSide = 24;
     private static final int switchReactor = 8;
@@ -33,9 +33,9 @@ public class AdvancedHeatExchanger extends ReactorComponent {
      */
     @Override
     public String toString() {
-        String result = "Advanced Heat Exchanger";
+        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ADVANCED HEAT EXCHANGER");
         if (getInitialHeat() > 0) {
-            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
         }
         return result;
     }

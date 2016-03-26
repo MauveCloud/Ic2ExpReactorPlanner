@@ -40,7 +40,7 @@ public class ReactorComponent {
     /**
      * Information about this component from the last simulation.
      */
-    public String info = "";
+    public String info = ""; //NOI18N
     
     /**
      * Threshold for heat/damage for removing this component during an automation run.

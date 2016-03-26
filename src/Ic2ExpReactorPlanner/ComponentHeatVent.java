@@ -12,9 +12,9 @@ public class ComponentHeatVent extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorVentSpread.png";    
+    private static final String imageFilename = "reactorVentSpread.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 4, "Tin", 3, "Iron");
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TIN"), 3, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"));
     
     /**
      * Creates a new instance.
@@ -29,7 +29,7 @@ public class ComponentHeatVent extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Component Heat Vent";
+        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COMPONENT HEAT VENT");
     }
 
     @Override

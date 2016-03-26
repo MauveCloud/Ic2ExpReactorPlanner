@@ -19,42 +19,42 @@ public class ComponentFactory {
     }
     
     private static final Object[][] components = {
-        {"empty", null},
-        {"fuelRodUranium", new FuelRodUranium()},
-        {"dualFuelRodUranium", new DualFuelRodUranium()},
-        {"quadFuelRodUranium", new QuadFuelRodUranium()},
-        {"fuelRodMox", new FuelRodMox()},
-        {"dualFuelRodMox", new DualFuelRodMox()},
-        {"quadFuelRodMox", new QuadFuelRodMox()},
-        {"neutronReflector", new NeutronReflector()},
-        {"thickNeutronReflector", new ThickNeutronReflector()},
-        {"heatVent", new HeatVent()},
-        {"advancedHeatVent", new AdvancedHeatVent()},
-        {"reactorHeatVent", new ReactorHeatVent()},
-        {"componentHeatVent", new ComponentHeatVent()},
-        {"overclockedHeatVent", new OverclockedHeatVent()},
-        {"coolantCell10k", new CoolantCell10k()},
-        {"coolantCell30k", new CoolantCell30k()},
-        {"coolantCell60k", new CoolantCell60k()},
-        {"heatExchanger", new HeatExchanger()},
-        {"advancedHeatExchanger", new AdvancedHeatExchanger()},
-        {"coreHeatExchanger", new ReactorHeatExchanger()},
-        {"componentHeatExchanger", new ComponentHeatExchanger()},
-        {"reactorPlating", new ReactorPlating()},
-        {"heatCapacityReactorPlating", new HeatCapacityReactorPlating()},
-        {"containmentReactorPlating", new ContainmentReactorPlating()},
-        {"rshCondensator", new RshCondensator()},
-        {"lzhCondensator", new LzhCondensator()}, 
-        {"fuelRodThorium", new FuelRodThorium()},
-        {"dualFuelRodThorium", new DualFuelRodThorium()},
-        {"quadFuelRodThorium", new QuadFuelRodThorium()},
-        {"coolantCellHelium60k", new CoolantCell60kHelium()},
-        {"coolantCellHelium180k", new CoolantCell180kHelium()},
-        {"coolantCellHelium360k", new CoolantCell360kHelium()},
-        {"coolantCellNak60k", new CoolantCell60kNak()},
-        {"coolantCellNak180k", new CoolantCell180kNak()},
-        {"coolantCellNak360k", new CoolantCell360kNak()},
-        {"iridiumNeutronReflector", new IridiumNeutronReflector()},
+        {"empty", null}, //NO18N
+        {"fuelRodUranium", new FuelRodUranium()}, //NO18N
+        {"dualFuelRodUranium", new DualFuelRodUranium()}, //NO18N
+        {"quadFuelRodUranium", new QuadFuelRodUranium()}, //NO18N
+        {"fuelRodMox", new FuelRodMox()}, //NO18N
+        {"dualFuelRodMox", new DualFuelRodMox()}, //NO18N
+        {"quadFuelRodMox", new QuadFuelRodMox()}, //NO18N
+        {"neutronReflector", new NeutronReflector()}, //NO18N
+        {"thickNeutronReflector", new ThickNeutronReflector()}, //NO18N
+        {"heatVent", new HeatVent()}, //NO18N
+        {"advancedHeatVent", new AdvancedHeatVent()}, //NO18N
+        {"reactorHeatVent", new ReactorHeatVent()}, //NO18N
+        {"componentHeatVent", new ComponentHeatVent()}, //NO18N
+        {"overclockedHeatVent", new OverclockedHeatVent()}, //NO18N
+        {"coolantCell10k", new CoolantCell10k()}, //NO18N
+        {"coolantCell30k", new CoolantCell30k()}, //NO18N
+        {"coolantCell60k", new CoolantCell60k()}, //NO18N
+        {"heatExchanger", new HeatExchanger()}, //NO18N
+        {"advancedHeatExchanger", new AdvancedHeatExchanger()}, //NO18N
+        {"coreHeatExchanger", new ReactorHeatExchanger()}, //NO18N
+        {"componentHeatExchanger", new ComponentHeatExchanger()}, //NO18N
+        {"reactorPlating", new ReactorPlating()}, //NO18N
+        {"heatCapacityReactorPlating", new HeatCapacityReactorPlating()}, //NO18N
+        {"containmentReactorPlating", new ContainmentReactorPlating()}, //NO18N
+        {"rshCondensator", new RshCondensator()}, //NO18N
+        {"lzhCondensator", new LzhCondensator()}, //NO18N
+        {"fuelRodThorium", new FuelRodThorium()}, //NO18N
+        {"dualFuelRodThorium", new DualFuelRodThorium()}, //NO18N
+        {"quadFuelRodThorium", new QuadFuelRodThorium()}, //NO18N
+        {"coolantCellHelium60k", new CoolantCell60kHelium()}, //NO18N
+        {"coolantCellHelium180k", new CoolantCell180kHelium()}, //NO18N
+        {"coolantCellHelium360k", new CoolantCell360kHelium()}, //NO18N
+        {"coolantCellNak60k", new CoolantCell60kNak()}, //NO18N
+        {"coolantCellNak180k", new CoolantCell180kNak()}, //NO18N
+        {"coolantCellNak360k", new CoolantCell360kNak()}, //NO18N
+        {"iridiumNeutronReflector", new IridiumNeutronReflector()}, //NO18N
         
     };
     
@@ -151,7 +151,7 @@ public class ComponentFactory {
             }
             return null;
         }
-        return "empty";
+        return "empty"; //NO18N
     }
     
     public static String getDisplayName(ReactorComponent component) {

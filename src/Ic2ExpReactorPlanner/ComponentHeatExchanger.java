@@ -12,9 +12,9 @@ public class ComponentHeatExchanger extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorHeatSwitchSpread.png";    
+    private static final String imageFilename = "reactorHeatSwitchSpread.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(HeatExchanger.MATERIALS, 4, "Gold");
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatExchanger.MATERIALS, 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("GOLD"));
     
     private static final int switchSide = 36;
     private static final int switchReactor = 0;
@@ -34,9 +34,9 @@ public class ComponentHeatExchanger extends ReactorComponent {
      */
     @Override
     public String toString() {
-        String result = "Component Heat Exchanger";
+        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COMPONENT HEAT EXCHANGER");
         if (getInitialHeat() > 0) {
-            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
         }
         return result;
     }

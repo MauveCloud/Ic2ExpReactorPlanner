@@ -9,9 +9,9 @@ public class ReactorPlating extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorPlating.png";    
+    private static final String imageFilename = "reactorPlating.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Lead", "Advanced Alloy");
+    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("LEAD"), java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ADVANCED ALLOY"));
     
     /**
      * Creates a new instance.
@@ -26,7 +26,7 @@ public class ReactorPlating extends ReactorComponent {
      */
     @Override
     public String toString() {
-        return "Reactor Plating";
+        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR PLATING");
     }
 
     @Override

@@ -9,9 +9,9 @@ public class DualFuelRodUranium extends FuelRodUranium {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorUraniumDual.png";    
+    private static final String imageFilename = "reactorUraniumDual.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList("Iron", 2, FuelRodUranium.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), 2, FuelRodUranium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -28,7 +28,7 @@ public class DualFuelRodUranium extends FuelRodUranium {
      */
     @Override
     public String toString() {
-        return "Dual Fuel Rod (Uranium)";
+        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DUAL FUEL ROD (URANIUM)");
     }
     
     @Override

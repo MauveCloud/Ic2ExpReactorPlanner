@@ -169,9 +169,9 @@ public class Reactor {
             for (int col = 0; col < grid[row].length; col++) {
                 final ReactorComponent component = grid[row][col];
                 final int id = ComponentFactory.getID(component);
-                result.append(String.format("%02X", id));
+                result.append(String.format("%02X", id)); //NOI18N
                 if (component != null && component.getInitialHeat() > 0) {
-                    result.append(String.format("(h%s)", Integer.toString((int)component.getInitialHeat(), 36)));
+                    result.append(String.format("(h%s)", Integer.toString((int)component.getInitialHeat(), 36))); //NOI18N
                 }
             }
         }
@@ -187,7 +187,7 @@ public class Reactor {
         int[][] ids = new int[grid.length][grid[0].length];
         char[][] paramTypes = new char[grid.length][grid[0].length];
         int[][] params = new int[grid.length][grid[0].length];
-        if (code.length() >= 108 && code.matches("[0-9A-Za-z()]+")) {
+        if (code.length() >= 108 && code.matches("[0-9A-Za-z()]+")) { //NOI18N
             try {
                 for (int row = 0; row < grid.length; row++) {
                     for (int col = 0; col < grid[row].length; col++) {
@@ -220,10 +220,10 @@ public class Reactor {
             }
         } else {
             String tempCode = code;
-            if (code.startsWith("http://www.talonfiremage.pwp.blueyonder.co.uk/v3/reactorplanner.html?")) {
-                tempCode = code.replace("http://www.talonfiremage.pwp.blueyonder.co.uk/v3/reactorplanner.html?", "");
+            if (code.startsWith("http://www.talonfiremage.pwp.blueyonder.co.uk/v3/reactorplanner.html?")) { //NOI18N
+                tempCode = code.replace("http://www.talonfiremage.pwp.blueyonder.co.uk/v3/reactorplanner.html?", ""); //NOI18N
             }
-            if (tempCode.matches("[0-9a-z]+")) {
+            if (tempCode.matches("[0-9a-z]+")) { //NOI18N
                 StringBuilder warnings = new StringBuilder(500);
                 // Possibly a code from Talonius's old planner
                 TaloniusDecoder decoder = new TaloniusDecoder(tempCode);
@@ -253,7 +253,7 @@ public class Reactor {
                                 setComponentAt(y, x, new QuadFuelRodUranium());
                                 break;
                             case 4:
-                                warnings.append(String.format("Obsolete component (depleted isotope cell) at row %d column %d removed.\n", y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DEPLETED_ISOTOPE_CELL_WARNING"), y, x));
                                 break;
                             case 5:
                                 setComponentAt(y, x, new NeutronReflector());
@@ -313,7 +313,7 @@ public class Reactor {
                                 setComponentAt(y, x, new CoolantCell60k());
                                 break;
                             case 24:
-                                warnings.append(String.format("Obsolete component (heating cell) at row %d column %d removed.\n", y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("HEATING_CELL_WARNING"), y, x));
                                 break;
                             case 32:
                                 setComponentAt(y, x, new FuelRodThorium());
@@ -325,13 +325,13 @@ public class Reactor {
                                 setComponentAt(y, x, new QuadFuelRodThorium());
                                 break;
                             case 35:
-                                warnings.append(String.format("Obsolete component (plutonium cell) at row %d column %d removed.\n", y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("PLUTONIUM_CELL_WARNING"), y, x));
                                 break;
                             case 36:
-                                warnings.append(String.format("Obsolete component (dual plutonium cell) at row %d column %d removed.\n", y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DUAL_PLUTONIUM_CELL_WARNING"), y, x));
                                 break;
                             case 37:
-                                warnings.append(String.format("Obsolete component (quad plutonium cell) at row %d column %d removed.\n", y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("QUAD_PLUTONIUM_CELL_WARNING"), y, x));
                                 break;
                             case 38:
                                 setComponentAt(y, x, new IridiumNeutronReflector());
@@ -355,14 +355,14 @@ public class Reactor {
                                 setComponentAt(y, x, new CoolantCell360kNak());
                                 break;
                             default:
-                                warnings.append(String.format("Unrecognized component (id %d) at row %d column %d removed.\n", nextValue, y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UNRECOGNIZED_COMPONENT_WARNING"), nextValue, y, x));
                                 break;
                         }
                     }
                 }
                 if (warnings.length() > 0) {
                     warnings.setLength(warnings.length() - 1);  // to remove last newline character
-                    JOptionPane.showMessageDialog(null, warnings, "Warning(s)", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, warnings, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("WARNING_DIALOG_TITLE"), JOptionPane.WARNING_MESSAGE);
                 }
             }
         }

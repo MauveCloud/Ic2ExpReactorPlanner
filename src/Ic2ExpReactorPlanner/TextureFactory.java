@@ -49,7 +49,7 @@ public class TextureFactory {
 //        // Remove the resource pack preference if something caused the internal resources to be invoked.
 //        Preferences.userRoot().remove("Ic2ExpReactorPlanner.ResourcePack");
         
-        InputStream stream = TextureFactory.class.getResourceAsStream("/assets/ic2/textures/items/" + imageName);
+        InputStream stream = TextureFactory.class.getResourceAsStream("/assets/ic2/textures/items/" + imageName); //NOI18N
         if (stream != null) {
             try {
                 BufferedImage image = ImageIO.read(stream);
@@ -58,7 +58,7 @@ public class TextureFactory {
                 Logger.getLogger(TextureFactory.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        stream = TextureFactory.class.getResourceAsStream("/assets/gregtech/textures/items/" + imageName);
+        stream = TextureFactory.class.getResourceAsStream("/assets/gregtech/textures/items/" + imageName); //NOI18N
         if (stream != null) {
             try {
                 BufferedImage image = ImageIO.read(stream);

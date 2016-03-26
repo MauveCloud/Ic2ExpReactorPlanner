@@ -9,9 +9,9 @@ public class AdvancedHeatVent extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorVentDiamond.png";    
+    private static final String imageFilename = "reactorVentDiamond.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatVent.MATERIALS, "Diamond", 4.5, "Iron");
+    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatVent.MATERIALS, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DIAMOND"), 4.5, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"));
     
     /**
      * Creates a new instance.
@@ -28,9 +28,9 @@ public class AdvancedHeatVent extends ReactorComponent {
      */
     @Override
     public String toString() {
-        String result = "Advanced Heat Vent";
+        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ADVANCED HEAT VENT");
         if (getInitialHeat() > 0) {
-            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
         }
         return result;
     }

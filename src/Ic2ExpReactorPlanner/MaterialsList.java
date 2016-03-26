@@ -13,8 +13,8 @@ public final class MaterialsList {
     private final SortedMap<String, Double> materials = new TreeMap<>();
     
     // some materials lists for common crafted items that are part of reactors and reactor components without themselves being reactor components.
-    public static final MaterialsList ELECTRONIC_CIRCUIT = new MaterialsList("Iron", 2, "Redstone", 2, "Copper", 6, "Rubber");
-    public static final MaterialsList ADVANCED_CIRCUIT = new MaterialsList(ELECTRONIC_CIRCUIT, 4, "Redstone", 2, "Lapis Lazuli", 2, "Glowstone Dust");
+    public static final MaterialsList ELECTRONIC_CIRCUIT = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REDSTONE"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"), 6, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("RUBBER"));
+    public static final MaterialsList ADVANCED_CIRCUIT = new MaterialsList(ELECTRONIC_CIRCUIT, 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REDSTONE"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("LAPIS LAZULI"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("GLOWSTONE DUST"));
     
     /**
      * Creates an empty materials list.
@@ -68,11 +68,11 @@ public final class MaterialsList {
         StringBuilder result = new StringBuilder(1000);
         for (Map.Entry<String, Double> entrySet : materials.entrySet()) {
             double count = entrySet.getValue();
-            String formattedNumber = String.format("%,.3f", count);
-            if (formattedNumber.endsWith(".000")) {
-                formattedNumber = String.format("%,d", (int)count);
+            String formattedNumber = String.format("%,.3f", count); //NOI18N
+            if (formattedNumber.endsWith(".000")) { //NOI18N
+                formattedNumber = String.format("%,d", (int)count); //NOI18N
             }
-            result.append(String.format("%s * %s\n", formattedNumber, entrySet.getKey()));
+            result.append(String.format("%s * %s\n", formattedNumber, entrySet.getKey())); //NOI18N
         }
         return result.toString();
     }

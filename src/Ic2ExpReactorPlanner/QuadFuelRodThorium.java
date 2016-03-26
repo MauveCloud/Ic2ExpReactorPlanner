@@ -9,9 +9,9 @@ public class QuadFuelRodThorium extends FuelRodUranium {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "gt.Quad_Thoriumcell.png";    
+    private static final String imageFilename = "gt.Quad_Thoriumcell.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(3, "Iron", 2, "Copper", 4, FuelRodThorium.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(3, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"), 4, FuelRodThorium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -28,7 +28,7 @@ public class QuadFuelRodThorium extends FuelRodUranium {
      */
     @Override
     public String toString() {
-        return "Quad Fuel Rod (Thorium)";
+        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("QUAD FUEL ROD (THORIUM)");
     }
 
     @Override

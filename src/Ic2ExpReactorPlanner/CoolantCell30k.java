@@ -9,9 +9,9 @@ public class CoolantCell30k extends ReactorComponent {
     /**
      * The filename for the image to show for the component.
      */
-    private static final String imageFilename = "reactorCoolantTriple.png";    
+    private static final String imageFilename = "reactorCoolantTriple.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(3, CoolantCell10k.MATERIALS, 6, "Tin");
+    public static final MaterialsList MATERIALS = new MaterialsList(3, CoolantCell10k.MATERIALS, 6, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TIN"));
     
     /**
      * Creates a new instance.
@@ -28,9 +28,9 @@ public class CoolantCell30k extends ReactorComponent {
      */
     @Override
     public String toString() {
-        String result = "30k Coolant Cell";
+        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("30K COOLANT CELL");
         if (getInitialHeat() > 0) {
-            result += String.format(" (initial heat: %,d)", (int)getInitialHeat());
+            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
         }
         return result;
     }
