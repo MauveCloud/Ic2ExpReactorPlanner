@@ -238,7 +238,7 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                     ReactorComponent component = reactor.getComponentAt(row, col);
                     if (component != null) {
                         if (component.getVentCoolingCapacity() > 0) {
-                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UESD_COOLING"), row, col, component.getEffectiveVentCooling(), component.getVentCoolingCapacity()));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("USED_COOLING"), row, col, component.getEffectiveVentCooling(), component.getVentCoolingCapacity()));
                             totalEffectiveVentCooling += component.getEffectiveVentCooling();
                             totalVentCoolingCapacity += component.getVentCoolingCapacity();
                         } else if (component.getBestCellCooling() > 0) {
