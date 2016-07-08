@@ -252,7 +252,7 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                 publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_OVERHEATED_TIME"), reactorTicks));
             }
             if (reactor.isFluid() && reactor.getCurrentHeat() < reactor.getMaxHeat()) {
-                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("HEAT_OUTPUTS"), 2 * totalHeatOutput / cooldownTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("HEAT_OUTPUTS"), 2 * totalHeatOutput, 2 * totalHeatOutput / cooldownTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
             }
             double totalEffectiveVentCooling = 0.0;
             double totalVentCoolingCapacity = 0.0;
