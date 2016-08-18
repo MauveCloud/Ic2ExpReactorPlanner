@@ -18,7 +18,7 @@ public class FuelRodMox extends FuelRodUranium {
      */
     public FuelRodMox() {
         setImage(TextureFactory.getImage(imageFilename));
-        setMaxDamage(10000);
+        setMaxDamage(5000);
         automationThreshold = 11000;
     }
     
