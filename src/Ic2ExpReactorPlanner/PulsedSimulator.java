@@ -192,7 +192,7 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                         if (component != null && component.isBroken() && !alreadyBroken[row][col] && !component.getClass().getName().contains("FuelRod")) { //NOI18N
                             publish(String.format("R%dC%d:0xFF0000", row, col)); //NOI18N
                             alreadyBroken[row][col] = true;
-                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("BROKE_TIME"), row, col, component.toString(), reactorTicks));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("BROKE_TIME"), row, col, reactorTicks));
                         }
                     }
                 }
