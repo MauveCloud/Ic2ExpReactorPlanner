@@ -148,7 +148,7 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                             reachedLava = true;
                         }
                         if (maxReactorHeat >= reactor.getMaxHeat() && !reachedExplode) {
-                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_LAVA_TIME"), reactorTicks));
+                            publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_EXPLODE_TIME"), reactorTicks));
                             reachedExplode = true;
                         }
                     }

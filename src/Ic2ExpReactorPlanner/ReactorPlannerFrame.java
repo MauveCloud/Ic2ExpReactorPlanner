@@ -295,7 +295,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         copyCodeButton = new javax.swing.JButton();
         pasteCodeButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        simulationStyleCombo = new javax.swing.JComboBox<String>();
+        simulationStyleCombo = new javax.swing.JComboBox<>();
         outputTabs = new javax.swing.JTabbedPane();
         outputPane = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
@@ -315,6 +315,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         suspendTempSpinner = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
         resumeTempSpinner = new javax.swing.JSpinner();
+        jLabel16 = new javax.swing.JLabel();
         automationPanel = new javax.swing.JPanel();
         selectedComponentLabel = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -702,7 +703,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.weighty = 0.5;
         jPanel1.add(jLabel6, gridBagConstraints);
 
-        simulationStyleCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Simple Cycle", "Pulsed Cycle", "Pulsed Automation" }));
+        simulationStyleCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simple Cycle", "Pulsed Cycle", "Pulsed Automation" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -806,8 +807,17 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         resumeTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         resumeTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(resumeTempSpinner, gridBagConstraints);
+
+        jLabel16.setText(bundle.getString("ReactorPlannerFrame.jLabel16.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel16, gridBagConstraints);
 
         outputTabs.addTab(bundle.getString("ReactorPlannerFrame.pulsePanel.TabConstraints.tabTitle_1"), pulsePanel); // NOI18N
 
@@ -1161,6 +1171,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
