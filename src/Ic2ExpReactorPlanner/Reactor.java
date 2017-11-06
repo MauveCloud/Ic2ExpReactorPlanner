@@ -137,6 +137,18 @@ public class Reactor {
         return result;
     }
 
+    public MaterialsList getComponentList() {
+        MaterialsList result = new MaterialsList();
+        for (int col = 0; col < grid[0].length; col++) {
+            for (int row = 0; row < grid.length; row++) {
+                if (grid[row][col] != null) {
+                    result.add(ComponentFactory.getDisplayName(grid[row][col]));
+                }
+            }
+        }
+        return result;
+    }
+    
     /**
      * @return the amount of heat vented this reactor tick.
      */

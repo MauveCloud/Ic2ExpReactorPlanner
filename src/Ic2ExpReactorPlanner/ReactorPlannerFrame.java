@@ -137,6 +137,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         }
                         reactor.setComponentAt(finalRow, finalCol, componentToPlace);
                         materialsArea.setText(reactor.getMaterials().toString());
+                        componentListArea.setText(reactor.getComponentList().toString());
                         maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
                         temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
                         SpinnerModel model = heatSpinner.getModel();
@@ -170,6 +171,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         if (e.getButton() != MouseEvent.BUTTON1) {
                             reactor.setComponentAt(finalRow, finalCol, null);
                             materialsArea.setText(reactor.getMaterials().toString());
+                            componentListArea.setText(reactor.getComponentList().toString());
                             maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
                             temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
                             SpinnerModel model = heatSpinner.getModel();
@@ -324,6 +326,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         pauseSpinner = new javax.swing.JSpinner();
         jLabel15 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        componentListArea = new javax.swing.JTextArea();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
         fileMenu.setText(bundle.getString("ReactorPlannerFrame.fileMenu.text_1")); // NOI18N
@@ -890,6 +894,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         outputTabs.addTab(bundle.getString("ReactorPlannerFrame.automationPanel.TabConstraints.tabTitle_1"), automationPanel); // NOI18N
 
+        componentListArea.setColumns(20);
+        componentListArea.setRows(5);
+        jScrollPane3.setViewportView(componentListArea);
+
+        outputTabs.addTab(bundle.getString("ReactorPlannerFrame.jScrollPane3.TabConstraints.tabTitle"), jScrollPane3); // NOI18N
+
         jSplitPane1.setRightComponent(outputTabs);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -955,6 +965,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
         outputArea.setText(null);
         materialsArea.setText(reactor.getMaterials().toString());
+        componentListArea.setText(reactor.getComponentList().toString());
         maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
         temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
         SpinnerModel model = heatSpinner.getModel();
@@ -1102,6 +1113,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             }
         }
         materialsArea.setText(reactor.getMaterials().toString());
+        componentListArea.setText(reactor.getComponentList().toString());
         maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
         temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
         SpinnerModel model = heatSpinner.getModel();
@@ -1135,6 +1147,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton componentHeatExchangerButton;
     private javax.swing.JSpinner componentHeatSpinner;
     private javax.swing.JToggleButton componentHeatVentButton;
+    private javax.swing.JTextArea componentListArea;
     private javax.swing.ButtonGroup componentsGroup;
     private javax.swing.JPanel componentsPanel;
     private javax.swing.JToggleButton containmentReactorPlatingButton;
@@ -1184,6 +1197,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
