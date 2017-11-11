@@ -298,6 +298,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         pasteCodeButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         simulationStyleCombo = new javax.swing.JComboBox<>();
+        reactorCoolantInjectorCheckbox = new javax.swing.JCheckBox();
         outputTabs = new javax.swing.JTabbedPane();
         outputPane = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
@@ -714,6 +715,17 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(simulationStyleCombo, gridBagConstraints);
 
+        reactorCoolantInjectorCheckbox.setText(bundle.getString("ReactorPlannerFrame.reactorCoolantInjectorCheckbox.text")); // NOI18N
+        reactorCoolantInjectorCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reactorCoolantInjectorCheckboxActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel1.add(reactorCoolantInjectorCheckbox, gridBagConstraints);
+
         jSplitPane3.setBottomComponent(jPanel1);
 
         jSplitPane2.setRightComponent(jSplitPane3);
@@ -993,6 +1005,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         simulatedReactor = new Reactor();
         simulatedReactor.setCode(reactor.getCode());
         simulatedReactor.setFluid(reactor.isFluid());
+        simulatedReactor.setUsingReactorCoolantInjectors(reactor.isUsingReactorCoolantInjectors());
         outputTabs.setSelectedIndex(0);
         if ("Simple Cycle".equals(simulationStyleCombo.getSelectedItem().toString())) {
             simulator = new SimpleSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat);
@@ -1087,6 +1100,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             component.reactorPause = ((Number)pauseSpinner.getValue()).intValue();
         }
     }//GEN-LAST:event_pauseSpinnerStateChanged
+
+    private void reactorCoolantInjectorCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reactorCoolantInjectorCheckboxActionPerformed
+        reactor.setUsingReactorCoolantInjectors(reactorCoolantInjectorCheckbox.isSelected());
+    }//GEN-LAST:event_reactorCoolantInjectorCheckboxActionPerformed
     
     private SwingWorker<Void, String> simulator;
 
@@ -1218,6 +1235,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton quadFuelRodMoxButton;
     private javax.swing.JToggleButton quadFuelRodThoriumButton;
     private javax.swing.JToggleButton quadFuelRodUraniumButton;
+    private javax.swing.JCheckBox reactorCoolantInjectorCheckbox;
     private javax.swing.JToggleButton reactorHeatVentButton;
     private javax.swing.JPanel reactorPanel;
     private javax.swing.JToggleButton reactorPlatingButton;

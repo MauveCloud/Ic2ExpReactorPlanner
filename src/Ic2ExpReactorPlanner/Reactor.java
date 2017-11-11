@@ -25,6 +25,8 @@ public class Reactor {
     
     private boolean fluid = false;
     
+    private boolean usingReactorCoolantInjectors = false;
+    
     public ReactorComponent getComponentAt(int row, int column) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
             return grid[row][column];
@@ -394,6 +396,22 @@ public class Reactor {
      */
     public void setFluid(boolean fluid) {
         this.fluid = fluid;
+    }
+    
+    /**
+     * Checks whether the reactor is using Reactor Coolant Injectors (RCIs)
+     * @return true if this reactor was set to use RCIs, false otherwise.
+     */
+    public boolean isUsingReactorCoolantInjectors() {
+        return usingReactorCoolantInjectors;
+    }
+    
+    /**
+     * Sets whether the reactor is to use Reactor Coolant Injectors (RCIs)
+     * @param usingReactorCoolantInjectors true if this reactor should use RCIs, false otherwise.
+     */
+    public void setUsingReactorCoolantInjectors(boolean usingReactorCoolantInjectors) {
+        this.usingReactorCoolantInjectors = usingReactorCoolantInjectors;
     }
     
 }

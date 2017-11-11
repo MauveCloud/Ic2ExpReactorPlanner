@@ -33,6 +33,10 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
     
     private double maxHeatOutput = 0.0;
     
+    private int redstoneUsed = 0;
+    
+    private int lapisUsed = 0;
+    
     public SimpleSimulator(final Reactor reactor, final JTextArea output, final JPanel[][] reactorButtonPanels, final int initialHeat) {
         this.reactor = reactor;
         this.output = output;
@@ -158,6 +162,15 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                             if (componentsIntact) {
                                 componentsIntact = false;
                                 timeToFirstComponentBreak = reactorTicks;
+                            }
+                        }
+                        if (reactor.isUsingReactorCoolantInjectors()) {
+                            if (component instanceof RshCondensator && component.getCurrentHeat() > 17000 && !component.isBroken()) {
+                                ((RshCondensator) component).injectCoolant();
+                                redstoneUsed++;
+                            } else if (component instanceof LzhCondensator && component.getCurrentHeat() > 85000 && !component.isBroken()) {
+                                ((LzhCondensator) component).injectCoolant();
+                                lapisUsed++;
                             }
                         }
                     }
@@ -297,6 +310,12 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
             publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TOTAL_CELL_COOLING"), totalCellCooling));
             publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TOTAL_CONDENSATOR_COOLING"), totalCondensatorCooling));
             publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("MAX_HEAT_GENERATED"), maxGeneratedHeat));
+            if (redstoneUsed > 0) {
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REDSTONE_USED"), redstoneUsed));
+            }
+            if (lapisUsed > 0) {
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("LAPIS_USED"), lapisUsed));
+            }
             double totalCooling = totalEffectiveVentCooling + totalCellCooling + totalCondensatorCooling;
             if (maxHeatBuildup > 0) {
                 publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("HEAT_BUILDUP"), minHeatBuildup, maxHeatBuildup));

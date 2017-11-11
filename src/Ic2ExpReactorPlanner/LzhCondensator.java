@@ -58,4 +58,11 @@ public class LzhCondensator extends ReactorComponent {
         return result;
     }
     
+    /**
+     * Simulates having a coolant item added by a Reactor Coolant Injector.
+     */
+    public void injectCoolant() {
+        currentHeat = 0;
+    }
+    
 }
