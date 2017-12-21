@@ -11,7 +11,11 @@ public class IridiumNeutronReflector extends ReactorComponent {
      */
     private static final String imageFilename = "gt.neutronreflector.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(8, ThickNeutronReflector.MATERIALS, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRIDIUM REINFORCED PLATE"));
+    public static final MaterialsList MATERIALS = new MaterialsList(6, ThickNeutronReflector.MATERIALS, 
+            18, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"),
+            4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRIDIUM"),
+            4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ADVANCED ALLOY"),
+            java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DIAMOND"));
     
     /**
      * Creates a new instance.
