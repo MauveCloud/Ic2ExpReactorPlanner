@@ -141,16 +141,18 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                         }
                     }
                 }
-                lastEUoutput = reactor.getCurrentEUoutput();
-                totalEUoutput += lastEUoutput;
-                lastHeatOutput = reactor.getVentedHeat();
-                totalHeatOutput += lastHeatOutput;
-                if (reactor.getCurrentHeat() <= reactor.getMaxHeat() && lastEUoutput > 0.0) {
-                    reactorTicks++;
-                    minEUoutput = Math.min(lastEUoutput, minEUoutput);
-                    maxEUoutput = Math.max(lastEUoutput, maxEUoutput);
-                    minHeatOutput = Math.min(lastHeatOutput, minHeatOutput);
-                    maxHeatOutput = Math.max(lastHeatOutput, maxHeatOutput);
+                if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
+                    lastEUoutput = reactor.getCurrentEUoutput();
+                    totalEUoutput += lastEUoutput;
+                    lastHeatOutput = reactor.getVentedHeat();
+                    totalHeatOutput += lastHeatOutput;
+                    if (lastEUoutput > 0.0) {
+                        reactorTicks++;
+                        minEUoutput = Math.min(lastEUoutput, minEUoutput);
+                        maxEUoutput = Math.max(lastEUoutput, maxEUoutput);
+                        minHeatOutput = Math.min(lastHeatOutput, minHeatOutput);
+                        maxHeatOutput = Math.max(lastHeatOutput, maxHeatOutput);
+                    }
                 }
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
