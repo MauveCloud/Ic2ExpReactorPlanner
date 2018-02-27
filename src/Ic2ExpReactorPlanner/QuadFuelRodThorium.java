@@ -34,7 +34,7 @@ public class QuadFuelRodThorium extends FuelRodUranium {
     @Override
     public double generateHeat() {
         int pulses = countNeutronNeighbors() + 3;
-        int heat = 2 * pulses * (pulses + 1);
+        int heat = pulses * (pulses + 1);
         handleHeat(heat);
         applyDamage(1.0);
         return heat;
@@ -44,7 +44,7 @@ public class QuadFuelRodThorium extends FuelRodUranium {
     public void generateEnergy() {
         int pulses = countNeutronNeighbors() + 3;
         final Reactor parentReactor = getParent();
-        double energy = 80 * pulses;
+        double energy = 160 * pulses;
         parentReactor.addEUOutput(energy);
     }
 

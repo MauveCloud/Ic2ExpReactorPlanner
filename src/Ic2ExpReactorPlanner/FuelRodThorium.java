@@ -64,7 +64,7 @@ public class FuelRodThorium extends ReactorComponent {
     @Override
     public double generateHeat() {
         int pulses = countNeutronNeighbors() + 1;
-        int heat = pulses * (pulses + 1) / 2;
+        int heat = pulses * (pulses + 1) / 4;
         handleHeat(heat);
         applyDamage(1.0);
         return heat;
@@ -74,7 +74,7 @@ public class FuelRodThorium extends ReactorComponent {
     public void generateEnergy() {
         int pulses = countNeutronNeighbors() + 1;
         final Reactor parentReactor = getParent();
-        double energy = 20 * pulses;
+        double energy = 40 * pulses;
         parentReactor.addEUOutput(energy);
     }
 
