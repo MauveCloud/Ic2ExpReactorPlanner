@@ -19,43 +19,45 @@ public class ComponentFactory {
     }
     
     private static final Object[][] components = {
-        {"empty", null}, //NO18N
-        {"fuelRodUranium", new FuelRodUranium()}, //NO18N
-        {"dualFuelRodUranium", new DualFuelRodUranium()}, //NO18N
-        {"quadFuelRodUranium", new QuadFuelRodUranium()}, //NO18N
-        {"fuelRodMox", new FuelRodMox()}, //NO18N
-        {"dualFuelRodMox", new DualFuelRodMox()}, //NO18N
-        {"quadFuelRodMox", new QuadFuelRodMox()}, //NO18N
-        {"neutronReflector", new NeutronReflector()}, //NO18N
-        {"thickNeutronReflector", new ThickNeutronReflector()}, //NO18N
-        {"heatVent", new HeatVent()}, //NO18N
-        {"advancedHeatVent", new AdvancedHeatVent()}, //NO18N
-        {"reactorHeatVent", new ReactorHeatVent()}, //NO18N
-        {"componentHeatVent", new ComponentHeatVent()}, //NO18N
-        {"overclockedHeatVent", new OverclockedHeatVent()}, //NO18N
-        {"coolantCell10k", new CoolantCell10k()}, //NO18N
-        {"coolantCell30k", new CoolantCell30k()}, //NO18N
-        {"coolantCell60k", new CoolantCell60k()}, //NO18N
-        {"heatExchanger", new HeatExchanger()}, //NO18N
-        {"advancedHeatExchanger", new AdvancedHeatExchanger()}, //NO18N
-        {"coreHeatExchanger", new ReactorHeatExchanger()}, //NO18N
-        {"componentHeatExchanger", new ComponentHeatExchanger()}, //NO18N
-        {"reactorPlating", new ReactorPlating()}, //NO18N
-        {"heatCapacityReactorPlating", new HeatCapacityReactorPlating()}, //NO18N
-        {"containmentReactorPlating", new ContainmentReactorPlating()}, //NO18N
-        {"rshCondensator", new RshCondensator()}, //NO18N
-        {"lzhCondensator", new LzhCondensator()}, //NO18N
-        {"fuelRodThorium", new FuelRodThorium()}, //NO18N
-        {"dualFuelRodThorium", new DualFuelRodThorium()}, //NO18N
-        {"quadFuelRodThorium", new QuadFuelRodThorium()}, //NO18N
-        {"coolantCellHelium60k", new CoolantCell60kHelium()}, //NO18N
-        {"coolantCellHelium180k", new CoolantCell180kHelium()}, //NO18N
-        {"coolantCellHelium360k", new CoolantCell360kHelium()}, //NO18N
-        {"coolantCellNak60k", new CoolantCell60kNak()}, //NO18N
-        {"coolantCellNak180k", new CoolantCell180kNak()}, //NO18N
-        {"coolantCellNak360k", new CoolantCell360kNak()}, //NO18N
-        {"iridiumNeutronReflector", new IridiumNeutronReflector()}, //NO18N
-        
+        {"empty", null}, //NOI18N
+        {"fuelRodUranium", new FuelRodUranium()}, //NOI18N
+        {"dualFuelRodUranium", new DualFuelRodUranium()}, //NOI18N
+        {"quadFuelRodUranium", new QuadFuelRodUranium()}, //NOI18N
+        {"fuelRodMox", new FuelRodMox()}, //NOI18N
+        {"dualFuelRodMox", new DualFuelRodMox()}, //NOI18N
+        {"quadFuelRodMox", new QuadFuelRodMox()}, //NOI18N
+        {"neutronReflector", new NeutronReflector()}, //NOI18N
+        {"thickNeutronReflector", new ThickNeutronReflector()}, //NOI18N
+        {"heatVent", new HeatVent()}, //NOI18N
+        {"advancedHeatVent", new AdvancedHeatVent()}, //NOI18N
+        {"reactorHeatVent", new ReactorHeatVent()}, //NOI18N
+        {"componentHeatVent", new ComponentHeatVent()}, //NOI18N
+        {"overclockedHeatVent", new OverclockedHeatVent()}, //NOI18N
+        {"coolantCell10k", new CoolantCell10k()}, //NOI18N
+        {"coolantCell30k", new CoolantCell30k()}, //NOI18N
+        {"coolantCell60k", new CoolantCell60k()}, //NOI18N
+        {"heatExchanger", new HeatExchanger()}, //NOI18N
+        {"advancedHeatExchanger", new AdvancedHeatExchanger()}, //NOI18N
+        {"coreHeatExchanger", new ReactorHeatExchanger()}, //NOI18N
+        {"componentHeatExchanger", new ComponentHeatExchanger()}, //NOI18N
+        {"reactorPlating", new ReactorPlating()}, //NOI18N
+        {"heatCapacityReactorPlating", new HeatCapacityReactorPlating()}, //NOI18N
+        {"containmentReactorPlating", new ContainmentReactorPlating()}, //NOI18N
+        {"rshCondensator", new RshCondensator()}, //NOI18N
+        {"lzhCondensator", new LzhCondensator()}, //NOI18N
+        {"fuelRodThorium", new FuelRodThorium()}, //NOI18N
+        {"dualFuelRodThorium", new DualFuelRodThorium()}, //NOI18N
+        {"quadFuelRodThorium", new QuadFuelRodThorium()}, //NOI18N
+        {"coolantCellHelium60k", new CoolantCell60kHelium()}, //NOI18N
+        {"coolantCellHelium180k", new CoolantCell180kHelium()}, //NOI18N
+        {"coolantCellHelium360k", new CoolantCell360kHelium()}, //NOI18N
+        {"coolantCellNak60k", new CoolantCell60kNak()}, //NOI18N
+        {"coolantCellNak180k", new CoolantCell180kNak()}, //NOI18N
+        {"coolantCellNak360k", new CoolantCell360kNak()}, //NOI18N
+        {"iridiumNeutronReflector", new IridiumNeutronReflector()}, //NOI18N
+        {"fuelRodNaquadah", new FuelRodNaquadah()}, //NOI18N
+        {"dualFuelRodNaquadah", new DualFuelRodNaquadah()}, //NOI18N
+        {"quadFuelRodNaquadah", new QuadFuelRodNaquadah()}, //NOI18N
     };
     
     /**

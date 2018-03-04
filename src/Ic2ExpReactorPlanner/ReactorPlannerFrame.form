@@ -162,8 +162,8 @@
                       </Constraints>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-                        <Property name="columns" type="int" value="9"/>
-                        <Property name="rows" type="int" value="4"/>
+                        <Property name="columns" type="int" value="8"/>
+                        <Property name="rows" type="int" value="5"/>
                       </Layout>
                       <SubComponents>
                         <Component class="javax.swing.JToggleButton" name="emptyButton">
@@ -557,6 +557,39 @@
                               <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.iridiumNeutronReflectorButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="iridiumNeutronReflector" noResource="true"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="fuelRodNaquadahButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.fuelRodNaquadahButton.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            </Property>
+                            <Property name="actionCommand" type="java.lang.String" value="fuelRodNaquadah" noResource="true"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="dualFuelRodNaquadahButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.dualFuelRodNaquadahButton.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            </Property>
+                            <Property name="actionCommand" type="java.lang.String" value="dualFuelRodNaquadah" noResource="true"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="quadFuelRodNaquadahButton">
+                          <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="componentsGroup"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.quadFuelRodNaquadahButton.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            </Property>
+                            <Property name="actionCommand" type="java.lang.String" value="quadFuelRodNaquadah" noResource="true"/>
                           </Properties>
                         </Component>
                       </SubComponents>

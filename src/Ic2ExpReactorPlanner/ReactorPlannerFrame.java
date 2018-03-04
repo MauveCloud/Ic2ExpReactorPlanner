@@ -282,6 +282,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         coolantCellNak180kButton = new javax.swing.JToggleButton();
         coolantCellNak360kButton = new javax.swing.JToggleButton();
         iridiumNeutronReflectorButton = new javax.swing.JToggleButton();
+        fuelRodNaquadahButton = new javax.swing.JToggleButton();
+        dualFuelRodNaquadahButton = new javax.swing.JToggleButton();
+        quadFuelRodNaquadahButton = new javax.swing.JToggleButton();
         jLabel5 = new javax.swing.JLabel();
         componentHeatSpinner = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
@@ -376,7 +379,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         componentsPanel.setMinimumSize(new java.awt.Dimension(160, 80));
         componentsPanel.setPreferredSize(new java.awt.Dimension(160, 80));
-        componentsPanel.setLayout(new java.awt.GridLayout(4, 9));
+        componentsPanel.setLayout(new java.awt.GridLayout(5, 8));
 
         componentsGroup.add(emptyButton);
         emptyButton.setActionCommand("empty"); // NOI18N
@@ -556,6 +559,21 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         iridiumNeutronReflectorButton.setToolTipText(bundle.getString("ReactorPlannerFrame.iridiumNeutronReflectorButton.toolTipText_1")); // NOI18N
         iridiumNeutronReflectorButton.setActionCommand("iridiumNeutronReflector"); // NOI18N
         componentsPanel.add(iridiumNeutronReflectorButton);
+
+        componentsGroup.add(fuelRodNaquadahButton);
+        fuelRodNaquadahButton.setToolTipText(bundle.getString("ReactorPlannerFrame.fuelRodNaquadahButton.toolTipText")); // NOI18N
+        fuelRodNaquadahButton.setActionCommand("fuelRodNaquadah"); // NOI18N
+        componentsPanel.add(fuelRodNaquadahButton);
+
+        componentsGroup.add(dualFuelRodNaquadahButton);
+        dualFuelRodNaquadahButton.setToolTipText(bundle.getString("ReactorPlannerFrame.dualFuelRodNaquadahButton.toolTipText")); // NOI18N
+        dualFuelRodNaquadahButton.setActionCommand("dualFuelRodNaquadah"); // NOI18N
+        componentsPanel.add(dualFuelRodNaquadahButton);
+
+        componentsGroup.add(quadFuelRodNaquadahButton);
+        quadFuelRodNaquadahButton.setToolTipText(bundle.getString("ReactorPlannerFrame.quadFuelRodNaquadahButton.toolTipText")); // NOI18N
+        quadFuelRodNaquadahButton.setActionCommand("quadFuelRodNaquadah"); // NOI18N
+        componentsPanel.add(quadFuelRodNaquadahButton);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -1180,6 +1198,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JButton copyCodeButton;
     private javax.swing.JToggleButton coreHeatExchangerButton;
     private javax.swing.JToggleButton dualFuelRodMoxButton;
+    private javax.swing.JToggleButton dualFuelRodNaquadahButton;
     private javax.swing.JToggleButton dualFuelRodThoriumButton;
     private javax.swing.JToggleButton dualFuelRodUraniumButton;
     private javax.swing.JToggleButton emptyButton;
@@ -1187,6 +1206,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JRadioButton fluidReactorRadio;
     private javax.swing.JToggleButton fuelRodMoxButton;
+    private javax.swing.JToggleButton fuelRodNaquadahButton;
     private javax.swing.JToggleButton fuelRodThoriumButton;
     private javax.swing.JToggleButton fuelRodUraniumButton;
     private javax.swing.JToggleButton heatCapacityReactorPlatingButton;
@@ -1233,6 +1253,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pulsePanel;
     private javax.swing.ButtonGroup pulseTypeGroup;
     private javax.swing.JToggleButton quadFuelRodMoxButton;
+    private javax.swing.JToggleButton quadFuelRodNaquadahButton;
     private javax.swing.JToggleButton quadFuelRodThoriumButton;
     private javax.swing.JToggleButton quadFuelRodUraniumButton;
     private javax.swing.JCheckBox reactorCoolantInjectorCheckbox;
