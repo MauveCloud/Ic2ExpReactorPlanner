@@ -64,7 +64,7 @@ public class FuelRodThorium extends ReactorComponent {
     @Override
     public double generateHeat() {
         int pulses = countNeutronNeighbors() + 1;
-        int heat = pulses * (pulses + 1) / 4;
+        int heat = pulses * (pulses + 1) / 2;
         handleHeat(heat);
         applyDamage(1.0);
         return heat;
