@@ -11,7 +11,7 @@ public class AdvancedHeatVent extends ReactorComponent {
      */
     private static final String imageFilename = "reactorVentDiamond.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatVent.MATERIALS, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DIAMOND"), 4.5, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"));
+    public static final MaterialsList MATERIALS = new MaterialsList(2, HeatVent.MATERIALS, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DIAMOND"), 2.25, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"));
     
     /**
      * Creates a new instance.
