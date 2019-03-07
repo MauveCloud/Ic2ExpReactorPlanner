@@ -969,7 +969,7 @@
                 <Component class="javax.swing.JSpinner" name="onPulseSpinner">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                      <SpinnerModel initial="30" maximum="5000000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                      <SpinnerModel initial="5000000" maximum="5000000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[80, 20]"/>
@@ -1011,7 +1011,7 @@
                 <Component class="javax.swing.JSpinner" name="offPulseSpinner">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                      <SpinnerModel initial="30" maximum="5000000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                      <SpinnerModel initial="0" maximum="5000000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[80, 20]"/>
@@ -1065,7 +1065,7 @@
                 <Component class="javax.swing.JSpinner" name="suspendTempSpinner">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                      <SpinnerModel initial="8400" maximum="100000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                      <SpinnerModel initial="120000" maximum="120000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[80, 20]"/>
@@ -1095,7 +1095,7 @@
                 <Component class="javax.swing.JSpinner" name="resumeTempSpinner">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                      <SpinnerModel initial="0" maximum="100000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                      <SpinnerModel initial="120000" maximum="120000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[80, 20]"/>

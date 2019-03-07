@@ -778,7 +778,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(jLabel3, gridBagConstraints);
 
-        onPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(30, 0, 5000000, 1));
+        onPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(5000000, 0, 5000000, 1));
         onPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         onPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -796,7 +796,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 12, 2, 2);
         pulsePanel.add(jLabel7, gridBagConstraints);
 
-        offPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(30, 0, 5000000, 1));
+        offPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5000000, 1));
         offPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         offPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -823,7 +823,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(jLabel9, gridBagConstraints);
 
-        suspendTempSpinner.setModel(new javax.swing.SpinnerNumberModel(8400, 0, 100000, 1));
+        suspendTempSpinner.setModel(new javax.swing.SpinnerNumberModel(120000, 0, 120000, 1));
         suspendTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         suspendTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -837,7 +837,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 12, 2, 2);
         pulsePanel.add(jLabel10, gridBagConstraints);
 
-        resumeTempSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100000, 1));
+        resumeTempSpinner.setModel(new javax.swing.SpinnerNumberModel(120000, 0, 120000, 1));
         resumeTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         resumeTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
