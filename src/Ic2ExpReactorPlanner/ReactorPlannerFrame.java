@@ -766,6 +766,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         componentArea.setColumns(20);
         componentArea.setRows(5);
+        componentArea.setText(bundle.getString("SELECT_COMPONENT")); // NOI18N
         jScrollPane1.setViewportView(componentArea);
 
         outputTabs.addTab(bundle.getString("ReactorPlannerFrame.jScrollPane1.TabConstraints.tabTitle_1"), jScrollPane1); // NOI18N
