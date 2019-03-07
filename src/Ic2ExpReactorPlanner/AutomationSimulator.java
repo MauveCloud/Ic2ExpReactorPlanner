@@ -256,10 +256,10 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         }
                     }
                 }
-            } while (reactor.getCurrentHeat() <= reactor.getMaxHeat() && reactorTicks < 5000000);
+            } while (reactor.getCurrentHeat() < reactor.getMaxHeat() && reactorTicks < 5000000);
             publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("MIN_TEMP"), minReactorHeat));
             publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("MAX_TEMP"), maxReactorHeat));
-            if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
+            if (reactor.getCurrentHeat() < reactor.getMaxHeat()) {
                 publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TIME_WITHOUT_EXPLODING"), reactorTicks));
                 publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ACTIVE_TIME"), activeTime, minActiveTime, maxActiveTime));
                 publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INACTIVE_TIME"), inactiveTime));

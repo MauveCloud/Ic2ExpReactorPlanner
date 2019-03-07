@@ -172,7 +172,7 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                 totalEUoutput += lastEUoutput;
                 lastHeatOutput = reactor.getVentedHeat();
                 totalHeatOutput += lastHeatOutput;
-                if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
+                if (reactor.getCurrentHeat() < reactor.getMaxHeat()) {
                     reactorTicks++;
                     if (active) {
                         if (reactor.getCurrentHeat() >= suspendTemp || reactorTicks >= nextOffTime) {
@@ -209,7 +209,7 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                         }
                     }
                 }
-            } while (reactor.getCurrentHeat() <= reactor.getMaxHeat() && (!allFuelRodsDepleted || lastEUoutput > 0 || lastHeatOutput > 0) && reactorTicks < 5000000);
+            } while (reactor.getCurrentHeat() < reactor.getMaxHeat() && (!allFuelRodsDepleted || lastEUoutput > 0 || lastHeatOutput > 0) && reactorTicks < 5000000);
             publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("MIN_TEMP"), minReactorHeat));
             publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("MAX_TEMP"), maxReactorHeat));
             if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
