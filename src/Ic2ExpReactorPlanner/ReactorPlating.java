@@ -44,4 +44,8 @@ public class ReactorPlating extends ReactorComponent {
         return MATERIALS;
     }
     
+    public double getExplosionPowerMultiplier() {
+        return 0.9025;
+    }
+    
 }

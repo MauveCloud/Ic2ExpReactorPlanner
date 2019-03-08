@@ -73,4 +73,12 @@ public class NeutronReflector extends ReactorComponent {
         return MATERIALS;
     }
     
+    @Override
+    public double getExplosionPowerOffset() {
+        if (!isBroken()) {
+            return -1;
+        }
+        return 0;
+    }
+    
 }

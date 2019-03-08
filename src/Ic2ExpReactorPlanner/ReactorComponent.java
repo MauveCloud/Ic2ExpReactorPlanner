@@ -329,4 +329,15 @@ public class ReactorComponent {
         return 0;
     }
     
+    public double getExplosionPowerOffset() {
+        if (!isBroken()) {
+            return 2 * getRodCount(); // all known fuel rods (including those from GT) use this formula, and non-rod components return 0 for getRodCount
+        }
+        return 0;
+    }
+    
+    public double getExplosionPowerMultiplier() {
+        return 1;
+    }
+    
 }

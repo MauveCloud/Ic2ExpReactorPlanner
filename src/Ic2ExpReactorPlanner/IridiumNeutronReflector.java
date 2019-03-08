@@ -43,4 +43,9 @@ public class IridiumNeutronReflector extends ReactorComponent {
     public boolean isNeutronReflector() {
         return true;
     }
+
+    public double getExplosionPowerOffset() {
+        return -1;
+    }
+    
 }

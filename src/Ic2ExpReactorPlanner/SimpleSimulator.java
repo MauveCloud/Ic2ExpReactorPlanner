@@ -204,6 +204,19 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
             double prevTotalComponentHeat = 0.0;
             if (reactor.getCurrentHeat() >= reactor.getMaxHeat()) {
                 publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_OVERHEATED_TIME"), reactorTicks));
+                double explosionPower = 10.0;
+                double explosionPowerMult = 1.0;
+                for (int row = 0; row < 6; row++) {
+                    for (int col = 0; col < 9; col++) {
+                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        if (component != null) {
+                            explosionPower += component.getExplosionPowerOffset();
+                            explosionPowerMult *= component.getExplosionPowerMultiplier();
+                        }
+                    }
+                }
+                explosionPower *= explosionPowerMult;
+                publish(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR_EXPLOSION_POWER"), explosionPower));
             } else {
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
