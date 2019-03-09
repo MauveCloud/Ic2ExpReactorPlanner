@@ -71,10 +71,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 GridBagConstraints constraints = new GridBagConstraints();
                 constraints.weightx = 0;
                 constraints.weighty = 0;
-                JButton automationButton = new JButton("a");
-                automationButton.setFont(Font.decode("Arial 10"));
+                JButton automationButton = new JButton(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.AutomateButton"));
+                automationButton.setFont(Font.decode(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.AutomateButtonFont")));
                 automationButton.setMargin(new Insets(-2, 0, -2, 0));
-                automationButton.setToolTipText("Click to define automation rules for this component.");
+                automationButton.setToolTipText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.AutomationTooltip"));
                 automationButton.addActionListener(new ActionListener() {
 
                     @Override
@@ -83,9 +83,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         selectedRow = finalRow;
                         selectedColumn = finalCol;
                         if (component == null) {
-                            selectedComponentLabel.setText(String.format("No component at row %d column %d.", finalRow, finalCol));
+                            selectedComponentLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.NoComponentRowCol"), finalRow, finalCol));
                         } else {
-                            selectedComponentLabel.setText(String.format("%s at row %d column %d\n", component.toString(), finalRow, finalCol));
+                            selectedComponentLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ChosenComponentRowCol"), component.toString(), finalRow, finalCol));
                             thresholdSpinner.setValue(component.automationThreshold);
                             pauseSpinner.setValue(component.reactorPause);
                         }
@@ -96,8 +96,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 reactorButtonPanels[row][col].add(new JLabel(), constraints);
                 constraints.gridwidth = GridBagConstraints.REMAINDER;
                 constraints.anchor = GridBagConstraints.EAST;
-                JButton infoButton = new JButton("i");
-                infoButton.setFont(Font.decode("Arial 10"));
+                JButton infoButton = new JButton(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoButton"));
+                infoButton.setFont(Font.decode(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoButtonFont")));
                 infoButton.setMargin(new Insets(-2, 0, -2, 0));
                 infoButton.addActionListener(new ActionListener() {
 
@@ -106,17 +106,17 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         if (simulatedReactor != null) {
                             final ReactorComponent component = simulatedReactor.getComponentAt(finalRow, finalCol);
                             if (component == null) {
-                                componentArea.setText(String.format("No component at row %d column %d during last simulation.", finalRow, finalCol));
+                                componentArea.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.NoComponentLastSimRowCol"), finalRow, finalCol));
                             } else {
-                                componentArea.setText(String.format("%s at row %d column %d\n%s", component.toString(), finalRow, finalCol, component.info));
+                                componentArea.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoLastSimRowCol"), component.toString(), finalRow, finalCol, component.info));
                             }
                         } else {
-                            componentArea.setText("No simulation run yet.");
+                            componentArea.setText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.NoSimulationRun"));
                         }
                         outputTabs.setSelectedIndex(2);
                     }
                 });
-                infoButton.setToolTipText("Click for information about this component");
+                infoButton.setToolTipText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoButtonTooltip"));
                 reactorButtonPanels[row][col].add(infoButton, constraints);
                 constraints.weightx = 1.0;
                 constraints.weighty = 1.0;
@@ -138,8 +138,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         reactor.setComponentAt(finalRow, finalCol, componentToPlace);
                         materialsArea.setText(reactor.getMaterials().toString());
                         componentListArea.setText(reactor.getComponentList().toString());
-                        maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
-                        temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
+                        maxHeatLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
+                        temperatureEffectsLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.TemperatureEffectsSpecific"), (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
                         SpinnerModel model = heatSpinner.getModel();
                         if (model instanceof SpinnerNumberModel) {
                             ((SpinnerNumberModel)model).setMaximum(reactor.getMaxHeat());
