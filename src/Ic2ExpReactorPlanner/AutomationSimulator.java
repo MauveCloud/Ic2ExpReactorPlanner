@@ -85,6 +85,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
             reactor.clearVentedHeat();
             double minReactorHeat = initialHeat;
             double maxReactorHeat = initialHeat;
+            boolean reachedBelow50 = false;
             boolean reachedBurn = initialHeat >= 0.4 * reactor.getMaxHeat();
             boolean reachedEvaporate = initialHeat >= 0.5 * reactor.getMaxHeat();
             boolean reachedHurt = initialHeat >= 0.7 * reactor.getMaxHeat();
@@ -125,36 +126,36 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                             if (active) {
                                 generatedHeat += component.generateHeat();
                             }
-                            maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
-                            minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
                             component.dissipate();
-                            maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
-                            minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
                             component.transfer();
-                            maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
-                            minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
-                        }
-                        if (maxReactorHeat >= 0.4 * reactor.getMaxHeat() && !reachedBurn) {
-                            publish(String.format(BUNDLE.getString("Simulation.TimeToBurn"), reactorTicks));
-                            reachedBurn = true;
-                        }
-                        if (maxReactorHeat >= 0.5 * reactor.getMaxHeat() && !reachedEvaporate) {
-                            publish(String.format(BUNDLE.getString("Simulation.TimeToEvaporate"), reactorTicks));
-                            reachedEvaporate = true;
-                        }
-                        if (maxReactorHeat >= 0.7 * reactor.getMaxHeat() && !reachedHurt) {
-                            publish(String.format(BUNDLE.getString("Simulation.TimeToHurt"), reactorTicks));
-                            reachedHurt = true;
-                        }
-                        if (maxReactorHeat >= 0.85 * reactor.getMaxHeat() && !reachedLava) {
-                            publish(String.format(BUNDLE.getString("Simulation.TimeToLava"), reactorTicks));
-                            reachedLava = true;
-                        }
-                        if (maxReactorHeat >= reactor.getMaxHeat() && !reachedExplode) {
-                            publish(String.format(BUNDLE.getString("Simulation.TimeToXplode"), reactorTicks));
-                            reachedExplode = true;
                         }
                     }
+                }
+                maxReactorHeat = Math.max(reactor.getCurrentHeat(), maxReactorHeat);
+                minReactorHeat = Math.min(reactor.getCurrentHeat(), minReactorHeat);
+                if (reactor.getCurrentHeat() < 0.5 * reactor.getMaxHeat() && !reachedBelow50 && reachedEvaporate) {
+                    publish(String.format(BUNDLE.getString("Simulation.TimeToBelow50"), reactorTicks));
+                    reachedBelow50 = true;
+                }
+                if (reactor.getCurrentHeat() >= 0.4 * reactor.getMaxHeat() && !reachedBurn) {
+                    publish(String.format(BUNDLE.getString("Simulation.TimeToBurn"), reactorTicks));
+                    reachedBurn = true;
+                }
+                if (reactor.getCurrentHeat() >= 0.5 * reactor.getMaxHeat() && !reachedEvaporate) {
+                    publish(String.format(BUNDLE.getString("Simulation.TimeToEvaporate"), reactorTicks));
+                    reachedEvaporate = true;
+                }
+                if (reactor.getCurrentHeat() >= 0.7 * reactor.getMaxHeat() && !reachedHurt) {
+                    publish(String.format(BUNDLE.getString("Simulation.TimeToHurt"), reactorTicks));
+                    reachedHurt = true;
+                }
+                if (reactor.getCurrentHeat() >= 0.85 * reactor.getMaxHeat() && !reachedLava) {
+                    publish(String.format(BUNDLE.getString("Simulation.TimeToLava"), reactorTicks));
+                    reachedLava = true;
+                }
+                if (reactor.getCurrentHeat() >= reactor.getMaxHeat() && !reachedExplode) {
+                    publish(String.format(BUNDLE.getString("Simulation.TimeToXplode"), reactorTicks));
+                    reachedExplode = true;
                 }
                 maxGeneratedHeat = Math.max(generatedHeat, maxGeneratedHeat);
                 if (active) {
@@ -252,7 +253,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
                         ReactorComponent component = reactor.getComponentAt(row, col);
-                        if (component != null && component.isBroken() && !alreadyBroken[row][col] && !component.getClass().getName().contains("FuelRod")) { //NOI18N
+                        if (component != null && component.isBroken() && !alreadyBroken[row][col] && component.getRodCount() == 0) {
                             publish(String.format("R%dC%d:0xFF0000", row, col)); //NOI18N
                             alreadyBroken[row][col] = true;
                             publish(String.format(BUNDLE.getString("ComponentInfo.BrokeTime"), row, col, reactorTicks));
