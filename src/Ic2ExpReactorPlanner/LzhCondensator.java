@@ -11,7 +11,8 @@ public class LzhCondensator extends ReactorComponent {
      */
     private static final String imageFilename = "reactorCondensatorLap.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(2, RshCondensator.MATERIALS, ReactorHeatVent.MATERIALS, ReactorHeatExchanger.MATERIALS, 9, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("LAPIS LAZULI"), 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REDSTONE"));
+    public static final MaterialsList MATERIALS = new MaterialsList(2, RshCondensator.MATERIALS, ReactorHeatVent.MATERIALS, ReactorHeatExchanger.MATERIALS, 
+            9, BUNDLE.getString("MaterialName.LapisLazuli"), 4, BUNDLE.getString("MaterialName.Redstone"));
     
     /**
      * Creates a new instance.
@@ -22,19 +23,6 @@ public class LzhCondensator extends ReactorComponent {
         automationThreshold = 110000;
     }
     
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("LZH-CONDENSATOR");
-        if (getInitialHeat() > 0) {
-            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
-        }
-        return result;
-    }
-
     @Override
     public boolean isHeatAcceptor() {
         return !isBroken();

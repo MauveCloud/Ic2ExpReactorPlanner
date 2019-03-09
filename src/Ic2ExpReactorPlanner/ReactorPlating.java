@@ -11,7 +11,7 @@ public class ReactorPlating extends ReactorComponent {
      */
     private static final String imageFilename = "reactorPlating.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("LEAD"), java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ADVANCED ALLOY"));
+    public static final MaterialsList MATERIALS = new MaterialsList(BUNDLE.getString("MaterialName.Lead"), BUNDLE.getString("MaterialName.AdvancedAlloy"));
     
     /**
      * Creates a new instance.
@@ -20,15 +20,6 @@ public class ReactorPlating extends ReactorComponent {
         setImage(TextureFactory.getImage(imageFilename));
     }
     
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR PLATING");
-    }
-
     @Override
     public void addToReactor() {
         getParent().adjustMaxHeat(1000);

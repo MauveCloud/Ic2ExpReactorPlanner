@@ -267,7 +267,7 @@ public class Reactor {
                                 setComponentAt(y, x, new QuadFuelRodUranium());
                                 break;
                             case 4:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DEPLETED_ISOTOPE_CELL_WARNING"), y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.DepletedIsotope"), y, x));
                                 break;
                             case 5:
                                 setComponentAt(y, x, new NeutronReflector());
@@ -327,7 +327,7 @@ public class Reactor {
                                 setComponentAt(y, x, new CoolantCell60k());
                                 break;
                             case 24:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("HEATING_CELL_WARNING"), y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Heating"), y, x));
                                 break;
                             case 32:
                                 setComponentAt(y, x, new FuelRodThorium());
@@ -339,13 +339,13 @@ public class Reactor {
                                 setComponentAt(y, x, new QuadFuelRodThorium());
                                 break;
                             case 35:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("PLUTONIUM_CELL_WARNING"), y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Plutonium"), y, x));
                                 break;
                             case 36:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DUAL_PLUTONIUM_CELL_WARNING"), y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.DualPlutonium"), y, x));
                                 break;
                             case 37:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("QUAD_PLUTONIUM_CELL_WARNING"), y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.QuadPlutonium"), y, x));
                                 break;
                             case 38:
                                 setComponentAt(y, x, new IridiumNeutronReflector());
@@ -369,14 +369,14 @@ public class Reactor {
                                 setComponentAt(y, x, new CoolantCell360kNak());
                                 break;
                             default:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UNRECOGNIZED_COMPONENT_WARNING"), nextValue, y, x));
+                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Unrecognized"), nextValue, y, x));
                                 break;
                         }
                     }
                 }
                 if (warnings.length() > 0) {
                     warnings.setLength(warnings.length() - 1);  // to remove last newline character
-                    JOptionPane.showMessageDialog(null, warnings, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("WARNING_DIALOG_TITLE"), JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, warnings, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Title"), JOptionPane.WARNING_MESSAGE);
                 }
             }
         }

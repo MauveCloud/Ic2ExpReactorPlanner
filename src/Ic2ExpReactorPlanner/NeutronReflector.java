@@ -11,7 +11,7 @@ public class NeutronReflector extends ReactorComponent {
      */
     private static final String imageFilename = "reactorReflector.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"), 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TIN"), 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COAL"));
+    public static final MaterialsList MATERIALS = new MaterialsList(BUNDLE.getString("MaterialName.Copper"), 4, BUNDLE.getString("MaterialName.Tin"), 4, BUNDLE.getString("MaterialName.Coal"));
     
     /**
      * Creates a new instance.
@@ -22,15 +22,6 @@ public class NeutronReflector extends ReactorComponent {
         automationThreshold = 11000;
     }
     
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("NEUTRON REFLECTOR");
-    }
-
     @Override
     public boolean isNeutronReflector() {
         return !isBroken();

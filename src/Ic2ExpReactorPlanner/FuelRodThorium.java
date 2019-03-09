@@ -13,8 +13,7 @@ public class FuelRodThorium extends ReactorComponent {
      * The filename for the image to show for the component.
      */
     private static final  String imageFilename = "gt.Thoriumcell.png";     //NOI18N
-    
-    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("THORIUM"));
+    public static final MaterialsList MATERIALS = new MaterialsList(BUNDLE.getString("MaterialName.Iron"), BUNDLE.getString("MaterialName.Thorium"));
     
     /**
      * Creates a new instance.
@@ -25,15 +24,6 @@ public class FuelRodThorium extends ReactorComponent {
         automationThreshold = 51000;
     }
     
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("FUEL ROD (THORIUM)");
-    }
-
     @Override
     public boolean isNeutronReflector() {
         return !isBroken();

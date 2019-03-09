@@ -11,7 +11,7 @@ public class RshCondensator extends ReactorComponent {
      */
     private static final String imageFilename = "reactorCondensator.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, HeatExchanger.MATERIALS, 7, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REDSTONE"));
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, HeatExchanger.MATERIALS, 7, BUNDLE.getString("MaterialName.Redstone"));
     
     /**
      * Creates a new instance.
@@ -22,19 +22,6 @@ public class RshCondensator extends ReactorComponent {
         automationThreshold = 21000;
     }
     
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("RSH-CONDENSATOR");
-        if (getInitialHeat() > 0) {
-            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
-        }
-        return result;
-    }
-
     @Override
     public boolean isHeatAcceptor() {
         return !isBroken();

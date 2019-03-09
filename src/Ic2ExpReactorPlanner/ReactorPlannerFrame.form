@@ -8,38 +8,11 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="pulseTypeGroup">
     </Component>
-    <Container class="javax.swing.JMenuBar" name="jMenuBar1">
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
-      <SubComponents>
-        <Menu class="javax.swing.JMenu" name="fileMenu">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.fileMenu.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="resourcePackItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.resourcePackItem.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resourcePackItemActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-      </SubComponents>
-    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.title_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.MainTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -137,7 +110,7 @@
                     <Component class="javax.swing.JLabel" name="temperatureEffectsLabel">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.temperatureEffectsLabel.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.TemperatureEffectsDefault" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -180,7 +153,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.fuelRodUraniumButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.FuelRodUranium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="fuelRodUranium" noResource="true"/>
                           </Properties>
@@ -191,7 +164,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.dualFuelRodUraniumButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.DualFuelRodUranium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="dualFuelRodUranium" noResource="true"/>
                           </Properties>
@@ -202,7 +175,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.quadFuelRodUraniumButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.QuadFuelRodUranium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="quadFuelRodUranium" noResource="true"/>
                           </Properties>
@@ -213,7 +186,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.fuelRodMoxButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.FuelRodMox" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="fuelRodMox" noResource="true"/>
                           </Properties>
@@ -224,7 +197,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.dualFuelRodMoxButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.DualFuelRodMox" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="dualFuelRodMox" noResource="true"/>
                           </Properties>
@@ -235,7 +208,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.quadFuelRodMoxButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.QuadFuelRodMox" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="quadFuelRodMox" noResource="true"/>
                           </Properties>
@@ -246,7 +219,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.neutronReflectorButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.NeutronReflector" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="neutronReflector" noResource="true"/>
                           </Properties>
@@ -257,7 +230,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.thickNeutronReflectorButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ThickNeutronReflector" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="thickNeutronReflector" noResource="true"/>
                           </Properties>
@@ -268,7 +241,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.heatVentButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.HeatVent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="heatVent" noResource="true"/>
                           </Properties>
@@ -279,7 +252,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.advancedHeatVentButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.AdvancedHeatVent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="advancedHeatVent" noResource="true"/>
                           </Properties>
@@ -290,7 +263,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.reactorHeatVentButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ReactorHeatVent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="reactorHeatVent" noResource="true"/>
                           </Properties>
@@ -301,7 +274,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.componentHeatVentButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ComponentHeatVent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="componentHeatVent" noResource="true"/>
                           </Properties>
@@ -312,7 +285,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.overclockedHeatVentButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.OverclockedHeatVent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="overclockedHeatVent" noResource="true"/>
                           </Properties>
@@ -323,7 +296,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.coolantCell10kButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell10k" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="coolantCell10k" noResource="true"/>
                           </Properties>
@@ -334,7 +307,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.coolantCell30kButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell30k" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="coolantCell30k" noResource="true"/>
                           </Properties>
@@ -345,7 +318,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.coolantCell60kButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell60k" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="coolantCell60k" noResource="true"/>
                           </Properties>
@@ -356,7 +329,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.heatExchangerButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.HeatExchanger" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="heatExchanger" noResource="true"/>
                           </Properties>
@@ -367,7 +340,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.advancedHeatExchangerButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.AdvancedHeatExchanger" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="advancedHeatExchanger" noResource="true"/>
                           </Properties>
@@ -378,7 +351,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.coreHeatExchangerButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ReactorHeatExchanger" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="coreHeatExchanger" noResource="true"/>
                           </Properties>
@@ -389,7 +362,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.componentHeatExchangerButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ComponentHeatExchanger" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="componentHeatExchanger" noResource="true"/>
                           </Properties>
@@ -400,7 +373,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.reactorPlatingButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ReactorPlating" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="reactorPlating" noResource="true"/>
                           </Properties>
@@ -411,7 +384,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.heatCapacityReactorPlatingButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.HeatCapacityReactorPlating" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="heatCapacityReactorPlating" noResource="true"/>
                           </Properties>
@@ -422,7 +395,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.containmentReactorPlatingButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ContainmentReactorPlating" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="containmentReactorPlating" noResource="true"/>
                           </Properties>
@@ -433,7 +406,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.rshCondensatorButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.RshCondensator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="rshCondensator" noResource="true"/>
                           </Properties>
@@ -444,7 +417,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.lzhCondensatorButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.LzhCondensator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="lzhCondensator" noResource="true"/>
                           </Properties>
@@ -455,7 +428,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.fuelRodThoriumButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.FuelRodThorium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="fuelRodThorium" noResource="true"/>
                           </Properties>
@@ -466,7 +439,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.dualFuelRodThoriumButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.DualFuelRodThorium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="dualFuelRodThorium" noResource="true"/>
                           </Properties>
@@ -477,7 +450,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.quadFuelRodThoriumButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.QuadFuelRodThorium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="quadFuelRodThorium" noResource="true"/>
                           </Properties>
@@ -488,7 +461,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.coolantCellHelium60kButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell60kHelium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="coolantCellHelium60k" noResource="true"/>
                           </Properties>
@@ -499,7 +472,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.coolantCellHelium180kButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell180kHelium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="coolantCellHelium180k" noResource="true"/>
                           </Properties>
@@ -510,7 +483,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.coolantCellHelium360kButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell360kHelium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="coolantCellHelium360k" noResource="true"/>
                           </Properties>
@@ -521,7 +494,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.coolantCellNak60kButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell60kNak" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="coolantCellNak60k" noResource="true"/>
                           </Properties>
@@ -532,7 +505,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.coolantCellNak180kButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell180kNak" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="coolantCellNak180k" noResource="true"/>
                           </Properties>
@@ -543,7 +516,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.coolantCellNak360kButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell360kNak" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="coolantCellNak360k" noResource="true"/>
                           </Properties>
@@ -554,7 +527,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.iridiumNeutronReflectorButton.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.IridiumNeutronReflector" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="iridiumNeutronReflector" noResource="true"/>
                           </Properties>
@@ -565,7 +538,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.fuelRodNaquadahButton.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.FuelRodNaquadah" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="fuelRodNaquadah" noResource="true"/>
                           </Properties>
@@ -576,7 +549,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.dualFuelRodNaquadahButton.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.DualFuelRodNaquadah" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="dualFuelRodNaquadah" noResource="true"/>
                           </Properties>
@@ -587,7 +560,7 @@
                               <ComponentRef name="componentsGroup"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.quadFuelRodNaquadahButton.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.QuadFuelRodNaquadah" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="actionCommand" type="java.lang.String" value="quadFuelRodNaquadah" noResource="true"/>
                           </Properties>
@@ -597,7 +570,7 @@
                     <Component class="javax.swing.JLabel" name="jLabel5">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel5.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.InitialComponentHeat" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -650,7 +623,7 @@
                         </Property>
                         <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.euReactorRadio.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.EUReactor" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -668,7 +641,7 @@
                           <ComponentRef name="reactorStyleGroup"/>
                         </Property>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.fluidReactorRadio.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.FluidReactor" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -683,7 +656,7 @@
                     <Component class="javax.swing.JButton" name="clearGridButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.clearGridButton.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.ClearGridButton" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -698,7 +671,7 @@
                     <Component class="javax.swing.JButton" name="simulateButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.simulateButton.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.SimulateButton" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -713,7 +686,7 @@
                     <Component class="javax.swing.JLabel" name="jLabel1">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel1.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.InitialReactorHeat" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -743,7 +716,7 @@
                     <Component class="javax.swing.JLabel" name="maxHeatLabel">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.maxHeatLabel.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.MaxHeatDefault" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -755,7 +728,7 @@
                     <Component class="javax.swing.JLabel" name="jLabel2">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel2.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.CodeLabel" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -779,7 +752,7 @@
                     <Component class="javax.swing.JButton" name="copyCodeButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.copyCodeButton.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.CopyCodeButton" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -794,7 +767,7 @@
                     <Component class="javax.swing.JButton" name="pasteCodeButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.pasteCodeButton.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.PasteCodeButton" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -809,7 +782,7 @@
                     <Component class="javax.swing.JLabel" name="jLabel6">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel6.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.SimulationStyle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -840,7 +813,7 @@
                     <Component class="javax.swing.JCheckBox" name="reactorCoolantInjectorCheckbox">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.reactorCoolantInjectorCheckbox.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.ReactorCoolantInjectors" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -875,7 +848,7 @@
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Simulation">
                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.outputPane.TabConstraints.tabTitle_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.SimulationTab" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </JTabbedPaneConstraints>
                 </Constraint>
@@ -900,7 +873,7 @@
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Materials">
                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jScrollPane2.TabConstraints.tabTitle_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.MaterialsTab" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </JTabbedPaneConstraints>
                 </Constraint>
@@ -925,7 +898,7 @@
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Component">
                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jScrollPane1.TabConstraints.tabTitle_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.ComponentTab" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </JTabbedPaneConstraints>
                 </Constraint>
@@ -938,7 +911,7 @@
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="SELECT_COMPONENT" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.ComponentInfoDefault" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -949,7 +922,7 @@
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Pulse Configuration">
                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.pulsePanel.TabConstraints.tabTitle_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.PulseConfigurationTab" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </JTabbedPaneConstraints>
                 </Constraint>
@@ -960,7 +933,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel3.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.OnPulse" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -990,7 +963,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel4">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel4.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.Seconds" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1002,7 +975,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel7">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel7.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.OffPulse" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1032,7 +1005,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel8">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel8.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.Seconds" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1044,7 +1017,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel11.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.PulseHelp" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1056,7 +1029,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel9.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.SuspendTemp" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1086,7 +1059,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel10">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel10.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.ResumeTemp" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1116,7 +1089,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel16">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel16.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.SuspendTempHelp" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1132,7 +1105,7 @@
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Component Automation">
                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.automationPanel.TabConstraints.tabTitle_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.ComponentAutomationTab" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </JTabbedPaneConstraints>
                 </Constraint>
@@ -1143,7 +1116,7 @@
                 <Component class="javax.swing.JLabel" name="selectedComponentLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.selectedComponentLabel.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.NoComponentSelected" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1155,7 +1128,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel12">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel12.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.ReplacementThreshold" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1188,7 +1161,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel13">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel13.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.ReplacementThresholdHelp" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1200,7 +1173,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel14">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel14.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.ReactorPause" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1233,7 +1206,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel15">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jLabel15.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.ReactorPauseHelp" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -1249,7 +1222,7 @@
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Component List">
                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ReactorPlannerFrame.jScrollPane3.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.ComponentListTab" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </JTabbedPaneConstraints>
                 </Constraint>

@@ -11,7 +11,7 @@ public class ReactorHeatVent extends ReactorComponent {
      */
     private static final String imageFilename = "reactorVentCore.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 8, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"));
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 8, BUNDLE.getString("MaterialName.Copper"));
     
     /**
      * Creates a new instance.
@@ -20,19 +20,6 @@ public class ReactorHeatVent extends ReactorComponent {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(1000);
         automationThreshold = 900;
-    }
-    
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REACTOR HEAT VENT");
-        if (getInitialHeat() > 0) {
-            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
-        }
-        return result;
     }
     
     @Override

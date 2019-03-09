@@ -14,7 +14,7 @@ public class ComponentHeatExchanger extends ReactorComponent {
      */
     private static final String imageFilename = "reactorHeatSwitchSpread.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(HeatExchanger.MATERIALS, 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("GOLD"));
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatExchanger.MATERIALS, 4, BUNDLE.getString("MaterialName.Gold"));
     
     private static final int switchSide = 36;
     private static final int switchReactor = 0;
@@ -28,19 +28,6 @@ public class ComponentHeatExchanger extends ReactorComponent {
         automationThreshold = 4500;
     }
     
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COMPONENT HEAT EXCHANGER");
-        if (getInitialHeat() > 0) {
-            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
-        }
-        return result;
-    }
-
     @Override
     public boolean isHeatAcceptor() {
         return !isBroken();

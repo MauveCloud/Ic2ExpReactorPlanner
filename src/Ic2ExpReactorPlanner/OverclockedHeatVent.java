@@ -11,7 +11,7 @@ public class OverclockedHeatVent extends ReactorComponent {
      */
     private static final String imageFilename = "reactorVentGold.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(ReactorHeatVent.MATERIALS, 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("GOLD"));
+    public static final MaterialsList MATERIALS = new MaterialsList(ReactorHeatVent.MATERIALS, 4, BUNDLE.getString("MaterialName.Gold"));
     
     /**
      * Creates a new instance.
@@ -20,19 +20,6 @@ public class OverclockedHeatVent extends ReactorComponent {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(1000);
         automationThreshold = 900;
-    }
-    
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("OVERCLOCKED HEAT VENT");
-        if (getInitialHeat() > 0) {
-            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
-        }
-        return result;
     }
     
     @Override

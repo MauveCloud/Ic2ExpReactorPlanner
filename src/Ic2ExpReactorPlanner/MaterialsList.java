@@ -1,6 +1,7 @@
 package Ic2ExpReactorPlanner;
 
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -11,10 +12,11 @@ import java.util.TreeMap;
 public final class MaterialsList {
     
     private final SortedMap<String, Double> materials = new TreeMap<>();
+    private static final ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
     
     // some materials lists for common crafted items that are part of reactors and reactor components without themselves being reactor components.
-    public static final MaterialsList ELECTRONIC_CIRCUIT = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REDSTONE"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"), 6, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("RUBBER"));
-    public static final MaterialsList ADVANCED_CIRCUIT = new MaterialsList(ELECTRONIC_CIRCUIT, 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("REDSTONE"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("LAPIS LAZULI"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("GLOWSTONE DUST"));
+    public static final MaterialsList ELECTRONIC_CIRCUIT = new MaterialsList(BUNDLE.getString("MaterialName.Iron"), 2, BUNDLE.getString("MaterialName.Redstone"), 2, BUNDLE.getString("MaterialName.Copper"), 6, BUNDLE.getString("MaterialName.Rubber"));
+    public static final MaterialsList ADVANCED_CIRCUIT = new MaterialsList(ELECTRONIC_CIRCUIT, 4, BUNDLE.getString("MaterialName.Redstone"), 2, BUNDLE.getString("MaterialName.LapisLazuli"), 2, BUNDLE.getString("MaterialName.GlowstoneDust"));
     
     /**
      * Creates an empty materials list.

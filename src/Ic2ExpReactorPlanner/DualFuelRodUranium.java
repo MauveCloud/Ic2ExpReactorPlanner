@@ -11,7 +11,7 @@ public class DualFuelRodUranium extends FuelRodUranium {
      */
     private static final String imageFilename = "reactorUraniumDual.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), 2, FuelRodUranium.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(BUNDLE.getString("MaterialName.Iron"), 2, FuelRodUranium.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -20,15 +20,6 @@ public class DualFuelRodUranium extends FuelRodUranium {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(20000);
         automationThreshold = 21000;
-    }
-    
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DUAL FUEL ROD (URANIUM)");
     }
     
     @Override

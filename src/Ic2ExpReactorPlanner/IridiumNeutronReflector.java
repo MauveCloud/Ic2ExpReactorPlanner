@@ -12,10 +12,10 @@ public class IridiumNeutronReflector extends ReactorComponent {
     private static final String imageFilename = "gt.neutronreflector.png";     //NOI18N
     
     public static final MaterialsList MATERIALS = new MaterialsList(6, ThickNeutronReflector.MATERIALS, 
-            18, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"),
-            4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRIDIUM"),
-            4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ADVANCED ALLOY"),
-            java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("DIAMOND"));
+            18, BUNDLE.getString("MaterialName.Copper"),
+            4, BUNDLE.getString("MaterialName.Iridium"),
+            4, BUNDLE.getString("MaterialName.AdvancedAlloy"),
+            BUNDLE.getString("MaterialName.Diamond"));
     
     /**
      * Creates a new instance.
@@ -23,15 +23,6 @@ public class IridiumNeutronReflector extends ReactorComponent {
     public IridiumNeutronReflector() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(40000);
-    }
-    
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRIDIUM NEUTRON REFLECTOR");
     }
     
     @Override

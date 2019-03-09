@@ -11,7 +11,7 @@ public class ThickNeutronReflector extends NeutronReflector {
      */
     private static final String imageFilename = "reactorReflectorThick.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(4, NeutronReflector.MATERIALS, 5, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"));
+    public static final MaterialsList MATERIALS = new MaterialsList(4, NeutronReflector.MATERIALS, 5, BUNDLE.getString("MaterialName.Copper"));
     
     /**
      * Creates a new instance.
@@ -20,15 +20,6 @@ public class ThickNeutronReflector extends NeutronReflector {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(40000);
         automationThreshold = 41000;
-    }
-    
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("THICK NEUTRON REFLECTOR");
     }
     
     @Override

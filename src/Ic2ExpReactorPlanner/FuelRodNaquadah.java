@@ -11,7 +11,7 @@ public class FuelRodNaquadah extends FuelRodUranium {
      */
     private static final String imageFilename = "gt.Naquadahcell.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), 3, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ENRICHED NAQUADAH"));
+    public static final MaterialsList MATERIALS = new MaterialsList(BUNDLE.getString("MaterialName.Iron"), 3, BUNDLE.getString("MaterialName.EnrichedNaquadah"));
     
     /**
      * Creates a new instance.
@@ -20,15 +20,6 @@ public class FuelRodNaquadah extends FuelRodUranium {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(100000);
         automationThreshold = 110000;
-    }
-    
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("FUEL ROD (NAQUADAH)");
     }
     
     @Override

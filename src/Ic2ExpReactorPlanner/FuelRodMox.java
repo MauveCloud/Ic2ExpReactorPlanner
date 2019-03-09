@@ -11,7 +11,7 @@ public class FuelRodMox extends FuelRodUranium {
      */
     private static final String imageFilename = "reactorMOXSimple.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("MOX FUEL"));
+    public static final MaterialsList MATERIALS = new MaterialsList(BUNDLE.getString("MaterialName.Iron"), BUNDLE.getString("MaterialName.MoxFuel"));
     
     /**
      * Creates a new instance.
@@ -20,15 +20,6 @@ public class FuelRodMox extends FuelRodUranium {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(10000);
         automationThreshold = 11000;
-    }
-    
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("FUEL ROD (MOX)");
     }
     
     @Override

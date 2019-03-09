@@ -14,7 +14,7 @@ public class ComponentHeatVent extends ReactorComponent {
      */
     private static final String imageFilename = "reactorVentSpread.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 4, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TIN"), 1.5, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"));
+    public static final MaterialsList MATERIALS = new MaterialsList(HeatVent.MATERIALS, 4, BUNDLE.getString("MaterialName.Tin"), 1.5, BUNDLE.getString("MaterialName.Iron"));
     
     /**
      * Creates a new instance.
@@ -23,15 +23,6 @@ public class ComponentHeatVent extends ReactorComponent {
         setImage(TextureFactory.getImage(imageFilename));
     }
     
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COMPONENT HEAT VENT");
-    }
-
     @Override
     public void dissipate() {
         final Reactor parentReactor = getParent();

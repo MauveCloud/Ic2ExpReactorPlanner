@@ -11,7 +11,7 @@ public class QuadFuelRodMox extends FuelRodUranium {
      */
     private static final String imageFilename = "reactorMOXQuad.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(3, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("COPPER"), 4, FuelRodMox.MATERIALS);
+    public static final MaterialsList MATERIALS = new MaterialsList(3, BUNDLE.getString("MaterialName.Iron"), 2, BUNDLE.getString("MaterialName.Copper"), 4, FuelRodMox.MATERIALS);
     
     /**
      * Creates a new instance.
@@ -22,15 +22,6 @@ public class QuadFuelRodMox extends FuelRodUranium {
         automationThreshold = 11000;
     }
     
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("QUAD FUEL ROD (MOX)");
-    }
-        
     @Override
     public double generateHeat() {
         int pulses = countNeutronNeighbors() + 3;

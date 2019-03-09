@@ -6,6 +6,7 @@
 package Ic2ExpReactorPlanner;
 
 import java.awt.Image;
+import java.util.ResourceBundle;
 
 /**
  * Represents a component in an IndustrialCraft2 Experimental Nuclear Reactor.
@@ -36,11 +37,27 @@ public class ReactorComponent {
     protected double currentCondensatorCooling = 0.0;
     
     protected double currentCellCooling = 0.0;
+
+    protected static final ResourceBundle BUNDLE = ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
     
     /**
      * Information about this component from the last simulation.
      */
     public String info = ""; //NOI18N
+
+
+    /**
+     * Gets the name of the component, and the initial heat (if applicable).
+     * @return the name of this component, and potentially initial heat.
+     */
+    @Override
+    public String toString() {
+        String result = BUNDLE.getString("ComponentName." + this.getClass().getSimpleName());
+        if (getInitialHeat() > 0) {
+            result += String.format(BUNDLE.getString("UI.InitialHeatDisplay"), (int)getInitialHeat());
+        }
+        return result;
+    }
     
     /**
      * Threshold for heat/damage for removing this component during an automation run.

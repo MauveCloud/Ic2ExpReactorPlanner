@@ -11,7 +11,7 @@ public class HeatVent extends ReactorComponent {
      */
     private static final String imageFilename = "reactorVent.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(8.5, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), 1, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("TIN"), 16.0 / 3, "Copper");
+    public static final MaterialsList MATERIALS = new MaterialsList(8.5, BUNDLE.getString("MaterialName.Iron"), 1, BUNDLE.getString("MaterialName.Tin"), 16.0 / 3, BUNDLE.getString("MaterialName.Copper"));
     
     /**
      * Creates a new instance.
@@ -22,19 +22,6 @@ public class HeatVent extends ReactorComponent {
         automationThreshold = 900;
     }
     
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        String result = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("HEAT VENT");
-        if (getInitialHeat() > 0) {
-            result += String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("INITIAL_HEAT_DISPLAY"), (int)getInitialHeat());
-        }
-        return result;
-    }
-
     @Override
     public boolean isHeatAcceptor() {
         return !isBroken();

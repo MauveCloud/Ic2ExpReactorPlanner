@@ -14,7 +14,7 @@ public class FuelRodUranium extends ReactorComponent {
      */
     private static final  String imageFilename = "reactorUraniumSimple.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("IRON"), java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("URANIUM FUEL"));
+    public static final MaterialsList MATERIALS = new MaterialsList(BUNDLE.getString("MaterialName.Iron"), BUNDLE.getString("MaterialName.UraniumFuel"));
     
     /**
      * Creates a new instance.
@@ -25,15 +25,6 @@ public class FuelRodUranium extends ReactorComponent {
         automationThreshold = 21000;
     }
     
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("FUEL ROD (URANIUM)");
-    }
-
     @Override
     public boolean isNeutronReflector() {
         return !isBroken();

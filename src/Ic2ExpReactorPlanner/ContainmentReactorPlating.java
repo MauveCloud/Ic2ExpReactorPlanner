@@ -11,22 +11,13 @@ public class ContainmentReactorPlating extends ReactorComponent {
      */
     private static final String imageFilename = "reactorPlatingExplosive.png";     //NOI18N
     
-    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 2, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("ADVANCED ALLOY"));
+    public static final MaterialsList MATERIALS = new MaterialsList(ReactorPlating.MATERIALS, 2, BUNDLE.getString("MaterialName.AdvancedAlloy"));
     
     /**
      * Creates a new instance.
      */
     public ContainmentReactorPlating() {
         setImage(TextureFactory.getImage(imageFilename));
-    }
-    
-    /**
-     * Gets the name of the component.
-     * @return the name of this component.
-     */
-    @Override
-    public String toString() {
-        return java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("CONTAINMENT REACTOR PLATING");
     }
     
     @Override
