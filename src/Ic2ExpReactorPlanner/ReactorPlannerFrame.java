@@ -89,7 +89,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             thresholdSpinner.setValue(component.automationThreshold);
                             pauseSpinner.setValue(component.reactorPause);
                         }
-                        outputTabs.setSelectedIndex(4);
+                        outputTabs.setSelectedComponent(automationPanel);
                     }
                 });
                 reactorButtonPanels[row][col].add(automationButton, constraints);
@@ -113,7 +113,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         } else {
                             componentArea.setText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.NoSimulationRun"));
                         }
-                        outputTabs.setSelectedIndex(2);
+                        outputTabs.setSelectedComponent(componentPane);
                     }
                 });
                 infoButton.setToolTipText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoButtonTooltip"));
@@ -302,10 +302,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         outputTabs = new javax.swing.JTabbedPane();
         outputPane = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        materialsArea = new javax.swing.JTextArea();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        componentArea = new javax.swing.JTextArea();
         pulsePanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         onPulseSpinner = new javax.swing.JSpinner();
@@ -319,6 +315,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         resumeTempSpinner = new javax.swing.JSpinner();
         jLabel16 = new javax.swing.JLabel();
+        componentPane = new javax.swing.JScrollPane();
+        componentArea = new javax.swing.JTextArea();
         automationPanel = new javax.swing.JPanel();
         selectedComponentLabel = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -327,8 +325,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         pauseSpinner = new javax.swing.JSpinner();
         jLabel15 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        componentListPane = new javax.swing.JScrollPane();
         componentListArea = new javax.swing.JTextArea();
+        materialsListPane = new javax.swing.JScrollPane();
+        materialsArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
@@ -742,20 +742,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         outputTabs.addTab(bundle.getString("UI.SimulationTab"), outputPane); // NOI18N
 
-        materialsArea.setEditable(false);
-        materialsArea.setColumns(20);
-        materialsArea.setRows(5);
-        jScrollPane2.setViewportView(materialsArea);
-
-        outputTabs.addTab(bundle.getString("UI.MaterialsTab"), jScrollPane2); // NOI18N
-
-        componentArea.setColumns(20);
-        componentArea.setRows(5);
-        componentArea.setText(bundle.getString("UI.ComponentInfoDefault")); // NOI18N
-        jScrollPane1.setViewportView(componentArea);
-
-        outputTabs.addTab(bundle.getString("UI.ComponentTab"), jScrollPane1); // NOI18N
-
         pulsePanel.setLayout(new java.awt.GridBagLayout());
 
         jLabel3.setText(bundle.getString("Config.OnPulse")); // NOI18N
@@ -841,6 +827,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         outputTabs.addTab(bundle.getString("UI.PulseConfigurationTab"), pulsePanel); // NOI18N
 
+        componentArea.setColumns(20);
+        componentArea.setRows(5);
+        componentArea.setText(bundle.getString("UI.ComponentInfoDefault")); // NOI18N
+        componentPane.setViewportView(componentArea);
+
+        outputTabs.addTab(bundle.getString("UI.ComponentTab"), componentPane); // NOI18N
+
         automationPanel.setLayout(new java.awt.GridBagLayout());
 
         selectedComponentLabel.setText(bundle.getString("Config.NoComponentSelected")); // NOI18N
@@ -912,9 +905,16 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         componentListArea.setColumns(20);
         componentListArea.setRows(5);
-        jScrollPane3.setViewportView(componentListArea);
+        componentListPane.setViewportView(componentListArea);
 
-        outputTabs.addTab(bundle.getString("UI.ComponentListTab"), jScrollPane3); // NOI18N
+        outputTabs.addTab(bundle.getString("UI.ComponentListTab"), componentListPane); // NOI18N
+
+        materialsArea.setEditable(false);
+        materialsArea.setColumns(20);
+        materialsArea.setRows(5);
+        materialsListPane.setViewportView(materialsArea);
+
+        outputTabs.addTab(bundle.getString("UI.MaterialsTab"), materialsListPane); // NOI18N
 
         jSplitPane1.setRightComponent(outputTabs);
 
@@ -998,7 +998,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         simulatedReactor.setCode(reactor.getCode());
         simulatedReactor.setFluid(reactor.isFluid());
         simulatedReactor.setUsingReactorCoolantInjectors(reactor.isUsingReactorCoolantInjectors());
-        outputTabs.setSelectedIndex(0);
+        outputTabs.setSelectedComponent(outputPane);
         if ("Simple Cycle".equals(simulationStyleCombo.getSelectedItem().toString())) {
             simulator = new SimpleSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat);
             simulator.execute();
@@ -1157,6 +1157,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner componentHeatSpinner;
     private javax.swing.JToggleButton componentHeatVentButton;
     private javax.swing.JTextArea componentListArea;
+    private javax.swing.JScrollPane componentListPane;
+    private javax.swing.JScrollPane componentPane;
     private javax.swing.ButtonGroup componentsGroup;
     private javax.swing.JPanel componentsPanel;
     private javax.swing.JToggleButton containmentReactorPlatingButton;
@@ -1204,14 +1206,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JToggleButton lzhCondensatorButton;
     private javax.swing.JTextArea materialsArea;
+    private javax.swing.JScrollPane materialsListPane;
     private javax.swing.JLabel maxHeatLabel;
     private javax.swing.JToggleButton neutronReflectorButton;
     private javax.swing.JSpinner offPulseSpinner;
