@@ -55,6 +55,8 @@ public class FuelRodThorium extends ReactorComponent {
     public double generateHeat() {
         int pulses = countNeutronNeighbors() + 1;
         int heat = pulses * (pulses + 1) / 2;
+        minHeatGenerated = Math.min(minHeatGenerated, heat);
+        maxHeatGenerated = Math.max(maxHeatGenerated, heat);
         handleHeat(heat);
         applyDamage(1.0);
         return heat;
@@ -65,6 +67,8 @@ public class FuelRodThorium extends ReactorComponent {
         int pulses = countNeutronNeighbors() + 1;
         final Reactor parentReactor = getParent();
         double energy = 40 * pulses;
+        minEUGenerated = Math.min(minEUGenerated, energy);
+        maxEUGenerated = Math.max(maxEUGenerated, energy);
         parentReactor.addEUOutput(energy);
     }
 

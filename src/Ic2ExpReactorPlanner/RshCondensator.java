@@ -42,6 +42,7 @@ public class RshCondensator extends ReactorComponent {
         double acceptedHeat = Math.min(heat, getMaxHeat() - heat);
         double result = heat - acceptedHeat;
         currentHeat += acceptedHeat;
+        maxReachedHeat = Math.max(maxReachedHeat, currentHeat);
         return result;
     }
     

@@ -26,6 +26,8 @@ public class DualFuelRodUranium extends FuelRodUranium {
     public double generateHeat() {
         int pulses = countNeutronNeighbors() + 2;
         int heat = 4 * pulses * (pulses + 1);
+        minHeatGenerated = Math.min(minHeatGenerated, heat);
+        maxHeatGenerated = Math.max(maxHeatGenerated, heat);
         handleHeat(heat);
         applyDamage(1.0);
         return heat;
@@ -36,6 +38,8 @@ public class DualFuelRodUranium extends FuelRodUranium {
         int pulses = countNeutronNeighbors() + 2;
         final Reactor parentReactor = getParent();
         double energy = 200 * pulses;
+        minEUGenerated = Math.min(minEUGenerated, energy);
+        maxEUGenerated = Math.max(maxEUGenerated, energy);
         parentReactor.addEUOutput(energy);
     }
 

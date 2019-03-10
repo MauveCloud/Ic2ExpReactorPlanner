@@ -332,6 +332,14 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         } else if (component.getBestCondensatorCooling() > 0) {
                             publish(String.format(BUNDLE.getString("ComponentInfo.ReceivedHeat"), row, col, component.getBestCondensatorCooling()));
                             totalCondensatorCooling += component.getBestCondensatorCooling();
+                        } else if (component.getMaxHeatGenerated() > 0) {
+                            if (!reactor.isFluid() && component.getMaxEUGenerated() > 0) {
+                                publish(String.format(BUNDLE.getString("ComponentInfo.GeneratedEU"), row, col, component.getMinEUGenerated(), component.getMaxEUGenerated()));
+                            }
+                            publish(String.format(BUNDLE.getString("ComponentInfo.GeneratedHeat"), row, col, component.getMinHeatGenerated(), component.getMaxHeatGenerated()));
+                        }
+                        if (component.getMaxReachedHeat() > 0) {
+                            publish(String.format(BUNDLE.getString("ComponentInfo.ReachedHeat"), row, col, component.getMaxReachedHeat(), component.getMaxHeat()));
                         }
                     }
                 }

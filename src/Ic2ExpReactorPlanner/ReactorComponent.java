@@ -38,6 +38,16 @@ public class ReactorComponent {
     
     protected double currentCellCooling = 0.0;
 
+    protected double minEUGenerated = Double.MAX_VALUE;
+    
+    protected double maxEUGenerated = 0.0;
+    
+    protected double minHeatGenerated = Double.MAX_VALUE;
+    
+    protected double maxHeatGenerated = 0.0;
+    
+    protected double maxReachedHeat = 0.0;
+    
     protected static final ResourceBundle BUNDLE = ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
     
     /**
@@ -191,6 +201,11 @@ public class ReactorComponent {
         effectiveVentCooling = 0.0;
         bestCondensatorCooling = 0.0;
         bestCellCooling = 0.0;
+        minEUGenerated = Double.MAX_VALUE;
+        maxEUGenerated = 0.0;
+        minHeatGenerated = Double.MAX_VALUE;
+        maxHeatGenerated = 0.0;
+        maxReachedHeat = initialHeat;
     }
     
     /**
@@ -211,6 +226,7 @@ public class ReactorComponent {
                 tempHeat = 0.0;
             }
             currentHeat = tempHeat;
+            maxReachedHeat = Math.max(maxReachedHeat, currentHeat);
             return result;
         }
         return heat;
@@ -336,6 +352,26 @@ public class ReactorComponent {
     
     public double getBestCellCooling() {
         return bestCellCooling;
+    }
+    
+    public double getMinEUGenerated() {
+        return minEUGenerated;
+    }
+    
+    public double getMaxEUGenerated() {
+        return maxEUGenerated;
+    }
+    
+    public double getMinHeatGenerated() {
+        return minHeatGenerated;
+    }
+    
+    public double getMaxHeatGenerated() {
+        return maxHeatGenerated;
+    }
+    
+    public double getMaxReachedHeat() {
+        return maxReachedHeat;
     }
     
     /**
