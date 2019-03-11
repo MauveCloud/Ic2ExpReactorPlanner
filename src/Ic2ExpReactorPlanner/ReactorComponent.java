@@ -77,7 +77,7 @@ public class ReactorComponent {
     /**
      * Time to pause the reactor while replacing the component during an automation run.
      */
-    public int reactorPause = 1;
+    public int reactorPause = 0;
     
     /**
      * Get the image to show in the planner for this component.

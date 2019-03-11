@@ -106,6 +106,7 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
             double maxGeneratedHeat = 0.0;
             boolean allFuelRodsDepleted = false;
             boolean componentsIntact = true;
+            boolean anyRodsDepleted = false;
             do {
                 reactor.clearEUOutput();
                 reactor.clearVentedHeat();
@@ -198,24 +199,42 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
                         ReactorComponent component = reactor.getComponentAt(row, col);
-                        if (component != null && component.isBroken() && !alreadyBroken[row][col] && component.getRodCount() == 0) {
-                            publish(String.format("R%dC%d:0xFF0000", row, col)); //NOI18N
+                        if (component != null && component.isBroken() && !alreadyBroken[row][col]) {
                             alreadyBroken[row][col] = true;
-                            publish(String.format(BUNDLE.getString("ComponentInfo.BrokeTime"), row, col, reactorTicks));
-                            if (componentsIntact) {
-                                componentsIntact = false;
-                                publish(String.format(BUNDLE.getString("Simulation.FirstComponentBrokenDetails"), component.toString(), row, col, reactorTicks));
+                            if (component.getRodCount() == 0) {
+                                publish(String.format("R%dC%d:0xFF0000", row, col)); //NOI18N
+                                publish(String.format(BUNDLE.getString("ComponentInfo.BrokeTime"), row, col, reactorTicks));
+                                if (componentsIntact) {
+                                    componentsIntact = false;
+                                    publish(String.format(BUNDLE.getString("Simulation.FirstComponentBrokenDetails"), component.toString(), row, col, reactorTicks));
+                                    if (reactor.isFluid()) {
+                                        publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeBreak"), 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                                        if (totalRodCount > 0) {
+                                            publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
+                                        }
+                                    } else {
+                                        publish(String.format(BUNDLE.getString("Simulation.EUOutputsBeforeBreak"), totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
+                                        if (totalRodCount > 0) {
+                                            publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
+                                        }
+                                    }
+                                }
+                            } else if (!anyRodsDepleted) {
+                                anyRodsDepleted = true;
+                                publish(String.format(BUNDLE.getString("Simulation.FirstRodDepletedDetails"), component.toString(), row, col, reactorTicks));
                                 if (reactor.isFluid()) {
-                                    publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeBreak"), 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                                    publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeDepleted"), 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
                                     if (totalRodCount > 0) {
                                         publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                                     }
                                 } else {
-                                    publish(String.format(BUNDLE.getString("Simulation.EUOutputsBeforeBreak"), totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
+                                    publish(String.format(BUNDLE.getString("Simulation.EUOutputsBeforeDepleted"), totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
                                     if (totalRodCount > 0) {
                                         publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
                                     }
                                 }
+                                publish(String.format(BUNDLE.getString("Simulation.ReactorMinTempBeforeDepleted"), minReactorHeat));
+                                publish(String.format(BUNDLE.getString("Simulation.ReactorMaxTempBeforeDepleted"), maxReactorHeat));
                             }
                         }
                         if (reactor.isUsingReactorCoolantInjectors()) {
