@@ -25,7 +25,12 @@ public class Reactor {
     
     private boolean fluid = false;
     
+    private char simulationType = 's';
+    
     private boolean usingReactorCoolantInjectors = false;
+    
+    // maximum paramatter types for a reactor component (current initial heat, automation threshold, reactor pause
+    private final int MAX_PARAM_TYPES = 3;
     
     public ReactorComponent getComponentAt(int row, int column) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
@@ -184,10 +189,37 @@ public class Reactor {
                 final ReactorComponent component = grid[row][col];
                 final int id = ComponentFactory.getID(component);
                 result.append(String.format("%02X", id)); //NOI18N
-                if (component != null && component.getInitialHeat() > 0) {
-                    result.append(String.format("(h%s)", Integer.toString((int)component.getInitialHeat(), 36))); //NOI18N
+                if (component != null && (component.getInitialHeat() > 0 || component.automationThreshold != ComponentFactory.getDefaultComponent(id).automationThreshold 
+                        || component.reactorPause != ComponentFactory.getDefaultComponent(id).reactorPause)) {
+                    result.append("(");
+                    if (component.getInitialHeat() > 0) {
+                        result.append(String.format("h%s,", Integer.toString((int)component.getInitialHeat(), 36))); //NOI18N
+                    }
+                    if (component.automationThreshold != ComponentFactory.getDefaultComponent(id).automationThreshold) {
+                        result.append(String.format("a%s,", Integer.toString(component.automationThreshold, 36))); //NOI18N
+                    }
+                    if (component.reactorPause != ComponentFactory.getDefaultComponent(id).reactorPause) {
+                        result.append(String.format("p%s,", Integer.toString(component.reactorPause, 36))); //NOI18N
+                    }
+                    result.setLength(result.length() - 1); // remove the last comma, whichever parameter it came from.
+                    result.append(")");
                 }
             }
+        }
+        result.append('|');
+        if (fluid) {
+            result.append('f');
+        } else {
+            result.append('e');
+        }
+        result.append(simulationType);
+        if (usingReactorCoolantInjectors) {
+            result.append('i');
+        } else {
+            result.append('n');
+        }
+        if (currentHeat > 0) {
+            result.append(Integer.toString((int)currentHeat, 36));
         }
         return result.toString();
     }
@@ -199,23 +231,30 @@ public class Reactor {
     public void setCode(final String code) {
         int pos = 0;
         int[][] ids = new int[grid.length][grid[0].length];
-        char[][] paramTypes = new char[grid.length][grid[0].length];
-        int[][] params = new int[grid.length][grid[0].length];
-        if (code.length() >= 108 && code.matches("[0-9A-Za-z()]+")) { //NOI18N
+        char[][][] paramTypes = new char[grid.length][grid[0].length][MAX_PARAM_TYPES];
+        int[][][] params = new int[grid.length][grid[0].length][MAX_PARAM_TYPES];
+        if (code.length() >= 108 && code.matches("[0-9A-Za-z(),|]+")) { //NOI18N
             try {
                 for (int row = 0; row < grid.length; row++) {
                     for (int col = 0; col < grid[row].length; col++) {
                         ids[row][col] = Integer.parseInt(code.substring(pos, pos + 2), 16);
                         pos += 2;
+                        int paramNum = 0;
                         if (pos < code.length() && code.charAt(pos) == '(') {
-                            paramTypes[row][col] = code.charAt(pos + 1);
+                            paramTypes[row][col][paramNum] = code.charAt(pos + 1);
                             int tempPos = pos + 2;
                             StringBuilder param = new StringBuilder(10);
                             while (code.charAt(tempPos) != ')') {
-                                param.append(code.charAt(tempPos));
+                                if (code.charAt(tempPos) == ',') {
+                                    params[row][col][paramNum] = Integer.parseInt(param.toString(), 36);
+                                    paramNum++;
+                                    param.setLength(0);
+                                } else {
+                                    param.append(code.charAt(tempPos));
+                                }
                                 tempPos++;
                             }
-                            params[row][col] = Integer.parseInt(param.toString(), 36);
+                            params[row][col][paramNum] = Integer.parseInt(param.toString(), 36);
                             pos = tempPos + 1;
                         }
                     }
@@ -223,10 +262,63 @@ public class Reactor {
                 for (int row = 0; row < grid.length; row++) {
                     for (int col = 0; col < grid[row].length; col++) {
                         final ReactorComponent component = ComponentFactory.createComponent(ids[row][col]);
-                        if (paramTypes[row][col] == 'h') {
-                            component.setInitialHeat(params[row][col]);
+                        for (int paramNum = 0; paramNum < MAX_PARAM_TYPES; paramNum++) {
+                            switch (paramTypes[row][col][paramNum]) {
+                                case 'h':
+                                    component.setInitialHeat(params[row][col][paramNum]);
+                                    break;
+                                case 'a':
+                                    component.automationThreshold = params[row][col][paramNum];
+                                    break;
+                                case 'p':
+                                    component.reactorPause = params[row][col][paramNum];
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         setComponentAt(row, col, component);
+                    }
+                }
+                if (code.split("\\|").length > 1) {
+                    String extraCode = code.split("\\|")[1];
+                    switch (extraCode.charAt(0)) {
+                        case 'f':
+                            fluid = true;
+                            break;
+                        case 'e':
+                            fluid = false;
+                            break;
+                        default:
+                            break;
+                    }
+                    switch (extraCode.charAt(1)) {
+                        case 's':
+                            simulationType = 's';
+                            break;
+                        case 'p':
+                            simulationType = 'p';
+                            break;
+                        case 'a':
+                            simulationType = 'a';
+                            break;
+                        default:
+                            break;
+                    }
+                    switch (extraCode.charAt(2)) {
+                        case 'i':
+                            usingReactorCoolantInjectors = true;
+                            break;
+                        case 'n':
+                            usingReactorCoolantInjectors = false;
+                            break;
+                        default:
+                            break;
+                    }
+                    if (extraCode.length() > 3) {
+                        currentHeat = Integer.parseInt(extraCode.substring(3), 36);
+                    } else {
+                        currentHeat = 0;
                     }
                 }
             } catch (Exception e) {
@@ -412,6 +504,25 @@ public class Reactor {
      */
     public void setUsingReactorCoolantInjectors(boolean usingReactorCoolantInjectors) {
         this.usingReactorCoolantInjectors = usingReactorCoolantInjectors;
+    }
+    
+    /**
+     * Gets the character indicating the simulation type, which might have been read from a reactor code.
+     * @return 
+     */
+    public char getSimulationType() {
+        return simulationType;
+    }
+    
+    /**
+     * Sets the simulation type, so it can be stored in the reactor code.
+     * 's' is for Simple Cycle
+     * 'p' is for Pulsed Cycle
+     * 'a' is for Automation Cycle
+     * @param simulationType 
+     */
+    public void setSimulationType(char simulationType) {
+        this.simulationType = simulationType;
     }
     
 }

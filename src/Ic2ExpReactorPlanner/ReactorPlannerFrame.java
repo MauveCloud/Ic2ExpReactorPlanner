@@ -17,6 +17,8 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -26,6 +28,7 @@ import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -61,6 +64,24 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
      */
     public ReactorPlannerFrame() {
         initComponents();
+        Enumeration<AbstractButton> buttons = componentsGroup.getElements();
+        while (buttons.hasMoreElements()) {
+            final AbstractButton button = buttons.nextElement();
+            button.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if ("empty".equals(button.getActionCommand())) {
+                        placingLabel.setText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentPlacingDefault"));
+                    } else if (button.getActionCommand() != null) {
+                        final ReactorComponent tempComponent = ComponentFactory.createComponent(button.getActionCommand());
+                        placingLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentPlacingSpecific"), 
+                                tempComponent.toString()));
+                        placingThresholdSpinner.setValue(tempComponent.automationThreshold);
+                        placingReactorPauseSpinner.setValue(tempComponent.reactorPause);
+                    }
+                }
+            });
+        }
         for (int row = 0; row < reactorButtons.length; row++) {
             final int finalRow = row;
             for (int col = 0; col < reactorButtons[row].length; col++) {
@@ -133,6 +154,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             componentToPlace = ComponentFactory.createComponent(selection.getActionCommand());
                             if (componentToPlace != null) {
                                 componentToPlace.setInitialHeat(((Number)componentHeatSpinner.getValue()).intValue());
+                                componentToPlace.automationThreshold = ((Number)placingThresholdSpinner.getValue()).intValue();
+                                componentToPlace.reactorPause = ((Number)placingReactorPauseSpinner.getValue()).intValue();
                             }
                         }
                         reactor.setComponentAt(finalRow, finalCol, componentToPlace);
@@ -200,24 +223,93 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 if (!changingCode) {
+                    changingCode = true;
                     reactor.setCode(codeField.getText());
                     updateReactorButtons();
+                    if (reactor.isFluid()) {
+                        fluidReactorRadio.setSelected(true);
+                    } else {
+                        euReactorRadio.setSelected(true);
+                    }
+                    java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
+                    switch (reactor.getSimulationType()) {
+                        case 's':
+                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
+                            break;
+                        case 'p':
+                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
+                            break;
+                        case 'a':
+                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
+                            break;
+                        default:
+                            break;
+                    }
+                    reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
+                    heatSpinner.setValue(reactor.getCurrentHeat());
+                    changingCode = false;
                 }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 if (!changingCode) {
+                    changingCode = true;
                     reactor.setCode(codeField.getText());
                     updateReactorButtons();
+                    if (reactor.isFluid()) {
+                        fluidReactorRadio.setSelected(true);
+                    } else {
+                        euReactorRadio.setSelected(true);
+                    }
+                    java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
+                    switch (reactor.getSimulationType()) {
+                        case 's':
+                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
+                            break;
+                        case 'p':
+                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
+                            break;
+                        case 'a':
+                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
+                            break;
+                        default:
+                            break;
+                    }
+                    reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
+                    heatSpinner.setValue(reactor.getCurrentHeat());
+                    changingCode = false;
                 }
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 if (!changingCode) {
+                    changingCode = true;
                     reactor.setCode(codeField.getText());
                     updateReactorButtons();
+                    if (reactor.isFluid()) {
+                        fluidReactorRadio.setSelected(true);
+                    } else {
+                        euReactorRadio.setSelected(true);
+                    }
+                    java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
+                    switch (reactor.getSimulationType()) {
+                        case 's':
+                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
+                            break;
+                        case 'p':
+                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
+                            break;
+                        case 'a':
+                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
+                            break;
+                        default:
+                            break;
+                    }
+                    reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
+                    heatSpinner.setValue(reactor.getCurrentHeat());
+                    changingCode = false;
                 }
             }
         });
@@ -282,8 +374,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         fuelRodNaquadahButton = new javax.swing.JToggleButton();
         dualFuelRodNaquadahButton = new javax.swing.JToggleButton();
         quadFuelRodNaquadahButton = new javax.swing.JToggleButton();
+        placingLabel = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         componentHeatSpinner = new javax.swing.JSpinner();
+        jLabel17 = new javax.swing.JLabel();
+        placingThresholdSpinner = new javax.swing.JSpinner();
+        jLabel18 = new javax.swing.JLabel();
+        placingReactorPauseSpinner = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
         euReactorRadio = new javax.swing.JRadioButton();
         fluidReactorRadio = new javax.swing.JRadioButton();
@@ -343,7 +440,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setResizeWeight(0.8);
 
-        jSplitPane2.setResizeWeight(0.75);
+        jSplitPane2.setResizeWeight(1.0);
 
         reactorPanel.setMinimumSize(new java.awt.Dimension(180, 120));
         reactorPanel.setPreferredSize(new java.awt.Dimension(180, 120));
@@ -568,6 +665,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(componentsPanel, gridBagConstraints);
 
+        placingLabel.setText(bundle.getString("UI.ComponentPlacingDefault")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        temperatureAndComponentsPanel.add(placingLabel, gridBagConstraints);
+
         jLabel5.setText(bundle.getString("Config.InitialComponentHeat")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
@@ -581,6 +685,46 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(componentHeatSpinner, gridBagConstraints);
+
+        jLabel17.setText(bundle.getString("Config.PlacingReplacementThreshold")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        temperatureAndComponentsPanel.add(jLabel17, gridBagConstraints);
+
+        placingThresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, 360000, 1));
+        placingThresholdSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
+        placingThresholdSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
+        placingThresholdSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                placingThresholdSpinnerStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        temperatureAndComponentsPanel.add(placingThresholdSpinner, gridBagConstraints);
+
+        jLabel18.setText(bundle.getString("Config.PlacingReactorPause")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        temperatureAndComponentsPanel.add(jLabel18, gridBagConstraints);
+
+        placingReactorPauseSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
+        placingReactorPauseSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
+        placingReactorPauseSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
+        placingReactorPauseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                placingReactorPauseSpinnerStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        temperatureAndComponentsPanel.add(placingReactorPauseSpinner, gridBagConstraints);
 
         jSplitPane3.setTopComponent(temperatureAndComponentsPanel);
 
@@ -652,6 +796,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         heatSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 10000.0d, 1.0d));
         heatSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
         heatSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
+        heatSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                heatSpinnerStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
@@ -711,7 +860,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.weighty = 0.5;
         jPanel1.add(jLabel6, gridBagConstraints);
 
-        simulationStyleCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simple Cycle", "Pulsed Cycle", "Pulsed Automation" }));
+        simulationStyleCombo.setModel(new DefaultComboBoxModel<String>(new String[] {bundle.getString("UI.SimulationTypeSimple"), bundle.getString("UI.SimulationTypePulsed"), bundle.getString("UI.SimulationTypeAutomation")}));
+        simulationStyleCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                simulationStyleComboItemStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -878,7 +1032,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         automationPanel.add(jLabel14, gridBagConstraints);
 
-        pauseSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, 10000, 1));
+        pauseSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
         pauseSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
         pauseSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
         pauseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -999,10 +1153,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         simulatedReactor.setFluid(reactor.isFluid());
         simulatedReactor.setUsingReactorCoolantInjectors(reactor.isUsingReactorCoolantInjectors());
         outputTabs.setSelectedComponent(outputPane);
-        if ("Simple Cycle".equals(simulationStyleCombo.getSelectedItem().toString())) {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
+        if (bundle.getString("UI.SimulationTypeSimple").equals(simulationStyleCombo.getSelectedItem().toString())) {
             simulator = new SimpleSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat);
             simulator.execute();
-        } else if ("Pulsed Cycle".equals(simulationStyleCombo.getSelectedItem().toString())) {
+        } else if (bundle.getString("UI.SimulationTypePulsed").equals(simulationStyleCombo.getSelectedItem().toString())) {
             int onPulseDuration = 30;
             int offPulseDuration = 30;
             int suspendTemp = 8400;
@@ -1025,7 +1180,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             }
             simulator = new PulsedSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat, onPulseDuration, offPulseDuration, suspendTemp, resumeTemp);
             simulator.execute();
-        } else if ("Pulsed Automation".equals(simulationStyleCombo.getSelectedItem().toString())) {
+        } else if (bundle.getString("UI.SimulationTypeAutomation").equals(simulationStyleCombo.getSelectedItem().toString())) {
             int onPulseDuration = 30;
             int offPulseDuration = 30;
             int suspendTemp = 8400;
@@ -1059,10 +1214,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void euReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_euReactorRadioActionPerformed
         reactor.setFluid(false);
+        codeField.setText(reactor.getCode());
     }//GEN-LAST:event_euReactorRadioActionPerformed
 
     private void fluidReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fluidReactorRadioActionPerformed
         reactor.setFluid(true);
+        codeField.setText(reactor.getCode());
     }//GEN-LAST:event_fluidReactorRadioActionPerformed
 
     private void copyCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyCodeButtonActionPerformed
@@ -1083,6 +1240,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (selectedColumn >= 0 && selectedRow >= 0 && reactor.getComponentAt(selectedRow, selectedColumn) != null) {
             ReactorComponent component = reactor.getComponentAt(selectedRow, selectedColumn);
             component.automationThreshold = ((Number)thresholdSpinner.getValue()).intValue();
+            if (!changingCode) {
+                codeField.setText(reactor.getCode());
+            }
         }
     }//GEN-LAST:event_thresholdSpinnerStateChanged
 
@@ -1090,12 +1250,45 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (selectedColumn >= 0 && selectedRow >= 0 && reactor.getComponentAt(selectedRow, selectedColumn) != null) {
             ReactorComponent component = reactor.getComponentAt(selectedRow, selectedColumn);
             component.reactorPause = ((Number)pauseSpinner.getValue()).intValue();
+            if (!changingCode) {
+                codeField.setText(reactor.getCode());
+            }
         }
     }//GEN-LAST:event_pauseSpinnerStateChanged
 
     private void reactorCoolantInjectorCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reactorCoolantInjectorCheckboxActionPerformed
         reactor.setUsingReactorCoolantInjectors(reactorCoolantInjectorCheckbox.isSelected());
+        codeField.setText(reactor.getCode());
     }//GEN-LAST:event_reactorCoolantInjectorCheckboxActionPerformed
+
+    private void heatSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_heatSpinnerStateChanged
+        reactor.setCurrentHeat(((Number)heatSpinner.getValue()).doubleValue());
+        if (!changingCode) {
+            codeField.setText(reactor.getCode());
+        }
+    }//GEN-LAST:event_heatSpinnerStateChanged
+
+    private void simulationStyleComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_simulationStyleComboItemStateChanged
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
+        if (bundle.getString("UI.SimulationTypeSimple").equals(simulationStyleCombo.getSelectedItem().toString())) {
+            reactor.setSimulationType('s');
+        } else if (bundle.getString("UI.SimulationTypePulsed").equals(simulationStyleCombo.getSelectedItem().toString())) {
+            reactor.setSimulationType('p');
+        } else {
+            reactor.setSimulationType('a');
+        }
+        if (!changingCode) {
+            codeField.setText(reactor.getCode());
+        }
+    }//GEN-LAST:event_simulationStyleComboItemStateChanged
+
+    private void placingThresholdSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_placingThresholdSpinnerStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_placingThresholdSpinnerStateChanged
+
+    private void placingReactorPauseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_placingReactorPauseSpinnerStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_placingReactorPauseSpinnerStateChanged
     
     private SwingWorker<Void, String> simulator;
 
@@ -1197,6 +1390,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1222,6 +1417,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton overclockedHeatVentButton;
     private javax.swing.JButton pasteCodeButton;
     private javax.swing.JSpinner pauseSpinner;
+    private javax.swing.JLabel placingLabel;
+    private javax.swing.JSpinner placingReactorPauseSpinner;
+    private javax.swing.JSpinner placingThresholdSpinner;
     private javax.swing.JPanel pulsePanel;
     private javax.swing.ButtonGroup pulseTypeGroup;
     private javax.swing.JToggleButton quadFuelRodMoxButton;
