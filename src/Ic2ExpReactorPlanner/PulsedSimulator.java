@@ -208,7 +208,7 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                                     componentsIntact = false;
                                     publish(String.format(BUNDLE.getString("Simulation.FirstComponentBrokenDetails"), component.toString(), row, col, reactorTicks));
                                     if (reactor.isFluid()) {
-                                        publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeBreak"), 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                                        publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeBreak"), 40 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
                                         if (totalRodCount > 0) {
                                             publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                                         }
@@ -223,7 +223,7 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                                 anyRodsDepleted = true;
                                 publish(String.format(BUNDLE.getString("Simulation.FirstRodDepletedDetails"), component.toString(), row, col, reactorTicks));
                                 if (reactor.isFluid()) {
-                                    publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeDepleted"), 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                                    publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeDepleted"), 40 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
                                     if (totalRodCount > 0) {
                                         publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                                     }
@@ -248,14 +248,18 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
                         }
                     }
                 }
-            } while (reactor.getCurrentHeat() < reactor.getMaxHeat() && (!allFuelRodsDepleted || lastEUoutput > 0 || lastHeatOutput > 0) && reactorTicks < 5000000);
+            } while (reactor.getCurrentHeat() < reactor.getMaxHeat() && (!allFuelRodsDepleted || lastEUoutput > 0 || lastHeatOutput > 0) && reactorTicks < 5000000 && !isCancelled());
+            if (isCancelled()) {
+                publish(String.format(BUNDLE.getString("Simulation.CancelledAtTick"), reactorTicks));
+                return null;
+            }
             publish(String.format(BUNDLE.getString("Simulation.ReactorMinTemp"), minReactorHeat));
             publish(String.format(BUNDLE.getString("Simulation.ReactorMaxTemp"), maxReactorHeat));
             if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
                 publish(String.format(BUNDLE.getString("Simulation.CycleCompleteTime"), reactorTicks));
                 if (reactorTicks > 0) {
                     if (reactor.isFluid()) {
-                        publish(String.format(BUNDLE.getString("Simulation.HeatOutputs"), 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                        publish(String.format(BUNDLE.getString("Simulation.HeatOutputs"), 2 * totalHeatOutput, 40 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
                         publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                     } else {
                         publish(String.format(BUNDLE.getString("Simulation.EUOutputs"), totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
@@ -357,31 +361,29 @@ public class PulsedSimulator extends SwingWorker<Void, String> {
 
     @Override
     protected void process(List<String> chunks) {
-        if (!isCancelled()) {
-            for (String chunk : chunks) {
-                if (chunk.isEmpty()) {
-                    output.setText(""); //NOI18N
-                } else {
-                    if (chunk.matches("R\\dC\\d:.*")) { //NOI18N
-                        String temp = chunk.substring(5);
-                        int row = chunk.charAt(1) - '0';
-                        int col = chunk.charAt(3) - '0';
-                        if (temp.startsWith("0x")) { //NOI18N
-                            reactorButtonPanels[row][col].setBackground(Color.decode(temp));
-                        } else if (temp.startsWith("+")) { //NOI18N
-                            final ReactorComponent component = reactor.getComponentAt(row, col);
-                            if (component != null) {
-                                component.info += "\n" + temp.substring(1); //NOI18N
-                            }
-                        } else {
-                            final ReactorComponent component = reactor.getComponentAt(row, col);
-                            if (component != null) {
-                                component.info = temp;
-                            }
+        for (String chunk : chunks) {
+            if (chunk.isEmpty()) {
+                output.setText(""); //NOI18N
+            } else {
+                if (chunk.matches("R\\dC\\d:.*")) { //NOI18N
+                    String temp = chunk.substring(5);
+                    int row = chunk.charAt(1) - '0';
+                    int col = chunk.charAt(3) - '0';
+                    if (temp.startsWith("0x")) { //NOI18N
+                        reactorButtonPanels[row][col].setBackground(Color.decode(temp));
+                    } else if (temp.startsWith("+")) { //NOI18N
+                        final ReactorComponent component = reactor.getComponentAt(row, col);
+                        if (component != null) {
+                            component.info += "\n" + temp.substring(1); //NOI18N
                         }
                     } else {
-                        output.append(chunk);
+                        final ReactorComponent component = reactor.getComponentAt(row, col);
+                        if (component != null) {
+                            component.info = temp;
+                        }
                     }
+                } else {
+                    output.append(chunk);
                 }
             }
         }

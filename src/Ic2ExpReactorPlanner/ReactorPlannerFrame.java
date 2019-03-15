@@ -163,10 +163,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         componentListArea.setText(reactor.getComponentList().toString());
                         maxHeatLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
                         temperatureEffectsLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.TemperatureEffectsSpecific"), (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
-                        SpinnerModel model = heatSpinner.getModel();
-                        if (model instanceof SpinnerNumberModel) {
-                            ((SpinnerNumberModel)model).setMaximum(reactor.getMaxHeat());
-                        }
                         int buttonSize = Math.min(reactorButtons[finalRow][finalCol].getWidth(), reactorButtons[finalRow][finalCol].getHeight());
                         if (buttonSize > 2 && componentToPlace != null) {
                             reactorButtons[finalRow][finalCol].setIcon(new ImageIcon(componentToPlace.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
@@ -197,10 +193,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             componentListArea.setText(reactor.getComponentList().toString());
                             maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
                             temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
-                            SpinnerModel model = heatSpinner.getModel();
-                            if (model instanceof SpinnerNumberModel) {
-                                ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
-                            }
                             reactorButtons[finalRow][finalCol].setIcon(null);
                             reactorButtons[finalRow][finalCol].setToolTipText(null);
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
@@ -247,6 +239,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
+                    onPulseSpinner.setValue(reactor.getOnPulse());
+                    offPulseSpinner.setValue(reactor.getOffPulse());
+                    suspendTempSpinner.setValue(reactor.getSuspendTemp());
+                    resumeTempSpinner.setValue(reactor.getResumeTemp());
                     changingCode = false;
                 }
             }
@@ -278,6 +274,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
+                    onPulseSpinner.setValue(reactor.getOnPulse());
+                    offPulseSpinner.setValue(reactor.getOffPulse());
+                    suspendTempSpinner.setValue(reactor.getSuspendTemp());
+                    resumeTempSpinner.setValue(reactor.getResumeTemp());
                     changingCode = false;
                 }
             }
@@ -309,6 +309,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
+                    onPulseSpinner.setValue(reactor.getOnPulse());
+                    offPulseSpinner.setValue(reactor.getOffPulse());
+                    suspendTempSpinner.setValue(reactor.getSuspendTemp());
+                    resumeTempSpinner.setValue(reactor.getResumeTemp());
                     changingCode = false;
                 }
             }
@@ -386,6 +390,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         fluidReactorRadio = new javax.swing.JRadioButton();
         clearGridButton = new javax.swing.JButton();
         simulateButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         heatSpinner = new javax.swing.JSpinner();
         maxHeatLabel = new javax.swing.JLabel();
@@ -695,11 +700,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         placingThresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, 360000, 1));
         placingThresholdSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
         placingThresholdSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
-        placingThresholdSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                placingThresholdSpinnerStateChanged(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
@@ -714,11 +714,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         placingReactorPauseSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
         placingReactorPauseSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
         placingReactorPauseSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
-        placingReactorPauseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                placingReactorPauseSpinnerStateChanged(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -780,10 +775,21 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
         jPanel1.add(simulateButton, gridBagConstraints);
+
+        cancelButton.setText(bundle.getString("UI.CancelButton")); // NOI18N
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel1.add(cancelButton, gridBagConstraints);
 
         jLabel1.setText(bundle.getString("UI.InitialReactorHeat")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -793,7 +799,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(jLabel1, gridBagConstraints);
 
-        heatSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 10000.0d, 1.0d));
+        heatSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 120000.0d, 1.0d));
         heatSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
         heatSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
         heatSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -907,6 +913,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         onPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(5000000, 0, 5000000, 1));
         onPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         onPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        onPulseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                onPulseSpinnerStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(onPulseSpinner, gridBagConstraints);
@@ -925,6 +936,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         offPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5000000, 1));
         offPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         offPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        offPulseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                offPulseSpinnerStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(offPulseSpinner, gridBagConstraints);
@@ -952,6 +968,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         suspendTempSpinner.setModel(new javax.swing.SpinnerNumberModel(120000, 0, 120000, 1));
         suspendTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         suspendTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        suspendTempSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                suspendTempSpinnerStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(suspendTempSpinner, gridBagConstraints);
@@ -966,6 +987,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         resumeTempSpinner.setModel(new javax.swing.SpinnerNumberModel(120000, 0, 120000, 1));
         resumeTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
         resumeTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        resumeTempSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                resumeTempSpinnerStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -1126,23 +1152,18 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentListArea.setText(reactor.getComponentList().toString());
         maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
         temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
-        SpinnerModel model = heatSpinner.getModel();
-        if (model instanceof SpinnerNumberModel) {
-            ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
-        }
         changingCode = true;
         codeField.setText(null);
         changingCode = false;
     }//GEN-LAST:event_clearGridButtonActionPerformed
 
     private void simulateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulateButtonActionPerformed
-        SpinnerModel model = heatSpinner.getModel();
-        if (model instanceof SpinnerNumberModel) {
-            ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
-        }
         if (simulator != null) {
             simulator.cancel(true);
         }
+        outputArea = new javax.swing.JTextArea(5, 20);
+        outputArea.setEditable(false);
+        outputPane.setViewportView(outputArea);
         int initialHeat = 0;
         Object value = heatSpinner.getValue();
         if (value instanceof Number) {
@@ -1282,13 +1303,39 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_simulationStyleComboItemStateChanged
 
-    private void placingThresholdSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_placingThresholdSpinnerStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_placingThresholdSpinnerStateChanged
+    private void onPulseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_onPulseSpinnerStateChanged
+        reactor.setOnPulse(((Number)onPulseSpinner.getValue()).intValue());
+        if (!changingCode) {
+            codeField.setText(reactor.getCode());
+        }
+    }//GEN-LAST:event_onPulseSpinnerStateChanged
 
-    private void placingReactorPauseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_placingReactorPauseSpinnerStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_placingReactorPauseSpinnerStateChanged
+    private void offPulseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_offPulseSpinnerStateChanged
+        reactor.setOffPulse(((Number)offPulseSpinner.getValue()).intValue());
+        if (!changingCode) {
+            codeField.setText(reactor.getCode());
+        }
+    }//GEN-LAST:event_offPulseSpinnerStateChanged
+
+    private void suspendTempSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_suspendTempSpinnerStateChanged
+        reactor.setSuspendTemp(((Number)suspendTempSpinner.getValue()).intValue());
+        if (!changingCode) {
+            codeField.setText(reactor.getCode());
+        }
+    }//GEN-LAST:event_suspendTempSpinnerStateChanged
+
+    private void resumeTempSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_resumeTempSpinnerStateChanged
+        reactor.setResumeTemp(((Number)resumeTempSpinner.getValue()).intValue());
+        if (!changingCode) {
+            codeField.setText(reactor.getCode());
+        }
+    }//GEN-LAST:event_resumeTempSpinnerStateChanged
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        if (simulator != null && !simulator.isDone() && !simulator.isCancelled()) {
+            simulator.cancel(false);
+        }
+    }//GEN-LAST:event_cancelButtonActionPerformed
     
     private SwingWorker<Void, String> simulator;
 
@@ -1318,10 +1365,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentListArea.setText(reactor.getComponentList().toString());
         maxHeatLabel.setText(String.format("/%,.0f", reactor.getMaxHeat()));
         temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
-        SpinnerModel model = heatSpinner.getModel();
-        if (model instanceof SpinnerNumberModel) {
-            ((SpinnerNumberModel) model).setMaximum(reactor.getMaxHeat());
-        }
     }
     
     /**
@@ -1343,6 +1386,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton advancedHeatExchangerButton;
     private javax.swing.JToggleButton advancedHeatVentButton;
     private javax.swing.JPanel automationPanel;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JButton clearGridButton;
     private javax.swing.JTextField codeField;
     private javax.swing.JTextArea componentArea;

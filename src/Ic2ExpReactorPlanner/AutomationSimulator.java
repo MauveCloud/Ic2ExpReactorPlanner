@@ -260,7 +260,11 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         }
                     }
                 }
-            } while (reactor.getCurrentHeat() < reactor.getMaxHeat() && reactorTicks < 5000000);
+            } while (reactor.getCurrentHeat() < reactor.getMaxHeat() && reactorTicks < 5000000 && !isCancelled());
+            if (isCancelled()) {
+                publish(String.format(BUNDLE.getString("Simulation.CancelledAtTick"), reactorTicks));
+                return null;
+            }
             publish(String.format(BUNDLE.getString("Simulation.ReactorMinTemp"), minReactorHeat));
             publish(String.format(BUNDLE.getString("Simulation.ReactorMaxTemp"), maxReactorHeat));
             if (reactor.getCurrentHeat() < reactor.getMaxHeat()) {
@@ -271,7 +275,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 
                 if (reactorTicks > 0) {
                     if (reactor.isFluid()) {
-                        publish(String.format(BUNDLE.getString("Simulation.HeatOutputs"), 2 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                        publish(String.format(BUNDLE.getString("Simulation.HeatOutputs"), 40 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
                         if (totalRodCount > 0) {
                             publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                         }
@@ -377,31 +381,29 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
 
     @Override
     protected void process(List<String> chunks) {
-        if (!isCancelled()) {
-            for (String chunk : chunks) {
-                if (chunk.isEmpty()) {
-                    output.setText(""); //NO18N
-                } else {
-                    if (chunk.matches("R\\dC\\d:.*")) { //NO18N
-                        String temp = chunk.substring(5);
-                        int row = chunk.charAt(1) - '0';
-                        int col = chunk.charAt(3) - '0';
-                        if (temp.startsWith("0x")) { //NO18N
-                            reactorButtonPanels[row][col].setBackground(Color.decode(temp));
-                        } else if (temp.startsWith("+")) {
-                            final ReactorComponent component = reactor.getComponentAt(row, col);
-                            if (component != null) {
-                                component.info += "\n" + temp.substring(1); //NO18N
-                            }
-                        } else {
-                            final ReactorComponent component = reactor.getComponentAt(row, col);
-                            if (component != null) {
-                                component.info = temp;
-                            }
+        for (String chunk : chunks) {
+            if (chunk.isEmpty()) {
+                output.setText(""); //NO18N
+            } else {
+                if (chunk.matches("R\\dC\\d:.*")) { //NO18N
+                    String temp = chunk.substring(5);
+                    int row = chunk.charAt(1) - '0';
+                    int col = chunk.charAt(3) - '0';
+                    if (temp.startsWith("0x")) { //NO18N
+                        reactorButtonPanels[row][col].setBackground(Color.decode(temp));
+                    } else if (temp.startsWith("+")) {
+                        final ReactorComponent component = reactor.getComponentAt(row, col);
+                        if (component != null) {
+                            component.info += "\n" + temp.substring(1); //NO18N
                         }
                     } else {
-                        output.append(chunk);
+                        final ReactorComponent component = reactor.getComponentAt(row, col);
+                        if (component != null) {
+                            component.info = temp;
+                        }
                     }
+                } else {
+                    output.append(chunk);
                 }
             }
         }

@@ -29,17 +29,33 @@ public class Reactor {
     
     private boolean usingReactorCoolantInjectors = false;
     
+    private static final int DEFAULT_ON_PULSE = 5000000;
+    
+    private int onPulse = DEFAULT_ON_PULSE;
+    
+    private static final int DEFAULT_OFF_PULSE = 0;
+    
+    private int offPulse = DEFAULT_OFF_PULSE;
+    
+    private static final int DEFAULT_SUSPEND_TEMP = 120000;
+    
+    private int suspendTemp = DEFAULT_SUSPEND_TEMP;
+    
+    private static final int DEFAULT_RESUME_TEMP = 120000;
+    
+    private int resumeTemp = DEFAULT_RESUME_TEMP;
+    
     // maximum paramatter types for a reactor component (current initial heat, automation threshold, reactor pause
     private final int MAX_PARAM_TYPES = 3;
     
-    public ReactorComponent getComponentAt(int row, int column) {
+    public ReactorComponent getComponentAt(final int row, final int column) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
             return grid[row][column];
         }
         return null;
     }
     
-    public void setComponentAt(int row, int column, ReactorComponent component) {
+    public void setComponentAt(final int row, final int column, final ReactorComponent component) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
             if (grid[row][column] != null) {
                 grid[row][column].removeFromReactor();
@@ -90,7 +106,7 @@ public class Reactor {
      * Adjust the maximum heat
      * @param adjustment the adjustment amount (negative values decrease the max heat).
      */
-    public void adjustMaxHeat(double adjustment) {
+    public void adjustMaxHeat(final double adjustment) {
         maxHeat += adjustment;
     }
 
@@ -98,7 +114,7 @@ public class Reactor {
      * Set the current heat of the reactor.  Mainly to be used for simulating a pre-heated reactor, or for resetting to 0 for a new simulation.
      * @param currentHeat the heat to set
      */
-    public void setCurrentHeat(double currentHeat) {
+    public void setCurrentHeat(final double currentHeat) {
         this.currentHeat = currentHeat;
     }
     
@@ -106,7 +122,7 @@ public class Reactor {
      * Adjusts the reactor's current heat by a specified amount
      * @param adjustment the adjustment amount.
      */
-    public void adjustCurrentHeat(double adjustment) {
+    public void adjustCurrentHeat(final double adjustment) {
         currentHeat += adjustment;
         if (currentHeat < 0.0) {
             currentHeat = 0.0;
@@ -117,7 +133,7 @@ public class Reactor {
      * add some EU output.
      * @param amount the amount of EU to output over 1 reactor tick (20 game ticks).
      */
-    public void addEUOutput(double amount) {
+    public void addEUOutput(final double amount) {
         currentEUoutput += amount;
     }
     
@@ -167,7 +183,7 @@ public class Reactor {
      * Adds to the amount of heat vented this reactor tick, in case it is a new-style reactor with a pressure vessel and outputting heat to fluid instead of EU.
      * @param amount the amount to add.
      */
-    public void ventHeat(double amount) {
+    public void ventHeat(final double amount) {
         ventedHeat += amount;
     }
     
@@ -220,6 +236,18 @@ public class Reactor {
         }
         if (currentHeat > 0) {
             result.append(Integer.toString((int)currentHeat, 36));
+        }
+        if (onPulse != DEFAULT_ON_PULSE) {
+            result.append(String.format("|n%s", Integer.toString(onPulse, 36)));
+        }
+        if (offPulse != DEFAULT_OFF_PULSE) {
+            result.append(String.format("|f%s", Integer.toString(offPulse, 36)));
+        }
+        if (suspendTemp != DEFAULT_SUSPEND_TEMP) {
+            result.append(String.format("|s%s", Integer.toString(suspendTemp, 36)));
+        }
+        if (resumeTemp != DEFAULT_SUSPEND_TEMP) {
+            result.append(String.format("|r%s", Integer.toString(resumeTemp, 36)));
         }
         return result.toString();
     }
@@ -319,6 +347,27 @@ public class Reactor {
                         currentHeat = Integer.parseInt(extraCode.substring(3), 36);
                     } else {
                         currentHeat = 0;
+                    }
+                }
+                if (code.split("\\|").length > 2) {
+                    String[] moreCodes = code.split("\\|");
+                    for (int i = 2; i < moreCodes.length; i++) {
+                        switch (moreCodes[i].charAt(0)) {
+                            case 'n':
+                                onPulse = Integer.parseInt(moreCodes[i].substring(1), 36);
+                                break;
+                            case 'f':
+                                offPulse = Integer.parseInt(moreCodes[i].substring(1), 36);
+                                break;
+                            case 's':
+                                suspendTemp = Integer.parseInt(moreCodes[i].substring(1), 36);
+                                break;
+                            case 'r':
+                                resumeTemp = Integer.parseInt(moreCodes[i].substring(1), 36);
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -486,7 +535,7 @@ public class Reactor {
      * Sets whether the reactor is to simulate a fluid-style reactor, rather than a direct EU-output reactor.
      * @param fluid true if this is to be a fluid-style reactor, false if this is to be direct EU-output reactor.
      */
-    public void setFluid(boolean fluid) {
+    public void setFluid(final boolean fluid) {
         this.fluid = fluid;
     }
     
@@ -502,7 +551,7 @@ public class Reactor {
      * Sets whether the reactor is to use Reactor Coolant Injectors (RCIs)
      * @param usingReactorCoolantInjectors true if this reactor should use RCIs, false otherwise.
      */
-    public void setUsingReactorCoolantInjectors(boolean usingReactorCoolantInjectors) {
+    public void setUsingReactorCoolantInjectors(final boolean usingReactorCoolantInjectors) {
         this.usingReactorCoolantInjectors = usingReactorCoolantInjectors;
     }
     
@@ -521,8 +570,40 @@ public class Reactor {
      * 'a' is for Automation Cycle
      * @param simulationType 
      */
-    public void setSimulationType(char simulationType) {
+    public void setSimulationType(final char simulationType) {
         this.simulationType = simulationType;
+    }
+    
+    public int getOnPulse() {
+        return onPulse;
+    }
+    
+    public void setOnPulse(final int onPulse) {
+        this.onPulse = onPulse;
+    }
+    
+    public int getOffPulse() {
+        return offPulse;
+    }
+    
+    public void setOffPulse(final int offPulse) {
+        this.offPulse = offPulse;
+    }
+    
+    public int getSuspendTemp() {
+        return suspendTemp;
+    }
+    
+    public void setSuspendTemp(final int suspendTemp) {
+        this.suspendTemp = suspendTemp;
+    }
+    
+    public int getResumeTemp() {
+        return resumeTemp;
+    }
+    
+    public void setResumeTemp(final int resumeTemp) {
+        this.resumeTemp = resumeTemp;
     }
     
 }
