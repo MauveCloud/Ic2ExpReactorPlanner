@@ -1,6 +1,9 @@
 package Ic2ExpReactorPlanner;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -23,6 +26,10 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
     private final boolean[][] alreadyBroken = new boolean[6][9];
     
     private final int initialHeat;
+    
+    private final File csvFile;
+    
+    private final int csvLimit;
     
     private double minEUoutput = Double.MAX_VALUE;
     
@@ -54,21 +61,30 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
     
     private static final ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
 
-    public AutomationSimulator(final Reactor reactor, final JTextArea output, final JPanel[][] reactorButtonPanels, final int initialHeat, 
-            final int onPulseDuration, final int offPulseDuration, final int suspendTemp, final int resumeTemp) {
+    public AutomationSimulator(final Reactor reactor, final JTextArea output, final JPanel[][] reactorButtonPanels, final File csvFile, final int csvLimit) {
         this.reactor = reactor;
         this.output = output;
         this.reactorButtonPanels = reactorButtonPanels;
-        this.initialHeat = initialHeat;
-        this.onPulseDuration = onPulseDuration;
-        this.offPulseDuration = offPulseDuration;
-        this.suspendTemp = suspendTemp;
-        this.resumeTemp = resumeTemp;
+        this.initialHeat = (int)reactor.getCurrentHeat();
+        this.onPulseDuration = reactor.getOnPulse();
+        this.offPulseDuration = reactor.getOffPulse();
+        this.suspendTemp = reactor.getSuspendTemp();
+        this.resumeTemp = reactor.getResumeTemp();
         this.nextOffTime = onPulseDuration;
+        this.csvFile = csvFile;
+        this.csvLimit = csvLimit;
     }
     
     @Override
     protected Void doInBackground() throws Exception {
+        PrintWriter csvOut = null;
+        if (csvFile != null) {
+            try {
+                csvOut = new PrintWriter(csvFile);
+            } catch (IOException ex) {
+                publish(BUNDLE.getString("Simulation.CSVOpenFailure"));
+            }
+        }
         long startTime = System.nanoTime();
         int reactorTicks = 0;
         int activeTime = 0;
@@ -79,6 +95,19 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
         int cooldownTicks = 0;
         int totalRodCount = 0;
         try {
+            if (csvOut != null) {
+                csvOut.print(BUNDLE.getString("CSVData.HeaderReactorTick"));
+                csvOut.print(BUNDLE.getString("CSVData.HeaderCoreHeat"));
+                for (int row = 0; row < 6; row++) {
+                    for (int col = 0; col < 9; col++) {
+                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        if (component != null) {
+                            csvOut.printf(BUNDLE.getString("CSVData.HeaderComponentName"), ComponentFactory.getDefaultComponent(ComponentFactory.getID(component)).toString(), row, col);
+                        }
+                    }
+                }
+                csvOut.println();
+            }
             publish(""); //NOI18N
             publish(BUNDLE.getString("Simulation.Started"));
             reactor.setCurrentHeat(initialHeat);
@@ -250,6 +279,23 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 if (!active) {
                     currentActiveTime = 0;
                 }
+                if (csvOut != null && reactorTicks <= csvLimit) {
+                    csvOut.printf(BUNDLE.getString("CSVData.EntryReactorTick"), reactorTicks);
+                    csvOut.printf(BUNDLE.getString("CSVData.EntryCoreHeat"), reactor.getCurrentHeat());
+                    for (int row = 0; row < 6; row++) {
+                        for (int col = 0; col < 9; col++) {
+                            ReactorComponent component = reactor.getComponentAt(row, col);
+                            if (component != null) {
+                                double componentValue = component.getCurrentDamage();
+                                if (component.getMaxHeat() > 1.0) {
+                                    componentValue = component.getCurrentHeat();
+                                }
+                                csvOut.printf(BUNDLE.getString("CSVData.EntryComponentValue"), componentValue);
+                            }
+                        }
+                    }
+                    csvOut.println();
+                }
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
                         ReactorComponent component = reactor.getComponentAt(row, col);
@@ -261,6 +307,9 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                     }
                 }
             } while (reactor.getCurrentHeat() < reactor.getMaxHeat() && reactorTicks < 5000000 && !isCancelled());
+            if (csvOut != null) {
+                csvOut.close();
+            }
             if (isCancelled()) {
                 publish(String.format(BUNDLE.getString("Simulation.CancelledAtTick"), reactorTicks));
                 return null;
@@ -373,6 +422,9 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 publish(String.format(BUNDLE.getString("Simulation.ErrorCooldown"), cooldownTicks));
             }
             publish(e.toString(), " ", Arrays.toString(e.getStackTrace())); // NO18N
+            if (csvOut != null) {
+                csvOut.close();
+            }
         }
         long endTime = System.nanoTime();
         publish(String.format(BUNDLE.getString("Simulation.ElapsedTime"), (endTime - startTime) / 1e9));

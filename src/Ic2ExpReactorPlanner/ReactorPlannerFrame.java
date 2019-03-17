@@ -21,6 +21,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -31,6 +32,7 @@ import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpinnerModel;
@@ -58,6 +60,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private int selectedColumn = -1;
     
     private boolean changingCode = false;
+    
+    private final JFileChooser chooser = new JFileChooser();
     
     /**
      * Creates new form ReactorPlannerFrame
@@ -431,6 +435,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentListArea = new javax.swing.JTextArea();
         materialsListPane = new javax.swing.JScrollPane();
         materialsArea = new javax.swing.JTextArea();
+        csvPanel = new javax.swing.JPanel();
+        csvOutputCheck = new javax.swing.JCheckBox();
+        jLabel19 = new javax.swing.JLabel();
+        csvLimitSpinner = new javax.swing.JSpinner();
+        csvFileLabel = new javax.swing.JLabel();
+        csvBrowseButton = new javax.swing.JButton();
+        csvHelpLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
@@ -1096,6 +1107,59 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         outputTabs.addTab(bundle.getString("UI.MaterialsTab"), materialsListPane); // NOI18N
 
+        csvPanel.setLayout(new java.awt.GridBagLayout());
+
+        csvOutputCheck.setText(bundle.getString("Config.CSVCheckbox")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        csvPanel.add(csvOutputCheck, gridBagConstraints);
+
+        jLabel19.setText(bundle.getString("Config.CSVLimit")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        csvPanel.add(jLabel19, gridBagConstraints);
+
+        csvLimitSpinner.setModel(new javax.swing.SpinnerNumberModel(5000, 0, 5000000, 1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        csvPanel.add(csvLimitSpinner, gridBagConstraints);
+
+        csvFileLabel.setText(bundle.getString("UI.CSVFileDefault")); // NOI18N
+        csvFileLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.3;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        csvPanel.add(csvFileLabel, gridBagConstraints);
+
+        csvBrowseButton.setText(bundle.getString("UI.CSVBrowseButton")); // NOI18N
+        csvBrowseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                csvBrowseButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        csvPanel.add(csvBrowseButton, gridBagConstraints);
+
+        csvHelpLabel.setText(bundle.getString("UI.CSVHelp")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        csvPanel.add(csvHelpLabel, gridBagConstraints);
+
+        outputTabs.addTab(bundle.getString("UI.CSVTab"), csvPanel); // NOI18N
+
         jSplitPane1.setRightComponent(outputTabs);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1161,14 +1225,18 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (simulator != null) {
             simulator.cancel(true);
         }
+        File csvFile = null;
+        int csvLimit = -1;
+        if (csvOutputCheck.isSelected()) {
+            csvFile = chooser.getSelectedFile();
+            Object value = csvLimitSpinner.getModel().getValue();
+            if (value instanceof Number) {
+                csvLimit = ((Number)value).intValue();
+            }
+        }
         outputArea = new javax.swing.JTextArea(5, 20);
         outputArea.setEditable(false);
         outputPane.setViewportView(outputArea);
-        int initialHeat = 0;
-        Object value = heatSpinner.getValue();
-        if (value instanceof Number) {
-            initialHeat = ((Number) value).intValue();
-        }
         simulatedReactor = new Reactor();
         simulatedReactor.setCode(reactor.getCode());
         simulatedReactor.setFluid(reactor.isFluid());
@@ -1176,53 +1244,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         outputTabs.setSelectedComponent(outputPane);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
         if (bundle.getString("UI.SimulationTypeSimple").equals(simulationStyleCombo.getSelectedItem().toString())) {
-            simulator = new SimpleSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat);
+            simulator = new SimpleSimulator(simulatedReactor, outputArea, reactorButtonPanels, csvFile, csvLimit);
             simulator.execute();
         } else if (bundle.getString("UI.SimulationTypePulsed").equals(simulationStyleCombo.getSelectedItem().toString())) {
-            int onPulseDuration = 30;
-            int offPulseDuration = 30;
-            int suspendTemp = 8400;
-            int resumeTemp = 0;
-            value = onPulseSpinner.getValue();
-            if (value instanceof Number) {
-                onPulseDuration = ((Number) value).intValue();
-            }
-            value = offPulseSpinner.getValue();
-            if (value instanceof Number) {
-                offPulseDuration = ((Number) value).intValue();
-            }
-            value = suspendTempSpinner.getValue();
-            if (value instanceof Number) {
-                suspendTemp = ((Number) value).intValue();
-            }
-            value = resumeTempSpinner.getValue();
-            if (value instanceof Number) {
-                resumeTemp = ((Number) value).intValue();
-            }
-            simulator = new PulsedSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat, onPulseDuration, offPulseDuration, suspendTemp, resumeTemp);
+            simulator = new PulsedSimulator(simulatedReactor, outputArea, reactorButtonPanels, csvFile, csvLimit);
             simulator.execute();
         } else if (bundle.getString("UI.SimulationTypeAutomation").equals(simulationStyleCombo.getSelectedItem().toString())) {
-            int onPulseDuration = 30;
-            int offPulseDuration = 30;
-            int suspendTemp = 8400;
-            int resumeTemp = 0;
-            value = onPulseSpinner.getValue();
-            if (value instanceof Number) {
-                onPulseDuration = ((Number) value).intValue();
-            }
-            value = offPulseSpinner.getValue();
-            if (value instanceof Number) {
-                offPulseDuration = ((Number) value).intValue();
-            }
-            value = suspendTempSpinner.getValue();
-            if (value instanceof Number) {
-                suspendTemp = ((Number) value).intValue();
-            }
-            value = resumeTempSpinner.getValue();
-            if (value instanceof Number) {
-                resumeTemp = ((Number) value).intValue();
-            }
-            simulator = new AutomationSimulator(simulatedReactor, outputArea, reactorButtonPanels, initialHeat, onPulseDuration, offPulseDuration, suspendTemp, resumeTemp);
+            simulator = new AutomationSimulator(simulatedReactor, outputArea, reactorButtonPanels, csvFile, csvLimit);
             simulator.execute();
         }
         
@@ -1336,6 +1364,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             simulator.cancel(false);
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void csvBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvBrowseButtonActionPerformed
+        chooser.showSaveDialog(this);
+        if (chooser.getSelectedFile() != null) {
+            csvFileLabel.setText(chooser.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_csvBrowseButtonActionPerformed
     
     private SwingWorker<Void, String> simulator;
 
@@ -1410,6 +1445,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton coolantCellNak60kButton;
     private javax.swing.JButton copyCodeButton;
     private javax.swing.JToggleButton coreHeatExchangerButton;
+    private javax.swing.JButton csvBrowseButton;
+    private javax.swing.JLabel csvFileLabel;
+    private javax.swing.JLabel csvHelpLabel;
+    private javax.swing.JSpinner csvLimitSpinner;
+    private javax.swing.JCheckBox csvOutputCheck;
+    private javax.swing.JPanel csvPanel;
     private javax.swing.JToggleButton dualFuelRodMoxButton;
     private javax.swing.JToggleButton dualFuelRodNaquadahButton;
     private javax.swing.JToggleButton dualFuelRodThoriumButton;
@@ -1436,6 +1477,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
