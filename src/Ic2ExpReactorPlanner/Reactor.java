@@ -5,6 +5,7 @@
  */
 package Ic2ExpReactorPlanner;
 
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 /**
@@ -268,7 +269,7 @@ public class Reactor {
                         ids[row][col] = Integer.parseInt(code.substring(pos, pos + 2), 16);
                         pos += 2;
                         int paramNum = 0;
-                        if (pos < code.length() + 1 && code.charAt(pos) == '(') {
+                        if (pos + 1 < code.length() && code.charAt(pos) == '(') {
                             paramTypes[row][col][paramNum] = code.charAt(pos + 1);
                             int tempPos = pos + 2;
                             StringBuilder param = new StringBuilder(10);
@@ -276,7 +277,7 @@ public class Reactor {
                                 if (code.charAt(tempPos) == ',') {
                                     params[row][col][paramNum] = Integer.parseInt(param.toString(), 36);
                                     paramNum++;
-                                    if (tempPos < code.length() + 1) {
+                                    if (tempPos + 1 < code.length()) {
                                         tempPos++;
                                         paramTypes[row][col][paramNum] = code.charAt(tempPos);
                                     }
@@ -383,147 +384,151 @@ public class Reactor {
                 tempCode = code.replace("http://www.talonfiremage.pwp.blueyonder.co.uk/v3/reactorplanner.html?", ""); //NOI18N
             }
             if (tempCode.matches("[0-9a-z]+")) { //NOI18N
-                StringBuilder warnings = new StringBuilder(500);
                 // Possibly a code from Talonius's old planner
-                TaloniusDecoder decoder = new TaloniusDecoder(tempCode);
-                // initial heat, ignored by new planner.
-                decoder.readInt(10);
-                // reactor grid
-                for (int x = 8; x >= 0; x--) {
-                    for (int y = 5; y >= 0; y--) {
-                        int nextValue = decoder.readInt(7);
+                handleTaloniusCode(tempCode);
+            }
+        }
+    }
 
-                        // items are no longer stackable in IC2 reactors, but stack sizes from the planner code still need to be handled
-                        if (nextValue > 64) {
-                            nextValue = decoder.readInt(7);
-                        }
-
-                        switch (nextValue) {
-                            case 0:
-                                setComponentAt(y, x, null);
-                                break;
-                            case 1:
-                                setComponentAt(y, x, new FuelRodUranium());
-                                break;
-                            case 2:
-                                setComponentAt(y, x, new DualFuelRodUranium());
-                                break;
-                            case 3:
-                                setComponentAt(y, x, new QuadFuelRodUranium());
-                                break;
-                            case 4:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.DepletedIsotope"), y, x));
-                                break;
-                            case 5:
-                                setComponentAt(y, x, new NeutronReflector());
-                                break;
-                            case 6:
-                                setComponentAt(y, x, new ThickNeutronReflector());
-                                break;
-                            case 7:
-                                setComponentAt(y, x, new HeatVent());
-                                break;
-                            case 8:
-                                setComponentAt(y, x, new ReactorHeatVent());
-                                break;
-                            case 9:
-                                setComponentAt(y, x, new OverclockedHeatVent());
-                                break;
-                            case 10:
-                                setComponentAt(y, x, new AdvancedHeatVent());
-                                break;
-                            case 11:
-                                setComponentAt(y, x, new ComponentHeatVent());
-                                break;
-                            case 12:
-                                setComponentAt(y, x, new RshCondensator());
-                                break;
-                            case 13:
-                                setComponentAt(y, x, new LzhCondensator());
-                                break;
-                            case 14:
-                                setComponentAt(y, x, new HeatExchanger());
-                                break;
-                            case 15:
-                                setComponentAt(y, x, new ReactorHeatExchanger());
-                                break;
-                            case 16:
-                                setComponentAt(y, x, new ComponentHeatExchanger());
-                                break;
-                            case 17:
-                                setComponentAt(y, x, new AdvancedHeatExchanger());
-                                break;
-                            case 18:
-                                setComponentAt(y, x, new ReactorPlating());
-                                break;
-                            case 19:
-                                setComponentAt(y, x, new HeatCapacityReactorPlating());
-                                break;
-                            case 20:
-                                setComponentAt(y, x, new ContainmentReactorPlating());
-                                break;
-                            case 21:
-                                setComponentAt(y, x, new CoolantCell10k());
-                                break;
-                            case 22:
-                                setComponentAt(y, x, new CoolantCell30k());
-                                break;
-                            case 23:
-                                setComponentAt(y, x, new CoolantCell60k());
-                                break;
-                            case 24:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Heating"), y, x));
-                                break;
-                            case 32:
-                                setComponentAt(y, x, new FuelRodThorium());
-                                break;
-                            case 33:
-                                setComponentAt(y, x, new DualFuelRodThorium());
-                                break;
-                            case 34:
-                                setComponentAt(y, x, new QuadFuelRodThorium());
-                                break;
-                            case 35:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Plutonium"), y, x));
-                                break;
-                            case 36:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.DualPlutonium"), y, x));
-                                break;
-                            case 37:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.QuadPlutonium"), y, x));
-                                break;
-                            case 38:
-                                setComponentAt(y, x, new IridiumNeutronReflector());
-                                break;
-                            case 39:
-                                setComponentAt(y, x, new CoolantCell60kHelium());
-                                break;
-                            case 40:
-                                setComponentAt(y, x, new CoolantCell180kHelium());
-                                break;
-                            case 41:
-                                setComponentAt(y, x, new CoolantCell360kHelium());
-                                break;
-                            case 42:
-                                setComponentAt(y, x, new CoolantCell60kNak());
-                                break;
-                            case 43:
-                                setComponentAt(y, x, new CoolantCell180kNak());
-                                break;
-                            case 44:
-                                setComponentAt(y, x, new CoolantCell360kNak());
-                                break;
-                            default:
-                                warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Unrecognized"), nextValue, y, x));
-                                break;
-                        }
-                    }
+    private void handleTaloniusCode(String tempCode) throws HeadlessException {
+        StringBuilder warnings = new StringBuilder(500);
+        TaloniusDecoder decoder = new TaloniusDecoder(tempCode);
+        // initial heat, ignored by new planner.
+        decoder.readInt(10);
+        // reactor grid
+        for (int x = 8; x >= 0; x--) {
+            for (int y = 5; y >= 0; y--) {
+                int nextValue = decoder.readInt(7);
+                
+                // items are no longer stackable in IC2 reactors, but stack sizes from the planner code still need to be handled
+                if (nextValue > 64) {
+                    nextValue = decoder.readInt(7);
                 }
-                if (warnings.length() > 0) {
-                    warnings.setLength(warnings.length() - 1);  // to remove last newline character
-                    JOptionPane.showMessageDialog(null, warnings, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Title"), JOptionPane.WARNING_MESSAGE);
+                
+                switch (nextValue) {
+                    case 0:
+                        setComponentAt(y, x, null);
+                        break;
+                    case 1:
+                        setComponentAt(y, x, new FuelRodUranium());
+                        break;
+                    case 2:
+                        setComponentAt(y, x, new DualFuelRodUranium());
+                        break;
+                    case 3:
+                        setComponentAt(y, x, new QuadFuelRodUranium());
+                        break;
+                    case 4:
+                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.DepletedIsotope"), y, x));
+                        break;
+                    case 5:
+                        setComponentAt(y, x, new NeutronReflector());
+                        break;
+                    case 6:
+                        setComponentAt(y, x, new ThickNeutronReflector());
+                        break;
+                    case 7:
+                        setComponentAt(y, x, new HeatVent());
+                        break;
+                    case 8:
+                        setComponentAt(y, x, new ReactorHeatVent());
+                        break;
+                    case 9:
+                        setComponentAt(y, x, new OverclockedHeatVent());
+                        break;
+                    case 10:
+                        setComponentAt(y, x, new AdvancedHeatVent());
+                        break;
+                    case 11:
+                        setComponentAt(y, x, new ComponentHeatVent());
+                        break;
+                    case 12:
+                        setComponentAt(y, x, new RshCondensator());
+                        break;
+                    case 13:
+                        setComponentAt(y, x, new LzhCondensator());
+                        break;
+                    case 14:
+                        setComponentAt(y, x, new HeatExchanger());
+                        break;
+                    case 15:
+                        setComponentAt(y, x, new ReactorHeatExchanger());
+                        break;
+                    case 16:
+                        setComponentAt(y, x, new ComponentHeatExchanger());
+                        break;
+                    case 17:
+                        setComponentAt(y, x, new AdvancedHeatExchanger());
+                        break;
+                    case 18:
+                        setComponentAt(y, x, new ReactorPlating());
+                        break;
+                    case 19:
+                        setComponentAt(y, x, new HeatCapacityReactorPlating());
+                        break;
+                    case 20:
+                        setComponentAt(y, x, new ContainmentReactorPlating());
+                        break;
+                    case 21:
+                        setComponentAt(y, x, new CoolantCell10k());
+                        break;
+                    case 22:
+                        setComponentAt(y, x, new CoolantCell30k());
+                        break;
+                    case 23:
+                        setComponentAt(y, x, new CoolantCell60k());
+                        break;
+                    case 24:
+                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Heating"), y, x));
+                        break;
+                    case 32:
+                        setComponentAt(y, x, new FuelRodThorium());
+                        break;
+                    case 33:
+                        setComponentAt(y, x, new DualFuelRodThorium());
+                        break;
+                    case 34:
+                        setComponentAt(y, x, new QuadFuelRodThorium());
+                        break;
+                    case 35:
+                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Plutonium"), y, x));
+                        break;
+                    case 36:
+                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.DualPlutonium"), y, x));
+                        break;
+                    case 37:
+                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.QuadPlutonium"), y, x));
+                        break;
+                    case 38:
+                        setComponentAt(y, x, new IridiumNeutronReflector());
+                        break;
+                    case 39:
+                        setComponentAt(y, x, new CoolantCell60kHelium());
+                        break;
+                    case 40:
+                        setComponentAt(y, x, new CoolantCell180kHelium());
+                        break;
+                    case 41:
+                        setComponentAt(y, x, new CoolantCell360kHelium());
+                        break;
+                    case 42:
+                        setComponentAt(y, x, new CoolantCell60kNak());
+                        break;
+                    case 43:
+                        setComponentAt(y, x, new CoolantCell180kNak());
+                        break;
+                    case 44:
+                        setComponentAt(y, x, new CoolantCell360kNak());
+                        break;
+                    default:
+                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Unrecognized"), nextValue, y, x));
+                        break;
                 }
             }
+        }
+        if (warnings.length() > 0) {
+            warnings.setLength(warnings.length() - 1);  // to remove last newline character
+            JOptionPane.showMessageDialog(null, warnings, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Title"), JOptionPane.WARNING_MESSAGE);
         }
     }
 
