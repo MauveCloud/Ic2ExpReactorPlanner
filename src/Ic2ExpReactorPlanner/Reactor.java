@@ -268,14 +268,18 @@ public class Reactor {
                         ids[row][col] = Integer.parseInt(code.substring(pos, pos + 2), 16);
                         pos += 2;
                         int paramNum = 0;
-                        if (pos < code.length() && code.charAt(pos) == '(') {
+                        if (pos < code.length() + 1 && code.charAt(pos) == '(') {
                             paramTypes[row][col][paramNum] = code.charAt(pos + 1);
                             int tempPos = pos + 2;
                             StringBuilder param = new StringBuilder(10);
-                            while (code.charAt(tempPos) != ')') {
+                            while (tempPos < code.length() && code.charAt(tempPos) != ')') {
                                 if (code.charAt(tempPos) == ',') {
                                     params[row][col][paramNum] = Integer.parseInt(param.toString(), 36);
                                     paramNum++;
+                                    if (tempPos < code.length() + 1) {
+                                        tempPos++;
+                                        paramTypes[row][col][paramNum] = code.charAt(tempPos);
+                                    }
                                     param.setLength(0);
                                 } else {
                                     param.append(code.charAt(tempPos));
