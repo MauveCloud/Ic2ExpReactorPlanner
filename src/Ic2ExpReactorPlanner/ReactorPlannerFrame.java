@@ -109,6 +109,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 automationButton.setFont(Font.decode(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.AutomateButtonFont")));
                 automationButton.setMargin(new Insets(-2, 0, -2, 0));
                 automationButton.setToolTipText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.AutomationTooltip"));
+                automationButton.setFocusable(false);
                 automationButton.addActionListener(new ActionListener() {
 
                     @Override
@@ -133,6 +134,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 JButton infoButton = new JButton(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoButton"));
                 infoButton.setFont(Font.decode(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoButtonFont")));
                 infoButton.setMargin(new Insets(-2, 0, -2, 0));
+                infoButton.setFocusable(false);
                 infoButton.addActionListener(new ActionListener() {
 
                     @Override
@@ -312,10 +314,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentsGroup = new javax.swing.ButtonGroup();
         reactorStyleGroup = new javax.swing.ButtonGroup();
         pulseTypeGroup = new javax.swing.ButtonGroup();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jSplitPane2 = new javax.swing.JSplitPane();
+        javax.swing.JSplitPane jSplitPane1 = new javax.swing.JSplitPane();
+        javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
+        javax.swing.JSplitPane jSplitPane2 = new javax.swing.JSplitPane();
         reactorPanel = new javax.swing.JPanel();
-        jSplitPane3 = new javax.swing.JSplitPane();
+        javax.swing.JSplitPane jSplitPane3 = new javax.swing.JSplitPane();
         temperatureAndComponentsPanel = new javax.swing.JPanel();
         temperatureEffectsLabel = new javax.swing.JLabel();
         componentsPanel = new javax.swing.JPanel();
@@ -359,11 +362,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         dualFuelRodNaquadahButton = new javax.swing.JToggleButton();
         quadFuelRodNaquadahButton = new javax.swing.JToggleButton();
         placingLabel = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
         componentHeatSpinner = new javax.swing.JSpinner();
-        jLabel17 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel17 = new javax.swing.JLabel();
         placingThresholdSpinner = new javax.swing.JSpinner();
-        jLabel18 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel18 = new javax.swing.JLabel();
         placingReactorPauseSpinner = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
         euReactorRadio = new javax.swing.JRadioButton();
@@ -371,55 +374,55 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         clearGridButton = new javax.swing.JButton();
         simulateButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         heatSpinner = new javax.swing.JSpinner();
         maxHeatLabel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        codeField = new javax.swing.JTextField();
-        copyCodeButton = new javax.swing.JButton();
-        pasteCodeButton = new javax.swing.JButton();
         pulsedReactorCheck = new javax.swing.JCheckBox();
         automatedReactorCheck = new javax.swing.JCheckBox();
         maxSimulationTicksLabel = new javax.swing.JLabel();
         maxSimulationTicksSpinner = new javax.swing.JSpinner();
         reactorCoolantInjectorCheckbox = new javax.swing.JCheckBox();
+        javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
+        codeField = new javax.swing.JTextField();
+        copyCodeButton = new javax.swing.JButton();
+        pasteCodeButton = new javax.swing.JButton();
         outputTabs = new javax.swing.JTabbedPane();
         outputPane = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
         pulsePanel = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
         onPulseSpinner = new javax.swing.JSpinner();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
         offPulseSpinner = new javax.swing.JSpinner();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel11 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
         suspendTempSpinner = new javax.swing.JSpinner();
-        jLabel10 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
         resumeTempSpinner = new javax.swing.JSpinner();
-        jLabel16 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel16 = new javax.swing.JLabel();
         componentPane = new javax.swing.JScrollPane();
         componentArea = new javax.swing.JTextArea();
         automationPanel = new javax.swing.JPanel();
         selectedComponentLabel = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel12 = new javax.swing.JLabel();
         thresholdSpinner = new javax.swing.JSpinner();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel13 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel14 = new javax.swing.JLabel();
         pauseSpinner = new javax.swing.JSpinner();
-        jLabel15 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel15 = new javax.swing.JLabel();
         componentListPane = new javax.swing.JScrollPane();
         componentListArea = new javax.swing.JTextArea();
         materialsListPane = new javax.swing.JScrollPane();
         materialsArea = new javax.swing.JTextArea();
         csvPanel = new javax.swing.JPanel();
         csvOutputCheck = new javax.swing.JCheckBox();
-        jLabel19 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel19 = new javax.swing.JLabel();
         csvLimitSpinner = new javax.swing.JSpinner();
         csvFileLabel = new javax.swing.JLabel();
         csvBrowseButton = new javax.swing.JButton();
-        csvHelpLabel = new javax.swing.JLabel();
+        javax.swing.JLabel csvHelpLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
@@ -434,6 +437,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setResizeWeight(1.0);
 
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
         jSplitPane2.setResizeWeight(1.0);
 
         reactorPanel.setMinimumSize(new java.awt.Dimension(180, 120));
@@ -442,7 +447,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jSplitPane2.setLeftComponent(reactorPanel);
 
         jSplitPane3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane3.setResizeWeight(0.6);
+        jSplitPane3.setResizeWeight(0.7);
 
         temperatureAndComponentsPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -824,45 +829,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(maxHeatLabel, gridBagConstraints);
 
-        jLabel2.setText(bundle.getString("UI.CodeLabel")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel1.add(jLabel2, gridBagConstraints);
-
-        codeField.setMaximumSize(new java.awt.Dimension(200, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(codeField, gridBagConstraints);
-
-        copyCodeButton.setText(bundle.getString("UI.CopyCodeButton")); // NOI18N
-        copyCodeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                copyCodeButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(copyCodeButton, gridBagConstraints);
-
-        pasteCodeButton.setText(bundle.getString("UI.PasteCodeButton")); // NOI18N
-        pasteCodeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pasteCodeButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(pasteCodeButton, gridBagConstraints);
-
         pulsedReactorCheck.setText(bundle.getString("UI.PulsedReactor")); // NOI18N
         pulsedReactorCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -920,7 +886,52 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         jSplitPane2.setRightComponent(jSplitPane3);
 
-        jSplitPane1.setLeftComponent(jSplitPane2);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        jPanel2.add(jSplitPane2, gridBagConstraints);
+
+        jLabel2.setText(bundle.getString("UI.CodeLabel")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel2.add(jLabel2, gridBagConstraints);
+
+        codeField.setMaximumSize(new java.awt.Dimension(200, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel2.add(codeField, gridBagConstraints);
+
+        copyCodeButton.setText(bundle.getString("UI.CopyCodeButton")); // NOI18N
+        copyCodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copyCodeButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel2.add(copyCodeButton, gridBagConstraints);
+
+        pasteCodeButton.setText(bundle.getString("UI.PasteCodeButton")); // NOI18N
+        pasteCodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pasteCodeButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel2.add(pasteCodeButton, gridBagConstraints);
+
+        jSplitPane1.setTopComponent(jPanel2);
 
         outputArea.setEditable(false);
         outputArea.setColumns(20);
@@ -1473,7 +1484,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton coreHeatExchangerButton;
     private javax.swing.JButton csvBrowseButton;
     private javax.swing.JLabel csvFileLabel;
-    private javax.swing.JLabel csvHelpLabel;
     private javax.swing.JSpinner csvLimitSpinner;
     private javax.swing.JCheckBox csvOutputCheck;
     private javax.swing.JPanel csvPanel;
@@ -1493,28 +1503,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner heatSpinner;
     private javax.swing.JToggleButton heatVentButton;
     private javax.swing.JToggleButton iridiumNeutronReflectorButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JToggleButton lzhCondensatorButton;
     private javax.swing.JTextArea materialsArea;
     private javax.swing.JScrollPane materialsListPane;
