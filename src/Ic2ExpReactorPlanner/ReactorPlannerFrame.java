@@ -63,6 +63,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private final JFileChooser chooser = new JFileChooser();
     
+    private final ReactorComponent[] paletteComponents = new ReactorComponent[ComponentFactory.getComponentCount()];
+    
+    private int paletteComponentId = 0;
+    
     /**
      * Creates new form ReactorPlannerFrame
      */
@@ -76,12 +80,17 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 public void itemStateChanged(ItemEvent e) {
                     if ("empty".equals(button.getActionCommand())) {
                         placingLabel.setText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentPlacingDefault"));
+                        paletteComponentId = 0;
                     } else if (button.getActionCommand() != null) {
-                        final ReactorComponent tempComponent = ComponentFactory.createComponent(button.getActionCommand());
+                        paletteComponentId = ComponentFactory.getID(ComponentFactory.getDefaultComponent(button.getActionCommand()));
+                        if (paletteComponents[paletteComponentId] == null) {
+                            paletteComponents[paletteComponentId] = ComponentFactory.createComponent(paletteComponentId);
+                        }
                         placingLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentPlacingSpecific"), 
-                                tempComponent.toString()));
-                        placingThresholdSpinner.setValue(tempComponent.getAutomationThreshold());
-                        placingReactorPauseSpinner.setValue(tempComponent.getReactorPause());
+                                paletteComponents[paletteComponentId].toString()));
+                        componentHeatSpinner.setValue(paletteComponents[paletteComponentId].getInitialHeat());
+                        placingThresholdSpinner.setValue(paletteComponents[paletteComponentId].getAutomationThreshold());
+                        placingReactorPauseSpinner.setValue(paletteComponents[paletteComponentId].getReactorPause());
                     }
                 }
             });
@@ -666,6 +675,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentHeatSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 360000, 1));
         componentHeatSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
         componentHeatSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
+        componentHeatSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                componentHeatSpinnerStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
@@ -680,6 +694,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         placingThresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, 360000, 1));
         placingThresholdSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
         placingThresholdSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
+        placingThresholdSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                placingThresholdSpinnerStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
@@ -694,6 +713,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         placingReactorPauseSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
         placingReactorPauseSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
         placingReactorPauseSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
+        placingReactorPauseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                placingReactorPauseSpinnerStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -1354,6 +1378,24 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             codeField.setText(reactor.getCode());
         }
     }//GEN-LAST:event_maxSimulationTicksSpinnerStateChanged
+
+    private void componentHeatSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_componentHeatSpinnerStateChanged
+        if (paletteComponentId > 0 && paletteComponents[paletteComponentId] != null) {
+            paletteComponents[paletteComponentId].setInitialHeat(((Number)componentHeatSpinner.getValue()).intValue());
+        }
+    }//GEN-LAST:event_componentHeatSpinnerStateChanged
+
+    private void placingThresholdSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_placingThresholdSpinnerStateChanged
+        if (paletteComponentId > 0 && paletteComponents[paletteComponentId] != null) {
+            paletteComponents[paletteComponentId].setAutomationThreshold(((Number)placingThresholdSpinner.getValue()).intValue());
+        }
+    }//GEN-LAST:event_placingThresholdSpinnerStateChanged
+
+    private void placingReactorPauseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_placingReactorPauseSpinnerStateChanged
+        if (paletteComponentId > 0 && paletteComponents[paletteComponentId] != null) {
+            paletteComponents[paletteComponentId].setReactorPause(((Number)placingReactorPauseSpinner.getValue()).intValue());
+        }
+    }//GEN-LAST:event_placingReactorPauseSpinnerStateChanged
     
     private SwingWorker<Void, String> simulator;
 
