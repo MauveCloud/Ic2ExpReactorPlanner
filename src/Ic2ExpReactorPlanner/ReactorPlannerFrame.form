@@ -41,7 +41,7 @@
     <Container class="javax.swing.JSplitPane" name="jSplitPane1">
       <Properties>
         <Property name="orientation" type="int" value="0"/>
-        <Property name="resizeWeight" type="double" value="0.8"/>
+        <Property name="resizeWeight" type="double" value="1.0"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -88,7 +88,7 @@
             <Container class="javax.swing.JSplitPane" name="jSplitPane3">
               <Properties>
                 <Property name="orientation" type="int" value="0"/>
-                <Property name="resizeWeight" type="double" value="0.7"/>
+                <Property name="resizeWeight" type="double" value="0.6"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -869,30 +869,57 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel6">
+                    <Component class="javax.swing.JCheckBox" name="pulsedReactorCheck">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="Config.SimulationStyle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.PulsedReactor" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pulsedReactorCheckActionPerformed"/>
+                      </Events>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="2" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="13" weightX="0.0" weightY="0.0"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="automatedReactorCheck">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.AutomatedReactor" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="automatedReactorCheckActionPerformed"/>
+                      </Events>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="maxSimulationTicksLabel">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.MaxSimulationTicks" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="2" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="13" weightX="0.0" weightY="0.5"/>
+                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="2" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="13" weightX="0.0" weightY="0.0"/>
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="simulationStyleCombo">
+                    <Component class="javax.swing.JSpinner" name="maxSimulationTicksSpinner">
                       <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new DefaultComboBoxModel&lt;String&gt;(new String[] {bundle.getString(&quot;UI.SimulationTypeSimple&quot;), bundle.getString(&quot;UI.SimulationTypePulsed&quot;), bundle.getString(&quot;UI.SimulationTypeAutomation&quot;)})" type="code"/>
+                        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                          <SpinnerModel initial="5000000" maximum="5000000" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="simulationStyleComboItemStateChanged"/>
+                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="maxSimulationTicksSpinnerStateChanged"/>
                       </Events>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                           <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="17" weightX="0.0" weightY="0.0"/>

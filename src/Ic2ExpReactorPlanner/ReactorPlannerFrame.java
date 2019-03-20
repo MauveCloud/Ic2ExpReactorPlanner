@@ -227,20 +227,15 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     } else {
                         euReactorRadio.setSelected(true);
                     }
-                    java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
-                    if (reactor.isAutomated()) {
-                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
-                    } else if (reactor.isPulsed()) {
-                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
-                    } else {
-                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
-                    }
+                    automatedReactorCheck.setSelected(reactor.isAutomated());
+                    pulsedReactorCheck.setSelected(reactor.isPulsed());
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
                     onPulseSpinner.setValue(reactor.getOnPulse());
                     offPulseSpinner.setValue(reactor.getOffPulse());
                     suspendTempSpinner.setValue(reactor.getSuspendTemp());
                     resumeTempSpinner.setValue(reactor.getResumeTemp());
+                    maxSimulationTicksSpinner.setValue(reactor.getMaxSimulationTicks());
                     changingCode = false;
                 }
             }
@@ -256,20 +251,15 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     } else {
                         euReactorRadio.setSelected(true);
                     }
-                    java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
-                    if (reactor.isAutomated()) {
-                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
-                    } else if (reactor.isPulsed()) {
-                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
-                    } else {
-                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
-                    }
+                    automatedReactorCheck.setSelected(reactor.isAutomated());
+                    pulsedReactorCheck.setSelected(reactor.isPulsed());
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
                     onPulseSpinner.setValue(reactor.getOnPulse());
                     offPulseSpinner.setValue(reactor.getOffPulse());
                     suspendTempSpinner.setValue(reactor.getSuspendTemp());
                     resumeTempSpinner.setValue(reactor.getResumeTemp());
+                    maxSimulationTicksSpinner.setValue(reactor.getMaxSimulationTicks());
                     changingCode = false;
                 }
             }
@@ -285,20 +275,15 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     } else {
                         euReactorRadio.setSelected(true);
                     }
-                    java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
-                    if (reactor.isAutomated()) {
-                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
-                    } else if (reactor.isPulsed()) {
-                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
-                    } else {
-                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
-                    }
+                    automatedReactorCheck.setSelected(reactor.isAutomated());
+                    pulsedReactorCheck.setSelected(reactor.isPulsed());
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
                     onPulseSpinner.setValue(reactor.getOnPulse());
                     offPulseSpinner.setValue(reactor.getOffPulse());
                     suspendTempSpinner.setValue(reactor.getSuspendTemp());
                     resumeTempSpinner.setValue(reactor.getResumeTemp());
+                    maxSimulationTicksSpinner.setValue(reactor.getMaxSimulationTicks());
                     changingCode = false;
                 }
             }
@@ -384,8 +369,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         codeField = new javax.swing.JTextField();
         copyCodeButton = new javax.swing.JButton();
         pasteCodeButton = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        simulationStyleCombo = new javax.swing.JComboBox<>();
+        pulsedReactorCheck = new javax.swing.JCheckBox();
+        automatedReactorCheck = new javax.swing.JCheckBox();
+        maxSimulationTicksLabel = new javax.swing.JLabel();
+        maxSimulationTicksSpinner = new javax.swing.JSpinner();
         reactorCoolantInjectorCheckbox = new javax.swing.JCheckBox();
         outputTabs = new javax.swing.JTabbedPane();
         outputPane = new javax.swing.JScrollPane();
@@ -436,7 +423,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane1.setResizeWeight(0.8);
+        jSplitPane1.setResizeWeight(1.0);
 
         jSplitPane2.setResizeWeight(1.0);
 
@@ -446,7 +433,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jSplitPane2.setLeftComponent(reactorPanel);
 
         jSplitPane3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane3.setResizeWeight(0.7);
+        jSplitPane3.setResizeWeight(0.6);
 
         temperatureAndComponentsPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -852,24 +839,47 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel1.add(pasteCodeButton, gridBagConstraints);
 
-        jLabel6.setText(bundle.getString("Config.SimulationStyle")); // NOI18N
+        pulsedReactorCheck.setText(bundle.getString("UI.PulsedReactor")); // NOI18N
+        pulsedReactorCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pulsedReactorCheckActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weighty = 0.5;
-        jPanel1.add(jLabel6, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel1.add(pulsedReactorCheck, gridBagConstraints);
 
-        simulationStyleCombo.setModel(new DefaultComboBoxModel<String>(new String[] {bundle.getString("UI.SimulationTypeSimple"), bundle.getString("UI.SimulationTypePulsed"), bundle.getString("UI.SimulationTypeAutomation")}));
-        simulationStyleCombo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                simulationStyleComboItemStateChanged(evt);
+        automatedReactorCheck.setText(bundle.getString("UI.AutomatedReactor")); // NOI18N
+        automatedReactorCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                automatedReactorCheckActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel1.add(automatedReactorCheck, gridBagConstraints);
+
+        maxSimulationTicksLabel.setText(bundle.getString("UI.MaxSimulationTicks")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel1.add(maxSimulationTicksLabel, gridBagConstraints);
+
+        maxSimulationTicksSpinner.setModel(new javax.swing.SpinnerNumberModel(5000000, null, 5000000, 1));
+        maxSimulationTicksSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                maxSimulationTicksSpinnerStateChanged(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(simulationStyleCombo, gridBagConstraints);
+        jPanel1.add(maxSimulationTicksSpinner, gridBagConstraints);
 
         reactorCoolantInjectorCheckbox.setText(bundle.getString("Config.ReactorCoolantInjectors")); // NOI18N
         reactorCoolantInjectorCheckbox.addActionListener(new java.awt.event.ActionListener() {
@@ -1221,21 +1231,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         outputPane.setViewportView(outputArea);
         simulatedReactor = new Reactor();
         simulatedReactor.setCode(reactor.getCode());
-        simulatedReactor.setFluid(reactor.isFluid());
-        simulatedReactor.setUsingReactorCoolantInjectors(reactor.isUsingReactorCoolantInjectors());
         outputTabs.setSelectedComponent(outputPane);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
-        if (bundle.getString("UI.SimulationTypeSimple").equals(simulationStyleCombo.getSelectedItem().toString())) {
-            simulator = new SimpleSimulator(simulatedReactor, outputArea, reactorButtonPanels, csvFile, csvLimit);
-            simulator.execute();
-        } else if (bundle.getString("UI.SimulationTypePulsed").equals(simulationStyleCombo.getSelectedItem().toString())) {
-            simulator = new PulsedSimulator(simulatedReactor, outputArea, reactorButtonPanels, csvFile, csvLimit);
-            simulator.execute();
-        } else if (bundle.getString("UI.SimulationTypeAutomation").equals(simulationStyleCombo.getSelectedItem().toString())) {
-            simulator = new AutomationSimulator(simulatedReactor, outputArea, reactorButtonPanels, csvFile, csvLimit);
-            simulator.execute();
-        }
-        
+        simulator = new AutomationSimulator(simulatedReactor, outputArea, reactorButtonPanels, csvFile, csvLimit);
+        simulator.execute();        
     }//GEN-LAST:event_simulateButtonActionPerformed
     
     /**
@@ -1299,23 +1297,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_heatSpinnerStateChanged
 
-    private void simulationStyleComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_simulationStyleComboItemStateChanged
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
-        if (bundle.getString("UI.SimulationTypeSimple").equals(simulationStyleCombo.getSelectedItem().toString())) {
-            reactor.setAutomated(false);
-            reactor.setPulsed(false);
-        } else if (bundle.getString("UI.SimulationTypePulsed").equals(simulationStyleCombo.getSelectedItem().toString())) {
-            reactor.setAutomated(false);
-            reactor.setPulsed(true);
-        } else {
-            reactor.setPulsed(true);
-            reactor.setAutomated(true);
-        }
-        if (!changingCode) {
-            codeField.setText(reactor.getCode());
-        }
-    }//GEN-LAST:event_simulationStyleComboItemStateChanged
-
     private void onPulseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_onPulseSpinnerStateChanged
         reactor.setOnPulse(((Number)onPulseSpinner.getValue()).intValue());
         if (!changingCode) {
@@ -1356,6 +1337,23 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             csvFileLabel.setText(chooser.getSelectedFile().getAbsolutePath());
         }
     }//GEN-LAST:event_csvBrowseButtonActionPerformed
+
+    private void pulsedReactorCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulsedReactorCheckActionPerformed
+        reactor.setPulsed(pulsedReactorCheck.isSelected());
+        codeField.setText(reactor.getCode());
+    }//GEN-LAST:event_pulsedReactorCheckActionPerformed
+
+    private void automatedReactorCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_automatedReactorCheckActionPerformed
+        reactor.setAutomated(automatedReactorCheck.isSelected());
+        codeField.setText(reactor.getCode());
+    }//GEN-LAST:event_automatedReactorCheckActionPerformed
+
+    private void maxSimulationTicksSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_maxSimulationTicksSpinnerStateChanged
+        reactor.setMaxSimulationTicks(((Number)maxSimulationTicksSpinner.getValue()).intValue());
+        if (!changingCode) {
+            codeField.setText(reactor.getCode());
+        }
+    }//GEN-LAST:event_maxSimulationTicksSpinnerStateChanged
     
     private SwingWorker<Void, String> simulator;
 
@@ -1405,6 +1403,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton advancedHeatExchangerButton;
     private javax.swing.JToggleButton advancedHeatVentButton;
+    private javax.swing.JCheckBox automatedReactorCheck;
     private javax.swing.JPanel automationPanel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton clearGridButton;
@@ -1467,7 +1466,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1479,6 +1477,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea materialsArea;
     private javax.swing.JScrollPane materialsListPane;
     private javax.swing.JLabel maxHeatLabel;
+    private javax.swing.JLabel maxSimulationTicksLabel;
+    private javax.swing.JSpinner maxSimulationTicksSpinner;
     private javax.swing.JToggleButton neutronReflectorButton;
     private javax.swing.JSpinner offPulseSpinner;
     private javax.swing.JSpinner onPulseSpinner;
@@ -1493,6 +1493,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner placingThresholdSpinner;
     private javax.swing.JPanel pulsePanel;
     private javax.swing.ButtonGroup pulseTypeGroup;
+    private javax.swing.JCheckBox pulsedReactorCheck;
     private javax.swing.JToggleButton quadFuelRodMoxButton;
     private javax.swing.JToggleButton quadFuelRodNaquadahButton;
     private javax.swing.JToggleButton quadFuelRodThoriumButton;
@@ -1506,7 +1507,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton rshCondensatorButton;
     private javax.swing.JLabel selectedComponentLabel;
     private javax.swing.JButton simulateButton;
-    private javax.swing.JComboBox<String> simulationStyleCombo;
     private javax.swing.JSpinner suspendTempSpinner;
     private javax.swing.JPanel temperatureAndComponentsPanel;
     private javax.swing.JLabel temperatureEffectsLabel;

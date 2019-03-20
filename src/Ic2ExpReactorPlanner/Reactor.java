@@ -32,7 +32,7 @@ public class Reactor {
     
     private boolean usingReactorCoolantInjectors = false;
     
-    private static final int DEFAULT_ON_PULSE = 5000000;
+    private static final int DEFAULT_ON_PULSE = (int)5e6;
     
     private int onPulse = DEFAULT_ON_PULSE;
     
@@ -40,16 +40,18 @@ public class Reactor {
     
     private int offPulse = DEFAULT_OFF_PULSE;
     
-    private static final int DEFAULT_SUSPEND_TEMP = 120000;
+    private static final int DEFAULT_SUSPEND_TEMP = (int)120e3;
     
     private int suspendTemp = DEFAULT_SUSPEND_TEMP;
     
-    private static final int DEFAULT_RESUME_TEMP = 120000;
+    private static final int DEFAULT_RESUME_TEMP = (int)120e3;
     
     private int resumeTemp = DEFAULT_RESUME_TEMP;
     
+    private int maxSimulationTicks = (int)5e6;
+    
     // maximum paramatter types for a reactor component (current initial heat, automation threshold, reactor pause
-    private final int MAX_PARAM_TYPES = 3;
+    private static final int MAX_PARAM_TYPES = 3;
     
     public ReactorComponent getComponentAt(final int row, final int column) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
@@ -497,7 +499,7 @@ public class Reactor {
             for (int col = 0; col < grid[row].length; col++) {
                 int componentId = 0;
                 // Changes may be coming to the number of components available, so make sure to check the code revision number.
-                if (codeRevision == 0) {
+                if (codeRevision >= 0) {
                     componentId = storage.extract(38);
                 }
                 if (componentId != 0) {
@@ -524,12 +526,14 @@ public class Reactor {
         usingReactorCoolantInjectors = storage.extract(1) > 0;
         pulsed = storage.extract(1) > 0;
         automated = storage.extract(1) > 0;
+        maxSimulationTicks = storage.extract((int)5e6);
     }
     
     // builds a Base64 code string, not including the prefix that indicates the code revision.
     private String buildCodeString() {
         BigintStorage storage = new BigintStorage();
         // first, store the extra details, in reverse order of expected reading.
+        storage.store(maxSimulationTicks, (int)5e6);
         storage.store(automated ? 1 : 0, 1);
         storage.store(pulsed ? 1 : 0, 1);
         storage.store(usingReactorCoolantInjectors ? 1 : 0, 1);
@@ -639,6 +643,14 @@ public class Reactor {
 
     public void setAutomated(boolean automated) {
         this.automated = automated;
+    }
+
+    public int getMaxSimulationTicks() {
+        return maxSimulationTicks;
+    }
+
+    public void setMaxSimulationTicks(int maxSimulationTicks) {
+        this.maxSimulationTicks = maxSimulationTicks;
     }
     
 }
