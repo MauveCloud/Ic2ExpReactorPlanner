@@ -228,18 +228,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         euReactorRadio.setSelected(true);
                     }
                     java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
-                    switch (reactor.getSimulationType()) {
-                        case 's':
-                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
-                            break;
-                        case 'p':
-                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
-                            break;
-                        case 'a':
-                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
-                            break;
-                        default:
-                            break;
+                    if (reactor.isAutomated()) {
+                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
+                    } else if (reactor.isPulsed()) {
+                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
+                    } else {
+                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
                     }
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
@@ -263,18 +257,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         euReactorRadio.setSelected(true);
                     }
                     java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
-                    switch (reactor.getSimulationType()) {
-                        case 's':
-                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
-                            break;
-                        case 'p':
-                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
-                            break;
-                        case 'a':
-                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
-                            break;
-                        default:
-                            break;
+                    if (reactor.isAutomated()) {
+                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
+                    } else if (reactor.isPulsed()) {
+                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
+                    } else {
+                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
                     }
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
@@ -298,18 +286,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         euReactorRadio.setSelected(true);
                     }
                     java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
-                    switch (reactor.getSimulationType()) {
-                        case 's':
-                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
-                            break;
-                        case 'p':
-                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
-                            break;
-                        case 'a':
-                            simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
-                            break;
-                        default:
-                            break;
+                    if (reactor.isAutomated()) {
+                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeAutomation"));
+                    } else if (reactor.isPulsed()) {
+                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypePulsed"));
+                    } else {
+                        simulationStyleCombo.setSelectedItem(bundle.getString("UI.SimulationTypeSimple"));
                     }
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
@@ -1320,11 +1302,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private void simulationStyleComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_simulationStyleComboItemStateChanged
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
         if (bundle.getString("UI.SimulationTypeSimple").equals(simulationStyleCombo.getSelectedItem().toString())) {
-            reactor.setSimulationType('s');
+            reactor.setAutomated(false);
+            reactor.setPulsed(false);
         } else if (bundle.getString("UI.SimulationTypePulsed").equals(simulationStyleCombo.getSelectedItem().toString())) {
-            reactor.setSimulationType('p');
+            reactor.setAutomated(false);
+            reactor.setPulsed(true);
         } else {
-            reactor.setSimulationType('a');
+            reactor.setPulsed(true);
+            reactor.setAutomated(true);
         }
         if (!changingCode) {
             codeField.setText(reactor.getCode());

@@ -26,7 +26,9 @@ public class Reactor {
     
     private boolean fluid = false;
     
-    private char simulationType = 's';
+    private boolean pulsed = false;
+    
+    private boolean automated = false;
     
     private boolean usingReactorCoolantInjectors = false;
     
@@ -200,57 +202,7 @@ public class Reactor {
      * @return a code representing some ids for the components and arrangement.  Passing the same code to setCode() should re-create an identical reactor setup, even if other changes have happened in the meantime.
      */
     public String getCode() {
-        StringBuilder result = new StringBuilder(108);
-        for (int row = 0; row < grid.length; row++) {
-            for (int col = 0; col < grid[row].length; col++) {
-                final ReactorComponent component = grid[row][col];
-                final int id = ComponentFactory.getID(component);
-                result.append(String.format("%02X", id)); //NOI18N
-                if (component != null && (component.getInitialHeat() > 0 || component.automationThreshold != ComponentFactory.getDefaultComponent(id).automationThreshold 
-                        || component.reactorPause != ComponentFactory.getDefaultComponent(id).reactorPause)) {
-                    result.append("(");
-                    if (component.getInitialHeat() > 0) {
-                        result.append(String.format("h%s,", Integer.toString((int)component.getInitialHeat(), 36))); //NOI18N
-                    }
-                    if (component.automationThreshold != ComponentFactory.getDefaultComponent(id).automationThreshold) {
-                        result.append(String.format("a%s,", Integer.toString(component.automationThreshold, 36))); //NOI18N
-                    }
-                    if (component.reactorPause != ComponentFactory.getDefaultComponent(id).reactorPause) {
-                        result.append(String.format("p%s,", Integer.toString(component.reactorPause, 36))); //NOI18N
-                    }
-                    result.setLength(result.length() - 1); // remove the last comma, whichever parameter it came from.
-                    result.append(")");
-                }
-            }
-        }
-        result.append('|');
-        if (fluid) {
-            result.append('f');
-        } else {
-            result.append('e');
-        }
-        result.append(simulationType);
-        if (usingReactorCoolantInjectors) {
-            result.append('i');
-        } else {
-            result.append('n');
-        }
-        if (currentHeat > 0) {
-            result.append(Integer.toString((int)currentHeat, 36));
-        }
-        if (onPulse != DEFAULT_ON_PULSE) {
-            result.append(String.format("|n%s", Integer.toString(onPulse, 36)));
-        }
-        if (offPulse != DEFAULT_OFF_PULSE) {
-            result.append(String.format("|f%s", Integer.toString(offPulse, 36)));
-        }
-        if (suspendTemp != DEFAULT_SUSPEND_TEMP) {
-            result.append(String.format("|s%s", Integer.toString(suspendTemp, 36)));
-        }
-        if (resumeTemp != DEFAULT_SUSPEND_TEMP) {
-            result.append(String.format("|r%s", Integer.toString(resumeTemp, 36)));
-        }
-        return result.toString();
+        return "erpA=" + buildCodeString();
     }
     
     /**
@@ -262,7 +214,9 @@ public class Reactor {
         int[][] ids = new int[grid.length][grid[0].length];
         char[][][] paramTypes = new char[grid.length][grid[0].length][MAX_PARAM_TYPES];
         int[][][] params = new int[grid.length][grid[0].length][MAX_PARAM_TYPES];
-        if (code.length() >= 108 && code.matches("[0-9A-Za-z(),|]+")) { //NOI18N
+        if (code.startsWith("erpA=")) {
+            readCodeString(0, code.substring(5));
+        } else if (code.length() >= 108 && code.matches("[0-9A-Za-z(),|]+")) { //NOI18N
             try {
                 for (int row = 0; row < grid.length; row++) {
                     for (int col = 0; col < grid[row].length; col++) {
@@ -327,13 +281,16 @@ public class Reactor {
                     }
                     switch (extraCode.charAt(1)) {
                         case 's':
-                            simulationType = 's';
+                            pulsed = false;
+                            automated = false;
                             break;
                         case 'p':
-                            simulationType = 'p';
+                            pulsed = true;
+                            automated = false;
                             break;
                         case 'a':
-                            simulationType = 'a';
+                            pulsed = true;
+                            automated = false;
                             break;
                         default:
                             break;
@@ -532,6 +489,78 @@ public class Reactor {
         }
     }
 
+    // reads a Base64 code string for the reactor, after stripping the prefix.
+    private void readCodeString(final int codeRevision, final String code) {
+        BigintStorage storage = BigintStorage.inputBase64(code);
+        // read the grid first
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[row].length; col++) {
+                int componentId = 0;
+                // Changes may be coming to the number of components available, so make sure to check the code revision number.
+                if (codeRevision == 0) {
+                    componentId = storage.extract(38);
+                }
+                if (componentId != 0) {
+                    ReactorComponent component = ComponentFactory.createComponent(componentId);
+                    int hasSpecialAutomationConfig = storage.extract(1);
+                    if (hasSpecialAutomationConfig > 0) {
+                        component.setInitialHeat(storage.extract((int)360e3));
+                        component.automationThreshold = storage.extract((int)360e3);
+                        component.reactorPause = storage.extract((int)10e3);
+                    }
+                    setComponentAt(row, col, component);
+                } else {
+                    setComponentAt(row, col, null);
+                }
+            }
+        }
+        // next, read the inital temperature and other details.
+        currentHeat = storage.extract((int)120e3);
+        onPulse = storage.extract((int)5e6);
+        offPulse = storage.extract((int)5e6);
+        suspendTemp = storage.extract((int)120e3);
+        resumeTemp = storage.extract((int)120e3);
+        fluid = storage.extract(1) > 0;
+        usingReactorCoolantInjectors = storage.extract(1) > 0;
+        pulsed = storage.extract(1) > 0;
+        automated = storage.extract(1) > 0;
+    }
+    
+    // builds a Base64 code string, not including the prefix that indicates the code revision.
+    private String buildCodeString() {
+        BigintStorage storage = new BigintStorage();
+        // first, store the extra details, in reverse order of expected reading.
+        storage.store(automated ? 1 : 0, 1);
+        storage.store(pulsed ? 1 : 0, 1);
+        storage.store(usingReactorCoolantInjectors ? 1 : 0, 1);
+        storage.store(fluid ? 1 : 0, 1);
+        storage.store(resumeTemp, (int)120e3);
+        storage.store(suspendTemp, (int)120e3);
+        storage.store(offPulse, (int)5e6);
+        storage.store(onPulse, (int)5e6);
+        storage.store((int)currentHeat, (int)120e3);
+        // grid is read first, so written last, and in reverse order
+        for (int row = grid.length - 1; row >= 0; row--) {
+            for (int col = grid[row].length - 1; col >= 0; col--) {
+                ReactorComponent component = grid[row][col];
+                if (component != null) {
+                    int id = ComponentFactory.getID(grid[row][col]);
+                    // only store automation details for a component if non-default, and add a flag bit to indicate their presence.  null components don't even need the flag bit.
+                    if (component.getInitialHeat() > 0 || component.automationThreshold != ComponentFactory.getDefaultComponent(id).automationThreshold || component.reactorPause != ComponentFactory.getDefaultComponent(id).reactorPause) {
+                        storage.store(component.reactorPause, (int)10e3);
+                        storage.store(component.automationThreshold, (int)360e3);
+                        storage.store((int)component.getInitialHeat(), (int)360e3);
+                        storage.store(1, 1);
+                    } else {
+                        storage.store(0, 1);
+                    }
+                }
+                storage.store(ComponentFactory.getID(grid[row][col]), 38);
+            }
+        }
+        return storage.outputBase64();
+    }
+    
     /**
      * Checks whether the reactor is to simulate a fluid-style reactor, rather than a direct EU-output reactor.
      * @return true if this was set to be a fluid-style reactor, false if this was set to be direct EU-output reactor.
@@ -564,25 +593,6 @@ public class Reactor {
         this.usingReactorCoolantInjectors = usingReactorCoolantInjectors;
     }
     
-    /**
-     * Gets the character indicating the simulation type, which might have been read from a reactor code.
-     * @return 
-     */
-    public char getSimulationType() {
-        return simulationType;
-    }
-    
-    /**
-     * Sets the simulation type, so it can be stored in the reactor code.
-     * 's' is for Simple Cycle
-     * 'p' is for Pulsed Cycle
-     * 'a' is for Automation Cycle
-     * @param simulationType 
-     */
-    public void setSimulationType(final char simulationType) {
-        this.simulationType = simulationType;
-    }
-    
     public int getOnPulse() {
         return onPulse;
     }
@@ -613,6 +623,22 @@ public class Reactor {
     
     public void setResumeTemp(final int resumeTemp) {
         this.resumeTemp = resumeTemp;
+    }
+
+    public boolean isPulsed() {
+        return pulsed;
+    }
+
+    public void setPulsed(boolean pulsed) {
+        this.pulsed = pulsed;
+    }
+
+    public boolean isAutomated() {
+        return automated;
+    }
+
+    public void setAutomated(boolean automated) {
+        this.automated = automated;
     }
     
 }
