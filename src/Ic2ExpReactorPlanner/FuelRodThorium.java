@@ -21,7 +21,7 @@ public class FuelRodThorium extends ReactorComponent {
     public FuelRodThorium() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(50000.0);
-        automationThreshold = 51000;
+        setAutomationThreshold(51000);
     }
     
     @Override
@@ -55,6 +55,9 @@ public class FuelRodThorium extends ReactorComponent {
     public double generateHeat() {
         int pulses = countNeutronNeighbors() + 1;
         int heat = pulses * (pulses + 1) / 2;
+        if (getParent().isFluid()) {
+            currentOutput = heat;
+        }
         minHeatGenerated = Math.min(minHeatGenerated, heat);
         maxHeatGenerated = Math.max(maxHeatGenerated, heat);
         handleHeat(heat);
@@ -67,6 +70,9 @@ public class FuelRodThorium extends ReactorComponent {
         int pulses = countNeutronNeighbors() + 1;
         final Reactor parentReactor = getParent();
         double energy = 40 * pulses;
+        if (!getParent().isFluid()) {
+            currentOutput = energy;
+        }
         minEUGenerated = Math.min(minEUGenerated, energy);
         maxEUGenerated = Math.max(maxEUGenerated, energy);
         parentReactor.addEUOutput(energy);

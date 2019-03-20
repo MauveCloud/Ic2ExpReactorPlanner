@@ -22,7 +22,6 @@ public class IridiumNeutronReflector extends ReactorComponent {
      */
     public IridiumNeutronReflector() {
         setImage(TextureFactory.getImage(imageFilename));
-        setMaxDamage(40000);
     }
     
     @Override

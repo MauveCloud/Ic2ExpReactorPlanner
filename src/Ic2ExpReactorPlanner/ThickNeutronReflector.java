@@ -19,7 +19,7 @@ public class ThickNeutronReflector extends NeutronReflector {
     public ThickNeutronReflector() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(40000);
-        automationThreshold = 41000;
+        setAutomationThreshold(41000);
     }
     
     @Override

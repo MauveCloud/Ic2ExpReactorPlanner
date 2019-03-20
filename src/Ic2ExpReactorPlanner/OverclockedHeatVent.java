@@ -19,7 +19,7 @@ public class OverclockedHeatVent extends ReactorComponent {
     public OverclockedHeatVent() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(1000);
-        automationThreshold = 900;
+        setAutomationThreshold(900);
     }
     
     @Override
@@ -34,6 +34,7 @@ public class OverclockedHeatVent extends ReactorComponent {
         parentReactor.adjustCurrentHeat(-deltaHeat);
         this.adjustCurrentHeat(deltaHeat);
         final double currentDissipation = Math.min(20, getCurrentHeat());
+        currentOutput = currentDissipation;
         parentReactor.ventHeat(currentDissipation);
         adjustCurrentHeat(-currentDissipation);
         effectiveVentCooling = Math.max(effectiveVentCooling, currentDissipation);

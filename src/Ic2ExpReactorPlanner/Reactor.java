@@ -257,10 +257,10 @@ public class Reactor {
                                     component.setInitialHeat(params[row][col][paramNum]);
                                     break;
                                 case 'a':
-                                    component.automationThreshold = params[row][col][paramNum];
+                                    component.setAutomationThreshold(params[row][col][paramNum]);
                                     break;
                                 case 'p':
-                                    component.reactorPause = params[row][col][paramNum];
+                                    component.setReactorPause(params[row][col][paramNum]);
                                     break;
                                 default:
                                     break;
@@ -292,7 +292,7 @@ public class Reactor {
                             break;
                         case 'a':
                             pulsed = true;
-                            automated = false;
+                            automated = true;
                             break;
                         default:
                             break;
@@ -507,8 +507,8 @@ public class Reactor {
                     int hasSpecialAutomationConfig = storage.extract(1);
                     if (hasSpecialAutomationConfig > 0) {
                         component.setInitialHeat(storage.extract((int)360e3));
-                        component.automationThreshold = storage.extract((int)360e3);
-                        component.reactorPause = storage.extract((int)10e3);
+                        component.setAutomationThreshold(storage.extract((int)360e3));
+                        component.setReactorPause(storage.extract((int)10e3));
                     }
                     setComponentAt(row, col, component);
                 } else {
@@ -550,9 +550,9 @@ public class Reactor {
                 if (component != null) {
                     int id = ComponentFactory.getID(grid[row][col]);
                     // only store automation details for a component if non-default, and add a flag bit to indicate their presence.  null components don't even need the flag bit.
-                    if (component.getInitialHeat() > 0 || component.automationThreshold != ComponentFactory.getDefaultComponent(id).automationThreshold || component.reactorPause != ComponentFactory.getDefaultComponent(id).reactorPause) {
-                        storage.store(component.reactorPause, (int)10e3);
-                        storage.store(component.automationThreshold, (int)360e3);
+                    if (component.getInitialHeat() > 0 || component.getAutomationThreshold() != ComponentFactory.getDefaultComponent(id).getAutomationThreshold() || component.getReactorPause() != ComponentFactory.getDefaultComponent(id).getReactorPause()) {
+                        storage.store(component.getReactorPause(), (int)10e3);
+                        storage.store(component.getAutomationThreshold(), (int)360e3);
                         storage.store((int)component.getInitialHeat(), (int)360e3);
                         storage.store(1, 1);
                     } else {

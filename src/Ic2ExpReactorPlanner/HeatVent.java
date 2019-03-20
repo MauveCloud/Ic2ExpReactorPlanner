@@ -19,7 +19,7 @@ public class HeatVent extends ReactorComponent {
     public HeatVent() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(1000);
-        automationThreshold = 900;
+        setAutomationThreshold(900);
     }
     
     @Override
@@ -30,6 +30,7 @@ public class HeatVent extends ReactorComponent {
     @Override
     public void dissipate() {
         final double currentDissipation = Math.min(6, getCurrentHeat());
+        currentOutput = currentDissipation;
         getParent().ventHeat(currentDissipation);
         adjustCurrentHeat(-currentDissipation);
         effectiveVentCooling = Math.max(effectiveVentCooling, currentDissipation);

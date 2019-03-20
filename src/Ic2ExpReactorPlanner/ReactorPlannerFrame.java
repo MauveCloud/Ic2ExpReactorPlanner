@@ -80,8 +80,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         final ReactorComponent tempComponent = ComponentFactory.createComponent(button.getActionCommand());
                         placingLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentPlacingSpecific"), 
                                 tempComponent.toString()));
-                        placingThresholdSpinner.setValue(tempComponent.automationThreshold);
-                        placingReactorPauseSpinner.setValue(tempComponent.reactorPause);
+                        placingThresholdSpinner.setValue(tempComponent.getAutomationThreshold());
+                        placingReactorPauseSpinner.setValue(tempComponent.getReactorPause());
                     }
                 }
             });
@@ -111,8 +111,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             selectedComponentLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.NoComponentRowCol"), finalRow, finalCol));
                         } else {
                             selectedComponentLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ChosenComponentRowCol"), component.toString(), finalRow, finalCol));
-                            thresholdSpinner.setValue(component.automationThreshold);
-                            pauseSpinner.setValue(component.reactorPause);
+                            thresholdSpinner.setValue(component.getAutomationThreshold());
+                            pauseSpinner.setValue(component.getReactorPause());
                         }
                         outputTabs.setSelectedComponent(automationPanel);
                     }
@@ -158,8 +158,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             componentToPlace = ComponentFactory.createComponent(selection.getActionCommand());
                             if (componentToPlace != null) {
                                 componentToPlace.setInitialHeat(((Number)componentHeatSpinner.getValue()).intValue());
-                                componentToPlace.automationThreshold = ((Number)placingThresholdSpinner.getValue()).intValue();
-                                componentToPlace.reactorPause = ((Number)placingReactorPauseSpinner.getValue()).intValue();
+                                componentToPlace.setAutomationThreshold(((Number)placingThresholdSpinner.getValue()).intValue());
+                                componentToPlace.setReactorPause(((Number)placingReactorPauseSpinner.getValue()).intValue());
                             }
                         }
                         reactor.setComponentAt(finalRow, finalCol, componentToPlace);
@@ -1268,7 +1268,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private void thresholdSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_thresholdSpinnerStateChanged
         if (selectedColumn >= 0 && selectedRow >= 0 && reactor.getComponentAt(selectedRow, selectedColumn) != null) {
             ReactorComponent component = reactor.getComponentAt(selectedRow, selectedColumn);
-            component.automationThreshold = ((Number)thresholdSpinner.getValue()).intValue();
+            component.setAutomationThreshold(((Number)thresholdSpinner.getValue()).intValue());
             if (!changingCode) {
                 codeField.setText(reactor.getCode());
             }
@@ -1278,7 +1278,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private void pauseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pauseSpinnerStateChanged
         if (selectedColumn >= 0 && selectedRow >= 0 && reactor.getComponentAt(selectedRow, selectedColumn) != null) {
             ReactorComponent component = reactor.getComponentAt(selectedRow, selectedColumn);
-            component.reactorPause = ((Number)pauseSpinner.getValue()).intValue();
+            component.setReactorPause(((Number)pauseSpinner.getValue()).intValue());
             if (!changingCode) {
                 codeField.setText(reactor.getCode());
             }

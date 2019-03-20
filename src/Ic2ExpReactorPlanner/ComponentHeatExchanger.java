@@ -25,7 +25,7 @@ public class ComponentHeatExchanger extends ReactorComponent {
     public ComponentHeatExchanger() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(5000);
-        automationThreshold = 4500;
+        setAutomationThreshold(4500);
     }
     
     @Override

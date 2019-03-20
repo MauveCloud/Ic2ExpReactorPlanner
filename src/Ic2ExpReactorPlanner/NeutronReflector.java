@@ -19,7 +19,7 @@ public class NeutronReflector extends ReactorComponent {
     public NeutronReflector() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(10000);
-        automationThreshold = 11000;
+        setAutomationThreshold(11000);
     }
     
     @Override

@@ -19,7 +19,7 @@ public class RshCondensator extends ReactorComponent {
     public RshCondensator() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(20000);
-        automationThreshold = 21000;
+        setAutomationThreshold(21000);
     }
     
     @Override

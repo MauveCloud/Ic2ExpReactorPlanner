@@ -19,7 +19,7 @@ public class CoolantCell180kNak extends ReactorComponent {
     public CoolantCell180kNak() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(180000);
-        automationThreshold = 170000;
+        setAutomationThreshold(170000);
     }
     
     @Override

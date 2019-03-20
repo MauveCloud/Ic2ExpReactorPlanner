@@ -22,7 +22,7 @@ public class FuelRodUranium extends ReactorComponent {
     public FuelRodUranium() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(20000.0);
-        automationThreshold = 21000;
+        setAutomationThreshold(21000);
     }
     
     @Override
@@ -56,6 +56,9 @@ public class FuelRodUranium extends ReactorComponent {
     public double generateHeat() {
         int pulses = countNeutronNeighbors() + 1;
         int heat = 2 * pulses * (pulses + 1);
+        if (getParent().isFluid()) {
+            currentOutput = heat;
+        }
         minHeatGenerated = Math.min(minHeatGenerated, heat);
         maxHeatGenerated = Math.max(maxHeatGenerated, heat);
         handleHeat(heat);
@@ -68,6 +71,9 @@ public class FuelRodUranium extends ReactorComponent {
         int pulses = countNeutronNeighbors() + 1;
         final Reactor parentReactor = getParent();
         double energy = 100 * pulses;
+        if (!getParent().isFluid()) {
+            currentOutput = energy;
+        }
         minEUGenerated = Math.min(minEUGenerated, energy);
         maxEUGenerated = Math.max(maxEUGenerated, energy);
         parentReactor.addEUOutput(energy);

@@ -19,7 +19,7 @@ public class CoolantCell360kHelium extends ReactorComponent {
     public CoolantCell360kHelium() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(360000);
-        automationThreshold = 350000;
+        setAutomationThreshold(350000);
     }
     
     @Override

@@ -19,7 +19,7 @@ public class QuadFuelRodMox extends FuelRodUranium {
     public QuadFuelRodMox() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(10000);
-        automationThreshold = 11000;
+        setAutomationThreshold(11000);
     }
     
     @Override
@@ -29,6 +29,9 @@ public class QuadFuelRodMox extends FuelRodUranium {
         final Reactor parentReactor = getParent();
         if (parentReactor.isFluid() && (parentReactor.getCurrentHeat() / parentReactor.getMaxHeat()) > 0.5) {
             heat *= 2;
+        }
+        if (parentReactor.isFluid()) {
+            currentOutput = heat;
         }
         minHeatGenerated = Math.min(minHeatGenerated, heat);
         maxHeatGenerated = Math.max(maxHeatGenerated, heat);
@@ -42,6 +45,9 @@ public class QuadFuelRodMox extends FuelRodUranium {
         int pulses = countNeutronNeighbors() + 3;
         final Reactor parentReactor = getParent();
         double energy = 400 * pulses * (1 + 4.0 * parentReactor.getCurrentHeat() / parentReactor.getMaxHeat());
+        if (!parentReactor.isFluid()) {
+            currentOutput = energy;
+        }
         minEUGenerated = Math.min(minEUGenerated, energy);
         maxEUGenerated = Math.max(maxEUGenerated, energy);
         parentReactor.addEUOutput(energy);

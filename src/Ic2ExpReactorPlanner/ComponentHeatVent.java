@@ -50,6 +50,7 @@ public class ComponentHeatVent extends ReactorComponent {
             parentReactor.ventHeat(tempDissipatedHeat);
             dissipatedHeat += tempDissipatedHeat;
         }
+        currentOutput = dissipatedHeat;
         effectiveVentCooling = Math.max(effectiveVentCooling, dissipatedHeat);
     }
     

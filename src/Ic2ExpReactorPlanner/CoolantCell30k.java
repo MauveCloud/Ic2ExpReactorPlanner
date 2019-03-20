@@ -19,7 +19,7 @@ public class CoolantCell30k extends ReactorComponent {
     public CoolantCell30k() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxHeat(30000);
-        automationThreshold = 27000;
+        setAutomationThreshold(27000);
     }
     
     @Override

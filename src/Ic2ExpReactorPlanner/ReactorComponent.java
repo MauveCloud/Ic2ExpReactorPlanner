@@ -26,6 +26,16 @@ public class ReactorComponent {
     private double currentDamage = 0.0;
     private double maxDamage = 1.0;
     
+    /**
+     * Threshold for heat/damage for removing this component during an automation run.
+     */
+    private int automationThreshold = 9000;
+    
+    /**
+     * Time to pause the reactor while replacing the component during an automation run.
+     */
+    private int reactorPause = 0;
+    
     private Reactor parent = null;
     
     protected double effectiveVentCooling = 0.0;
@@ -48,12 +58,14 @@ public class ReactorComponent {
     
     protected double maxReachedHeat = 0.0;
     
+    protected double currentOutput = 0.0;
+    
     protected static final ResourceBundle BUNDLE = ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
     
     /**
      * Information about this component from the last simulation.
      */
-    public String info = ""; //NOI18N
+    public StringBuffer info = new StringBuffer(1000);
 
 
     /**
@@ -68,16 +80,6 @@ public class ReactorComponent {
         }
         return result;
     }
-    
-    /**
-     * Threshold for heat/damage for removing this component during an automation run.
-     */
-    public int automationThreshold = 9000;
-    
-    /**
-     * Time to pause the reactor while replacing the component during an automation run.
-     */
-    public int reactorPause = 0;
     
     /**
      * Get the image to show in the planner for this component.
@@ -141,6 +143,7 @@ public class ReactorComponent {
     public void preReactorTick() {
         currentCellCooling = 0.0;
         currentCondensatorCooling = 0.0;
+        currentOutput = 0.0;
     }
     
     /**
@@ -392,5 +395,33 @@ public class ReactorComponent {
     public double getExplosionPowerMultiplier() {
         return 1;
     }
+
+    public final int getAutomationThreshold() {
+        return automationThreshold;
+    }
+
+    public final void setAutomationThreshold(int automationThreshold) {
+        this.automationThreshold = automationThreshold;
+    }
+
+    public final int getReactorPause() {
+        return reactorPause;
+    }
+
+    public final void setReactorPause(int reactorPause) {
+        this.reactorPause = reactorPause;
+    }
+
+    /**
+     * Determines whether this component expects to produces some sort of output each reactor tick,
+     * e.g. for purposes of tracking in a CSV file.
+     * @return true if this component produces output (such as EU or vented heat), false otherwise.
+     */
+    public boolean producesOutput() {
+        return getVentCoolingCapacity() > 0 || getRodCount() > 0;
+    }
     
+    public double getCurrentOutput() {
+        return currentOutput;
+    }
 }

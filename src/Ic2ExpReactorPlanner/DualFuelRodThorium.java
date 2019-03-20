@@ -19,13 +19,16 @@ public class DualFuelRodThorium extends FuelRodUranium {
     public DualFuelRodThorium() {
         setImage(TextureFactory.getImage(imageFilename));
         setMaxDamage(50000);
-        automationThreshold = 51000;
+        setAutomationThreshold(51000);
     }
     
     @Override
     public double generateHeat() {
         int pulses = countNeutronNeighbors() + 2;
         int heat = pulses * (pulses + 1);
+        if (getParent().isFluid()) {
+            currentOutput = heat;
+        }
         minHeatGenerated = Math.min(minHeatGenerated, heat);
         maxHeatGenerated = Math.max(maxHeatGenerated, heat);
         handleHeat(heat);
@@ -38,6 +41,9 @@ public class DualFuelRodThorium extends FuelRodUranium {
         int pulses = countNeutronNeighbors() + 2;
         final Reactor parentReactor = getParent();
         double energy = 80 * pulses;
+        if (!getParent().isFluid()) {
+            currentOutput = energy;
+        }
         minEUGenerated = Math.min(minEUGenerated, energy);
         maxEUGenerated = Math.max(maxEUGenerated, energy);
         parentReactor.addEUOutput(energy);

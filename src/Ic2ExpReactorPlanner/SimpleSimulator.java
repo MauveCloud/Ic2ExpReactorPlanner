@@ -466,12 +466,13 @@ public class SimpleSimulator extends SwingWorker<Void, String> {
                     } else if (temp.startsWith("+")) { //NOI18N
                         final ReactorComponent component = reactor.getComponentAt(row, col);
                         if (component != null) {
-                            component.info += "\n" + temp.substring(1); //NOI18N
+                            component.info.append("\n").append(temp.substring(1)); //NO18N
                         }
                     } else {
                         final ReactorComponent component = reactor.getComponentAt(row, col);
                         if (component != null) {
-                            component.info = temp;
+                            component.info.setLength(0);
+                            component.info.append(temp);
                         }
                     }
                 } else {
