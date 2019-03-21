@@ -6,7 +6,6 @@
 package Ic2ExpReactorPlanner.components;
 
 import Ic2ExpReactorPlanner.MaterialsList;
-import Ic2ExpReactorPlanner.ReactorComponent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,24 +44,24 @@ public class Vent extends ReactorItem {
         parent.ventHeat(currentDissipation);
         adjustCurrentHeat(-currentDissipation);
         if (sideVent > 0) {
-            List<ReactorComponent> coolableNeighbors = new ArrayList<>(4);
-            ReactorComponent component = parent.getComponentAt(row - 1, col);
-            if (component != null && component.isHeatAcceptor()) {
+            List<ReactorItem> coolableNeighbors = new ArrayList<>(4);
+            ReactorItem component = parent.getComponentAt(row - 1, col);
+            if (component != null && component.isCoolable()) {
                 coolableNeighbors.add(component);
             }
             component = parent.getComponentAt(row, col + 1);
-            if (component != null && component.isHeatAcceptor()) {
+            if (component != null && component.isCoolable()) {
                 coolableNeighbors.add(component);
             }
             component = parent.getComponentAt(row + 1, col);
-            if (component != null && component.isHeatAcceptor()) {
+            if (component != null && component.isCoolable()) {
                 coolableNeighbors.add(component);
             }
             component = parent.getComponentAt(row, col - 1);
-            if (component != null && component.isHeatAcceptor()) {
+            if (component != null && component.isCoolable()) {
                 coolableNeighbors.add(component);
             }
-            for (ReactorComponent coolableNeighbor : coolableNeighbors) {
+            for (ReactorItem coolableNeighbor : coolableNeighbors) {
                 double rejectedCooling = coolableNeighbor.adjustCurrentHeat(-sideVent);
                 double tempDissipatedHeat = sideVent + rejectedCooling;
                 parent.ventHeat(tempDissipatedHeat);
@@ -77,20 +76,20 @@ public class Vent extends ReactorItem {
     public double getVentCoolingCapacity() {
         double result = selfVent;
         if (sideVent > 0) {
-            ReactorComponent component = parent.getComponentAt(row - 1, col);
-            if (component != null && component.isHeatAcceptor()) {
+            ReactorItem component = parent.getComponentAt(row - 1, col);
+            if (component != null && component.isCoolable()) {
                 result += sideVent;
             }
             component = parent.getComponentAt(row, col + 1);
-            if (component != null && component.isHeatAcceptor()) {
+            if (component != null && component.isCoolable()) {
                 result += sideVent;
             }
             component = parent.getComponentAt(row + 1, col);
-            if (component != null && component.isHeatAcceptor()) {
+            if (component != null && component.isCoolable()) {
                 result += sideVent;
             }
             component = parent.getComponentAt(row, col - 1);
-            if (component != null && component.isHeatAcceptor()) {
+            if (component != null && component.isCoolable()) {
                 result += sideVent;
             }
         }

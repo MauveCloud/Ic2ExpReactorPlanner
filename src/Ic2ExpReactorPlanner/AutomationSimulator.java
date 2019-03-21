@@ -1,5 +1,6 @@
 package Ic2ExpReactorPlanner;
 
+import Ic2ExpReactorPlanner.components.ReactorItem;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -110,12 +111,12 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 }
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
-                        ReactorComponent component = reactor.getComponentAt(row, col);
-                        if (component != null && (component.getMaxHeat() > 1 || component.getMaxDamage() > 1)) {
-                            csvOut.printf(BUNDLE.getString("CSVData.HeaderComponentName"), ComponentFactory.getDisplayName(component), row, col);
+                        ReactorItem component = reactor.getComponentAt(row, col);
+                        if (component != null && (component.maxHeat > 1 || component.maxDamage > 1)) {
+                            csvOut.printf(BUNDLE.getString("CSVData.HeaderComponentName"), component.name, row, col);
                         }
                         if (component != null && component.producesOutput()) {
-                            csvOut.printf(BUNDLE.getString("CSVData.HeaderComponentOutput"), ComponentFactory.getDisplayName(component), row, col);
+                            csvOut.printf(BUNDLE.getString("CSVData.HeaderComponentOutput"), component.name, row, col);
                         }
                     }
                 }
@@ -135,7 +136,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
             boolean reachedExplode = false;
             for (int row = 0; row < 6; row++) {
                 for (int col = 0; col < 9; col++) {
-                    ReactorComponent component = reactor.getComponentAt(row, col);
+                    ReactorItem component = reactor.getComponentAt(row, col);
                     if (component != null) {
                         component.clearCurrentHeat();
                         component.clearDamage();
@@ -157,7 +158,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 reactor.clearVentedHeat();
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
-                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        ReactorItem component = reactor.getComponentAt(row, col);
                         if (component != null) {
                             component.preReactorTick();
                         }
@@ -169,7 +170,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 double generatedHeat = 0.0;
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
-                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        ReactorItem component = reactor.getComponentAt(row, col);
                         if (component != null && !component.isBroken()) {
                             if (allFuelRodsDepleted && component.getRodCount() > 0) {
                                 allFuelRodsDepleted = false;
@@ -212,7 +213,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 if (active) {
                     for (int row = 0; row < 6; row++) {
                         for (int col = 0; col < 9; col++) {
-                            ReactorComponent component = reactor.getComponentAt(row, col);
+                            ReactorItem component = reactor.getComponentAt(row, col);
                             if (component != null && !component.isBroken()) {
                                 component.generateEnergy();
                             }
@@ -251,12 +252,12 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 }
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
-                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        ReactorItem component = reactor.getComponentAt(row, col);
                         if (component != null && reactor.isAutomated()) {
-                            if (component.getMaxHeat() > 1) {
+                            if (component.maxHeat > 1) {
                                 if (component.getAutomationThreshold() > component.getInitialHeat() && component.getCurrentHeat() >= component.getAutomationThreshold()) {
                                     component.clearCurrentHeat();
-                                    replacedItems.add(ComponentFactory.getDisplayName(component));
+                                    replacedItems.add(component.name);
                                     component.info.append(String.format(BUNDLE.getString("ComponentInfo.ReplacedTime"), reactorTicks));
                                     if (component.getReactorPause() > 0) {
                                         active = false;
@@ -266,7 +267,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                                     }
                                 } else if (component.getAutomationThreshold() < component.getInitialHeat() && component.getCurrentHeat() <= component.getAutomationThreshold()) {
                                     component.clearCurrentHeat();
-                                    replacedItems.add(ComponentFactory.getDisplayName(component));
+                                    replacedItems.add(component.name);
                                     component.info.append(String.format(BUNDLE.getString("ComponentInfo.ReplacedTime"), reactorTicks));
                                     if (component.getReactorPause() > 0) {
                                         active = false;
@@ -275,9 +276,9 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                                         maxActiveTime = Math.max(currentActiveTime, maxActiveTime);
                                     }
                                 }
-                            } else if (component.isBroken() || (component.getMaxDamage() > 1 && component.getCurrentDamage() >= component.getAutomationThreshold())) {
+                            } else if (component.isBroken() || (component.maxDamage > 1 && component.getCurrentDamage() >= component.getAutomationThreshold())) {
                                 component.clearDamage();
-                                replacedItems.add(ComponentFactory.getDisplayName(component));
+                                replacedItems.add(component.name);
                                 component.info.append(String.format(BUNDLE.getString("ComponentInfo.ReplacedTime"), reactorTicks));
                                 if (component.getReactorPause() > 0) {
                                     active = false;
@@ -287,12 +288,11 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                                 }
                             }
                         }
-                        if (reactor.isUsingReactorCoolantInjectors()) {
-                            if (component instanceof RshCondensator && component.getCurrentHeat() > 17000 && !component.isBroken()) {
-                                ((RshCondensator) component).injectCoolant();
+                        if (reactor.isUsingReactorCoolantInjectors() && component != null && component.needsCoolantInjected()) {
+                            component.injectCoolant();
+                            if ("rshCondensator".equals(component.baseName)) {
                                 redstoneUsed++;
-                            } else if (component instanceof LzhCondensator && component.getCurrentHeat() > 85000 && !component.isBroken()) {
-                                ((LzhCondensator) component).injectCoolant();
+                            } else if ("lzhCondensator".equals(component.baseName)) {
                                 lapisUsed++;
                             }
                         }
@@ -311,10 +311,10 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                     }
                     for (int row = 0; row < 6; row++) {
                         for (int col = 0; col < 9; col++) {
-                            ReactorComponent component = reactor.getComponentAt(row, col);
-                            if (component != null && (component.getMaxHeat() > 1 || component.getMaxDamage() > 1)) {
+                            ReactorItem component = reactor.getComponentAt(row, col);
+                            if (component != null && (component.maxHeat > 1 || component.maxDamage > 1)) {
                                 double componentValue = component.getCurrentDamage();
-                                if (component.getMaxHeat() > 1) {
+                                if (component.maxHeat > 1) {
                                     componentValue = component.getCurrentHeat();
                                 }
                                 csvOut.printf(BUNDLE.getString("CSVData.EntryComponentValue"), componentValue);
@@ -328,7 +328,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 }
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
-                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        ReactorItem component = reactor.getComponentAt(row, col);
                         if (component != null && component.isBroken() && !alreadyBroken[row][col]) {
                             alreadyBroken[row][col] = true;
                             if (component.getRodCount() == 0) {
@@ -419,7 +419,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 double prevTotalComponentHeat = 0.0;
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
-                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        ReactorItem component = reactor.getComponentAt(row, col);
                         if (component != null && !component.isBroken()) {
                             if (component.getCurrentHeat() > 0.0) {
                                 prevTotalComponentHeat += component.getCurrentHeat();
@@ -443,7 +443,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         prevTotalComponentHeat = currentTotalComponentHeat;
                         for (int row = 0; row < 6; row++) {
                             for (int col = 0; col < 9; col++) {
-                                ReactorComponent component = reactor.getComponentAt(row, col);
+                                ReactorItem component = reactor.getComponentAt(row, col);
                                 if (component != null && !component.isBroken()) {
                                     component.dissipate();
                                     component.transfer();
@@ -460,7 +460,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         currentTotalComponentHeat = 0.0;
                         for (int row = 0; row < 6; row++) {
                             for (int col = 0; col < 9; col++) {
-                                ReactorComponent component = reactor.getComponentAt(row, col);
+                                ReactorItem component = reactor.getComponentAt(row, col);
                                 if (component != null && !component.isBroken()) {
                                     currentTotalComponentHeat += component.getCurrentHeat();
                                     if (component.getCurrentHeat() == 0.0 && needsCooldown[row][col]) {
@@ -486,7 +486,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 double explosionPowerMult = 1.0;
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
-                        ReactorComponent component = reactor.getComponentAt(row, col);
+                        ReactorItem component = reactor.getComponentAt(row, col);
                         if (component != null) {
                             explosionPower += component.getExplosionPowerOffset();
                             explosionPowerMult *= component.getExplosionPowerMultiplier();
@@ -503,11 +503,11 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
             
             for (int row = 0; row < 6; row++) {
                 for (int col = 0; col < 9; col++) {
-                    ReactorComponent component = reactor.getComponentAt(row, col);
+                    ReactorItem component = reactor.getComponentAt(row, col);
                     if (component != null) {
                         if (component.getVentCoolingCapacity() > 0) {
-                            component.info.append(String.format(BUNDLE.getString("ComponentInfo.UsedCooling"), component.getEffectiveVentCooling(), component.getVentCoolingCapacity()));
-                            totalEffectiveVentCooling += component.getEffectiveVentCooling();
+                            component.info.append(String.format(BUNDLE.getString("ComponentInfo.UsedCooling"), component.getBestVentCooling(), component.getVentCoolingCapacity()));
+                            totalEffectiveVentCooling += component.getBestVentCooling();
                             totalVentCoolingCapacity += component.getVentCoolingCapacity();
                         } else if (component.getBestCellCooling() > 0) {
                             component.info.append(String.format(BUNDLE.getString("ComponentInfo.ReceivedHeat"), component.getBestCellCooling()));
@@ -522,7 +522,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                             component.info.append(String.format(BUNDLE.getString("ComponentInfo.GeneratedHeat"), component.getMinHeatGenerated(), component.getMaxHeatGenerated()));
                         }
                         if (component.getMaxReachedHeat() > 0) {
-                            component.info.append(String.format(BUNDLE.getString("ComponentInfo.ReachedHeat"), component.getMaxReachedHeat(), component.getMaxHeat()));
+                            component.info.append(String.format(BUNDLE.getString("ComponentInfo.ReachedHeat"), component.getMaxReachedHeat(), component.maxHeat));
                         }
                     }
                 }

@@ -6,8 +6,6 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="reactorStyleGroup">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="pulseTypeGroup">
-    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>

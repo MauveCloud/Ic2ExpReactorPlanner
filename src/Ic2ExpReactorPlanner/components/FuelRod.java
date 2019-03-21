@@ -6,7 +6,6 @@
 package Ic2ExpReactorPlanner.components;
 
 import Ic2ExpReactorPlanner.MaterialsList;
-import Ic2ExpReactorPlanner.ReactorComponent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +16,12 @@ import java.util.List;
 public class FuelRod extends ReactorItem {
     
     private final int energyMult;
-    private final int heatMult;
+    private final double heatMult;
     private final int rodCount;
     private final boolean moxStyle;
     
     public FuelRod(final int id, final String baseName, final String name, final String imageFilename, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials, 
-            final int energyMult, final int heatMult, final int rodCount, final boolean moxStyle) {
+            final int energyMult, final double heatMult, final int rodCount, final boolean moxStyle) {
         super(id, baseName, name, imageFilename, maxDamage, maxHeat, sourceMod, materials);
         this.energyMult = energyMult;
         this.heatMult = heatMult;
@@ -45,7 +44,7 @@ public class FuelRod extends ReactorItem {
 
     private int countNeutronNeighbors() {
         int neutronNeighbors = 0;
-        ReactorComponent component = parent.getComponentAt(row + 1, col);
+        ReactorItem component = parent.getComponentAt(row + 1, col);
         if (component != null && component.isNeutronReflector()) {
             neutronNeighbors++;
         }
@@ -65,8 +64,8 @@ public class FuelRod extends ReactorItem {
     }
     
     protected void handleHeat(final int heat) {
-        List<ReactorComponent> heatableNeighbors = new ArrayList<>(4);
-        ReactorComponent component = parent.getComponentAt(row + 1, col);
+        List<ReactorItem> heatableNeighbors = new ArrayList<>(4);
+        ReactorItem component = parent.getComponentAt(row + 1, col);
         if (component != null && component.isHeatAcceptor()) {
             heatableNeighbors.add(component);
         }
@@ -85,7 +84,7 @@ public class FuelRod extends ReactorItem {
         if (heatableNeighbors.isEmpty()) {
             parent.adjustCurrentHeat(heat);
         } else {
-            for (ReactorComponent heatableNeighbor : heatableNeighbors) {
+            for (ReactorItem heatableNeighbor : heatableNeighbors) {
                 heatableNeighbor.adjustCurrentHeat(heat / heatableNeighbors.size());
             }
             int remainderHeat = heat % heatableNeighbors.size();
@@ -96,7 +95,7 @@ public class FuelRod extends ReactorItem {
     @Override
     public double generateHeat() {
         int pulses = countNeutronNeighbors() + (rodCount == 1 ? 1 : (rodCount == 2) ? 2 : 3);
-        int heat = heatMult * pulses * (pulses + 1);
+        int heat = (int)(heatMult * pulses * (pulses + 1));
         if (moxStyle && parent.isFluid() && (parent.getCurrentHeat() / parent.getMaxHeat()) > 0.5) {
             heat *= 2;
         }

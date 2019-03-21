@@ -6,7 +6,6 @@
 package Ic2ExpReactorPlanner.components;
 
 import Ic2ExpReactorPlanner.MaterialsList;
-import Ic2ExpReactorPlanner.ReactorComponent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +32,8 @@ public class Exchanger extends ReactorItem {
     
     @Override
     public void transfer() {
-        List<ReactorComponent> heatableNeighbors = new ArrayList<>(4);
-        ReactorComponent component = parent.getComponentAt(row, col - 1);
+        List<ReactorItem> heatableNeighbors = new ArrayList<>(4);
+        ReactorItem component = parent.getComponentAt(row, col - 1);
         if (component != null && component.isHeatAcceptor()) {
             heatableNeighbors.add(component);
         }
@@ -53,11 +52,11 @@ public class Exchanger extends ReactorItem {
         // Code adapted from decompiled IC2 code, class ItemReactorHeatSwitch, with permission from Thunderdark.
         double myHeat = 0;
         if (switchSide > 0) {
-            for (ReactorComponent heatableNeighbor : heatableNeighbors) {
+            for (ReactorItem heatableNeighbor : heatableNeighbors) {
                 double mymed = getCurrentHeat() * 100.0 / maxHeat;
-                double heatablemed = heatableNeighbor.getCurrentHeat() * 100.0 / heatableNeighbor.getMaxHeat();
+                double heatablemed = heatableNeighbor.getCurrentHeat() * 100.0 / heatableNeighbor.maxHeat;
 
-                double add = (int) (heatableNeighbor.getMaxHeat() / 100.0 * (heatablemed + mymed / 2.0));
+                double add = (int) (heatableNeighbor.maxHeat / 100.0 * (heatablemed + mymed / 2.0));
                 if (add > switchSide) {
                     add = switchSide;
                 }

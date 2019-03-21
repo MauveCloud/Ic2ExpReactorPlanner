@@ -6,7 +6,6 @@
 package Ic2ExpReactorPlanner.components;
 
 import Ic2ExpReactorPlanner.MaterialsList;
-import Ic2ExpReactorPlanner.ReactorComponent;
 
 /**
  * Represents a neutron reflector in a reactor.
@@ -29,7 +28,7 @@ public class Reflector extends ReactorItem {
 
     @Override
     public double generateHeat() {
-        ReactorComponent component = parent.getComponentAt(row + 1, col);
+        ReactorItem component = parent.getComponentAt(row + 1, col);
         applyDamage(component.getRodCount());
         component = parent.getComponentAt(row, col + 1);
         applyDamage(component.getRodCount());

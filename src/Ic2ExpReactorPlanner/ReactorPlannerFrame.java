@@ -5,6 +5,7 @@
  */
 package Ic2ExpReactorPlanner;
 
+import Ic2ExpReactorPlanner.components.ReactorItem;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -29,14 +30,11 @@ import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.border.BevelBorder;
@@ -63,7 +61,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private final JFileChooser chooser = new JFileChooser();
     
-    private final ReactorComponent[] paletteComponents = new ReactorComponent[ComponentFactory.getComponentCount()];
+    private final ReactorItem[] paletteComponents = new ReactorItem[ComponentFactory.getComponentCount()];
     
     private int paletteComponentId = 0;
     
@@ -82,15 +80,18 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         placingLabel.setText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentPlacingDefault"));
                         paletteComponentId = 0;
                     } else if (button.getActionCommand() != null) {
-                        paletteComponentId = ComponentFactory.getID(ComponentFactory.getDefaultComponent(button.getActionCommand()));
-                        if (paletteComponents[paletteComponentId] == null) {
-                            paletteComponents[paletteComponentId] = ComponentFactory.createComponent(paletteComponentId);
+                        ReactorItem tempComponent = ComponentFactory.getDefaultComponent(button.getActionCommand());
+                        if (tempComponent != null) {
+                            paletteComponentId = tempComponent.id;
+                            if (paletteComponents[paletteComponentId] == null) {
+                                paletteComponents[paletteComponentId] = ComponentFactory.createComponent(paletteComponentId);
+                            }
+                            placingLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentPlacingSpecific"),
+                                    paletteComponents[paletteComponentId].toString()));
+                            componentHeatSpinner.setValue(paletteComponents[paletteComponentId].getInitialHeat());
+                            placingThresholdSpinner.setValue(paletteComponents[paletteComponentId].getAutomationThreshold());
+                            placingReactorPauseSpinner.setValue(paletteComponents[paletteComponentId].getReactorPause());
                         }
-                        placingLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentPlacingSpecific"), 
-                                paletteComponents[paletteComponentId].toString()));
-                        componentHeatSpinner.setValue(paletteComponents[paletteComponentId].getInitialHeat());
-                        placingThresholdSpinner.setValue(paletteComponents[paletteComponentId].getAutomationThreshold());
-                        placingReactorPauseSpinner.setValue(paletteComponents[paletteComponentId].getReactorPause());
                     }
                 }
             });
@@ -114,7 +115,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(final ActionEvent e) {
-                        final ReactorComponent component = reactor.getComponentAt(finalRow, finalCol);
+                        final ReactorItem component = reactor.getComponentAt(finalRow, finalCol);
                         selectedRow = finalRow;
                         selectedColumn = finalCol;
                         if (component == null) {
@@ -140,7 +141,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     @Override
                     public void actionPerformed(final ActionEvent e) {
                         if (simulatedReactor != null) {
-                            final ReactorComponent component = simulatedReactor.getComponentAt(finalRow, finalCol);
+                            final ReactorItem component = simulatedReactor.getComponentAt(finalRow, finalCol);
                             if (component == null) {
                                 componentArea.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.NoComponentLastSimRowCol"), finalRow, finalCol));
                             } else {
@@ -163,7 +164,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ReactorComponent componentToPlace = null;
+                        ReactorItem componentToPlace = null;
                         final ButtonModel selection = componentsGroup.getSelection();
                         if (selection != null) {
                             componentToPlace = ComponentFactory.createComponent(selection.getActionCommand());
@@ -179,8 +180,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         maxHeatLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
                         temperatureEffectsLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.TemperatureEffectsSpecific"), (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
                         int buttonSize = Math.min(reactorButtons[finalRow][finalCol].getWidth(), reactorButtons[finalRow][finalCol].getHeight());
-                        if (buttonSize > 2 && componentToPlace != null) {
-                            reactorButtons[finalRow][finalCol].setIcon(new ImageIcon(componentToPlace.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
+                        if (buttonSize > 2 && componentToPlace != null && componentToPlace.image != null) {
+                            reactorButtons[finalRow][finalCol].setIcon(new ImageIcon(componentToPlace.image.getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
                             reactorButtons[finalRow][finalCol].setToolTipText(componentToPlace.toString());
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
                         } else {
@@ -313,7 +314,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         componentsGroup = new javax.swing.ButtonGroup();
         reactorStyleGroup = new javax.swing.ButtonGroup();
-        pulseTypeGroup = new javax.swing.ButtonGroup();
         javax.swing.JSplitPane jSplitPane1 = new javax.swing.JSplitPane();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
         javax.swing.JSplitPane jSplitPane2 = new javax.swing.JSplitPane();
@@ -1206,9 +1206,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             AbstractButton button = elements.nextElement();
             int buttonSize = Math.min(button.getWidth(), button.getHeight());
             if (buttonSize > 2) {
-                final ReactorComponent component = ComponentFactory.getDefaultComponent(button.getActionCommand());
-                if (component != null && component.getImage() != null) {
-                    button.setIcon(new ImageIcon(component.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
+                final ReactorItem component = ComponentFactory.getDefaultComponent(button.getActionCommand());
+                if (component != null && component.image != null) {
+                    button.setIcon(new ImageIcon(component.image.getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
                 } else {
                     button.setIcon(null);
                 }
@@ -1218,9 +1218,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             for (int col = 0; col < reactorButtons[row].length; col++) {
                 int buttonSize = Math.min(reactorButtons[row][col].getWidth(), reactorButtons[row][col].getHeight());
                 if (buttonSize > 2) {
-                    final ReactorComponent component = reactor.getComponentAt(row, col);
-                    if (component != null) {
-                        reactorButtons[row][col].setIcon(new ImageIcon(component.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
+                    final ReactorItem component = reactor.getComponentAt(row, col);
+                    if (component != null && component.image != null) {
+                        reactorButtons[row][col].setIcon(new ImageIcon(component.image.getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
                     } else {
                         reactorButtons[row][col].setIcon(null);
                     }
@@ -1302,7 +1302,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void thresholdSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_thresholdSpinnerStateChanged
         if (selectedColumn >= 0 && selectedRow >= 0 && reactor.getComponentAt(selectedRow, selectedColumn) != null) {
-            ReactorComponent component = reactor.getComponentAt(selectedRow, selectedColumn);
+            ReactorItem component = reactor.getComponentAt(selectedRow, selectedColumn);
             component.setAutomationThreshold(((Number)thresholdSpinner.getValue()).intValue());
             if (!changingCode) {
                 codeField.setText(reactor.getCode());
@@ -1312,7 +1312,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void pauseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pauseSpinnerStateChanged
         if (selectedColumn >= 0 && selectedRow >= 0 && reactor.getComponentAt(selectedRow, selectedColumn) != null) {
-            ReactorComponent component = reactor.getComponentAt(selectedRow, selectedColumn);
+            ReactorItem component = reactor.getComponentAt(selectedRow, selectedColumn);
             component.setReactorPause(((Number)pauseSpinner.getValue()).intValue());
             if (!changingCode) {
                 codeField.setText(reactor.getCode());
@@ -1415,10 +1415,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             final int finalRow = row;
             for (int col = 0; col < reactorButtons[row].length; col++) {
                 final int finalCol = col;
-                ReactorComponent componentToPlace = reactor.getComponentAt(row, col);
+                ReactorItem componentToPlace = reactor.getComponentAt(row, col);
                 int buttonSize = Math.min(reactorButtons[finalRow][finalCol].getWidth(), reactorButtons[finalRow][finalCol].getHeight());
-                if (buttonSize > 2 && componentToPlace != null) {
-                    reactorButtons[finalRow][finalCol].setIcon(new ImageIcon(componentToPlace.getImage().getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
+                if (buttonSize > 2 && componentToPlace != null && componentToPlace.image != null) {
+                    reactorButtons[finalRow][finalCol].setIcon(new ImageIcon(componentToPlace.image.getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
                     reactorButtons[finalRow][finalCol].setToolTipText(componentToPlace.toString());
                     reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
                 } else {
@@ -1523,7 +1523,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner placingReactorPauseSpinner;
     private javax.swing.JSpinner placingThresholdSpinner;
     private javax.swing.JPanel pulsePanel;
-    private javax.swing.ButtonGroup pulseTypeGroup;
     private javax.swing.JCheckBox pulsedReactorCheck;
     private javax.swing.JToggleButton quadFuelRodMoxButton;
     private javax.swing.JToggleButton quadFuelRodNaquadahButton;

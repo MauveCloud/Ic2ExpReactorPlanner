@@ -27,7 +27,7 @@ public class ReactorItem {
     public final MaterialsList materials;
     
     // Simulation setting values
-    private double initialHeat = 0; public double getInitialHeat() { return initialHeat; } public void setInitialheat(final double value) { if (this.isHeatAcceptor() && initialHeat >= 0 && initialHeat < this.maxHeat) { initialHeat = value; } }
+    private double initialHeat = 0; public double getInitialHeat() { return initialHeat; } public void setInitialHeat(final double value) { if (this.isHeatAcceptor() && initialHeat >= 0 && initialHeat < this.maxHeat) { initialHeat = value; } }
     private int automationThreshold = 9000; public int getAutomationThreshold() { return automationThreshold; } public void setAutomationThreshold(final int value) { automationThreshold = value; }
     private int reactorPause = 0; public int getReactorPause() { return reactorPause; } public void setReactorPause(final int value) { reactorPause = value; }
     
