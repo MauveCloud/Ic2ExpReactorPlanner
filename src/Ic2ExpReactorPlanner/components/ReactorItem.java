@@ -146,6 +146,8 @@ public class ReactorItem {
         currentVentCooling = 0.0;
         currentCellCooling = 0.0;
         currentCondensatorCooling = 0.0;
+        currentEUGenerated = 0;
+        currentHeatGenerated = 0;
     }
     
     /**
