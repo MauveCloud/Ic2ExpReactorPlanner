@@ -21,9 +21,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.LinkedList;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,6 +77,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private final LinkedList<JButton> componentDetailButtons = new LinkedList<>();
     
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
+    
+    private static final Properties advancedConfig = new Properties();
     
     /**
      * Creates new form ReactorPlannerFrame
@@ -359,8 +366,36 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 }
             }
         });
+        loadAdvancedConfig();
     }
 
+    private void loadAdvancedConfig() {
+        try (FileInputStream configStream = new FileInputStream("erpprefs.xml")) {
+            advancedConfig.loadFromXML(configStream);
+            showComponentDetailButtonsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("showComponentDetailButtons", "true")));
+            enableGT508ComponentsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("enableGT508Components", "true")));
+            enableGT509ComponentsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("enableGT509Components", "true")));
+            showComponentDetailButtonsCheckActionPerformed(null);
+            enableGT508ComponentsCheckActionPerformed(null);
+            enableGT509ComponentsCheckActionPerformed(null);
+        } catch (FileNotFoundException ex) {
+            // ignore, this might just mean the file hasn't been created yet.
+        } catch (IOException | NullPointerException ex) {
+            // ignore, security settings or whatever preventing reading the xml file should not stop the planner from running.
+        }
+    }
+    
+    private void saveAdvancedConfig() {
+        try (FileOutputStream configStream = new FileOutputStream("erpprefs.xml")) {
+            advancedConfig.setProperty("showComponentDetailButtons", Boolean.toString(showComponentDetailButtonsCheck.isSelected()));
+            advancedConfig.setProperty("enableGT508Components", Boolean.toString(enableGT508ComponentsCheck.isSelected()));
+            advancedConfig.setProperty("enableGT509Components", Boolean.toString(enableGT509ComponentsCheck.isSelected()));
+            advancedConfig.storeToXML(configStream, null);
+        } catch (IOException | NullPointerException | ClassCastException ex) {
+            // ignore and keep running anyway
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1536,6 +1571,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         for (JButton componentDetailButton : componentDetailButtons) {
             componentDetailButton.setVisible(showComponentDetailButtonsCheck.isSelected());
         }
+        saveAdvancedConfig();
     }//GEN-LAST:event_showComponentDetailButtonsCheckActionPerformed
 
     private void enableGT508ComponentsCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableGT508ComponentsCheckActionPerformed
@@ -1573,6 +1609,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 }
             }
         }
+        saveAdvancedConfig();
     }//GEN-LAST:event_enableGT508ComponentsCheckActionPerformed
 
     private void enableGT509ComponentsCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableGT509ComponentsCheckActionPerformed
@@ -1610,6 +1647,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 }
             }
         }
+        saveAdvancedConfig();
     }//GEN-LAST:event_enableGT509ComponentsCheckActionPerformed
     
     private SwingWorker<Void, String> simulator;
