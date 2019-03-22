@@ -202,7 +202,7 @@ public class Reactor {
      * @return a code representing some ids for the components and arrangement.  Passing the same code to setCode() should re-create an identical reactor setup, even if other changes have happened in the meantime.
      */
     public String getCode() {
-        return "erpA=" + buildCodeString();
+        return "erp=" + buildCodeString();
     }
     
     /**
@@ -214,8 +214,8 @@ public class Reactor {
         int[][] ids = new int[grid.length][grid[0].length];
         char[][][] paramTypes = new char[grid.length][grid[0].length][MAX_PARAM_TYPES];
         int[][][] params = new int[grid.length][grid[0].length][MAX_PARAM_TYPES];
-        if (code.startsWith("erpA=")) {
-            readCodeString(0, code.substring(5));
+        if (code.startsWith("erp=")) {
+            readCodeString(code.substring(4));
         } else if (code.length() >= 108 && code.matches("[0-9A-Za-z(),|]+")) { //NOI18N
             try {
                 for (int row = 0; row < grid.length; row++) {
@@ -490,9 +490,11 @@ public class Reactor {
     }
 
     // reads a Base64 code string for the reactor, after stripping the prefix.
-    private void readCodeString(final int codeRevision, final String code) {
+    private void readCodeString(final String code) {
         BigintStorage storage = BigintStorage.inputBase64(code);
-        // read the grid first
+        // read the code revision from the code itself instead of making it part of the prefix.
+        int codeRevision = storage.extract(255);
+        // read the grid next
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[row].length; col++) {
                 int componentId = 0;
@@ -527,7 +529,7 @@ public class Reactor {
         maxSimulationTicks = storage.extract((int)5e6);
     }
     
-    // builds a Base64 code string, not including the prefix that indicates the code revision.
+    // builds a Base64 code string, not including the prefix.
     private String buildCodeString() {
         BigintStorage storage = new BigintStorage();
         // first, store the extra details, in reverse order of expected reading.
@@ -541,7 +543,7 @@ public class Reactor {
         storage.store(offPulse, (int)5e6);
         storage.store(onPulse, (int)5e6);
         storage.store((int)currentHeat, (int)120e3);
-        // grid is read first, so written last, and in reverse order
+        // grid is read (almost) first, so written (almost) last, and in reverse order
         for (int row = grid.length - 1; row >= 0; row--) {
             for (int col = grid[row].length - 1; col >= 0; col--) {
                 ReactorItem component = grid[row][col];
@@ -562,6 +564,8 @@ public class Reactor {
                 }
             }
         }
+        // store the code revision, allowing values up to 255 (8 bits) before adjusting how it is stored in the code.
+        storage.store(0, 255);
         return storage.outputBase64();
     }
     
