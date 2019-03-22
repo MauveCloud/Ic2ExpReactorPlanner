@@ -581,6 +581,13 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                     int col = chunk.charAt(3) - '0';
                     if (temp.startsWith("0x")) { //NO18N
                         reactorButtonPanels[row][col].setBackground(Color.decode(temp));
+                        if ("0xC0C0C0".equals(temp)) {
+                            reactorButtonPanels[row][col].setToolTipText(null);
+                        } else if ("0xFF0000".equals(temp)) {
+                            reactorButtonPanels[row][col].setToolTipText(BUNDLE.getString("ComponentTooltip.Broken"));
+                        } else if ("0xFFA500".equals(temp)) {
+                            reactorButtonPanels[row][col].setToolTipText(BUNDLE.getString("ComponentTooltip.ResidualHeat"));
+                        }
                     }
                 } else {
                     output.append(chunk);

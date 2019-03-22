@@ -833,7 +833,7 @@
                         <Component class="javax.swing.JSpinner" name="heatSpinner">
                           <Properties>
                             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                              <SpinnerModel initial="0.0" maximum="120000.0" minimum="0.0" numberType="java.lang.Double" stepSize="1.0" type="number"/>
+                              <SpinnerModel initial="0.0" maximum="9999.0" minimum="0.0" numberType="java.lang.Double" stepSize="1.0" type="number"/>
                             </Property>
                             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[70, 20]"/>
