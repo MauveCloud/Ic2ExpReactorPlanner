@@ -25,6 +25,8 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractButton;
@@ -34,6 +36,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
@@ -68,6 +71,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private SpinnerNumberModel heatSpinnerModel = new SpinnerNumberModel();
     
+    private final LinkedList<JButton> componentDetailButtons = new LinkedList<>();
+    
+    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
+    
     /**
      * Creates new form ReactorPlannerFrame
      */
@@ -83,7 +90,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 @Override
                 public void itemStateChanged(ItemEvent e) {
                     if ("empty".equals(button.getActionCommand())) {
-                        placingLabel.setText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentPlacingDefault"));
+                        placingLabel.setText(BUNDLE.getString("UI.ComponentPlacingDefault"));
                         paletteComponentId = 0;
                     } else if (button.getActionCommand() != null) {
                         ReactorItem tempComponent = ComponentFactory.getDefaultComponent(button.getActionCommand());
@@ -92,7 +99,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             if (paletteComponents[paletteComponentId] == null) {
                                 paletteComponents[paletteComponentId] = ComponentFactory.createComponent(paletteComponentId);
                             }
-                            placingLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentPlacingSpecific"),
+                            placingLabel.setText(String.format(BUNDLE.getString("UI.ComponentPlacingSpecific"),
                                     paletteComponents[paletteComponentId].toString()));
                             componentHeatSpinner.setValue(paletteComponents[paletteComponentId].getInitialHeat());
                             placingThresholdSpinner.setValue(paletteComponents[paletteComponentId].getAutomationThreshold());
@@ -113,10 +120,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 GridBagConstraints constraints = new GridBagConstraints();
                 constraints.weightx = 0;
                 constraints.weighty = 0;
-                JButton automationButton = new JButton(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.AutomateButton"));
-                automationButton.setFont(Font.decode(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.AutomateButtonFont")));
+                JButton automationButton = new JButton(BUNDLE.getString("UI.AutomateButton"));
+                automationButton.setFont(Font.decode(BUNDLE.getString("UI.AutomateButtonFont")));
                 automationButton.setMargin(new Insets(-2, 0, -2, 0));
-                automationButton.setToolTipText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.AutomationTooltip"));
+                automationButton.setToolTipText(BUNDLE.getString("UI.AutomationTooltip"));
                 automationButton.setFocusable(false);
                 automationButton.addActionListener(new ActionListener() {
 
@@ -126,9 +133,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         selectedRow = finalRow;
                         selectedColumn = finalCol;
                         if (component == null) {
-                            selectedComponentLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.NoComponentRowCol"), finalRow, finalCol));
+                            selectedComponentLabel.setText(String.format(BUNDLE.getString("UI.NoComponentRowCol"), finalRow, finalCol));
                         } else {
-                            selectedComponentLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ChosenComponentRowCol"), component.toString(), finalRow, finalCol));
+                            selectedComponentLabel.setText(String.format(BUNDLE.getString("UI.ChosenComponentRowCol"), component.toString(), finalRow, finalCol));
                             thresholdSpinner.setValue(component.getAutomationThreshold());
                             pauseSpinner.setValue(component.getReactorPause());
                         }
@@ -136,11 +143,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                 });
                 reactorButtonPanels[row][col].add(automationButton, constraints);
+                componentDetailButtons.add(automationButton);
                 reactorButtonPanels[row][col].add(new JLabel(), constraints);
                 constraints.gridwidth = GridBagConstraints.REMAINDER;
                 constraints.anchor = GridBagConstraints.EAST;
-                JButton infoButton = new JButton(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoButton"));
-                infoButton.setFont(Font.decode(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoButtonFont")));
+                JButton infoButton = new JButton(BUNDLE.getString("UI.ComponentInfoButton"));
+                infoButton.setFont(Font.decode(BUNDLE.getString("UI.ComponentInfoButtonFont")));
                 infoButton.setMargin(new Insets(-2, 0, -2, 0));
                 infoButton.setFocusable(false);
                 infoButton.addActionListener(new ActionListener() {
@@ -150,18 +158,19 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         if (simulatedReactor != null) {
                             final ReactorItem component = simulatedReactor.getComponentAt(finalRow, finalCol);
                             if (component == null) {
-                                componentArea.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.NoComponentLastSimRowCol"), finalRow, finalCol));
+                                componentArea.setText(String.format(BUNDLE.getString("UI.NoComponentLastSimRowCol"), finalRow, finalCol));
                             } else {
-                                componentArea.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoLastSimRowCol"), component.toString(), finalRow, finalCol, component.info));
+                                componentArea.setText(String.format(BUNDLE.getString("UI.ComponentInfoLastSimRowCol"), component.toString(), finalRow, finalCol, component.info));
                             }
                         } else {
-                            componentArea.setText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.NoSimulationRun"));
+                            componentArea.setText(BUNDLE.getString("UI.NoSimulationRun"));
                         }
                         outputTabs.setSelectedComponent(componentPane);
                     }
                 });
-                infoButton.setToolTipText(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.ComponentInfoButtonTooltip"));
+                infoButton.setToolTipText(BUNDLE.getString("UI.ComponentInfoButtonTooltip"));
                 reactorButtonPanels[row][col].add(infoButton, constraints);
+                componentDetailButtons.add(infoButton);
                 constraints.weightx = 1.0;
                 constraints.weighty = 1.0;
                 constraints.fill = GridBagConstraints.BOTH;
@@ -184,10 +193,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         reactor.setComponentAt(finalRow, finalCol, componentToPlace);
                         materialsArea.setText(reactor.getMaterials().toString());
                         componentListArea.setText(reactor.getComponentList().toString());
-                        maxHeatLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
+                        maxHeatLabel.setText(String.format(BUNDLE.getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
                         heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
                         heatSpinnerModel.setValue(Math.min(((Number)heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
-                        temperatureEffectsLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.TemperatureEffectsSpecific"), (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
+                        temperatureEffectsLabel.setText(String.format(BUNDLE.getString("UI.TemperatureEffectsSpecific"), (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
                         int buttonSize = Math.min(reactorButtons[finalRow][finalCol].getWidth(), reactorButtons[finalRow][finalCol].getHeight());
                         if (buttonSize > 2 && componentToPlace != null && componentToPlace.image != null) {
                             reactorButtons[finalRow][finalCol].setIcon(new ImageIcon(componentToPlace.image.getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
@@ -216,7 +225,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             reactor.setComponentAt(finalRow, finalCol, null);
                             materialsArea.setText(reactor.getMaterials().toString());
                             componentListArea.setText(reactor.getComponentList().toString());
-                            maxHeatLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
+                            maxHeatLabel.setText(String.format(BUNDLE.getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
                             heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
                             heatSpinnerModel.setValue(Math.min(((Number) heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
                             temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
@@ -252,6 +261,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                     automatedReactorCheck.setSelected(reactor.isAutomated());
                     pulsedReactorCheck.setSelected(reactor.isPulsed());
+                    if (pulsedReactorCheck.isSelected()) {
+                        if (outputTabs.indexOfComponent(pulsePanel) < 0) {
+                            outputTabs.insertTab(BUNDLE.getString("UI.PulseConfigurationTab"), null, pulsePanel, null, outputTabs.indexOfComponent(outputPane) + 1);
+                        }
+                    } else {
+                        outputTabs.remove(pulsePanel);
+                    }
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
                     onPulseSpinner.setValue(reactor.getOnPulse());
@@ -276,6 +292,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                     automatedReactorCheck.setSelected(reactor.isAutomated());
                     pulsedReactorCheck.setSelected(reactor.isPulsed());
+                    if (pulsedReactorCheck.isSelected()) {
+                        if (outputTabs.indexOfComponent(pulsePanel) < 0) {
+                            outputTabs.insertTab(BUNDLE.getString("UI.PulseConfigurationTab"), null, pulsePanel, null, outputTabs.indexOfComponent(outputPane) + 1);
+                        }
+                    } else {
+                        outputTabs.remove(pulsePanel);
+                    }
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
                     onPulseSpinner.setValue(reactor.getOnPulse());
@@ -300,6 +323,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                     automatedReactorCheck.setSelected(reactor.isAutomated());
                     pulsedReactorCheck.setSelected(reactor.isPulsed());
+                    if (pulsedReactorCheck.isSelected()) {
+                        if (outputTabs.indexOfComponent(pulsePanel) < 0) {
+                            outputTabs.insertTab(BUNDLE.getString("UI.PulseConfigurationTab"), null, pulsePanel, null, outputTabs.indexOfComponent(outputPane) + 1);
+                        }
+                    } else {
+                        outputTabs.remove(pulsePanel);
+                    }
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
                     onPulseSpinner.setValue(reactor.getOnPulse());
@@ -325,6 +355,19 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         componentsGroup = new javax.swing.ButtonGroup();
         reactorStyleGroup = new javax.swing.ButtonGroup();
+        pulsePanel = new javax.swing.JPanel();
+        javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
+        onPulseSpinner = new javax.swing.JSpinner();
+        javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
+        offPulseSpinner = new javax.swing.JSpinner();
+        javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel11 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
+        suspendTempSpinner = new javax.swing.JSpinner();
+        javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
+        resumeTempSpinner = new javax.swing.JSpinner();
+        javax.swing.JLabel jLabel16 = new javax.swing.JLabel();
         javax.swing.JSplitPane jSplitPane1 = new javax.swing.JSplitPane();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
         javax.swing.JSplitPane jSplitPane2 = new javax.swing.JSplitPane();
@@ -400,19 +443,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         outputTabs = new javax.swing.JTabbedPane();
         outputPane = new javax.swing.JScrollPane();
         outputArea = new javax.swing.JTextArea();
-        pulsePanel = new javax.swing.JPanel();
-        javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
-        onPulseSpinner = new javax.swing.JSpinner();
-        javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
-        offPulseSpinner = new javax.swing.JSpinner();
-        javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel11 = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
-        suspendTempSpinner = new javax.swing.JSpinner();
-        javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
-        resumeTempSpinner = new javax.swing.JSpinner();
-        javax.swing.JLabel jLabel16 = new javax.swing.JLabel();
         componentPane = new javax.swing.JScrollPane();
         componentArea = new javax.swing.JTextArea();
         automationPanel = new javax.swing.JPanel();
@@ -434,9 +464,117 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         csvFileLabel = new javax.swing.JLabel();
         csvBrowseButton = new javax.swing.JButton();
         javax.swing.JLabel csvHelpLabel = new javax.swing.JLabel();
+        advancedScroll = new javax.swing.JScrollPane();
+        advancedPanel = new javax.swing.JPanel();
+        showComponentDetailButtonsCheck = new javax.swing.JCheckBox();
+        enableGT508ComponentsCheck = new javax.swing.JCheckBox();
+        enableGT509ComponentsCheck = new javax.swing.JCheckBox();
+
+        pulsePanel.setLayout(new java.awt.GridBagLayout());
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
+        jLabel3.setText(bundle.getString("Config.OnPulse")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel3, gridBagConstraints);
+
+        onPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(5000000, 0, 5000000, 1));
+        onPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
+        onPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        onPulseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                onPulseSpinnerStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(onPulseSpinner, gridBagConstraints);
+
+        jLabel4.setText(bundle.getString("Config.Seconds")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel4, gridBagConstraints);
+
+        jLabel7.setText(bundle.getString("Config.OffPulse")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 12, 2, 2);
+        pulsePanel.add(jLabel7, gridBagConstraints);
+
+        offPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5000000, 1));
+        offPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
+        offPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        offPulseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                offPulseSpinnerStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(offPulseSpinner, gridBagConstraints);
+
+        jLabel8.setText(bundle.getString("Config.Seconds")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel8, gridBagConstraints);
+
+        jLabel11.setText(bundle.getString("Config.PulseHelp")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel11, gridBagConstraints);
+
+        jLabel9.setText(bundle.getString("Config.SuspendTemp")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel9, gridBagConstraints);
+
+        suspendTempSpinner.setModel(new javax.swing.SpinnerNumberModel(120000, 0, 120000, 1));
+        suspendTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
+        suspendTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        suspendTempSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                suspendTempSpinnerStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(suspendTempSpinner, gridBagConstraints);
+
+        jLabel10.setText(bundle.getString("Config.ResumeTemp")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 12, 2, 2);
+        pulsePanel.add(jLabel10, gridBagConstraints);
+
+        resumeTempSpinner.setModel(new javax.swing.SpinnerNumberModel(120000, 0, 120000, 1));
+        resumeTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
+        resumeTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
+        resumeTempSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                resumeTempSpinnerStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(resumeTempSpinner, gridBagConstraints);
+
+        jLabel16.setText(bundle.getString("Config.SuspendTempHelp")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(jLabel16, gridBagConstraints);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle"); // NOI18N
         setTitle(bundle.getString("UI.MainTitle")); // NOI18N
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -951,111 +1089,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         outputTabs.addTab(bundle.getString("UI.SimulationTab"), outputPane); // NOI18N
 
-        pulsePanel.setLayout(new java.awt.GridBagLayout());
-
-        jLabel3.setText(bundle.getString("Config.OnPulse")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(jLabel3, gridBagConstraints);
-
-        onPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(5000000, 0, 5000000, 1));
-        onPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
-        onPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
-        onPulseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                onPulseSpinnerStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(onPulseSpinner, gridBagConstraints);
-
-        jLabel4.setText(bundle.getString("Config.Seconds")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(jLabel4, gridBagConstraints);
-
-        jLabel7.setText(bundle.getString("Config.OffPulse")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 12, 2, 2);
-        pulsePanel.add(jLabel7, gridBagConstraints);
-
-        offPulseSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5000000, 1));
-        offPulseSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
-        offPulseSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
-        offPulseSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                offPulseSpinnerStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(offPulseSpinner, gridBagConstraints);
-
-        jLabel8.setText(bundle.getString("Config.Seconds")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(jLabel8, gridBagConstraints);
-
-        jLabel11.setText(bundle.getString("Config.PulseHelp")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(jLabel11, gridBagConstraints);
-
-        jLabel9.setText(bundle.getString("Config.SuspendTemp")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(jLabel9, gridBagConstraints);
-
-        suspendTempSpinner.setModel(new javax.swing.SpinnerNumberModel(120000, 0, 120000, 1));
-        suspendTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
-        suspendTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
-        suspendTempSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                suspendTempSpinnerStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(suspendTempSpinner, gridBagConstraints);
-
-        jLabel10.setText(bundle.getString("Config.ResumeTemp")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 12, 2, 2);
-        pulsePanel.add(jLabel10, gridBagConstraints);
-
-        resumeTempSpinner.setModel(new javax.swing.SpinnerNumberModel(120000, 0, 120000, 1));
-        resumeTempSpinner.setMinimumSize(new java.awt.Dimension(80, 20));
-        resumeTempSpinner.setPreferredSize(new java.awt.Dimension(80, 20));
-        resumeTempSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                resumeTempSpinnerStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(resumeTempSpinner, gridBagConstraints);
-
-        jLabel16.setText(bundle.getString("Config.SuspendTempHelp")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        pulsePanel.add(jLabel16, gridBagConstraints);
-
-        outputTabs.addTab(bundle.getString("UI.PulseConfigurationTab"), pulsePanel); // NOI18N
-
         componentArea.setColumns(20);
         componentArea.setRows(5);
         componentArea.setText(bundle.getString("UI.ComponentInfoDefault")); // NOI18N
@@ -1198,6 +1231,55 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         outputTabs.addTab(bundle.getString("UI.CSVTab"), csvPanel); // NOI18N
 
+        advancedPanel.setLayout(new java.awt.GridBagLayout());
+
+        showComponentDetailButtonsCheck.setSelected(true);
+        showComponentDetailButtonsCheck.setText(bundle.getString("UI.ShowComponentDetailButtons")); // NOI18N
+        showComponentDetailButtonsCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showComponentDetailButtonsCheckActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        advancedPanel.add(showComponentDetailButtonsCheck, gridBagConstraints);
+
+        enableGT508ComponentsCheck.setSelected(true);
+        enableGT508ComponentsCheck.setText(bundle.getString("UI.EnableGT508Components")); // NOI18N
+        enableGT508ComponentsCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enableGT508ComponentsCheckActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        advancedPanel.add(enableGT508ComponentsCheck, gridBagConstraints);
+
+        enableGT509ComponentsCheck.setSelected(true);
+        enableGT509ComponentsCheck.setText(bundle.getString("UI.EnableGT509Components")); // NOI18N
+        enableGT509ComponentsCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enableGT509ComponentsCheckActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        advancedPanel.add(enableGT509ComponentsCheck, gridBagConstraints);
+
+        advancedScroll.setViewportView(advancedPanel);
+
+        outputTabs.addTab(bundle.getString("UI.AdvancedTab"), advancedScroll); // NOI18N
+
         jSplitPane1.setRightComponent(outputTabs);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1252,7 +1334,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         outputArea.setText(null);
         materialsArea.setText(reactor.getMaterials().toString());
         componentListArea.setText(reactor.getComponentList().toString());
-        maxHeatLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
+        maxHeatLabel.setText(String.format(BUNDLE.getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
         heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
         heatSpinnerModel.setValue(Math.min(((Number) heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
         temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
@@ -1388,6 +1470,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void pulsedReactorCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulsedReactorCheckActionPerformed
         reactor.setPulsed(pulsedReactorCheck.isSelected());
+        if (pulsedReactorCheck.isSelected()) {
+            if (outputTabs.indexOfComponent(pulsePanel) < 0) {
+                outputTabs.insertTab(BUNDLE.getString("UI.PulseConfigurationTab"), null, pulsePanel, null, outputTabs.indexOfComponent(outputPane) + 1);
+            }
+        } else {
+            outputTabs.remove(pulsePanel);
+        }
         codeField.setText(reactor.getCode());
     }//GEN-LAST:event_pulsedReactorCheckActionPerformed
 
@@ -1420,6 +1509,86 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             paletteComponents[paletteComponentId].setReactorPause(((Number)placingReactorPauseSpinner.getValue()).intValue());
         }
     }//GEN-LAST:event_placingReactorPauseSpinnerStateChanged
+
+    private void showComponentDetailButtonsCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showComponentDetailButtonsCheckActionPerformed
+        for (JButton componentDetailButton : componentDetailButtons) {
+            componentDetailButton.setVisible(showComponentDetailButtonsCheck.isSelected());
+        }
+    }//GEN-LAST:event_showComponentDetailButtonsCheckActionPerformed
+
+    private void enableGT508ComponentsCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableGT508ComponentsCheckActionPerformed
+        Enumeration<AbstractButton> elements = componentsGroup.getElements();
+        while (elements.hasMoreElements()) {
+            AbstractButton element = elements.nextElement();
+            ReactorItem component = ComponentFactory.getDefaultComponent(element.getActionCommand());
+            if (component != null && "GT5.08".equals(component.sourceMod)) {
+                element.setEnabled(enableGT508ComponentsCheck.isSelected());
+            }
+        }
+        if (!enableGT508ComponentsCheck.isSelected()) {
+            boolean reactorHasGT508Components = false;
+            for (int row = 0; row < 6; row++) {
+                for (int col = 0; col < 9; col++) {
+                    ReactorItem component = reactor.getComponentAt(row, col);
+                    if (component != null && "GT5.08".equals(component.sourceMod)) {
+                        reactorHasGT508Components = true;
+                    }
+                }
+            }
+            if (reactorHasGT508Components) {
+                int result = JOptionPane.showConfirmDialog(this, BUNDLE.getString("UI.RemoveGT508ComponentsText"), BUNDLE.getString("UI.RemoveAddonComponentsTitle"), JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    for (int row = 0; row < 6; row++) {
+                        for (int col = 0; col < 9; col++) {
+                            ReactorItem component = reactor.getComponentAt(row, col);
+                            if (component != null && "GT5.08".equals(component.sourceMod)) {
+                                reactor.setComponentAt(row, col, null);
+                            }
+                        }
+                    }
+                    updateReactorButtons();
+                    codeField.setText(reactor.getCode());
+                }
+            }
+        }
+    }//GEN-LAST:event_enableGT508ComponentsCheckActionPerformed
+
+    private void enableGT509ComponentsCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableGT509ComponentsCheckActionPerformed
+        Enumeration<AbstractButton> elements = componentsGroup.getElements();
+        while (elements.hasMoreElements()) {
+            AbstractButton element = elements.nextElement();
+            ReactorItem component = ComponentFactory.getDefaultComponent(element.getActionCommand());
+            if (component != null && "GT5.09".equals(component.sourceMod)) {
+                element.setEnabled(enableGT509ComponentsCheck.isSelected());
+            }
+        }
+        if (!enableGT509ComponentsCheck.isSelected()) {
+            boolean reactorHasGT509Components = false;
+            for (int row = 0; row < 6; row++) {
+                for (int col = 0; col < 9; col++) {
+                    ReactorItem component = reactor.getComponentAt(row, col);
+                    if (component != null && "GT5.09".equals(component.sourceMod)) {
+                        reactorHasGT509Components = true;
+                    }
+                }
+            }
+            if (reactorHasGT509Components) {
+                int result = JOptionPane.showConfirmDialog(this, BUNDLE.getString("UI.RemoveGT509ComponentsText"), BUNDLE.getString("UI.RemoveAddonComponentsTitle"), JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    for (int row = 0; row < 6; row++) {
+                        for (int col = 0; col < 9; col++) {
+                            ReactorItem component = reactor.getComponentAt(row, col);
+                            if (component != null && "GT5.09".equals(component.sourceMod)) {
+                                reactor.setComponentAt(row, col, null);
+                            }
+                        }
+                    }
+                    updateReactorButtons();
+                    codeField.setText(reactor.getCode());
+                }
+            }
+        }
+    }//GEN-LAST:event_enableGT509ComponentsCheckActionPerformed
     
     private SwingWorker<Void, String> simulator;
 
@@ -1447,7 +1616,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
         materialsArea.setText(reactor.getMaterials().toString());
         componentListArea.setText(reactor.getComponentList().toString());
-        maxHeatLabel.setText(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
+        maxHeatLabel.setText(String.format(BUNDLE.getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
         heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
         heatSpinnerModel.setValue(Math.min(((Number) heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
         temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
@@ -1471,6 +1640,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton advancedHeatExchangerButton;
     private javax.swing.JToggleButton advancedHeatVentButton;
+    private javax.swing.JPanel advancedPanel;
+    private javax.swing.JScrollPane advancedScroll;
     private javax.swing.JCheckBox automatedReactorCheck;
     private javax.swing.JPanel automationPanel;
     private javax.swing.JButton cancelButton;
@@ -1507,6 +1678,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton dualFuelRodThoriumButton;
     private javax.swing.JToggleButton dualFuelRodUraniumButton;
     private javax.swing.JToggleButton emptyButton;
+    private javax.swing.JCheckBox enableGT508ComponentsCheck;
+    private javax.swing.JCheckBox enableGT509ComponentsCheck;
     private javax.swing.JRadioButton euReactorRadio;
     private javax.swing.JRadioButton fluidReactorRadio;
     private javax.swing.JToggleButton fuelRodMoxButton;
@@ -1551,6 +1724,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner resumeTempSpinner;
     private javax.swing.JToggleButton rshCondensatorButton;
     private javax.swing.JLabel selectedComponentLabel;
+    private javax.swing.JCheckBox showComponentDetailButtonsCheck;
     private javax.swing.JButton simulateButton;
     private javax.swing.JSpinner suspendTempSpinner;
     private javax.swing.JPanel temperatureAndComponentsPanel;
