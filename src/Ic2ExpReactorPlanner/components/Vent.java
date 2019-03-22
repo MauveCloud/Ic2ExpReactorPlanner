@@ -96,4 +96,9 @@ public class Vent extends ReactorItem {
         return result;
     }
     
+    
+    @Override
+    public double getCurrentOutput() {
+        return currentVentCooling;
+    }
  }

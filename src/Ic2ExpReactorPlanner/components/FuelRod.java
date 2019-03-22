@@ -126,4 +126,16 @@ public class FuelRod extends ReactorItem {
         return rodCount;
     }
     
+    @Override
+    public double getCurrentOutput() {
+        if (parent != null) {
+            if (parent.isFluid()) {
+                return currentHeatGenerated;
+            } else {
+                return currentEUGenerated;
+            }
+        }
+        return 0;
+    }
+    
 }
