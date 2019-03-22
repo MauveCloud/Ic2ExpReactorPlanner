@@ -18,8 +18,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -86,9 +84,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
         while (buttons.hasMoreElements()) {
             final AbstractButton button = buttons.nextElement();
-            button.addItemListener(new ItemListener() {
+            button.addActionListener(new ActionListener() {
                 @Override
-                public void itemStateChanged(ItemEvent e) {
+                public void actionPerformed(ActionEvent e) {
                     if ("empty".equals(button.getActionCommand())) {
                         placingLabel.setText(BUNDLE.getString("UI.ComponentPlacingDefault"));
                         paletteComponentId = 0;
@@ -180,6 +178,26 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        if ((e.getModifiers() & ActionEvent.ALT_MASK) != 0) {
+                            ReactorItem component = reactor.getComponentAt(finalRow, finalCol);
+                            if (component != null) {
+                                paletteComponentId = component.id;
+                                if (paletteComponents[paletteComponentId] == null) {
+                                    paletteComponents[paletteComponentId] = ComponentFactory.createComponent(paletteComponentId);
+                                }
+                                paletteComponents[paletteComponentId].setInitialHeat(component.getInitialHeat());
+                                paletteComponents[paletteComponentId].setAutomationThreshold(component.getAutomationThreshold());
+                                paletteComponents[paletteComponentId].setReactorPause(component.getReactorPause());
+                                Enumeration<AbstractButton> buttons = componentsGroup.getElements();
+                                while (buttons.hasMoreElements()) {
+                                    AbstractButton button = buttons.nextElement();
+                                    if (component.baseName.equals(button.getActionCommand())) {
+                                        button.doClick();
+                                    }
+                                }
+                            }
+                            return;
+                        }
                         ReactorItem componentToPlace = null;
                         final ButtonModel selection = componentsGroup.getSelection();
                         if (selection != null) {
@@ -221,7 +239,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if (e.getButton() != MouseEvent.BUTTON1) {
+                        if (e.getButton() == MouseEvent.BUTTON3) {
                             reactor.setComponentAt(finalRow, finalCol, null);
                             materialsArea.setText(reactor.getMaterials().toString());
                             componentListArea.setText(reactor.getComponentList().toString());
@@ -235,6 +253,24 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             changingCode = true;
                             codeField.setText(reactor.getCode());
                             changingCode = false;
+                        } else if (e.getButton() == MouseEvent.BUTTON2) {
+                            ReactorItem component = reactor.getComponentAt(finalRow, finalCol);
+                            if (component != null) {
+                                paletteComponentId = component.id;
+                                if (paletteComponents[paletteComponentId] == null) {
+                                    paletteComponents[paletteComponentId] = ComponentFactory.createComponent(paletteComponentId);
+                                }
+                                paletteComponents[paletteComponentId].setInitialHeat(component.getInitialHeat());
+                                paletteComponents[paletteComponentId].setAutomationThreshold(component.getAutomationThreshold());
+                                paletteComponents[paletteComponentId].setReactorPause(component.getReactorPause());
+                                Enumeration<AbstractButton> buttons = componentsGroup.getElements();
+                                while (buttons.hasMoreElements()) {
+                                    AbstractButton button = buttons.nextElement();
+                                    if (component.baseName.equals(button.getActionCommand())) {
+                                        button.doClick();
+                                    }
+                                }
+                            }
                         }
                     }
                     
@@ -261,13 +297,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                     automatedReactorCheck.setSelected(reactor.isAutomated());
                     pulsedReactorCheck.setSelected(reactor.isPulsed());
-                    if (pulsedReactorCheck.isSelected()) {
-                        if (outputTabs.indexOfComponent(pulsePanel) < 0) {
-                            outputTabs.insertTab(BUNDLE.getString("UI.PulseConfigurationTab"), null, pulsePanel, null, outputTabs.indexOfComponent(outputPane) + 1);
-                        }
-                    } else {
-                        outputTabs.remove(pulsePanel);
-                    }
+                    togglePulseConfigTab();
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
                     onPulseSpinner.setValue(reactor.getOnPulse());
@@ -292,13 +322,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                     automatedReactorCheck.setSelected(reactor.isAutomated());
                     pulsedReactorCheck.setSelected(reactor.isPulsed());
-                    if (pulsedReactorCheck.isSelected()) {
-                        if (outputTabs.indexOfComponent(pulsePanel) < 0) {
-                            outputTabs.insertTab(BUNDLE.getString("UI.PulseConfigurationTab"), null, pulsePanel, null, outputTabs.indexOfComponent(outputPane) + 1);
-                        }
-                    } else {
-                        outputTabs.remove(pulsePanel);
-                    }
+                    togglePulseConfigTab();
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
                     onPulseSpinner.setValue(reactor.getOnPulse());
@@ -323,13 +347,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                     automatedReactorCheck.setSelected(reactor.isAutomated());
                     pulsedReactorCheck.setSelected(reactor.isPulsed());
-                    if (pulsedReactorCheck.isSelected()) {
-                        if (outputTabs.indexOfComponent(pulsePanel) < 0) {
-                            outputTabs.insertTab(BUNDLE.getString("UI.PulseConfigurationTab"), null, pulsePanel, null, outputTabs.indexOfComponent(outputPane) + 1);
-                        }
-                    } else {
-                        outputTabs.remove(pulsePanel);
-                    }
+                    togglePulseConfigTab();
                     reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
                     heatSpinner.setValue(reactor.getCurrentHeat());
                     onPulseSpinner.setValue(reactor.getOnPulse());
@@ -1470,6 +1488,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void pulsedReactorCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulsedReactorCheckActionPerformed
         reactor.setPulsed(pulsedReactorCheck.isSelected());
+        togglePulseConfigTab();
+        codeField.setText(reactor.getCode());
+    }//GEN-LAST:event_pulsedReactorCheckActionPerformed
+
+    private void togglePulseConfigTab() {
         if (pulsedReactorCheck.isSelected()) {
             if (outputTabs.indexOfComponent(pulsePanel) < 0) {
                 outputTabs.insertTab(BUNDLE.getString("UI.PulseConfigurationTab"), null, pulsePanel, null, outputTabs.indexOfComponent(outputPane) + 1);
@@ -1477,8 +1500,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         } else {
             outputTabs.remove(pulsePanel);
         }
-        codeField.setText(reactor.getCode());
-    }//GEN-LAST:event_pulsedReactorCheckActionPerformed
+    }
 
     private void automatedReactorCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_automatedReactorCheckActionPerformed
         reactor.setAutomated(automatedReactorCheck.isSelected());
