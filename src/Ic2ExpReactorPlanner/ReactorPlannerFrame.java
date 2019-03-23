@@ -377,9 +377,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             enableGT508ComponentsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("enableGT508Components", "true")));
             enableGT509ComponentsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("enableGT509Components", "true")));
             showOldStyleReactorCodeCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("showOldStyleReactorCode", "false")));
+            showComponentPreconfigCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("showComponentPreconfigControls", "true")));
             showComponentDetailButtonsCheckActionPerformed(null);
             enableGT508ComponentsCheckActionPerformed(null);
             enableGT509ComponentsCheckActionPerformed(null);
+            showComponentPreconfigCheckActionPerformed(null);
         } catch (FileNotFoundException ex) {
             // ignore, this might just mean the file hasn't been created yet.
         } catch (IOException | NullPointerException ex) {
@@ -393,6 +395,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             advancedConfig.setProperty("enableGT508Components", Boolean.toString(enableGT508ComponentsCheck.isSelected()));
             advancedConfig.setProperty("enableGT509Components", Boolean.toString(enableGT509ComponentsCheck.isSelected()));
             advancedConfig.setProperty("showOldStyleReactorCode", Boolean.toString(showOldStyleReactorCodeCheck.isSelected()));
+            advancedConfig.setProperty("showComponentPreconfigControls", Boolean.toString(showComponentPreconfigCheck.isSelected()));
             advancedConfig.storeToXML(configStream, null);
         } catch (IOException | NullPointerException | ClassCastException ex) {
             // ignore and keep running anyway
@@ -472,11 +475,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         dualFuelRodNaquadahButton = new javax.swing.JToggleButton();
         quadFuelRodNaquadahButton = new javax.swing.JToggleButton();
         placingLabel = new javax.swing.JLabel();
-        javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
+        componentHeatLabel = new javax.swing.JLabel();
         componentHeatSpinner = new javax.swing.JSpinner();
-        javax.swing.JLabel jLabel17 = new javax.swing.JLabel();
+        placingThresholdLabel = new javax.swing.JLabel();
         placingThresholdSpinner = new javax.swing.JSpinner();
-        javax.swing.JLabel jLabel18 = new javax.swing.JLabel();
+        placingReactorPauseLabel = new javax.swing.JLabel();
         placingReactorPauseSpinner = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
         euReactorRadio = new javax.swing.JRadioButton();
@@ -526,6 +529,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         enableGT508ComponentsCheck = new javax.swing.JCheckBox();
         enableGT509ComponentsCheck = new javax.swing.JCheckBox();
         showOldStyleReactorCodeCheck = new javax.swing.JCheckBox();
+        showComponentPreconfigCheck = new javax.swing.JCheckBox();
 
         pulsePanel.setLayout(new java.awt.GridBagLayout());
 
@@ -894,11 +898,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(placingLabel, gridBagConstraints);
 
-        jLabel5.setText(bundle.getString("Config.InitialComponentHeat")); // NOI18N
+        componentHeatLabel.setText(bundle.getString("Config.InitialComponentHeat")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        temperatureAndComponentsPanel.add(jLabel5, gridBagConstraints);
+        temperatureAndComponentsPanel.add(componentHeatLabel, gridBagConstraints);
 
         componentHeatSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 360000, 1));
         componentHeatSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
@@ -913,11 +917,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(componentHeatSpinner, gridBagConstraints);
 
-        jLabel17.setText(bundle.getString("Config.PlacingReplacementThreshold")); // NOI18N
+        placingThresholdLabel.setText(bundle.getString("Config.PlacingReplacementThreshold")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        temperatureAndComponentsPanel.add(jLabel17, gridBagConstraints);
+        temperatureAndComponentsPanel.add(placingThresholdLabel, gridBagConstraints);
 
         placingThresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, 360000, 1));
         placingThresholdSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
@@ -932,11 +936,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(placingThresholdSpinner, gridBagConstraints);
 
-        jLabel18.setText(bundle.getString("Config.PlacingReactorPause")); // NOI18N
+        placingReactorPauseLabel.setText(bundle.getString("Config.PlacingReactorPause")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        temperatureAndComponentsPanel.add(jLabel18, gridBagConstraints);
+        temperatureAndComponentsPanel.add(placingReactorPauseLabel, gridBagConstraints);
 
         placingReactorPauseSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
         placingReactorPauseSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
@@ -1356,11 +1360,24 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         advancedPanel.add(showOldStyleReactorCodeCheck, gridBagConstraints);
+
+        showComponentPreconfigCheck.setSelected(true);
+        showComponentPreconfigCheck.setText(bundle.getString("UI.ShowComponentPreconfigControls")); // NOI18N
+        showComponentPreconfigCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showComponentPreconfigCheckActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        advancedPanel.add(showComponentPreconfigCheck, gridBagConstraints);
 
         advancedScroll.setViewportView(advancedPanel);
 
@@ -1715,6 +1732,17 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         // planner resizing event handler already takes care of resizing images, so just call that.
         plannerResized(null);
     }//GEN-LAST:event_componentsPanelComponentResized
+
+    private void showComponentPreconfigCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showComponentPreconfigCheckActionPerformed
+        boolean selected = showComponentPreconfigCheck.isSelected();
+        componentHeatLabel.setVisible(selected);
+        componentHeatSpinner.setVisible(selected);
+        placingThresholdLabel.setVisible(selected);
+        placingThresholdSpinner.setVisible(selected);
+        placingReactorPauseLabel.setVisible(selected);
+        placingReactorPauseSpinner.setVisible(selected);
+        saveAdvancedConfig();
+    }//GEN-LAST:event_showComponentPreconfigCheckActionPerformed
     
     private SwingWorker<Void, String> simulator;
 
@@ -1775,6 +1803,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JTextField codeField;
     private javax.swing.JTextArea componentArea;
     private javax.swing.JToggleButton componentHeatExchangerButton;
+    private javax.swing.JLabel componentHeatLabel;
     private javax.swing.JSpinner componentHeatSpinner;
     private javax.swing.JToggleButton componentHeatVentButton;
     private javax.swing.JTextArea componentListArea;
@@ -1834,7 +1863,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JButton pasteCodeButton;
     private javax.swing.JSpinner pauseSpinner;
     private javax.swing.JLabel placingLabel;
+    private javax.swing.JLabel placingReactorPauseLabel;
     private javax.swing.JSpinner placingReactorPauseSpinner;
+    private javax.swing.JLabel placingThresholdLabel;
     private javax.swing.JSpinner placingThresholdSpinner;
     private javax.swing.JPanel pulsePanel;
     private javax.swing.JCheckBox pulsedReactorCheck;
@@ -1851,6 +1882,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton rshCondensatorButton;
     private javax.swing.JLabel selectedComponentLabel;
     private javax.swing.JCheckBox showComponentDetailButtonsCheck;
+    private javax.swing.JCheckBox showComponentPreconfigCheck;
     private javax.swing.JCheckBox showOldStyleReactorCodeCheck;
     private javax.swing.JButton simulateButton;
     private javax.swing.JSpinner suspendTempSpinner;
