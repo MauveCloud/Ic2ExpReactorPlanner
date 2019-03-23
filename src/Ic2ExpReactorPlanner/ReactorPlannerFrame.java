@@ -7,6 +7,7 @@ package Ic2ExpReactorPlanner;
 
 import Ic2ExpReactorPlanner.components.ReactorItem;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -632,6 +633,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(bundle.getString("UI.MainTitle")); // NOI18N
+        setMinimumSize(new java.awt.Dimension(915, 700));
+        setPreferredSize(new java.awt.Dimension(915, 700));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 plannerResized(evt);
@@ -646,14 +649,21 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         jSplitPane2.setResizeWeight(1.0);
 
-        reactorPanel.setMinimumSize(new java.awt.Dimension(180, 120));
-        reactorPanel.setPreferredSize(new java.awt.Dimension(180, 120));
+        reactorPanel.setMinimumSize(new java.awt.Dimension(450, 300));
+        reactorPanel.setPreferredSize(new java.awt.Dimension(450, 300));
+        reactorPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                reactorPanelComponentResized(evt);
+            }
+        });
         reactorPanel.setLayout(new java.awt.GridLayout(6, 9, 2, 2));
         jSplitPane2.setLeftComponent(reactorPanel);
 
         jSplitPane3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane3.setResizeWeight(0.7);
 
+        temperatureAndComponentsPanel.setMinimumSize(new java.awt.Dimension(475, 240));
+        temperatureAndComponentsPanel.setPreferredSize(new java.awt.Dimension(475, 240));
         temperatureAndComponentsPanel.setLayout(new java.awt.GridBagLayout());
 
         temperatureEffectsLabel.setText(bundle.getString("UI.TemperatureEffectsDefault")); // NOI18N
@@ -665,10 +675,18 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         componentsPanel.setMinimumSize(new java.awt.Dimension(160, 80));
         componentsPanel.setPreferredSize(new java.awt.Dimension(160, 80));
+        componentsPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                componentsPanelComponentResized(evt);
+            }
+        });
         componentsPanel.setLayout(new java.awt.GridLayout(5, 8));
 
         componentsGroup.add(emptyButton);
         emptyButton.setActionCommand("empty"); // NOI18N
+        emptyButton.setMaximumSize(new java.awt.Dimension(50, 50));
+        emptyButton.setMinimumSize(new java.awt.Dimension(50, 50));
+        emptyButton.setPreferredSize(new java.awt.Dimension(50, 50));
         componentsPanel.add(emptyButton);
 
         componentsGroup.add(fuelRodUraniumButton);
@@ -937,8 +955,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         jSplitPane3.setTopComponent(temperatureAndComponentsPanel);
 
-        jPanel1.setMinimumSize(new java.awt.Dimension(392, 151));
-        jPanel1.setPreferredSize(new java.awt.Dimension(392, 151));
+        jPanel1.setMinimumSize(new java.awt.Dimension(392, 160));
+        jPanel1.setPreferredSize(new java.awt.Dimension(392, 160));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         reactorStyleGroup.add(euReactorRadio);
@@ -1362,6 +1380,16 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void plannerResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_plannerResized
+        // Force minimum dimensions to be honored, since Swing apparently doesn't handle that automatically.
+        Dimension dim = this.getSize();
+        Dimension minDim = this.getMinimumSize();
+        if (dim.width < minDim.width) {
+            dim.width = minDim.width;
+        }
+        if (dim.height < minDim.height) {
+            dim.height = minDim.height;
+        }
+        setSize(dim);
         Enumeration<AbstractButton> elements = componentsGroup.getElements();
         while (elements.hasMoreElements()) {
             AbstractButton button = elements.nextElement();
@@ -1677,6 +1705,16 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         updateCodeField();
         saveAdvancedConfig();
     }//GEN-LAST:event_showOldStyleReactorCodeCheckActionPerformed
+
+    private void reactorPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_reactorPanelComponentResized
+        // planner resizing event handler already takes care of resizing images, so just call that.
+        plannerResized(null);
+    }//GEN-LAST:event_reactorPanelComponentResized
+
+    private void componentsPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_componentsPanelComponentResized
+        // planner resizing event handler already takes care of resizing images, so just call that.
+        plannerResized(null);
+    }//GEN-LAST:event_componentsPanelComponentResized
     
     private SwingWorker<Void, String> simulator;
 
