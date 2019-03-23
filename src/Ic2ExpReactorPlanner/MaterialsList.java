@@ -75,7 +75,7 @@ public final class MaterialsList {
     public static final MaterialsList CONTAINMENT_REACTOR_PLATING = new MaterialsList(REACTOR_PLATING, 2, ALLOY);
     public static final MaterialsList RSH_CONDENSATOR = new MaterialsList(HEAT_VENT, HEAT_EXCHANGER, 7, REDSTONE);
     public static final MaterialsList LZH_CONDENSATOR = new MaterialsList(2, RSH_CONDENSATOR, REACTOR_HEAT_VENT, REACTOR_HEAT_EXCHANGER, 9, LAPIS, 4, REDSTONE);
-    public static final MaterialsList FUEL_ROD_THORIUM = new MaterialsList(IRON, THORIUM);
+    public static final MaterialsList FUEL_ROD_THORIUM = new MaterialsList(IRON, 3, THORIUM);
     public static final MaterialsList DUAL_FUEL_ROD_THORIUM = new MaterialsList(IRON, 2, FUEL_ROD_THORIUM);
     public static final MaterialsList QUAD_FUEL_ROD_THORIUM = new MaterialsList(3, IRON, 2, COPPER, 4, FUEL_ROD_THORIUM);
     public static final MaterialsList COOLANT_CELL_60K_HELIUM = new MaterialsList(HELIUM, 4, TIN);
@@ -85,7 +85,7 @@ public final class MaterialsList {
     public static final MaterialsList COOLANT_CELL_180K_NAK = new MaterialsList(3, COOLANT_CELL_60K_NAK, 6, TIN);
     public static final MaterialsList COOLANT_CELL_360K_NAK = new MaterialsList(2, COOLANT_CELL_180K_NAK, 6, TIN, 9, COPPER);
     public static final MaterialsList IRIDIUM_NEUTRON_REFLECTOR = new MaterialsList(6, THICK_NEUTRON_REFLECTOR, 18, COPPER, IRIDIUM_PLATE);
-    public static final MaterialsList FUEL_ROD_NAQUADAH = new MaterialsList(IRON, NAQUADAH);
+    public static final MaterialsList FUEL_ROD_NAQUADAH = new MaterialsList(IRON, 3, NAQUADAH);
     public static final MaterialsList DUAL_FUEL_ROD_NAQUADAH = new MaterialsList(IRON, 2, FUEL_ROD_NAQUADAH);
     public static final MaterialsList QUAD_FUEL_ROD_NAQUADAH = new MaterialsList(3, IRON, 2, COPPER, 4, FUEL_ROD_NAQUADAH);
     
