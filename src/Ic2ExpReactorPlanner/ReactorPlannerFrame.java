@@ -237,7 +237,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
                         }
                         changingCode = true;
-                        codeField.setText(reactor.getCode());
+                        updateCodeField();
                         changingCode = false;
                     }
                 });
@@ -258,7 +258,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             reactorButtons[finalRow][finalCol].setToolTipText(null);
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
                             changingCode = true;
-                            codeField.setText(reactor.getCode());
+                            updateCodeField();
                             changingCode = false;
                         } else if (e.getButton() == MouseEvent.BUTTON2) {
                             ReactorItem component = reactor.getComponentAt(finalRow, finalCol);
@@ -375,6 +375,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             showComponentDetailButtonsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("showComponentDetailButtons", "true")));
             enableGT508ComponentsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("enableGT508Components", "true")));
             enableGT509ComponentsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("enableGT509Components", "true")));
+            showOldStyleReactorCodeCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("showOldStyleReactorCode", "false")));
             showComponentDetailButtonsCheckActionPerformed(null);
             enableGT508ComponentsCheckActionPerformed(null);
             enableGT509ComponentsCheckActionPerformed(null);
@@ -390,6 +391,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             advancedConfig.setProperty("showComponentDetailButtons", Boolean.toString(showComponentDetailButtonsCheck.isSelected()));
             advancedConfig.setProperty("enableGT508Components", Boolean.toString(enableGT508ComponentsCheck.isSelected()));
             advancedConfig.setProperty("enableGT509Components", Boolean.toString(enableGT509ComponentsCheck.isSelected()));
+            advancedConfig.setProperty("showOldStyleReactorCode", Boolean.toString(showOldStyleReactorCodeCheck.isSelected()));
             advancedConfig.storeToXML(configStream, null);
         } catch (IOException | NullPointerException | ClassCastException ex) {
             // ignore and keep running anyway
@@ -522,6 +524,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         showComponentDetailButtonsCheck = new javax.swing.JCheckBox();
         enableGT508ComponentsCheck = new javax.swing.JCheckBox();
         enableGT509ComponentsCheck = new javax.swing.JCheckBox();
+        showOldStyleReactorCodeCheck = new javax.swing.JCheckBox();
 
         pulsePanel.setLayout(new java.awt.GridBagLayout());
 
@@ -1325,9 +1328,21 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         advancedPanel.add(enableGT509ComponentsCheck, gridBagConstraints);
+
+        showOldStyleReactorCodeCheck.setText(bundle.getString("UI.ShowOldStyleReactorCode")); // NOI18N
+        showOldStyleReactorCodeCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showOldStyleReactorCodeCheckActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        advancedPanel.add(showOldStyleReactorCodeCheck, gridBagConstraints);
 
         advancedScroll.setViewportView(advancedPanel);
 
@@ -1426,12 +1441,20 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void euReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_euReactorRadioActionPerformed
         reactor.setFluid(false);
-        codeField.setText(reactor.getCode());
+        updateCodeField();
     }//GEN-LAST:event_euReactorRadioActionPerformed
+
+    private void updateCodeField() {
+        if (showOldStyleReactorCodeCheck.isSelected()) {
+            codeField.setText(reactor.getOldCode());
+        } else {
+            codeField.setText(reactor.getCode());
+        }
+    }
 
     private void fluidReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fluidReactorRadioActionPerformed
         reactor.setFluid(true);
-        codeField.setText(reactor.getCode());
+        updateCodeField();
     }//GEN-LAST:event_fluidReactorRadioActionPerformed
 
     private void copyCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyCodeButtonActionPerformed
@@ -1453,7 +1476,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             ReactorItem component = reactor.getComponentAt(selectedRow, selectedColumn);
             component.setAutomationThreshold(((Number)thresholdSpinner.getValue()).intValue());
             if (!changingCode) {
-                codeField.setText(reactor.getCode());
+                updateCodeField();
             }
         }
     }//GEN-LAST:event_thresholdSpinnerStateChanged
@@ -1463,48 +1486,48 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             ReactorItem component = reactor.getComponentAt(selectedRow, selectedColumn);
             component.setReactorPause(((Number)pauseSpinner.getValue()).intValue());
             if (!changingCode) {
-                codeField.setText(reactor.getCode());
+                updateCodeField();
             }
         }
     }//GEN-LAST:event_pauseSpinnerStateChanged
 
     private void reactorCoolantInjectorCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reactorCoolantInjectorCheckboxActionPerformed
         reactor.setUsingReactorCoolantInjectors(reactorCoolantInjectorCheckbox.isSelected());
-        codeField.setText(reactor.getCode());
+        updateCodeField();
     }//GEN-LAST:event_reactorCoolantInjectorCheckboxActionPerformed
 
     private void heatSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_heatSpinnerStateChanged
         reactor.setCurrentHeat(((Number)heatSpinner.getValue()).doubleValue());
         if (!changingCode) {
-            codeField.setText(reactor.getCode());
+            updateCodeField();
         }
     }//GEN-LAST:event_heatSpinnerStateChanged
 
     private void onPulseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_onPulseSpinnerStateChanged
         reactor.setOnPulse(((Number)onPulseSpinner.getValue()).intValue());
         if (!changingCode) {
-            codeField.setText(reactor.getCode());
+            updateCodeField();
         }
     }//GEN-LAST:event_onPulseSpinnerStateChanged
 
     private void offPulseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_offPulseSpinnerStateChanged
         reactor.setOffPulse(((Number)offPulseSpinner.getValue()).intValue());
         if (!changingCode) {
-            codeField.setText(reactor.getCode());
+            updateCodeField();
         }
     }//GEN-LAST:event_offPulseSpinnerStateChanged
 
     private void suspendTempSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_suspendTempSpinnerStateChanged
         reactor.setSuspendTemp(((Number)suspendTempSpinner.getValue()).intValue());
         if (!changingCode) {
-            codeField.setText(reactor.getCode());
+            updateCodeField();
         }
     }//GEN-LAST:event_suspendTempSpinnerStateChanged
 
     private void resumeTempSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_resumeTempSpinnerStateChanged
         reactor.setResumeTemp(((Number)resumeTempSpinner.getValue()).intValue());
         if (!changingCode) {
-            codeField.setText(reactor.getCode());
+            updateCodeField();
         }
     }//GEN-LAST:event_resumeTempSpinnerStateChanged
 
@@ -1524,7 +1547,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private void pulsedReactorCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulsedReactorCheckActionPerformed
         reactor.setPulsed(pulsedReactorCheck.isSelected());
         togglePulseConfigTab();
-        codeField.setText(reactor.getCode());
+        updateCodeField();
     }//GEN-LAST:event_pulsedReactorCheckActionPerformed
 
     private void togglePulseConfigTab() {
@@ -1539,13 +1562,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void automatedReactorCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_automatedReactorCheckActionPerformed
         reactor.setAutomated(automatedReactorCheck.isSelected());
-        codeField.setText(reactor.getCode());
+        updateCodeField();
     }//GEN-LAST:event_automatedReactorCheckActionPerformed
 
     private void maxSimulationTicksSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_maxSimulationTicksSpinnerStateChanged
         reactor.setMaxSimulationTicks(((Number)maxSimulationTicksSpinner.getValue()).intValue());
         if (!changingCode) {
-            codeField.setText(reactor.getCode());
+            updateCodeField();
         }
     }//GEN-LAST:event_maxSimulationTicksSpinnerStateChanged
 
@@ -1605,7 +1628,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         }
                     }
                     updateReactorButtons();
-                    codeField.setText(reactor.getCode());
+                    updateCodeField();
                 }
             }
         }
@@ -1643,12 +1666,17 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         }
                     }
                     updateReactorButtons();
-                    codeField.setText(reactor.getCode());
+                    updateCodeField();
                 }
             }
         }
         saveAdvancedConfig();
     }//GEN-LAST:event_enableGT509ComponentsCheckActionPerformed
+
+    private void showOldStyleReactorCodeCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showOldStyleReactorCodeCheckActionPerformed
+        updateCodeField();
+        saveAdvancedConfig();
+    }//GEN-LAST:event_showOldStyleReactorCodeCheckActionPerformed
     
     private SwingWorker<Void, String> simulator;
 
@@ -1785,6 +1813,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton rshCondensatorButton;
     private javax.swing.JLabel selectedComponentLabel;
     private javax.swing.JCheckBox showComponentDetailButtonsCheck;
+    private javax.swing.JCheckBox showOldStyleReactorCodeCheck;
     private javax.swing.JButton simulateButton;
     private javax.swing.JSpinner suspendTempSpinner;
     private javax.swing.JPanel temperatureAndComponentsPanel;

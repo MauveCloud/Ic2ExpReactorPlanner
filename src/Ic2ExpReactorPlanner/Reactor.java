@@ -568,6 +568,67 @@ public class Reactor {
         storage.store(0, 255);
         return storage.outputBase64();
     }
+
+    // Get an old-style (pre-2.3.1) code for the reactor, for pasting into older versions of the planner.
+    public String getOldCode() {
+        StringBuilder result = new StringBuilder(108);
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[row].length; col++) {
+                final ReactorItem component = grid[row][col];
+                final int id = (component != null) ? component.id : 0;
+                result.append(String.format("%02X", id)); //NOI18N 
+                if (component != null && (component.getInitialHeat() > 0 || component.getAutomationThreshold() != ComponentFactory.getDefaultComponent(id).getAutomationThreshold()
+                        || component.getReactorPause() != ComponentFactory.getDefaultComponent(id).getReactorPause())) {
+                    result.append("(");
+                    if (component.getInitialHeat() > 0) {
+                        result.append(String.format("h%s,", Integer.toString((int) component.getInitialHeat(), 36))); //NOI18N 
+                    }
+                    if (component.getAutomationThreshold() != ComponentFactory.getDefaultComponent(id).getAutomationThreshold()) {
+                        result.append(String.format("a%s,", Integer.toString(component.getAutomationThreshold(), 36))); //NOI18N 
+                    }
+                    if (component.getReactorPause() != ComponentFactory.getDefaultComponent(id).getReactorPause()) {
+                        result.append(String.format("p%s,", Integer.toString(component.getReactorPause(), 36))); //NOI18N 
+                    }
+                    result.setLength(result.length() - 1); // remove the last comma, whichever parameter it came from. 
+                    result.append(")");
+                }
+            }
+        }
+        result.append('|');
+        if (fluid) {
+            result.append('f');
+        } else {
+            result.append('e');
+        }
+        if (automated) {
+            result.append('a');
+        } else if (pulsed) {
+            result.append('p');
+        } else {
+            result.append('s');
+        }
+        if (usingReactorCoolantInjectors) {
+            result.append('i');
+        } else {
+            result.append('n');
+        }
+        if (currentHeat > 0) {
+            result.append(Integer.toString((int) currentHeat, 36));
+        }
+        if (onPulse != DEFAULT_ON_PULSE) {
+            result.append(String.format("|n%s", Integer.toString(onPulse, 36)));
+        }
+        if (offPulse != DEFAULT_OFF_PULSE) {
+            result.append(String.format("|f%s", Integer.toString(offPulse, 36)));
+        }
+        if (suspendTemp != DEFAULT_SUSPEND_TEMP) {
+            result.append(String.format("|s%s", Integer.toString(suspendTemp, 36)));
+        }
+        if (resumeTemp != DEFAULT_SUSPEND_TEMP) {
+            result.append(String.format("|r%s", Integer.toString(resumeTemp, 36)));
+        }
+        return result.toString();
+    }
     
     /**
      * Checks whether the reactor is to simulate a fluid-style reactor, rather than a direct EU-output reactor.
