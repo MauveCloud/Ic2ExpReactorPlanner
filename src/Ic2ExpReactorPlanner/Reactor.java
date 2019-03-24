@@ -733,4 +733,11 @@ public class Reactor {
         this.maxSimulationTicks = maxSimulationTicks;
     }
     
+    public void resetPulseConfig() {
+        onPulse = DEFAULT_ON_PULSE;
+        offPulse = DEFAULT_OFF_PULSE;
+        suspendTemp = DEFAULT_SUSPEND_TEMP;
+        resumeTemp = DEFAULT_RESUME_TEMP;
+    }
+    
 }

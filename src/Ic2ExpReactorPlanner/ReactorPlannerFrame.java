@@ -26,7 +26,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.Properties;
@@ -427,6 +426,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
         resumeTempSpinner = new javax.swing.JSpinner();
         javax.swing.JLabel jLabel16 = new javax.swing.JLabel();
+        resetPulseConfigButton = new javax.swing.JButton();
         javax.swing.JSplitPane jSplitPane1 = new javax.swing.JSplitPane();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
         javax.swing.JSplitPane jSplitPane2 = new javax.swing.JSplitPane();
@@ -634,6 +634,19 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         pulsePanel.add(jLabel16, gridBagConstraints);
+
+        resetPulseConfigButton.setText(bundle.getString("UI.ResetPulseConfig")); // NOI18N
+        resetPulseConfigButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetPulseConfigButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        pulsePanel.add(resetPulseConfigButton, gridBagConstraints);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(bundle.getString("UI.MainTitle")); // NOI18N
@@ -1237,7 +1250,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         automationPanel.add(jLabel15, gridBagConstraints);
 
@@ -1743,6 +1757,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         placingReactorPauseSpinner.setVisible(selected);
         saveAdvancedConfig();
     }//GEN-LAST:event_showComponentPreconfigCheckActionPerformed
+
+    private void resetPulseConfigButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetPulseConfigButtonActionPerformed
+        reactor.resetPulseConfig();
+        updateCodeField();
+    }//GEN-LAST:event_resetPulseConfigButtonActionPerformed
     
     private SwingWorker<Void, String> simulator;
 
@@ -1878,6 +1897,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JPanel reactorPanel;
     private javax.swing.JToggleButton reactorPlatingButton;
     private javax.swing.ButtonGroup reactorStyleGroup;
+    private javax.swing.JButton resetPulseConfigButton;
     private javax.swing.JSpinner resumeTempSpinner;
     private javax.swing.JToggleButton rshCondensatorButton;
     private javax.swing.JLabel selectedComponentLabel;

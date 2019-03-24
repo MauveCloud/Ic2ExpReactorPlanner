@@ -62,6 +62,9 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
     private int currentActiveTime = 0;
     private int minActiveTime = Integer.MAX_VALUE;
     private int maxActiveTime = 0;
+    private int currentInactiveTime = 0;
+    private int minInactiveTime = Integer.MAX_VALUE;
+    private int maxInactiveTime = 0;
     
     private double totalHullHeating = 0;
     private double totalComponentHeating = 0;
@@ -214,11 +217,11 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 totalHeatOutput += lastHeatOutput;
                 if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
                     reactorTicks++;
-                    if (reactor.isPulsed()) {
+                    if (reactor.isPulsed() || reactor.isAutomated()) {
                         if (active) {
                             activeTime++;
                             currentActiveTime++;
-                            if (reactor.getCurrentHeat() >= suspendTemp || (reactorTicks % clockPeriod) >= onPulseDuration) {
+                            if (reactor.isPulsed() && (reactor.getCurrentHeat() >= suspendTemp || (reactorTicks % clockPeriod) >= onPulseDuration)) {
                                 active = false;
                                 minActiveTime = Math.min(currentActiveTime, minActiveTime);
                                 maxActiveTime = Math.max(currentActiveTime, maxActiveTime);
@@ -226,10 +229,14 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                             }
                         } else {
                             inactiveTime++;
+                            currentInactiveTime++;
                             if (reactor.isAutomated() && pauseTimer > 0) {
                                 pauseTimer--;
-                            } else if (reactor.getCurrentHeat() <= resumeTemp && (reactorTicks % clockPeriod) < onPulseDuration) {
+                            } else if ((reactor.isPulsed() && reactor.getCurrentHeat() <= resumeTemp && (reactorTicks % clockPeriod) < onPulseDuration) || (reactor.isAutomated() && pauseTimer <= 0)) {
                                 active = true;
+                                minInactiveTime = Math.min(currentInactiveTime, minInactiveTime);
+                                maxInactiveTime = Math.max(currentInactiveTime, maxInactiveTime);
+                                currentInactiveTime = 0;
                             }
                         }
                     }
@@ -240,9 +247,6 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 }
                 calculateHeatingCooling(reactorTicks);
                 handleAutomation(reactorTicks);
-                if (!active) {
-                    currentActiveTime = 0;
-                }
                 if (csvOut != null && reactorTicks <= csvLimit) {
                     csvOut.printf(BUNDLE.getString("CSVData.EntryReactorTick"), reactorTicks);
                     csvOut.printf(BUNDLE.getString("CSVData.EntryCoreHeat"), reactor.getCurrentHeat());
@@ -285,9 +289,16 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                     String rangeString = "";
                     if (maxActiveTime > minActiveTime) {
                         rangeString = String.format(BUNDLE.getString("Simulation.ActiveTimeRange"), minActiveTime, maxActiveTime);
+                    } else if (minActiveTime < activeTime) {
+                        rangeString = String.format(BUNDLE.getString("Simulation.ActiveTimeSingle"), minActiveTime);
                     }
                     publish(String.format(BUNDLE.getString("Simulation.ActiveTime"), activeTime, rangeString));
-                    publish(String.format(BUNDLE.getString("Simulation.InactiveTime"), inactiveTime));
+                    if (maxInactiveTime > minInactiveTime) {
+                        rangeString = String.format(BUNDLE.getString("Simulation.InactiveTimeRange"), minInactiveTime, maxInactiveTime);
+                    } else if (minInactiveTime < inactiveTime) {
+                        rangeString = String.format(BUNDLE.getString("Simulation.InactiveTimeSingle"), minInactiveTime);
+                    }
+                    publish(String.format(BUNDLE.getString("Simulation.InactiveTime"), inactiveTime, rangeString));
                 }
                 final String replacedItemsString = replacedItems.toString();
                 if (!replacedItemsString.isEmpty()) {
@@ -438,9 +449,9 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
             if (totalCondensatorCooling > 0) {
                 publish(String.format(BUNDLE.getString("Simulation.TotalCondensatorCooling"), totalCondensatorCooling));
             }
-//            if (maxGeneratedHeat > 0) {
-//                publish(String.format(BUNDLE.getString("Simulation.MaxHeatGenerated"), maxGeneratedHeat));
-//            }
+            if (maxGeneratedHeat > 0) {
+                publish(String.format(BUNDLE.getString("Simulation.MaxHeatGenerated"), maxGeneratedHeat));
+            }
             if (redstoneUsed > 0) {
                 publish(String.format(BUNDLE.getString("Simulation.RedstoneUsed"), redstoneUsed));
             }
@@ -532,6 +543,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                                 pauseTimer = Math.max(pauseTimer, component.getReactorPause());
                                 minActiveTime = Math.min(currentActiveTime, minActiveTime);
                                 maxActiveTime = Math.max(currentActiveTime, maxActiveTime);
+                                currentActiveTime = 0;
                             }
                         } else if (component.getAutomationThreshold() < component.getInitialHeat() && component.getCurrentHeat() <= component.getAutomationThreshold()) {
                             component.clearCurrentHeat();
@@ -542,6 +554,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                                 pauseTimer = Math.max(pauseTimer, component.getReactorPause());
                                 minActiveTime = Math.min(currentActiveTime, minActiveTime);
                                 maxActiveTime = Math.max(currentActiveTime, maxActiveTime);
+                                currentActiveTime = 0;
                             }
                         }
                     } else if (component.isBroken() || (component.maxDamage > 1 && component.getCurrentDamage() >= component.getAutomationThreshold())) {
@@ -553,6 +566,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                             pauseTimer = Math.max(pauseTimer, component.getReactorPause());
                             minActiveTime = Math.min(currentActiveTime, minActiveTime);
                             maxActiveTime = Math.max(currentActiveTime, maxActiveTime);
+                            currentActiveTime = 0;
                         }
                     }
                 }
