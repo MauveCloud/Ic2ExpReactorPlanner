@@ -83,7 +83,9 @@ public class FuelRod extends ReactorItem {
         }
         if (heatableNeighbors.isEmpty()) {
             parent.adjustCurrentHeat(heat);
+            currentHullHeating = heat;
         } else {
+            currentComponentHeating = heat;
             for (ReactorItem heatableNeighbor : heatableNeighbors) {
                 heatableNeighbor.adjustCurrentHeat(heat / heatableNeighbors.size());
             }

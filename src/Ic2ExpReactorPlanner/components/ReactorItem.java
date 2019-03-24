@@ -56,6 +56,9 @@ public class ReactorItem {
     protected double minHeatGenerated = Double.MAX_VALUE; public double getMinHeatGenerated() { return minHeatGenerated; }
     protected double maxHeatGenerated = 0; public double getMaxHeatGenerated() { return maxHeatGenerated; }
     
+    protected double currentHullHeating = 0; public double getCurrentHullHeating() { return currentHullHeating; }
+    protected double currentComponentHeating = 0; public double getCurrentComponentHeating() { return currentComponentHeating; }
+    protected double currentHullCooling = 0; public double getCurrentHullCooling() { return currentHullCooling; }
     protected double currentVentCooling = 0; public double getCurrentVentCooling() { return currentVentCooling; }
     protected double bestVentCooling = 0; public double getBestVentCooling() { return bestVentCooling; }
     
@@ -143,6 +146,9 @@ public class ReactorItem {
      * Prepare for a new reactor tick.
      */
     public void preReactorTick() {
+        currentHullHeating = 0.0;
+        currentComponentHeating = 0.0;
+        currentHullCooling = 0.0;
         currentVentCooling = 0.0;
         currentCellCooling = 0.0;
         currentCondensatorCooling = 0.0;
@@ -314,6 +320,14 @@ public class ReactorItem {
         return 0;
     }
 
+    /**
+     * Finds the theoretical maximum hull cooling of this component.
+     * @return the capacity of this component to remove heat from the reactor hull.
+     */
+    public double getHullCoolingCapacity() {
+        return 0;
+    }
+    
     /**
      * Gets the current "output" of this component, presumably for writing to
      * CSV data.  What this "output" means may vary by component type or reactor type.

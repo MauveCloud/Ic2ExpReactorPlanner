@@ -37,6 +37,7 @@ public class Vent extends ReactorItem {
     @Override
     public double dissipate() {
         double deltaHeat = Math.min(hullDraw, parent.getCurrentHeat());
+        currentHullCooling = deltaHeat;
         parent.adjustCurrentHeat(-deltaHeat);
         this.adjustCurrentHeat(deltaHeat);
         final double currentDissipation = Math.min(selfVent, getCurrentHeat());
@@ -96,6 +97,10 @@ public class Vent extends ReactorItem {
         return result;
     }
     
+    @Override
+    public double getHullCoolingCapacity() {
+        return hullDraw;
+    }
     
     @Override
     public double getCurrentOutput() {
