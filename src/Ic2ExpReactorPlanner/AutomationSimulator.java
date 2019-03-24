@@ -596,7 +596,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
     }
 
     private void calculateHeatingCooling(final int reactorTicks) {
-        if (reactorTicks > 50) {
+        if (reactorTicks > 20) {
             for (int row = 0; row < 6; row++) {
                 for (int col = 0; col < 9; col++) {
                     ReactorItem component = reactor.getComponentAt(row, col);
@@ -614,7 +614,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
     private void showHeatingCooling(final int reactorTicks) {
         if (!showHeatingCoolingCalled) {
             showHeatingCoolingCalled = true;
-            if (reactorTicks >= 250) {
+            if (reactorTicks >= 40 && !reachedExplode) {
                 double totalHullCoolingCapacity = 0;
                 double totalVentCoolingCapacity = 0;
                 for (int row = 0; row < 6; row++) {
@@ -627,16 +627,16 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                     }
                 }
                 if (totalHullHeating > 0) {
-                    publish(String.format(BUNDLE.getString("Simulation.HullHeating"), totalHullHeating / (reactorTicks - 50)));
+                    publish(String.format(BUNDLE.getString("Simulation.HullHeating"), totalHullHeating / (reactorTicks - 20)));
                 }
                 if (totalComponentHeating > 0) {
-                    publish(String.format(BUNDLE.getString("Simulation.ComponentHeating"), totalComponentHeating / (reactorTicks - 50)));
+                    publish(String.format(BUNDLE.getString("Simulation.ComponentHeating"), totalComponentHeating / (reactorTicks - 20)));
                 }
                 if (totalHullCoolingCapacity > 0) {
-                    publish(String.format(BUNDLE.getString("Simulation.HullCooling"), totalHullCooling / (reactorTicks - 50), totalHullCoolingCapacity));
+                    publish(String.format(BUNDLE.getString("Simulation.HullCooling"), totalHullCooling / (reactorTicks - 20), totalHullCoolingCapacity));
                 }
                 if (totalVentCoolingCapacity > 0) {
-                    publish(String.format(BUNDLE.getString("Simulation.VentCooling"), totalVentCooling / (reactorTicks - 50), totalVentCoolingCapacity));
+                    publish(String.format(BUNDLE.getString("Simulation.VentCooling"), totalVentCooling / (reactorTicks - 20), totalVentCoolingCapacity));
                 }
             }
         }
