@@ -494,6 +494,11 @@ public class Reactor {
         BigintStorage storage = BigintStorage.inputBase64(code);
         // read the code revision from the code itself instead of making it part of the prefix.
         int codeRevision = storage.extract(255);
+        // for code revision 1 or newer, read whether the reactor is pulsed and/or automated next.
+        if (codeRevision >= 1) {
+            pulsed = storage.extract(1) > 0;
+            automated = storage.extract(1) > 0;
+        }
         // read the grid next
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[row].length; col++) {
@@ -507,8 +512,10 @@ public class Reactor {
                     int hasSpecialAutomationConfig = storage.extract(1);
                     if (hasSpecialAutomationConfig > 0) {
                         component.setInitialHeat(storage.extract((int)360e3));
-                        component.setAutomationThreshold(storage.extract((int)360e3));
-                        component.setReactorPause(storage.extract((int)10e3));
+                        if (codeRevision == 0 || (codeRevision >= 1 && automated)) {
+                            component.setAutomationThreshold(storage.extract((int)360e3));
+                            component.setReactorPause(storage.extract((int)10e3));
+                        }
                     }
                     setComponentAt(row, col, component);
                 } else {
@@ -518,14 +525,18 @@ public class Reactor {
         }
         // next, read the inital temperature and other details.
         currentHeat = storage.extract((int)120e3);
-        onPulse = storage.extract((int)5e6);
-        offPulse = storage.extract((int)5e6);
-        suspendTemp = storage.extract((int)120e3);
-        resumeTemp = storage.extract((int)120e3);
+        if (codeRevision == 0 || (codeRevision >= 1 && pulsed)) {
+            onPulse = storage.extract((int)5e6);
+            offPulse = storage.extract((int)5e6);
+            suspendTemp = storage.extract((int)120e3);
+            resumeTemp = storage.extract((int)120e3);
+        }
         fluid = storage.extract(1) > 0;
         usingReactorCoolantInjectors = storage.extract(1) > 0;
-        pulsed = storage.extract(1) > 0;
-        automated = storage.extract(1) > 0;
+        if (codeRevision == 0) {
+            pulsed = storage.extract(1) > 0;
+            automated = storage.extract(1) > 0;
+        }
         maxSimulationTicks = storage.extract((int)5e6);
     }
     
@@ -534,14 +545,14 @@ public class Reactor {
         BigintStorage storage = new BigintStorage();
         // first, store the extra details, in reverse order of expected reading.
         storage.store(maxSimulationTicks, (int)5e6);
-        storage.store(automated ? 1 : 0, 1);
-        storage.store(pulsed ? 1 : 0, 1);
         storage.store(usingReactorCoolantInjectors ? 1 : 0, 1);
         storage.store(fluid ? 1 : 0, 1);
-        storage.store(resumeTemp, (int)120e3);
-        storage.store(suspendTemp, (int)120e3);
-        storage.store(offPulse, (int)5e6);
-        storage.store(onPulse, (int)5e6);
+        if (pulsed) {
+            storage.store(resumeTemp, (int)120e3);
+            storage.store(suspendTemp, (int)120e3);
+            storage.store(offPulse, (int)5e6);
+            storage.store(onPulse, (int)5e6);
+        }
         storage.store((int)currentHeat, (int)120e3);
         // grid is read (almost) first, so written (almost) last, and in reverse order
         for (int row = grid.length - 1; row >= 0; row--) {
@@ -551,8 +562,10 @@ public class Reactor {
                     int id = component.id;
                     // only store automation details for a component if non-default, and add a flag bit to indicate their presence.  null components don't even need the flag bit.
                     if (component.getInitialHeat() > 0 || component.getAutomationThreshold() != ComponentFactory.getDefaultComponent(id).getAutomationThreshold() || component.getReactorPause() != ComponentFactory.getDefaultComponent(id).getReactorPause()) {
-                        storage.store(component.getReactorPause(), (int)10e3);
-                        storage.store(component.getAutomationThreshold(), (int)360e3);
+                        if (automated) {
+                            storage.store(component.getReactorPause(), (int)10e3);
+                            storage.store(component.getAutomationThreshold(), (int)360e3);
+                        }
                         storage.store((int)component.getInitialHeat(), (int)360e3);
                         storage.store(1, 1);
                     } else {
@@ -564,8 +577,10 @@ public class Reactor {
                 }
             }
         }
+        storage.store(automated ? 1 : 0, 1);
+        storage.store(pulsed ? 1 : 0, 1);
         // store the code revision, allowing values up to 255 (8 bits) before adjusting how it is stored in the code.
-        storage.store(0, 255);
+        storage.store(1, 255);
         return storage.outputBase64();
     }
 
@@ -583,10 +598,10 @@ public class Reactor {
                     if (component.getInitialHeat() > 0) {
                         result.append(String.format("h%s,", Integer.toString((int) component.getInitialHeat(), 36))); //NOI18N 
                     }
-                    if (component.getAutomationThreshold() != ComponentFactory.getDefaultComponent(id).getAutomationThreshold()) {
+                    if (automated && component.getAutomationThreshold() != ComponentFactory.getDefaultComponent(id).getAutomationThreshold()) {
                         result.append(String.format("a%s,", Integer.toString(component.getAutomationThreshold(), 36))); //NOI18N 
                     }
-                    if (component.getReactorPause() != ComponentFactory.getDefaultComponent(id).getReactorPause()) {
+                    if (automated && component.getReactorPause() != ComponentFactory.getDefaultComponent(id).getReactorPause()) {
                         result.append(String.format("p%s,", Integer.toString(component.getReactorPause(), 36))); //NOI18N 
                     }
                     result.setLength(result.length() - 1); // remove the last comma, whichever parameter it came from. 
@@ -615,16 +630,16 @@ public class Reactor {
         if (currentHeat > 0) {
             result.append(Integer.toString((int) currentHeat, 36));
         }
-        if (onPulse != DEFAULT_ON_PULSE) {
+        if (pulsed && onPulse != DEFAULT_ON_PULSE) {
             result.append(String.format("|n%s", Integer.toString(onPulse, 36)));
         }
-        if (offPulse != DEFAULT_OFF_PULSE) {
+        if (pulsed && offPulse != DEFAULT_OFF_PULSE) {
             result.append(String.format("|f%s", Integer.toString(offPulse, 36)));
         }
-        if (suspendTemp != DEFAULT_SUSPEND_TEMP) {
+        if (pulsed && suspendTemp != DEFAULT_SUSPEND_TEMP) {
             result.append(String.format("|s%s", Integer.toString(suspendTemp, 36)));
         }
-        if (resumeTemp != DEFAULT_SUSPEND_TEMP) {
+        if (pulsed && resumeTemp != DEFAULT_SUSPEND_TEMP) {
             result.append(String.format("|r%s", Integer.toString(resumeTemp, 36)));
         }
         return result.toString();
