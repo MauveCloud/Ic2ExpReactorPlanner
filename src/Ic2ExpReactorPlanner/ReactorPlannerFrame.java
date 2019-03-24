@@ -482,16 +482,21 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         placingReactorPauseLabel = new javax.swing.JLabel();
         placingReactorPauseSpinner = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
+        javax.swing.JPanel jPanel3 = new javax.swing.JPanel();
         euReactorRadio = new javax.swing.JRadioButton();
         fluidReactorRadio = new javax.swing.JRadioButton();
+        javax.swing.JPanel jPanel4 = new javax.swing.JPanel();
         clearGridButton = new javax.swing.JButton();
         simulateButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        javax.swing.JPanel jPanel5 = new javax.swing.JPanel();
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         heatSpinner = new javax.swing.JSpinner();
         maxHeatLabel = new javax.swing.JLabel();
+        javax.swing.JPanel jPanel6 = new javax.swing.JPanel();
         pulsedReactorCheck = new javax.swing.JCheckBox();
         automatedReactorCheck = new javax.swing.JCheckBox();
+        javax.swing.JPanel jPanel7 = new javax.swing.JPanel();
         maxSimulationTicksLabel = new javax.swing.JLabel();
         maxSimulationTicksSpinner = new javax.swing.JSpinner();
         reactorCoolantInjectorCheckbox = new javax.swing.JCheckBox();
@@ -677,7 +682,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jSplitPane2.setLeftComponent(reactorPanel);
 
         jSplitPane3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane3.setResizeWeight(0.7);
+        jSplitPane3.setResizeWeight(1.0);
 
         temperatureAndComponentsPanel.setMinimumSize(new java.awt.Dimension(475, 240));
         temperatureAndComponentsPanel.setPreferredSize(new java.awt.Dimension(475, 240));
@@ -972,9 +977,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         jSplitPane3.setTopComponent(temperatureAndComponentsPanel);
 
-        jPanel1.setMinimumSize(new java.awt.Dimension(392, 160));
+        jPanel1.setMinimumSize(new java.awt.Dimension(392, 170));
         jPanel1.setPreferredSize(new java.awt.Dimension(392, 160));
         jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        jPanel3.setOpaque(false);
 
         reactorStyleGroup.add(euReactorRadio);
         euReactorRadio.setSelected(true);
@@ -984,12 +991,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 euReactorRadioActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
-        gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(euReactorRadio, gridBagConstraints);
+        jPanel3.add(euReactorRadio);
 
         reactorStyleGroup.add(fluidReactorRadio);
         fluidReactorRadio.setText(bundle.getString("Config.FluidReactor")); // NOI18N
@@ -998,12 +1000,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 fluidReactorRadioActionPerformed(evt);
             }
         });
+        jPanel3.add(fluidReactorRadio);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(fluidReactorRadio, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(-6, -6, -6, -6);
+        jPanel1.add(jPanel3, gridBagConstraints);
 
         clearGridButton.setText(bundle.getString("UI.ClearGridButton")); // NOI18N
         clearGridButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1011,11 +1015,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 clearGridButtonActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
-        jPanel1.add(clearGridButton, gridBagConstraints);
+        jPanel4.add(clearGridButton);
 
         simulateButton.setText(bundle.getString("UI.SimulateButton")); // NOI18N
         simulateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1023,10 +1023,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 simulateButtonActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
-        jPanel1.add(simulateButton, gridBagConstraints);
+        jPanel4.add(simulateButton);
 
         cancelButton.setText(bundle.getString("UI.CancelButton")); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1034,19 +1031,15 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 cancelButtonActionPerformed(evt);
             }
         });
+        jPanel4.add(cancelButton);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(cancelButton, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(-2, -2, -2, -2);
+        jPanel1.add(jPanel4, gridBagConstraints);
 
         jLabel1.setText(bundle.getString("UI.InitialReactorHeat")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel1.add(jLabel1, gridBagConstraints);
+        jPanel5.add(jLabel1);
 
         heatSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 9999.0d, 1.0d));
         heatSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
@@ -1056,18 +1049,17 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 heatSpinnerStateChanged(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(heatSpinner, gridBagConstraints);
+        jPanel5.add(heatSpinner);
 
         maxHeatLabel.setText(bundle.getString("UI.MaxHeatDefault")); // NOI18N
+        jPanel5.add(maxHeatLabel);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        jPanel1.add(maxHeatLabel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(-2, -2, -2, -2);
+        jPanel1.add(jPanel5, gridBagConstraints);
+
+        jPanel6.setOpaque(false);
 
         pulsedReactorCheck.setText(bundle.getString("UI.PulsedReactor")); // NOI18N
         pulsedReactorCheck.addActionListener(new java.awt.event.ActionListener() {
@@ -1075,11 +1067,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 pulsedReactorCheckActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(pulsedReactorCheck, gridBagConstraints);
+        jPanel6.add(pulsedReactorCheck);
 
         automatedReactorCheck.setText(bundle.getString("UI.AutomatedReactor")); // NOI18N
         automatedReactorCheck.addActionListener(new java.awt.event.ActionListener() {
@@ -1087,17 +1075,15 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 automatedReactorCheckActionPerformed(evt);
             }
         });
+        jPanel6.add(automatedReactorCheck);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        jPanel1.add(automatedReactorCheck, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(-4, -4, -4, -4);
+        jPanel1.add(jPanel6, gridBagConstraints);
 
         maxSimulationTicksLabel.setText(bundle.getString("UI.MaxSimulationTicks")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(maxSimulationTicksLabel, gridBagConstraints);
+        jPanel7.add(maxSimulationTicksLabel);
 
         maxSimulationTicksSpinner.setModel(new javax.swing.SpinnerNumberModel(5000000, null, 5000000, 1));
         maxSimulationTicksSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -1105,11 +1091,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 maxSimulationTicksSpinnerStateChanged(evt);
             }
         });
+        jPanel7.add(maxSimulationTicksSpinner);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        jPanel1.add(maxSimulationTicksSpinner, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(-2, -2, -2, -2);
+        jPanel1.add(jPanel7, gridBagConstraints);
 
         reactorCoolantInjectorCheckbox.setText(bundle.getString("Config.ReactorCoolantInjectors")); // NOI18N
         reactorCoolantInjectorCheckbox.addActionListener(new java.awt.event.ActionListener() {
