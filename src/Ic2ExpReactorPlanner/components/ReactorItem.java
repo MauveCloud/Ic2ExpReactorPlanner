@@ -72,11 +72,11 @@ public class ReactorItem {
     
     protected static final ResourceBundle BUNDLE = ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
     
-    protected ReactorItem(final int id, final String baseName, final String name, final String imageFilename, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials) {
+    protected ReactorItem(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials) {
         this.id = id;
         this.baseName = baseName;
         this.name = name;
-        this.image = TextureFactory.getImage(imageFilename);
+        this.image = image;
         this.maxDamage = maxDamage;
         this.maxHeat = maxHeat;
         if (maxHeat > 1) {

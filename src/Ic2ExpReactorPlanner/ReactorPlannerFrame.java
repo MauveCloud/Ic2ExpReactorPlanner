@@ -68,6 +68,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private final JFileChooser chooser = new JFileChooser();
     
+    private final JFileChooser textureChooser = new JFileChooser();
+    
     private final ReactorItem[] paletteComponents = new ReactorItem[ComponentFactory.getComponentCount()];
     
     private int paletteComponentId = 0;
@@ -377,6 +379,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             enableGT509ComponentsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("enableGT509Components", "true")));
             showOldStyleReactorCodeCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("showOldStyleReactorCode", "false")));
             showComponentPreconfigCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("showComponentPreconfigControls", "true")));
+            String texturePackName = advancedConfig.getProperty("texturePack");
+            if (texturePackName != null) {
+                File texturePackFile = new File(texturePackName);
+                if (texturePackFile.isFile()) {
+                    textureChooser.setSelectedFile(texturePackFile);
+                    texturePackLabel.setText(String.format(BUNDLE.getString("UI.TexturePackSpecific"), texturePackName));
+                }
+            }
             showComponentDetailButtonsCheckActionPerformed(null);
             enableGT508ComponentsCheckActionPerformed(null);
             enableGT509ComponentsCheckActionPerformed(null);
@@ -535,6 +545,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         enableGT509ComponentsCheck = new javax.swing.JCheckBox();
         showOldStyleReactorCodeCheck = new javax.swing.JCheckBox();
         showComponentPreconfigCheck = new javax.swing.JCheckBox();
+        texturePackLabel = new javax.swing.JLabel();
+        texturePackBrowseButton = new javax.swing.JButton();
+        texturePackClearButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         pulsePanel.setLayout(new java.awt.GridBagLayout());
 
@@ -1375,10 +1389,47 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        advancedPanel.add(showComponentPreconfigCheck, gridBagConstraints);
+
+        texturePackLabel.setText(bundle.getString("UI.TexturePackDefault")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 2, 2, 2);
+        advancedPanel.add(texturePackLabel, gridBagConstraints);
+
+        texturePackBrowseButton.setText(bundle.getString("UI.TexturePackBrowseButton")); // NOI18N
+        texturePackBrowseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                texturePackBrowseButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        advancedPanel.add(showComponentPreconfigCheck, gridBagConstraints);
+        advancedPanel.add(texturePackBrowseButton, gridBagConstraints);
+
+        texturePackClearButton.setText(bundle.getString("UI.TexturePackClearButton")); // NOI18N
+        texturePackClearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                texturePackClearButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        advancedPanel.add(texturePackClearButton, gridBagConstraints);
+
+        jLabel5.setText(bundle.getString("UI.TexturePackHelp")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 2, 2, 2);
+        advancedPanel.add(jLabel5, gridBagConstraints);
 
         advancedScroll.setViewportView(advancedPanel);
 
@@ -1393,7 +1444,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(jSplitPane1, gridBagConstraints);
 
-        setSize(new java.awt.Dimension(1109, 760));
+        setSize(new java.awt.Dimension(1109, 777));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1749,6 +1800,21 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         reactor.resetPulseConfig();
         updateCodeField();
     }//GEN-LAST:event_resetPulseConfigButtonActionPerformed
+
+    private void texturePackBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texturePackBrowseButtonActionPerformed
+        textureChooser.showOpenDialog(this);
+        if (textureChooser.getSelectedFile() != null) {
+            advancedConfig.setProperty("texturePack", textureChooser.getSelectedFile().getAbsolutePath());
+            texturePackLabel.setText(String.format(BUNDLE.getString("UI.TexturePackSpecific"), textureChooser.getSelectedFile().getAbsolutePath()));
+            saveAdvancedConfig();
+        }
+    }//GEN-LAST:event_texturePackBrowseButtonActionPerformed
+
+    private void texturePackClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texturePackClearButtonActionPerformed
+        advancedConfig.remove("texturePack");
+        texturePackLabel.setText(BUNDLE.getString("UI.TexturePackDefault"));
+        saveAdvancedConfig();
+    }//GEN-LAST:event_texturePackClearButtonActionPerformed
     
     private SwingWorker<Void, String> simulator;
 
@@ -1852,6 +1918,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner heatSpinner;
     private javax.swing.JToggleButton heatVentButton;
     private javax.swing.JToggleButton iridiumNeutronReflectorButton;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton lzhCondensatorButton;
     private javax.swing.JTextArea materialsArea;
@@ -1895,6 +1962,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner suspendTempSpinner;
     private javax.swing.JPanel temperatureAndComponentsPanel;
     private javax.swing.JLabel temperatureEffectsLabel;
+    private javax.swing.JButton texturePackBrowseButton;
+    private javax.swing.JButton texturePackClearButton;
+    private javax.swing.JLabel texturePackLabel;
     private javax.swing.JToggleButton thickNeutronReflectorButton;
     private javax.swing.JSpinner thresholdSpinner;
     // End of variables declaration//GEN-END:variables

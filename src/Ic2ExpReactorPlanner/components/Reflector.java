@@ -6,6 +6,7 @@
 package Ic2ExpReactorPlanner.components;
 
 import Ic2ExpReactorPlanner.MaterialsList;
+import java.awt.Image;
 
 /**
  * Represents a neutron reflector in a reactor.
@@ -13,8 +14,8 @@ import Ic2ExpReactorPlanner.MaterialsList;
  */
 public class Reflector extends ReactorItem {
     
-    public Reflector(final int id, final String baseName, final String name, final String imageFilename, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials) {
-        super(id, baseName, name, imageFilename, maxDamage, maxHeat, sourceMod, materials);
+    public Reflector(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials) {
+        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod, materials);
     }
     
     public Reflector(final Reflector other) {

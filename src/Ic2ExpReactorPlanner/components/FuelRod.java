@@ -6,6 +6,7 @@
 package Ic2ExpReactorPlanner.components;
 
 import Ic2ExpReactorPlanner.MaterialsList;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class FuelRod extends ReactorItem {
     private final int rodCount;
     private final boolean moxStyle;
     
-    public FuelRod(final int id, final String baseName, final String name, final String imageFilename, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials, 
+    public FuelRod(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials, 
             final int energyMult, final double heatMult, final int rodCount, final boolean moxStyle) {
-        super(id, baseName, name, imageFilename, maxDamage, maxHeat, sourceMod, materials);
+        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod, materials);
         this.energyMult = energyMult;
         this.heatMult = heatMult;
         this.rodCount = rodCount;

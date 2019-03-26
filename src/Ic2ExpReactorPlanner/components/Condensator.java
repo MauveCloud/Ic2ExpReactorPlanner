@@ -6,6 +6,7 @@
 package Ic2ExpReactorPlanner.components;
 
 import Ic2ExpReactorPlanner.MaterialsList;
+import java.awt.Image;
 
 /**
  * Represents a condensator in a reactor, either RSH or LZH.
@@ -13,8 +14,8 @@ import Ic2ExpReactorPlanner.MaterialsList;
  */
 public class Condensator extends ReactorItem {
     
-    public Condensator(final int id, final String baseName, final String name, final String imageFilename, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials) {
-        super(id, baseName, name, imageFilename, maxDamage, maxHeat, sourceMod, materials);
+    public Condensator(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials) {
+        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod, materials);
     }
     
     public Condensator(final Condensator other) {

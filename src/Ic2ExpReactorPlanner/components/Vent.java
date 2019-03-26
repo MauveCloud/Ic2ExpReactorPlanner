@@ -6,6 +6,7 @@
 package Ic2ExpReactorPlanner.components;
 
 import Ic2ExpReactorPlanner.MaterialsList;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,9 @@ public class Vent extends ReactorItem {
     private final int hullDraw;
     private final int sideVent;
     
-    public Vent(final int id, final String baseName, final String name, final String imageFilename, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials,
+    public Vent(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials,
             final int selfVent, final int hullDraw, final int sideVent) {
-        super(id, baseName, name, imageFilename, maxDamage, maxHeat, sourceMod, materials);
+        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod, materials);
         this.selfVent = selfVent;
         this.hullDraw = hullDraw;
         this.sideVent = sideVent;

@@ -7,10 +7,15 @@ package Ic2ExpReactorPlanner;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import javax.imageio.ImageIO;
 
 /**
@@ -21,51 +26,66 @@ public class TextureFactory {
     
     private TextureFactory() { }
     
-    public static Image getImage(String imageName) {
-//        String resourcePackPath = Preferences.userRoot().get("Ic2ExpReactorPlanner.ResourcePack", null);
-//        if (resourcePackPath != null && new File(resourcePackPath).exists()) {
-//            try (ZipFile zip = new ZipFile(resourcePackPath)) {
-//                ZipEntry entry = zip.getEntry("assets/ic2/textures/items/" + imageName);
-//                if (entry != null) {
-//                    InputStream entryStream = zip.getInputStream(entry);
-//                    BufferedImage entryImage = ImageIO.read(entryStream);
-//                    if (entryImage != null) {
-//                        return entryImage;
-//                    }
-//                }
-//                entry = zip.getEntry("assets/gregtech/textures/items/" + imageName);
-//                if (entry != null) {
-//                    InputStream entryStream = zip.getInputStream(entry);
-//                    BufferedImage entryImage = ImageIO.read(entryStream);
-//                    if (entryImage != null) {
-//                        return entryImage;
-//                    }
-//                }
-//            } catch (IOException ex) {
-//                Logger.getLogger(TextureFactory.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        
-//        // Remove the resource pack preference if something caused the internal resources to be invoked.
-//        Preferences.userRoot().remove("Ic2ExpReactorPlanner.ResourcePack");
-        
-        InputStream stream = TextureFactory.class.getResourceAsStream("/assets/ic2/textures/items/" + imageName); //NOI18N
-        if (stream != null) {
-            try {
-                BufferedImage image = ImageIO.read(stream);
-                return image;
+    private static final ZipFile TEXTURE_PACK = getTexturePackZip();
+    
+    // paths within the texture pack zip to check for the texture images.
+    private static final String[] ASSET_PATHS = {
+        "",
+        "assets/ic2/textures/items/",
+        "assets/ic2/textures/items/reactor/",
+        "assets/ic2/textures/items/reactor/fuel_rod/",
+        "assets/gregtech/textures/items/",
+    };
+    
+    public static Image getImage(String... imageNames) {
+        BufferedImage result = null;
+        if (TEXTURE_PACK != null) {
+            for (String imageName : imageNames) {
+                for (String asset_path : ASSET_PATHS) {
+                    if (result == null) {
+                        ZipEntry entry = TEXTURE_PACK.getEntry(asset_path + imageName);
+                        if (entry != null) {
+                            try (InputStream entryStream = TEXTURE_PACK.getInputStream(entry)) {
+                                result = ImageIO.read(entryStream);
+                            } catch (IOException ex) {
+                                // ignore
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                
+        if (result == null && TextureFactory.class.getResource("/assets/ic2/textures/items/" + imageNames[0]) != null) {
+            try (InputStream stream = TextureFactory.class.getResourceAsStream("/assets/ic2/textures/items/" + imageNames[0])) {
+                result = ImageIO.read(stream);
             } catch (IOException ex) {
                 Logger.getLogger(TextureFactory.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        stream = TextureFactory.class.getResourceAsStream("/assets/gregtech/textures/items/" + imageName); //NOI18N
-        if (stream != null) {
-            try {
-                BufferedImage image = ImageIO.read(stream);
-                return image;
+        if (result == null && TextureFactory.class.getResource("/assets/gregtech/textures/items/" + imageNames[0]) != null) {
+            try (InputStream stream = TextureFactory.class.getResourceAsStream("/assets/gregtech/textures/items/" + imageNames[0])) {
+                result = ImageIO.read(stream);
             } catch (IOException ex) {
                 Logger.getLogger(TextureFactory.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        return result;
+    }
+    
+    private static ZipFile getTexturePackZip() {
+        try (FileInputStream configStream = new FileInputStream("erpprefs.xml")) {
+            Properties config = new Properties();
+            config.loadFromXML(configStream);
+            String texturePackName = config.getProperty("texturePack");
+            if (texturePackName != null) {
+                ZipFile result = new ZipFile(texturePackName);
+                return result;
+            }
+        } catch (FileNotFoundException ex) {
+            // ignore, this might just mean the file hasn't been created yet.
+        } catch (IOException | NullPointerException ex) {
+            // ignore, security settings or whatever preventing reading the xml file (or resource pack zip) should not stop the planner from running.
         }
         return null;
     }
