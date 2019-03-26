@@ -509,6 +509,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         javax.swing.JPanel jPanel7 = new javax.swing.JPanel();
         maxSimulationTicksLabel = new javax.swing.JLabel();
         maxSimulationTicksSpinner = new javax.swing.JSpinner();
+        jLabel6 = new javax.swing.JLabel();
         reactorCoolantInjectorCheckbox = new javax.swing.JCheckBox();
         javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
         codeField = new javax.swing.JTextField();
@@ -1100,12 +1101,16 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jPanel7.add(maxSimulationTicksLabel);
 
         maxSimulationTicksSpinner.setModel(new javax.swing.SpinnerNumberModel(5000000, null, 5000000, 1));
+        maxSimulationTicksSpinner.setToolTipText(bundle.getString("UI.MaxSimulationTicksTooltip")); // NOI18N
         maxSimulationTicksSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 maxSimulationTicksSpinnerStateChanged(evt);
             }
         });
         jPanel7.add(maxSimulationTicksSpinner);
+
+        jLabel6.setText(bundle.getString("Config.Seconds")); // NOI18N
+        jPanel7.add(jLabel6);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -1919,6 +1924,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton heatVentButton;
     private javax.swing.JToggleButton iridiumNeutronReflectorButton;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton lzhCondensatorButton;
     private javax.swing.JTextArea materialsArea;
