@@ -168,6 +168,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
             componentsIntact = true;
             anyRodsDepleted = false;
             do {
+                reactorTicks++;
                 reactor.clearEUOutput();
                 reactor.clearVentedHeat();
                 for (int row = 0; row < 6; row++) {
@@ -216,7 +217,6 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 lastHeatOutput = reactor.getVentedHeat();
                 totalHeatOutput += lastHeatOutput;
                 if (reactor.getCurrentHeat() <= reactor.getMaxHeat()) {
-                    reactorTicks++;
                     if (reactor.isPulsed() || reactor.isAutomated()) {
                         if (active) {
                             activeTime++;
@@ -628,7 +628,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
     private void showHeatingCooling(final int reactorTicks) {
         if (!showHeatingCoolingCalled) {
             showHeatingCoolingCalled = true;
-            if (reactorTicks >= 40 && !reachedExplode) {
+            if (reactorTicks >= 40) {
                 double totalHullCoolingCapacity = 0;
                 double totalVentCoolingCapacity = 0;
                 for (int row = 0; row < 6; row++) {
