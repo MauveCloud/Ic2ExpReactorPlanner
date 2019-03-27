@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -84,6 +85,8 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
     private MaterialsList replacedItems = new MaterialsList();
     
     private static final ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
+    
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(BUNDLE.getString("Simulation.DecimalFormat"));
 
     public AutomationSimulator(final Reactor reactor, final JTextArea output, final JPanel[][] reactorButtonPanels, final File csvFile, final int csvLimit) {
         this.reactor = reactor;
@@ -293,6 +296,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         rangeString = String.format(BUNDLE.getString("Simulation.ActiveTimeSingle"), minActiveTime);
                     }
                     publish(String.format(BUNDLE.getString("Simulation.ActiveTime"), activeTime, rangeString));
+                    rangeString = "";
                     if (maxInactiveTime > minInactiveTime) {
                         rangeString = String.format(BUNDLE.getString("Simulation.InactiveTimeRange"), minInactiveTime, maxInactiveTime);
                     } else if (minInactiveTime < inactiveTime) {
@@ -308,14 +312,22 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 if (reactorTicks > 0) {
                     if (reactor.isFluid()) {
                         if (totalHeatOutput > 0) {
-                            publish(String.format(BUNDLE.getString("Simulation.HeatOutputs"), 40 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                            publish(String.format(BUNDLE.getString("Simulation.HeatOutputs"), 
+                                    DECIMAL_FORMAT.format(40 * totalHeatOutput), 
+                                    DECIMAL_FORMAT.format(2 * totalHeatOutput / reactorTicks), 
+                                    DECIMAL_FORMAT.format(2 * minHeatOutput), 
+                                    DECIMAL_FORMAT.format(2 * maxHeatOutput)));
                             if (totalRodCount > 0) {
                                 publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                             }
                         }
                     } else {
                         if (totalEUoutput > 0) {
-                            publish(String.format(BUNDLE.getString("Simulation.EUOutputs"), totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
+                            publish(String.format(BUNDLE.getString("Simulation.EUOutputs"), 
+                                    DECIMAL_FORMAT.format(totalEUoutput), 
+                                    DECIMAL_FORMAT.format(totalEUoutput / (reactorTicks * 20)), 
+                                    DECIMAL_FORMAT.format(minEUoutput / 20.0), 
+                                    DECIMAL_FORMAT.format(maxEUoutput / 20.0)));
                             if (totalRodCount > 0) {
                                 publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
                             }
@@ -494,12 +506,20 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                             componentsIntact = false;
                             publish(String.format(BUNDLE.getString("Simulation.FirstComponentBrokenDetails"), component.toString(), row, col, reactorTicks));
                             if (reactor.isFluid()) {
-                                publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeBreak"), 40 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                                publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeBreak"), 
+                                        DECIMAL_FORMAT.format(40 * totalHeatOutput), 
+                                        DECIMAL_FORMAT.format(2 * totalHeatOutput / reactorTicks), 
+                                        DECIMAL_FORMAT.format(2 * minHeatOutput), 
+                                        DECIMAL_FORMAT.format(2 * maxHeatOutput)));
                                 if (totalRodCount > 0) {
                                     publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                                 }
                             } else {
-                                publish(String.format(BUNDLE.getString("Simulation.EUOutputsBeforeBreak"), totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
+                                publish(String.format(BUNDLE.getString("Simulation.EUOutputsBeforeBreak"), 
+                                        DECIMAL_FORMAT.format(totalEUoutput), 
+                                        DECIMAL_FORMAT.format(totalEUoutput / (reactorTicks * 20)),
+                                        DECIMAL_FORMAT.format(minEUoutput / 20.0), 
+                                        DECIMAL_FORMAT.format(maxEUoutput / 20.0)));
                                 if (totalRodCount > 0) {
                                     publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
                                 }
@@ -509,12 +529,20 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         anyRodsDepleted = true;
                         publish(String.format(BUNDLE.getString("Simulation.FirstRodDepletedDetails"), component.toString(), row, col, reactorTicks));
                         if (reactor.isFluid()) {
-                            publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeDepleted"), 40 * totalHeatOutput, 2 * totalHeatOutput / reactorTicks, 2 * minHeatOutput, 2 * maxHeatOutput));
+                            publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeDepleted"), 
+                                    DECIMAL_FORMAT.format(40 * totalHeatOutput), 
+                                    DECIMAL_FORMAT.format(2 * totalHeatOutput / reactorTicks), 
+                                    DECIMAL_FORMAT.format(2 * minHeatOutput), 
+                                    DECIMAL_FORMAT.format(2 * maxHeatOutput)));
                             if (totalRodCount > 0) {
                                 publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                             }
                         } else {
-                            publish(String.format(BUNDLE.getString("Simulation.EUOutputsBeforeDepleted"), totalEUoutput, minEUoutput / 20.0, maxEUoutput / 20.0, totalEUoutput / (reactorTicks * 20)));
+                            publish(String.format(BUNDLE.getString("Simulation.EUOutputsBeforeDepleted"), 
+                                    DECIMAL_FORMAT.format(totalEUoutput), 
+                                    DECIMAL_FORMAT.format(totalEUoutput / (reactorTicks * 20)),
+                                    DECIMAL_FORMAT.format(minEUoutput / 20.0), 
+                                    DECIMAL_FORMAT.format(maxEUoutput / 20.0)));
                             if (totalRodCount > 0) {
                                 publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
                             }
