@@ -54,6 +54,8 @@ import javax.swing.event.DocumentListener;
  */
 public class ReactorPlannerFrame extends javax.swing.JFrame {
 
+    private static final String VERSION = "2.3.3";
+    
     private final Reactor reactor = new Reactor();
     
     private final JButton[][] reactorButtons = new JButton[6][9];
@@ -485,7 +487,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         fuelRodNaquadahButton = new javax.swing.JToggleButton();
         dualFuelRodNaquadahButton = new javax.swing.JToggleButton();
         quadFuelRodNaquadahButton = new javax.swing.JToggleButton();
+        javax.swing.JPanel jPanel8 = new javax.swing.JPanel();
         placingLabel = new javax.swing.JLabel();
+        versionLabel = new javax.swing.JLabel();
         componentHeatLabel = new javax.swing.JLabel();
         componentHeatSpinner = new javax.swing.JSpinner();
         placingThresholdLabel = new javax.swing.JLabel();
@@ -672,7 +676,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(bundle.getString("UI.MainTitle")); // NOI18N
         setMinimumSize(new java.awt.Dimension(915, 700));
-        setPreferredSize(new java.awt.Dimension(915, 700));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 plannerResized(evt);
@@ -925,12 +928,29 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(componentsPanel, gridBagConstraints);
 
+        jPanel8.setLayout(new java.awt.GridBagLayout());
+
         placingLabel.setText(bundle.getString("UI.ComponentPlacingDefault")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        temperatureAndComponentsPanel.add(placingLabel, gridBagConstraints);
+        jPanel8.add(placingLabel, gridBagConstraints);
+
+        versionLabel.setText(String.format(BUNDLE.getString("UI.VersionNumber"), VERSION));
+        versionLabel.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        jPanel8.add(versionLabel, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        temperatureAndComponentsPanel.add(jPanel8, gridBagConstraints);
 
         componentHeatLabel.setText(bundle.getString("Config.InitialComponentHeat")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1987,5 +2007,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel texturePackLabel;
     private javax.swing.JToggleButton thickNeutronReflectorButton;
     private javax.swing.JSpinner thresholdSpinner;
+    private javax.swing.JLabel versionLabel;
     // End of variables declaration//GEN-END:variables
 }
