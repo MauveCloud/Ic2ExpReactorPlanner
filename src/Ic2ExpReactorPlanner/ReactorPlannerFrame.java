@@ -64,7 +64,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private int selectedColumn = -1;
     
-    private boolean changingCode = false;
+    // Lock variable to (hopefully) prevent recursive modification of the reactor code, while allowing design changes to affect the code and pasting the code to change the design.
+    private boolean lockCode = false;
     
     private final JFileChooser chooser = new JFileChooser();
     
@@ -238,9 +239,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             }
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
                         }
-                        changingCode = true;
+                        lockCode = true;
                         updateCodeField();
-                        changingCode = false;
+                        lockCode = false;
                     }
                 });
 
@@ -259,9 +260,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             reactorButtons[finalRow][finalCol].setIcon(null);
                             reactorButtons[finalRow][finalCol].setToolTipText(null);
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
-                            changingCode = true;
+                            lockCode = true;
                             updateCodeField();
-                            changingCode = false;
+                            lockCode = false;
                         } else if (e.getButton() == MouseEvent.BUTTON2) {
                             ReactorItem component = reactor.getComponentAt(finalRow, finalCol);
                             if (component != null) {
@@ -295,8 +296,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (!changingCode) {
-                    changingCode = true;
+                if (!lockCode) {
+                    lockCode = true;
                     reactor.setCode(codeField.getText());
                     updateReactorButtons();
                     if (reactor.isFluid()) {
@@ -314,14 +315,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     suspendTempSpinner.setValue(reactor.getSuspendTemp());
                     resumeTempSpinner.setValue(reactor.getResumeTemp());
                     maxSimulationTicksSpinner.setValue(reactor.getMaxSimulationTicks());
-                    changingCode = false;
+                    lockCode = false;
                 }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (!changingCode) {
-                    changingCode = true;
+                if (!lockCode) {
+                    lockCode = true;
                     reactor.setCode(codeField.getText());
                     updateReactorButtons();
                     if (reactor.isFluid()) {
@@ -339,14 +340,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     suspendTempSpinner.setValue(reactor.getSuspendTemp());
                     resumeTempSpinner.setValue(reactor.getResumeTemp());
                     maxSimulationTicksSpinner.setValue(reactor.getMaxSimulationTicks());
-                    changingCode = false;
+                    lockCode = false;
                 }
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if (!changingCode) {
-                    changingCode = true;
+                if (!lockCode) {
+                    lockCode = true;
                     reactor.setCode(codeField.getText());
                     updateReactorButtons();
                     if (reactor.isFluid()) {
@@ -364,7 +365,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     suspendTempSpinner.setValue(reactor.getSuspendTemp());
                     resumeTempSpinner.setValue(reactor.getResumeTemp());
                     maxSimulationTicksSpinner.setValue(reactor.getMaxSimulationTicks());
-                    changingCode = false;
+                    lockCode = false;
                 }
             }
         });
@@ -1001,6 +1002,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         reactorStyleGroup.add(euReactorRadio);
         euReactorRadio.setSelected(true);
         euReactorRadio.setText(bundle.getString("Config.EUReactor")); // NOI18N
+        euReactorRadio.setOpaque(false);
         euReactorRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 euReactorRadioActionPerformed(evt);
@@ -1010,6 +1012,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         reactorStyleGroup.add(fluidReactorRadio);
         fluidReactorRadio.setText(bundle.getString("Config.FluidReactor")); // NOI18N
+        fluidReactorRadio.setOpaque(false);
         fluidReactorRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fluidReactorRadioActionPerformed(evt);
@@ -1023,6 +1026,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(-6, -6, -6, -6);
         jPanel1.add(jPanel3, gridBagConstraints);
+
+        jPanel4.setOpaque(false);
 
         clearGridButton.setText(bundle.getString("UI.ClearGridButton")); // NOI18N
         clearGridButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1053,6 +1058,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(-2, -2, -2, -2);
         jPanel1.add(jPanel4, gridBagConstraints);
 
+        jPanel5.setOpaque(false);
+
         jLabel1.setText(bundle.getString("UI.InitialReactorHeat")); // NOI18N
         jPanel5.add(jLabel1);
 
@@ -1077,6 +1084,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jPanel6.setOpaque(false);
 
         pulsedReactorCheck.setText(bundle.getString("UI.PulsedReactor")); // NOI18N
+        pulsedReactorCheck.setOpaque(false);
         pulsedReactorCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pulsedReactorCheckActionPerformed(evt);
@@ -1085,6 +1093,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jPanel6.add(pulsedReactorCheck);
 
         automatedReactorCheck.setText(bundle.getString("UI.AutomatedReactor")); // NOI18N
+        automatedReactorCheck.setOpaque(false);
         automatedReactorCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 automatedReactorCheckActionPerformed(evt);
@@ -1096,6 +1105,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.insets = new java.awt.Insets(-4, -4, -4, -4);
         jPanel1.add(jPanel6, gridBagConstraints);
+
+        jPanel7.setOpaque(false);
 
         maxSimulationTicksLabel.setText(bundle.getString("UI.MaxSimulationTicks")); // NOI18N
         jPanel7.add(maxSimulationTicksLabel);
@@ -1118,6 +1129,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jPanel1.add(jPanel7, gridBagConstraints);
 
         reactorCoolantInjectorCheckbox.setText(bundle.getString("Config.ReactorCoolantInjectors")); // NOI18N
+        reactorCoolantInjectorCheckbox.setOpaque(false);
         reactorCoolantInjectorCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reactorCoolantInjectorCheckboxActionPerformed(evt);
@@ -1508,9 +1520,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
         heatSpinnerModel.setValue(Math.min(((Number) heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
         temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
-        changingCode = true;
+        lockCode = true;
         codeField.setText(null);
-        changingCode = false;
+        lockCode = false;
     }//GEN-LAST:event_clearGridButtonActionPerformed
 
     private void simulateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulateButtonActionPerformed
@@ -1547,11 +1559,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_euReactorRadioActionPerformed
 
     private void updateCodeField() {
+        lockCode = true;
         if (showOldStyleReactorCodeCheck.isSelected()) {
             codeField.setText(reactor.getOldCode());
         } else {
             codeField.setText(reactor.getCode());
         }
+        lockCode = false;
     }
 
     private void fluidReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fluidReactorRadioActionPerformed
@@ -1577,7 +1591,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (selectedColumn >= 0 && selectedRow >= 0 && reactor.getComponentAt(selectedRow, selectedColumn) != null) {
             ReactorItem component = reactor.getComponentAt(selectedRow, selectedColumn);
             component.setAutomationThreshold(((Number)thresholdSpinner.getValue()).intValue());
-            if (!changingCode) {
+            if (!lockCode) {
                 updateCodeField();
             }
         }
@@ -1587,7 +1601,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (selectedColumn >= 0 && selectedRow >= 0 && reactor.getComponentAt(selectedRow, selectedColumn) != null) {
             ReactorItem component = reactor.getComponentAt(selectedRow, selectedColumn);
             component.setReactorPause(((Number)pauseSpinner.getValue()).intValue());
-            if (!changingCode) {
+            if (!lockCode) {
                 updateCodeField();
             }
         }
@@ -1600,35 +1614,35 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void heatSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_heatSpinnerStateChanged
         reactor.setCurrentHeat(((Number)heatSpinner.getValue()).doubleValue());
-        if (!changingCode) {
+        if (!lockCode) {
             updateCodeField();
         }
     }//GEN-LAST:event_heatSpinnerStateChanged
 
     private void onPulseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_onPulseSpinnerStateChanged
         reactor.setOnPulse(((Number)onPulseSpinner.getValue()).intValue());
-        if (!changingCode) {
+        if (!lockCode) {
             updateCodeField();
         }
     }//GEN-LAST:event_onPulseSpinnerStateChanged
 
     private void offPulseSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_offPulseSpinnerStateChanged
         reactor.setOffPulse(((Number)offPulseSpinner.getValue()).intValue());
-        if (!changingCode) {
+        if (!lockCode) {
             updateCodeField();
         }
     }//GEN-LAST:event_offPulseSpinnerStateChanged
 
     private void suspendTempSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_suspendTempSpinnerStateChanged
         reactor.setSuspendTemp(((Number)suspendTempSpinner.getValue()).intValue());
-        if (!changingCode) {
+        if (!lockCode) {
             updateCodeField();
         }
     }//GEN-LAST:event_suspendTempSpinnerStateChanged
 
     private void resumeTempSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_resumeTempSpinnerStateChanged
         reactor.setResumeTemp(((Number)resumeTempSpinner.getValue()).intValue());
-        if (!changingCode) {
+        if (!lockCode) {
             updateCodeField();
         }
     }//GEN-LAST:event_resumeTempSpinnerStateChanged
@@ -1669,7 +1683,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void maxSimulationTicksSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_maxSimulationTicksSpinnerStateChanged
         reactor.setMaxSimulationTicks(((Number)maxSimulationTicksSpinner.getValue()).intValue());
-        if (!changingCode) {
+        if (!lockCode) {
             updateCodeField();
         }
     }//GEN-LAST:event_maxSimulationTicksSpinnerStateChanged
