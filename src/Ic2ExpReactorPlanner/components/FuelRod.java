@@ -106,7 +106,6 @@ public class FuelRod extends ReactorItem {
         minHeatGenerated = Math.min(minHeatGenerated, heat);
         maxHeatGenerated = Math.max(maxHeatGenerated, heat);
         handleHeat(heat);
-        applyDamage(1.0);
         return currentHeatGenerated;
     }
 
@@ -121,6 +120,7 @@ public class FuelRod extends ReactorItem {
         maxEUGenerated = Math.max(maxEUGenerated, energy);
         currentEUGenerated = energy;
         parent.addEUOutput(energy);
+        applyDamage(1.0);
         return energy;
     }
     

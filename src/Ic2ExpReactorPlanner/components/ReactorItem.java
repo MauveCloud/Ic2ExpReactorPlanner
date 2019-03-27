@@ -275,7 +275,7 @@ public class ReactorItem {
      * @return true if the component has broken either from damage (e.g. neutron reflectors, fuel rods) or from heat (e.g. heat vents, coolant cells), false otherwise.
      */
     public boolean isBroken() {
-        return currentHeat >= maxHeat || currentDamage > maxDamage;
+        return currentHeat >= maxHeat || currentDamage >= maxDamage;
     }
     
     /**
