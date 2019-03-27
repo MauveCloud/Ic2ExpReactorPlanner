@@ -592,8 +592,9 @@ public class Reactor {
                 final ReactorItem component = grid[row][col];
                 final int id = (component != null) ? component.id : 0;
                 result.append(String.format("%02X", id)); //NOI18N 
-                if (component != null && (component.getInitialHeat() > 0 || component.getAutomationThreshold() != ComponentFactory.getDefaultComponent(id).getAutomationThreshold()
-                        || component.getReactorPause() != ComponentFactory.getDefaultComponent(id).getReactorPause())) {
+                if (component != null && (component.getInitialHeat() > 0 
+                        || (automated && component.getAutomationThreshold() != ComponentFactory.getDefaultComponent(id).getAutomationThreshold())
+                        || (automated && component.getReactorPause() != ComponentFactory.getDefaultComponent(id).getReactorPause()))) {
                     result.append("(");
                     if (component.getInitialHeat() > 0) {
                         result.append(String.format("h%s,", Integer.toString((int) component.getInitialHeat(), 36))); //NOI18N 
