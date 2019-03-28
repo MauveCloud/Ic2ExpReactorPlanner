@@ -69,7 +69,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     // Lock variable to (hopefully) prevent recursive modification of the reactor code, while allowing design changes to affect the code and pasting the code to change the design.
     private boolean lockCode = false;
     
-    private final JFileChooser chooser = new JFileChooser();
+    private final JFileChooser csvChooser = new JFileChooser();
     
     private final JFileChooser textureChooser = new JFileChooser();
     
@@ -390,6 +390,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     texturePackLabel.setText(String.format(BUNDLE.getString("UI.TexturePackSpecific"), texturePackName));
                 }
             }
+            String csvFileName = advancedConfig.getProperty("csvFile");
+            if (csvFileName != null) {
+                csvChooser.setSelectedFile(new File (csvFileName));
+                csvFileLabel.setText(csvFileName);
+            }
             showComponentDetailButtonsCheckActionPerformed(null);
             enableGT508ComponentsCheckActionPerformed(null);
             enableGT509ComponentsCheckActionPerformed(null);
@@ -408,6 +413,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             advancedConfig.setProperty("enableGT509Components", Boolean.toString(enableGT509ComponentsCheck.isSelected()));
             advancedConfig.setProperty("showOldStyleReactorCode", Boolean.toString(showOldStyleReactorCodeCheck.isSelected()));
             advancedConfig.setProperty("showComponentPreconfigControls", Boolean.toString(showComponentPreconfigCheck.isSelected()));
+            if (csvChooser.getSelectedFile() != null) {
+                advancedConfig.setProperty("csvFile", csvChooser.getSelectedFile().getAbsolutePath());
+            }
             advancedConfig.storeToXML(configStream, null);
         } catch (IOException | NullPointerException | ClassCastException ex) {
             // ignore and keep running anyway
@@ -1552,7 +1560,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         File csvFile = null;
         int csvLimit = -1;
         if (csvOutputCheck.isSelected()) {
-            csvFile = chooser.getSelectedFile();
+            csvFile = csvChooser.getSelectedFile();
             Object value = csvLimitSpinner.getModel().getValue();
             if (value instanceof Number) {
                 csvLimit = ((Number)value).intValue();
@@ -1674,10 +1682,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void csvBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvBrowseButtonActionPerformed
-        chooser.showSaveDialog(this);
-        if (chooser.getSelectedFile() != null) {
-            csvFileLabel.setText(chooser.getSelectedFile().getAbsolutePath());
+        csvChooser.showSaveDialog(this);
+        if (csvChooser.getSelectedFile() != null) {
+            csvFileLabel.setText(csvChooser.getSelectedFile().getAbsolutePath());
         }
+        saveAdvancedConfig();
     }//GEN-LAST:event_csvBrowseButtonActionPerformed
 
     private void pulsedReactorCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulsedReactorCheckActionPerformed
