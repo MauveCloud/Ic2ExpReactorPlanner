@@ -160,7 +160,7 @@ public class ReactorItem {
      * @return true if this component can be cooled down, false otherwise.
      */
     public boolean isCoolable() {
-        return isHeatAcceptor() && !(this instanceof Condensator);
+        return maxHeat > 1 && !(this instanceof Condensator);
     }
     
     /**
