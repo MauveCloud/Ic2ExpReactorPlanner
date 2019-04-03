@@ -43,7 +43,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -83,8 +82,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
     
-    private static final Properties advancedConfig = new Properties();
+    private static final Properties ADVANCED_CONFIG = new Properties();
     
+    private AutomationSimulator simulator = null;
+
     /**
      * Creates new form ReactorPlannerFrame
      */
@@ -336,13 +337,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void loadAdvancedConfig() {
         try (FileInputStream configStream = new FileInputStream("erpprefs.xml")) {
-            advancedConfig.loadFromXML(configStream);
-            showComponentDetailButtonsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("showComponentDetailButtons", "true")));
-            enableGT508ComponentsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("enableGT508Components", "true")));
-            enableGT509ComponentsCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("enableGT509Components", "true")));
-            showOldStyleReactorCodeCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("showOldStyleReactorCode", "false")));
-            showComponentPreconfigCheck.setSelected(Boolean.valueOf(advancedConfig.getProperty("showComponentPreconfigControls", "true")));
-            String texturePackName = advancedConfig.getProperty("texturePack");
+            ADVANCED_CONFIG.loadFromXML(configStream);
+            showComponentDetailButtonsCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("showComponentDetailButtons", "true")));
+            enableGT508ComponentsCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("enableGT508Components", "true")));
+            enableGT509ComponentsCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("enableGT509Components", "true")));
+            showOldStyleReactorCodeCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("showOldStyleReactorCode", "false")));
+            showComponentPreconfigCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("showComponentPreconfigControls", "true")));
+            String texturePackName = ADVANCED_CONFIG.getProperty("texturePack");
             if (texturePackName != null) {
                 File texturePackFile = new File(texturePackName);
                 if (texturePackFile.isFile()) {
@@ -350,7 +351,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     texturePackLabel.setText(String.format(BUNDLE.getString("UI.TexturePackSpecific"), texturePackName));
                 }
             }
-            String csvFileName = advancedConfig.getProperty("csvFile");
+            String csvFileName = ADVANCED_CONFIG.getProperty("csvFile");
             if (csvFileName != null) {
                 csvChooser.setSelectedFile(new File (csvFileName));
                 csvFileLabel.setText(csvFileName);
@@ -368,15 +369,15 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private void saveAdvancedConfig() {
         try (FileOutputStream configStream = new FileOutputStream("erpprefs.xml")) {
-            advancedConfig.setProperty("showComponentDetailButtons", Boolean.toString(showComponentDetailButtonsCheck.isSelected()));
-            advancedConfig.setProperty("enableGT508Components", Boolean.toString(enableGT508ComponentsCheck.isSelected()));
-            advancedConfig.setProperty("enableGT509Components", Boolean.toString(enableGT509ComponentsCheck.isSelected()));
-            advancedConfig.setProperty("showOldStyleReactorCode", Boolean.toString(showOldStyleReactorCodeCheck.isSelected()));
-            advancedConfig.setProperty("showComponentPreconfigControls", Boolean.toString(showComponentPreconfigCheck.isSelected()));
+            ADVANCED_CONFIG.setProperty("showComponentDetailButtons", Boolean.toString(showComponentDetailButtonsCheck.isSelected()));
+            ADVANCED_CONFIG.setProperty("enableGT508Components", Boolean.toString(enableGT508ComponentsCheck.isSelected()));
+            ADVANCED_CONFIG.setProperty("enableGT509Components", Boolean.toString(enableGT509ComponentsCheck.isSelected()));
+            ADVANCED_CONFIG.setProperty("showOldStyleReactorCode", Boolean.toString(showOldStyleReactorCodeCheck.isSelected()));
+            ADVANCED_CONFIG.setProperty("showComponentPreconfigControls", Boolean.toString(showComponentPreconfigCheck.isSelected()));
             if (csvChooser.getSelectedFile() != null) {
-                advancedConfig.setProperty("csvFile", csvChooser.getSelectedFile().getAbsolutePath());
+                ADVANCED_CONFIG.setProperty("csvFile", csvChooser.getSelectedFile().getAbsolutePath());
             }
-            advancedConfig.storeToXML(configStream, null);
+            ADVANCED_CONFIG.storeToXML(configStream, null);
         } catch (IOException | NullPointerException | ClassCastException ex) {
             // ignore and keep running anyway
         }
@@ -1813,20 +1814,18 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private void texturePackBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texturePackBrowseButtonActionPerformed
         textureChooser.showOpenDialog(this);
         if (textureChooser.getSelectedFile() != null) {
-            advancedConfig.setProperty("texturePack", textureChooser.getSelectedFile().getAbsolutePath());
+            ADVANCED_CONFIG.setProperty("texturePack", textureChooser.getSelectedFile().getAbsolutePath());
             texturePackLabel.setText(String.format(BUNDLE.getString("UI.TexturePackSpecific"), textureChooser.getSelectedFile().getAbsolutePath()));
             saveAdvancedConfig();
         }
     }//GEN-LAST:event_texturePackBrowseButtonActionPerformed
 
     private void texturePackClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texturePackClearButtonActionPerformed
-        advancedConfig.remove("texturePack");
+        ADVANCED_CONFIG.remove("texturePack");
         texturePackLabel.setText(BUNDLE.getString("UI.TexturePackDefault"));
         saveAdvancedConfig();
     }//GEN-LAST:event_texturePackClearButtonActionPerformed
     
-    private SwingWorker<Void, String> simulator;
-
     private void updateReactorButtons() {
         for (int row = 0; row < reactorButtons.length; row++) {
             final int finalRow = row;
