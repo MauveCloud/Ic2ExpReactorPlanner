@@ -323,52 +323,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (!lockCode) {
-                    lockCode = true;
-                    reactor.setCode(codeField.getText());
-                    updateReactorButtons();
-                    if (reactor.isFluid()) {
-                        fluidReactorRadio.setSelected(true);
-                    } else {
-                        euReactorRadio.setSelected(true);
-                    }
-                    automatedReactorCheck.setSelected(reactor.isAutomated());
-                    pulsedReactorCheck.setSelected(reactor.isPulsed());
-                    togglePulseConfigTab();
-                    reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
-                    heatSpinner.setValue(reactor.getCurrentHeat());
-                    onPulseSpinner.setValue(reactor.getOnPulse());
-                    offPulseSpinner.setValue(reactor.getOffPulse());
-                    suspendTempSpinner.setValue(reactor.getSuspendTemp());
-                    resumeTempSpinner.setValue(reactor.getResumeTemp());
-                    maxSimulationTicksSpinner.setValue(reactor.getMaxSimulationTicks());
-                    lockCode = false;
-                }
+                insertUpdate(null);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if (!lockCode) {
-                    lockCode = true;
-                    reactor.setCode(codeField.getText());
-                    updateReactorButtons();
-                    if (reactor.isFluid()) {
-                        fluidReactorRadio.setSelected(true);
-                    } else {
-                        euReactorRadio.setSelected(true);
-                    }
-                    automatedReactorCheck.setSelected(reactor.isAutomated());
-                    pulsedReactorCheck.setSelected(reactor.isPulsed());
-                    togglePulseConfigTab();
-                    reactorCoolantInjectorCheckbox.setSelected(reactor.isUsingReactorCoolantInjectors());
-                    heatSpinner.setValue(reactor.getCurrentHeat());
-                    onPulseSpinner.setValue(reactor.getOnPulse());
-                    offPulseSpinner.setValue(reactor.getOffPulse());
-                    suspendTempSpinner.setValue(reactor.getSuspendTemp());
-                    resumeTempSpinner.setValue(reactor.getResumeTemp());
-                    maxSimulationTicksSpinner.setValue(reactor.getMaxSimulationTicks());
-                    lockCode = false;
-                }
+                insertUpdate(null);
             }
         });
         loadAdvancedConfig();
@@ -1185,6 +1145,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel2.add(jLabel2, gridBagConstraints);
 
+        codeField.setEditable(false);
         codeField.setMaximumSize(new java.awt.Dimension(200, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -1609,7 +1570,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private void pasteCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasteCodeButtonActionPerformed
         try {
             String code = Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor).toString();
-            codeField.setText(code);
+            codeField.setText(code.replaceAll("[^0-9A-Za-z(),.?|:/+=]+", ""));
         } catch (UnsupportedFlavorException | IOException ex) {
             Logger.getLogger(ReactorPlannerFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

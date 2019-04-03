@@ -1279,6 +1279,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="codeField">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[200, 20]"/>
                 </Property>
