@@ -55,6 +55,7 @@ public class SimulationData {
     public double predepleteMaxTemp = 0;
     
     // Completed-simulation details
+    public int totalReactorTicks = 0;
     public double totalEUoutput = 0;
     public double avgEUoutput = 0;
     public double minEUoutput = Double.MAX_VALUE;
@@ -66,4 +67,11 @@ public class SimulationData {
     public double minTemp = Double.MAX_VALUE;
     public double maxTemp = 0;
     
+    // Heating and Cooling details
+    public double hullHeating = 0;
+    public double componentHeating = 0;
+    public double hullCooling = 0;
+    public double hullCoolingCapacity = 0;
+    public double ventCooling = 0;
+    public double ventCoolingCapacity = 0;
 }

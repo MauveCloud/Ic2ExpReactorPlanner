@@ -87,6 +87,10 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
     private static final ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
     
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(BUNDLE.getString("Simulation.DecimalFormat"));
+    
+    private boolean completed = false;
+    
+    private final SimulationData data = new SimulationData(); public SimulationData getData() { if (completed) { return data; } return null; }
 
     public AutomationSimulator(final Reactor reactor, final JTextArea output, final JPanel[][] reactorButtonPanels, final File csvFile, final int csvLimit) {
         this.reactor = reactor;
@@ -162,6 +166,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                     publish(String.format("R%dC%d:0xC0C0C0", row, col)); //NOI18N
                 }
             }
+            data.totalRodCount = totalRodCount;
             double lastEUoutput = 0.0;
             double totalEUoutput = 0.0;
             double lastHeatOutput = 0.0;
@@ -310,8 +315,13 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 }
                 
                 if (reactorTicks > 0) {
+                    data.totalReactorTicks = reactorTicks;
                     if (reactor.isFluid()) {
                         if (totalHeatOutput > 0) {
+                            data.totalHUoutput = 40 * totalHeatOutput;
+                            data.avgHUoutput = 2 * totalHeatOutput / reactorTicks;
+                            data.minHUoutput = 2 * minHeatOutput;
+                            data.maxHUoutput = 2 * maxHeatOutput;
                             publish(String.format(BUNDLE.getString("Simulation.HeatOutputs"), 
                                     DECIMAL_FORMAT.format(40 * totalHeatOutput), 
                                     DECIMAL_FORMAT.format(2 * totalHeatOutput / reactorTicks), 
@@ -323,6 +333,10 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         }
                     } else {
                         if (totalEUoutput > 0) {
+                            data.totalEUoutput = totalEUoutput;
+                            data.avgEUoutput = totalEUoutput / (reactorTicks * 20);
+                            data.minEUoutput = minEUoutput / 20.0;
+                            data.maxEUoutput = maxEUoutput / 20.0;
                             publish(String.format(BUNDLE.getString("Simulation.EUOutputs"), 
                                     DECIMAL_FORMAT.format(totalEUoutput), 
                                     DECIMAL_FORMAT.format(totalEUoutput / (reactorTicks * 20)), 
@@ -490,6 +504,8 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
         }
         long endTime = System.nanoTime();
         publish(String.format(BUNDLE.getString("Simulation.ElapsedTime"), (endTime - startTime) / 1e9));
+        completed = true;
+        firePropertyChange("completed", null, true);
         return null;
     }
 
@@ -504,8 +520,16 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         component.info.append(String.format(BUNDLE.getString("ComponentInfo.BrokeTime"), reactorTicks));
                         if (componentsIntact) {
                             componentsIntact = false;
+                            data.firstComponentBrokenTime = reactorTicks;
+                            data.firstComponentBrokenRow = row;
+                            data.firstComponentBrokenCol = col;
+                            data.firstComponentBrokenDescription = component.toString();
                             publish(String.format(BUNDLE.getString("Simulation.FirstComponentBrokenDetails"), component.toString(), row, col, reactorTicks));
                             if (reactor.isFluid()) {
+                                data.prebreakTotalHUoutput = 40 * totalHeatOutput;
+                                data.prebreakAvgHUoutput = 2 * totalHeatOutput / reactorTicks;
+                                data.prebreakMinHUoutput = 2 * minHeatOutput;
+                                data.prebreakMaxHUoutput = 2 * maxHeatOutput;
                                 publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeBreak"), 
                                         DECIMAL_FORMAT.format(40 * totalHeatOutput), 
                                         DECIMAL_FORMAT.format(2 * totalHeatOutput / reactorTicks), 
@@ -515,6 +539,10 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                                     publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                                 }
                             } else {
+                                data.prebreakTotalEUoutput = totalEUoutput;
+                                data.prebreakAvgEUoutput = totalEUoutput / (reactorTicks * 20);
+                                data.prebreakMinEUoutput = minEUoutput / 20.0;
+                                data.prebreakMaxEUoutput = maxEUoutput / 20.0;
                                 publish(String.format(BUNDLE.getString("Simulation.EUOutputsBeforeBreak"), 
                                         DECIMAL_FORMAT.format(totalEUoutput), 
                                         DECIMAL_FORMAT.format(totalEUoutput / (reactorTicks * 20)),
@@ -527,8 +555,16 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         }
                     } else if (!anyRodsDepleted) {
                         anyRodsDepleted = true;
+                        data.firstRodDepletedTime = reactorTicks;
+                        data.firstRodDepletedRow = row;
+                        data.firstRodDepletedCol = col;
+                        data.firstRodDepletedDescription = component.toString();
                         publish(String.format(BUNDLE.getString("Simulation.FirstRodDepletedDetails"), component.toString(), row, col, reactorTicks));
                         if (reactor.isFluid()) {
+                            data.predepleteTotalHUoutput = 40 * totalHeatOutput;
+                            data.predepleteAvgHUoutput = 2 * totalHeatOutput / reactorTicks;
+                            data.predepleteMinHUoutput = 2 * minHeatOutput;
+                            data.predepleteMaxHUoutput = 2 * maxHeatOutput;
                             publish(String.format(BUNDLE.getString("Simulation.HeatOutputsBeforeDepleted"), 
                                     DECIMAL_FORMAT.format(40 * totalHeatOutput), 
                                     DECIMAL_FORMAT.format(2 * totalHeatOutput / reactorTicks), 
@@ -538,6 +574,10 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                                 publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalHeatOutput / reactorTicks / 4 / totalRodCount, minHeatOutput / 4 / totalRodCount, maxHeatOutput / 4 / totalRodCount));
                             }
                         } else {
+                            data.predepleteTotalEUoutput = totalEUoutput;
+                            data.predepleteAvgEUoutput = totalEUoutput / (reactorTicks * 20);
+                            data.predepleteMinEUoutput = minEUoutput / 20.0;
+                            data.predepleteMaxEUoutput = maxEUoutput / 20.0;
                             publish(String.format(BUNDLE.getString("Simulation.EUOutputsBeforeDepleted"), 
                                     DECIMAL_FORMAT.format(totalEUoutput), 
                                     DECIMAL_FORMAT.format(totalEUoutput / (reactorTicks * 20)),
@@ -547,6 +587,8 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                                 publish(String.format(BUNDLE.getString("Simulation.Efficiency"), totalEUoutput / reactorTicks / 100 / totalRodCount, minEUoutput / 100 / totalRodCount, maxEUoutput / 100 / totalRodCount));
                             }
                         }
+                        data.predepleteMinTemp = minReactorHeat;
+                        data.predepleteMaxTemp = maxReactorHeat;
                         publish(String.format(BUNDLE.getString("Simulation.ReactorMinTempBeforeDepleted"), minReactorHeat));
                         publish(String.format(BUNDLE.getString("Simulation.ReactorMaxTempBeforeDepleted"), maxReactorHeat));
                     }
@@ -614,26 +656,32 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
         if (reactor.getCurrentHeat() < 0.5 * reactor.getMaxHeat() && !reachedBelow50 && reachedEvaporate) {
             publish(String.format(BUNDLE.getString("Simulation.TimeToBelow50"), reactorTicks));
             reachedBelow50 = true;
+            data.timeToBelow50 = reactorTicks;
         }
         if (reactor.getCurrentHeat() >= 0.4 * reactor.getMaxHeat() && !reachedBurn) {
             publish(String.format(BUNDLE.getString("Simulation.TimeToBurn"), reactorTicks));
             reachedBurn = true;
+            data.timeToBurn = reactorTicks;
         }
         if (reactor.getCurrentHeat() >= 0.5 * reactor.getMaxHeat() && !reachedEvaporate) {
             publish(String.format(BUNDLE.getString("Simulation.TimeToEvaporate"), reactorTicks));
             reachedEvaporate = true;
+            data.timeToEvaporate = reactorTicks;
         }
         if (reactor.getCurrentHeat() >= 0.7 * reactor.getMaxHeat() && !reachedHurt) {
             publish(String.format(BUNDLE.getString("Simulation.TimeToHurt"), reactorTicks));
             reachedHurt = true;
+            data.timeToHurt = reactorTicks;
         }
         if (reactor.getCurrentHeat() >= 0.85 * reactor.getMaxHeat() && !reachedLava) {
             publish(String.format(BUNDLE.getString("Simulation.TimeToLava"), reactorTicks));
             reachedLava = true;
+            data.timeToLava = reactorTicks;
         }
         if (reactor.getCurrentHeat() >= reactor.getMaxHeat() && !reachedExplode) {
             publish(String.format(BUNDLE.getString("Simulation.TimeToXplode"), reactorTicks));
             reachedExplode = true;
+            data.timeToXplode = reactorTicks;
         }
     }
 
@@ -668,6 +716,12 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                         }
                     }
                 }
+                data.hullHeating = totalHullHeating / (reactorTicks - 20);
+                data.componentHeating = totalComponentHeating / (reactorTicks - 20);
+                data.hullCooling = totalHullCooling / (reactorTicks - 20);
+                data.hullCoolingCapacity = totalHullCoolingCapacity;
+                data.ventCooling = totalVentCooling / (reactorTicks - 20);
+                data.ventCoolingCapacity = totalVentCoolingCapacity;
                 if (totalHullHeating > 0) {
                     publish(String.format(BUNDLE.getString("Simulation.HullHeating"), totalHullHeating / (reactorTicks - 20)));
                 }
