@@ -289,6 +289,8 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 publish(String.format(BUNDLE.getString("Simulation.CancelledAtTick"), reactorTicks));
                 return null;
             }
+            data.minTemp = minReactorHeat;
+            data.maxTemp = maxReactorHeat;
             publish(String.format(BUNDLE.getString("Simulation.ReactorMinTemp"), minReactorHeat));
             publish(String.format(BUNDLE.getString("Simulation.ReactorMaxTemp"), maxReactorHeat));
             if (reactor.getCurrentHeat() < reactor.getMaxHeat()) {

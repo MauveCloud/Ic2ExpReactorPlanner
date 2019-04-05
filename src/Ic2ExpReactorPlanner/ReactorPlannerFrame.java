@@ -542,7 +542,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         texturePackBrowseButton = new javax.swing.JButton();
         texturePackClearButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        javax.swing.JScrollPane comparisonScroll = new javax.swing.JScrollPane();
+        comparisonScroll = new javax.swing.JScrollPane();
         javax.swing.JPanel comparisonPanel = new javax.swing.JPanel();
         javax.swing.JLabel jLabel17 = new javax.swing.JLabel();
         comparisonCodeField = new javax.swing.JTextField();
@@ -1963,98 +1963,325 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Builds an integer comparison string using the resource bundle, based on whether both left and right values are non-default, or just one.
+     * @param comparison the comparison type, for looking up the appropriate keys in the resource bundle, between "Comparison." and ".BothColored", ".LeftOnly", or ".RightOnly"
+     * @param left the left-side value of the comparison
+     * @param right the right-side value of the comparison
+     * @param defaultValue the default value for the relevant entry, and if either left or right is equal to it, that value can be omitted as not applicable.
+     * @param threshold the minimum value to consider good or bad - if this is negative, then negative differences with greater magnitude will be shown in green (good), 
+     * otherwise positive differences will be green; differences in the other direction will be shown in red (bad).  Differences closer to zero than this (in either direction) 
+     * will be shown in orange.
+     * If both are equal to this, the method should not even be called.
+     * @return a string to show the comparison between the two values.
+     */
+    private String buildColoredIntComparisonString(String comparisonType, int left, int right, int defaultValue, int threshold) {
+        if (right == defaultValue) {
+            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".LeftOnly"), left);
+        } else if (left == defaultValue) {
+            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".RightOnly"), right);
+        } else {
+            String color = "orange";
+            if (Math.abs(left - right) > Math.abs(threshold)) {
+                if (Math.signum(left - right) == Math.signum(threshold)) {
+                    color = "green";
+                } else {
+                    color = "red";
+                }
+            }
+            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".Both"), color, left - right, left, right);
+        }
+    }
+    
+    private final DecimalFormat comparisonFormat = new DecimalFormat(BUNDLE.getString("Comparison.CompareDecimalFormat"));
+    private final DecimalFormat simpleFormat = new DecimalFormat(BUNDLE.getString("Comparison.SimpleDecimalFormat"));
+    
+    private String colorDecimal(double value, double threshold) {
+        String color = "orange";
+        if (Math.abs(value) > Math.abs(threshold)) {
+            if (Math.signum(value) == Math.signum(threshold)) {
+                color = "green";
+            } else {
+                color = "red";
+            }
+        }
+        return String.format("<font color=\"%s\">%s</font>", color, comparisonFormat.format(value));
+    }
+    
+    private String simpleDecimal(double value) {
+        return simpleFormat.format(value);
+    }
+    
     private void updateComparison() {
         if (showOldStyleReactorCodeCheck.isSelected()) {
             comparisonCodeField.setText(prevReactorOldCode);
         } else {
             comparisonCodeField.setText(prevReactorCode);
         }
+        if (simulator == null || simulator.getData() == null || prevSimulator == null || prevSimulator.getData() == null) {
+            return;
+        }
+        comparisonScroll.getVerticalScrollBar().setUnitIncrement(16);
         StringBuilder text = new StringBuilder(1000);
         text.append("<html>");
         SimulationData leftData = simulator.getData();
         SimulationData rightData = prevSimulator.getData();
         if (leftData.timeToBelow50 != Integer.MAX_VALUE || rightData.timeToBelow50 != Integer.MAX_VALUE) {
             text.append(BUNDLE.getString("Comparison.Prefix.TimeToBelow50"));
-            text.append(buildIntComparisonString("Time", leftData.timeToBelow50, rightData.timeToBelow50, Integer.MAX_VALUE));
+            text.append(buildColoredIntComparisonString("Time", leftData.timeToBelow50, rightData.timeToBelow50, Integer.MAX_VALUE, 1));
         }
         if (leftData.timeToBurn != Integer.MAX_VALUE || rightData.timeToBurn != Integer.MAX_VALUE) {
             text.append(BUNDLE.getString("Comparison.Prefix.TimeToBurn"));
-            text.append(buildIntComparisonString("Time", leftData.timeToBurn, rightData.timeToBurn, Integer.MAX_VALUE));
+            text.append(buildColoredIntComparisonString("Time", leftData.timeToBurn, rightData.timeToBurn, Integer.MAX_VALUE, 1));
         }
         if (leftData.timeToEvaporate != Integer.MAX_VALUE || rightData.timeToEvaporate != Integer.MAX_VALUE) {
             text.append(BUNDLE.getString("Comparison.Prefix.TimeToEvaporate"));
-            text.append(buildIntComparisonString("Time", leftData.timeToEvaporate, rightData.timeToEvaporate, Integer.MAX_VALUE));
+            text.append(buildColoredIntComparisonString("Time", leftData.timeToEvaporate, rightData.timeToEvaporate, Integer.MAX_VALUE, 1));
         }
         if (leftData.timeToHurt != Integer.MAX_VALUE || rightData.timeToHurt != Integer.MAX_VALUE) {
             text.append(BUNDLE.getString("Comparison.Prefix.TimeToHurt"));
-            text.append(buildIntComparisonString("Time", leftData.timeToHurt, rightData.timeToHurt, Integer.MAX_VALUE));
+            text.append(buildColoredIntComparisonString("Time", leftData.timeToHurt, rightData.timeToHurt, Integer.MAX_VALUE, 1));
         }
         if (leftData.timeToLava != Integer.MAX_VALUE || rightData.timeToLava != Integer.MAX_VALUE) {
             text.append(BUNDLE.getString("Comparison.Prefix.TimeToLava"));
-            text.append(buildIntComparisonString("Time", leftData.timeToLava, rightData.timeToLava, Integer.MAX_VALUE));
+            text.append(buildColoredIntComparisonString("Time", leftData.timeToLava, rightData.timeToLava, Integer.MAX_VALUE, 1));
         }
         if (leftData.timeToXplode != Integer.MAX_VALUE || rightData.timeToXplode != Integer.MAX_VALUE) {
             text.append(BUNDLE.getString("Comparison.Prefix.TimeToXplode"));
-            text.append(buildIntComparisonString("Time", leftData.timeToXplode, rightData.timeToXplode, Integer.MAX_VALUE));
+            text.append(buildColoredIntComparisonString("Time", leftData.timeToXplode, rightData.timeToXplode, Integer.MAX_VALUE, 1));
         }
-        DecimalFormat cdf = new DecimalFormat(BUNDLE.getString("Comparison.CompareDecimalFormat"));
-        DecimalFormat sdf = new DecimalFormat(BUNDLE.getString("Comparison.SimpleDecimalFormat"));
-        if (leftData.totalRodCount > 0 && rightData.totalRodCount > 0) {
-            text.append(BUNDLE.getString("Comparison.Prefix.Predeplete"));
-            if (leftData.predepleteTotalEUoutput > 0) {
-                if (rightData.predepleteTotalEUoutput > 0) {
-                    text.append(String.format(BUNDLE.getString("Comparison.EUEUoutput"), 
-                            cdf.format(leftData.predepleteTotalEUoutput - rightData.predepleteTotalEUoutput),
-                            sdf.format(leftData.predepleteTotalEUoutput),
-                            sdf.format(rightData.predepleteTotalEUoutput),
-                            cdf.format(leftData.predepleteAvgEUoutput - rightData.predepleteAvgEUoutput),
-                            sdf.format(leftData.predepleteAvgEUoutput),
-                            sdf.format(rightData.predepleteAvgEUoutput),
-                            cdf.format(leftData.predepleteMinEUoutput - rightData.predepleteMinEUoutput),
-                            sdf.format(leftData.predepleteMinEUoutput),
-                            sdf.format(rightData.predepleteMinEUoutput),
-                            cdf.format(leftData.predepleteMaxEUoutput - rightData.predepleteMaxEUoutput),
-                            sdf.format(leftData.predepleteMaxEUoutput),
-                            sdf.format(rightData.predepleteMaxEUoutput)));
+        if (leftData.firstComponentBrokenTime != Integer.MAX_VALUE || rightData.firstComponentBrokenTime != Integer.MAX_VALUE) {
+            text.append(BUNDLE.getString("Comparison.Prefix.PrebreakTime"));
+            text.append(buildIntComparisonString("Time", leftData.firstComponentBrokenTime, rightData.firstComponentBrokenTime, Integer.MAX_VALUE));
+
+            if (leftData.firstComponentBrokenTime != Integer.MAX_VALUE && rightData.firstComponentBrokenTime != Integer.MAX_VALUE) {
+                text.append(BUNDLE.getString("Comparison.Prefix.Prebreak"));
+                if (leftData.prebreakTotalEUoutput > 0) {
+                    if (rightData.prebreakTotalEUoutput > 0) {
+                        text.append(String.format(BUNDLE.getString("Comparison.EUEUoutput"),
+                                colorDecimal(leftData.prebreakTotalEUoutput - rightData.prebreakTotalEUoutput, 1000),
+                                simpleDecimal(leftData.prebreakTotalEUoutput),
+                                simpleDecimal(rightData.prebreakTotalEUoutput),
+                                colorDecimal(leftData.prebreakAvgEUoutput - rightData.prebreakAvgEUoutput, 0.1),
+                                simpleDecimal(leftData.prebreakAvgEUoutput),
+                                simpleDecimal(rightData.prebreakAvgEUoutput),
+                                colorDecimal(leftData.prebreakMinEUoutput - rightData.prebreakMinEUoutput, 0.1),
+                                simpleDecimal(leftData.prebreakMinEUoutput),
+                                simpleDecimal(rightData.prebreakMinEUoutput),
+                                colorDecimal(leftData.prebreakMaxEUoutput - rightData.prebreakMaxEUoutput, 0.1),
+                                simpleDecimal(leftData.prebreakMaxEUoutput),
+                                simpleDecimal(rightData.prebreakMaxEUoutput)));
+                    } else {
+                        text.append(String.format(BUNDLE.getString("Comparison.EUHUoutput"),
+                                simpleDecimal(leftData.prebreakTotalEUoutput),
+                                simpleDecimal(rightData.prebreakTotalHUoutput),
+                                simpleDecimal(leftData.prebreakAvgEUoutput),
+                                simpleDecimal(rightData.prebreakAvgHUoutput),
+                                simpleDecimal(leftData.prebreakMinEUoutput),
+                                simpleDecimal(rightData.prebreakMinHUoutput),
+                                simpleDecimal(leftData.prebreakMaxEUoutput),
+                                simpleDecimal(rightData.prebreakMaxHUoutput)));
+                    }
                 } else {
-                    text.append(String.format(BUNDLE.getString("Comparison.EUHUoutput"), 
-                            sdf.format(leftData.predepleteTotalEUoutput),
-                            sdf.format(rightData.predepleteTotalHUoutput),
-                            sdf.format(leftData.predepleteAvgEUoutput),
-                            sdf.format(rightData.predepleteAvgHUoutput),
-                            sdf.format(leftData.predepleteMinEUoutput),
-                            sdf.format(rightData.predepleteMinHUoutput),
-                            sdf.format(leftData.predepleteMaxEUoutput),
-                            sdf.format(rightData.predepleteMaxHUoutput)));                    
-                }
-            } else {
-                if (rightData.predepleteTotalEUoutput > 0) {
-                    text.append(String.format(BUNDLE.getString("Comparison.HUEUoutput"), 
-                            sdf.format(leftData.predepleteTotalHUoutput),
-                            sdf.format(rightData.predepleteTotalEUoutput),
-                            sdf.format(leftData.predepleteAvgHUoutput),
-                            sdf.format(rightData.predepleteAvgEUoutput),
-                            sdf.format(leftData.predepleteMinHUoutput),
-                            sdf.format(rightData.predepleteMinEUoutput),
-                            sdf.format(leftData.predepleteMaxHUoutput),
-                            sdf.format(rightData.predepleteMaxEUoutput)));                    
-                } else {
-                    text.append(String.format(BUNDLE.getString("Comparison.HUHUoutput"), 
-                            cdf.format(leftData.predepleteTotalHUoutput - rightData.predepleteTotalHUoutput),
-                            sdf.format(leftData.predepleteTotalHUoutput),
-                            sdf.format(rightData.predepleteTotalHUoutput),
-                            cdf.format(leftData.predepleteAvgHUoutput - rightData.predepleteAvgHUoutput),
-                            sdf.format(leftData.predepleteAvgHUoutput),
-                            sdf.format(rightData.predepleteAvgHUoutput),
-                            cdf.format(leftData.predepleteMinHUoutput - rightData.predepleteMinHUoutput),
-                            sdf.format(leftData.predepleteMinHUoutput),
-                            sdf.format(rightData.predepleteMinHUoutput),
-                            cdf.format(leftData.predepleteMaxHUoutput - rightData.predepleteMaxHUoutput),
-                            sdf.format(leftData.predepleteMaxHUoutput),
-                            sdf.format(rightData.predepleteMaxHUoutput)));                    
+                    if (rightData.prebreakTotalEUoutput > 0) {
+                        text.append(String.format(BUNDLE.getString("Comparison.HUEUoutput"),
+                                simpleDecimal(leftData.prebreakTotalHUoutput),
+                                simpleDecimal(rightData.prebreakTotalEUoutput),
+                                simpleDecimal(leftData.prebreakAvgHUoutput),
+                                simpleDecimal(rightData.prebreakAvgEUoutput),
+                                simpleDecimal(leftData.prebreakMinHUoutput),
+                                simpleDecimal(rightData.prebreakMinEUoutput),
+                                simpleDecimal(leftData.prebreakMaxHUoutput),
+                                simpleDecimal(rightData.prebreakMaxEUoutput)));
+                    } else {
+                        text.append(String.format(BUNDLE.getString("Comparison.HUHUoutput"),
+                                colorDecimal(leftData.prebreakTotalHUoutput - rightData.prebreakTotalHUoutput, 1000),
+                                simpleDecimal(leftData.prebreakTotalHUoutput),
+                                simpleDecimal(rightData.prebreakTotalHUoutput),
+                                colorDecimal(leftData.prebreakAvgHUoutput - rightData.prebreakAvgHUoutput, 0.1),
+                                simpleDecimal(leftData.prebreakAvgHUoutput),
+                                simpleDecimal(rightData.prebreakAvgHUoutput),
+                                colorDecimal(leftData.prebreakMinHUoutput - rightData.prebreakMinHUoutput, 0.1),
+                                simpleDecimal(leftData.prebreakMinHUoutput),
+                                simpleDecimal(rightData.prebreakMinHUoutput),
+                                colorDecimal(leftData.prebreakMaxHUoutput - rightData.prebreakMaxHUoutput, 0.1),
+                                simpleDecimal(leftData.prebreakMaxHUoutput),
+                                simpleDecimal(rightData.prebreakMaxHUoutput)));
+                    }
                 }
             }
+            text.append("<br>");
         }
+        if (leftData.firstRodDepletedTime != Integer.MAX_VALUE || rightData.firstRodDepletedTime != Integer.MAX_VALUE) {
+            text.append(BUNDLE.getString("Comparison.Prefix.PredepleteTime"));
+            text.append(buildIntComparisonString("Time", leftData.firstRodDepletedTime, rightData.firstRodDepletedTime, Integer.MAX_VALUE));
+
+            if (leftData.totalRodCount > 0 && rightData.totalRodCount > 0) {
+                text.append(BUNDLE.getString("Comparison.Prefix.Predeplete"));
+                if (leftData.predepleteTotalEUoutput > 0) {
+                    if (rightData.predepleteTotalEUoutput > 0) {
+                        text.append(String.format(BUNDLE.getString("Comparison.EUEUoutput"),
+                                colorDecimal(leftData.predepleteTotalEUoutput - rightData.predepleteTotalEUoutput, 1000),
+                                simpleDecimal(leftData.predepleteTotalEUoutput),
+                                simpleDecimal(rightData.predepleteTotalEUoutput),
+                                colorDecimal(leftData.predepleteAvgEUoutput - rightData.predepleteAvgEUoutput, 0.1),
+                                simpleDecimal(leftData.predepleteAvgEUoutput),
+                                simpleDecimal(rightData.predepleteAvgEUoutput),
+                                colorDecimal(leftData.predepleteMinEUoutput - rightData.predepleteMinEUoutput, 0.1),
+                                simpleDecimal(leftData.predepleteMinEUoutput),
+                                simpleDecimal(rightData.predepleteMinEUoutput),
+                                colorDecimal(leftData.predepleteMaxEUoutput - rightData.predepleteMaxEUoutput, 0.1),
+                                simpleDecimal(leftData.predepleteMaxEUoutput),
+                                simpleDecimal(rightData.predepleteMaxEUoutput)));
+                    } else {
+                        text.append(String.format(BUNDLE.getString("Comparison.EUHUoutput"),
+                                simpleDecimal(leftData.predepleteTotalEUoutput),
+                                simpleDecimal(rightData.predepleteTotalHUoutput),
+                                simpleDecimal(leftData.predepleteAvgEUoutput),
+                                simpleDecimal(rightData.predepleteAvgHUoutput),
+                                simpleDecimal(leftData.predepleteMinEUoutput),
+                                simpleDecimal(rightData.predepleteMinHUoutput),
+                                simpleDecimal(leftData.predepleteMaxEUoutput),
+                                simpleDecimal(rightData.predepleteMaxHUoutput)));
+                    }
+                } else {
+                    if (rightData.predepleteTotalEUoutput > 0) {
+                        text.append(String.format(BUNDLE.getString("Comparison.HUEUoutput"),
+                                simpleDecimal(leftData.predepleteTotalHUoutput),
+                                simpleDecimal(rightData.predepleteTotalEUoutput),
+                                simpleDecimal(leftData.predepleteAvgHUoutput),
+                                simpleDecimal(rightData.predepleteAvgEUoutput),
+                                simpleDecimal(leftData.predepleteMinHUoutput),
+                                simpleDecimal(rightData.predepleteMinEUoutput),
+                                simpleDecimal(leftData.predepleteMaxHUoutput),
+                                simpleDecimal(rightData.predepleteMaxEUoutput)));
+                    } else {
+                        text.append(String.format(BUNDLE.getString("Comparison.HUHUoutput"),
+                                colorDecimal(leftData.predepleteTotalHUoutput - rightData.predepleteTotalHUoutput, 1000),
+                                simpleDecimal(leftData.predepleteTotalHUoutput),
+                                simpleDecimal(rightData.predepleteTotalHUoutput),
+                                colorDecimal(leftData.predepleteAvgHUoutput - rightData.predepleteAvgHUoutput, 0.1),
+                                simpleDecimal(leftData.predepleteAvgHUoutput),
+                                simpleDecimal(rightData.predepleteAvgHUoutput),
+                                colorDecimal(leftData.predepleteMinHUoutput - rightData.predepleteMinHUoutput, 0.1),
+                                simpleDecimal(leftData.predepleteMinHUoutput),
+                                simpleDecimal(rightData.predepleteMinHUoutput),
+                                colorDecimal(leftData.predepleteMaxHUoutput - rightData.predepleteMaxHUoutput, 0.1),
+                                simpleDecimal(leftData.predepleteMaxHUoutput),
+                                simpleDecimal(rightData.predepleteMaxHUoutput)));
+                    }
+                }
+                text.append(String.format(BUNDLE.getString("Comparison.PredepleteMinTemp"), 
+                        colorDecimal(leftData.predepleteMinTemp - rightData.predepleteMinTemp, 10),
+                        simpleDecimal(leftData.predepleteMinTemp),
+                        simpleDecimal(rightData.predepleteMinTemp)));
+                text.append(String.format(BUNDLE.getString("Comparison.PredepleteMaxTemp"), 
+                        colorDecimal(leftData.predepleteMaxTemp - rightData.predepleteMaxTemp, 10),
+                        simpleDecimal(leftData.predepleteMaxTemp),
+                        simpleDecimal(rightData.predepleteMaxTemp)));
+            }
+            text.append("<br>");
+        }
+        
+        text.append(BUNDLE.getString("Comparison.Prefix.PostSimulationTime"));
+        text.append(buildIntComparisonString("Time", leftData.totalReactorTicks, rightData.totalReactorTicks, Integer.MAX_VALUE));
+        text.append(BUNDLE.getString("Comparison.Prefix.PostSimulation"));
+        if (leftData.totalEUoutput > 0) {
+            if (rightData.totalEUoutput > 0) {
+                text.append(String.format(BUNDLE.getString("Comparison.EUEUoutput"),
+                        colorDecimal(leftData.totalEUoutput - rightData.totalEUoutput, 1000),
+                        simpleDecimal(leftData.totalEUoutput),
+                        simpleDecimal(rightData.totalEUoutput),
+                        colorDecimal(leftData.avgEUoutput - rightData.avgEUoutput, 0.1),
+                        simpleDecimal(leftData.avgEUoutput),
+                        simpleDecimal(rightData.avgEUoutput),
+                        colorDecimal(leftData.minEUoutput - rightData.minEUoutput, 0.1),
+                        simpleDecimal(leftData.minEUoutput),
+                        simpleDecimal(rightData.minEUoutput),
+                        colorDecimal(leftData.maxEUoutput - rightData.maxEUoutput, 0.1),
+                        simpleDecimal(leftData.maxEUoutput),
+                        simpleDecimal(rightData.maxEUoutput)));
+            } else {
+                text.append(String.format(BUNDLE.getString("Comparison.EUHUoutput"),
+                        simpleDecimal(leftData.totalEUoutput),
+                        simpleDecimal(rightData.totalHUoutput),
+                        simpleDecimal(leftData.avgEUoutput),
+                        simpleDecimal(rightData.avgHUoutput),
+                        simpleDecimal(leftData.minEUoutput),
+                        simpleDecimal(rightData.minHUoutput),
+                        simpleDecimal(leftData.maxEUoutput),
+                        simpleDecimal(rightData.maxHUoutput)));
+            }
+        } else {
+            if (rightData.totalEUoutput > 0) {
+                text.append(String.format(BUNDLE.getString("Comparison.HUEUoutput"),
+                        simpleDecimal(leftData.totalHUoutput),
+                        simpleDecimal(rightData.totalEUoutput),
+                        simpleDecimal(leftData.avgHUoutput),
+                        simpleDecimal(rightData.avgEUoutput),
+                        simpleDecimal(leftData.minHUoutput),
+                        simpleDecimal(rightData.minEUoutput),
+                        simpleDecimal(leftData.maxHUoutput),
+                        simpleDecimal(rightData.maxEUoutput)));
+            } else {
+                text.append(String.format(BUNDLE.getString("Comparison.HUHUoutput"),
+                        colorDecimal(leftData.totalHUoutput - rightData.totalHUoutput, 1000),
+                        simpleDecimal(leftData.totalHUoutput),
+                        simpleDecimal(rightData.totalHUoutput),
+                        colorDecimal(leftData.avgHUoutput - rightData.avgHUoutput, 0.1),
+                        simpleDecimal(leftData.avgHUoutput),
+                        simpleDecimal(rightData.avgHUoutput),
+                        colorDecimal(leftData.minHUoutput - rightData.minHUoutput, 0.1),
+                        simpleDecimal(leftData.minHUoutput),
+                        simpleDecimal(rightData.minHUoutput),
+                        colorDecimal(leftData.maxHUoutput - rightData.maxHUoutput, 0.1),
+                        simpleDecimal(leftData.maxHUoutput),
+                        simpleDecimal(rightData.maxHUoutput)));
+            }
+        }
+        text.append(String.format(BUNDLE.getString("Comparison.PostsimMinTemp"),
+                colorDecimal(leftData.minTemp - rightData.minTemp, 10),
+                simpleDecimal(leftData.minTemp),
+                simpleDecimal(rightData.minTemp)));
+        text.append(String.format(BUNDLE.getString("Comparison.PostsimMaxTemp"),
+                colorDecimal(leftData.maxTemp - rightData.maxTemp, 10),
+                simpleDecimal(leftData.maxTemp),
+                simpleDecimal(rightData.maxTemp)));
+        text.append("<br>");
+        
+        if (leftData.hullHeating != 0 || rightData.hullHeating != 0) {
+            text.append(String.format(BUNDLE.getString("Comparison.HullHeating"),
+                    colorDecimal(leftData.hullHeating - rightData.hullHeating, -1),
+                    simpleDecimal(leftData.hullHeating),
+                    simpleDecimal(rightData.hullHeating)));
+        }
+        if (leftData.componentHeating != 0 || rightData.componentHeating != 0) {
+            text.append(String.format(BUNDLE.getString("Comparison.ComponentHeating"),
+                    colorDecimal(leftData.componentHeating - rightData.componentHeating, -1),
+                    simpleDecimal(leftData.componentHeating),
+                    simpleDecimal(rightData.componentHeating)));
+        }
+        if (leftData.hullCooling != 0 || rightData.hullCooling != 0) {
+            text.append(String.format(BUNDLE.getString("Comparison.HullCooling"),
+                    colorDecimal(leftData.hullCooling - rightData.hullCooling, 1),
+                    simpleDecimal(leftData.hullCooling),
+                    simpleDecimal(rightData.hullCooling)));
+            text.append(String.format(BUNDLE.getString("Comparison.HullCoolingPossible"),
+                    colorDecimal(leftData.hullCoolingCapacity - rightData.hullCoolingCapacity, 1),
+                    simpleDecimal(leftData.hullCoolingCapacity),
+                    simpleDecimal(rightData.hullCoolingCapacity)));
+        }
+        if (leftData.ventCooling != 0 || rightData.ventCooling != 0) {
+            text.append(String.format(BUNDLE.getString("Comparison.VentCooling"),
+                    colorDecimal(leftData.ventCooling - rightData.ventCooling, 1),
+                    simpleDecimal(leftData.ventCooling),
+                    simpleDecimal(rightData.ventCooling)));
+            text.append(String.format(BUNDLE.getString("Comparison.VentCoolingPossible"),
+                    colorDecimal(leftData.ventCoolingCapacity - rightData.ventCoolingCapacity, 1),
+                    simpleDecimal(leftData.ventCoolingCapacity),
+                    simpleDecimal(rightData.ventCoolingCapacity)));
+        }
+        
         text.append("</html>");
         comparisonLabel.setText(text.toString());
     }
@@ -2087,6 +2314,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JTextField comparisonCodeField;
     private javax.swing.JButton comparisonCopyCodeButton;
     private javax.swing.JLabel comparisonLabel;
+    private javax.swing.JScrollPane comparisonScroll;
     private javax.swing.JTextArea componentArea;
     private javax.swing.JToggleButton componentHeatExchangerButton;
     private javax.swing.JLabel componentHeatLabel;
