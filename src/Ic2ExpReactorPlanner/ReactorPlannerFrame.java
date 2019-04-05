@@ -21,11 +21,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.Properties;
@@ -84,8 +87,23 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private static final Properties ADVANCED_CONFIG = new Properties();
     
+    /**
+     * The reactor that was last simulated.
+     */
+    private Reactor simulatedReactor = null;
+
     private AutomationSimulator simulator = null;
 
+    private String currentReactorCode = null;
+    
+    private String currentReactorOldCode = null;
+    
+    private AutomationSimulator prevSimulator = null;
+    
+    private String prevReactorCode = null;
+    
+    private String prevReactorOldCode = null;
+    
     /**
      * Creates new form ReactorPlannerFrame
      */
@@ -524,6 +542,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         texturePackBrowseButton = new javax.swing.JButton();
         texturePackClearButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        javax.swing.JScrollPane comparisonScroll = new javax.swing.JScrollPane();
+        javax.swing.JPanel comparisonPanel = new javax.swing.JPanel();
+        javax.swing.JLabel jLabel17 = new javax.swing.JLabel();
+        comparisonCodeField = new javax.swing.JTextField();
+        comparisonCopyCodeButton = new javax.swing.JButton();
+        javax.swing.JLabel jLabel18 = new javax.swing.JLabel();
+        comparisonLabel = new javax.swing.JLabel();
 
         pulsePanel.setLayout(new java.awt.GridBagLayout());
 
@@ -1181,6 +1206,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         jSplitPane1.setTopComponent(jPanel2);
 
+        outputTabs.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+
         outputArea.setEditable(false);
         outputArea.setColumns(20);
         outputArea.setRows(5);
@@ -1442,6 +1469,50 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         outputTabs.addTab(bundle.getString("UI.AdvancedTab"), advancedScroll); // NOI18N
 
+        comparisonPanel.setLayout(new java.awt.GridBagLayout());
+
+        jLabel17.setText(bundle.getString("UI.CodeLabel")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        comparisonPanel.add(jLabel17, gridBagConstraints);
+
+        comparisonCodeField.setEditable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        comparisonPanel.add(comparisonCodeField, gridBagConstraints);
+
+        comparisonCopyCodeButton.setText(bundle.getString("UI.CopyCodeButton")); // NOI18N
+        comparisonCopyCodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comparisonCopyCodeButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        comparisonPanel.add(comparisonCopyCodeButton, gridBagConstraints);
+
+        jLabel18.setText(bundle.getString("Comparison.Header")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        comparisonPanel.add(jLabel18, gridBagConstraints);
+
+        comparisonLabel.setText(bundle.getString("Comparison.Default")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        comparisonPanel.add(comparisonLabel, gridBagConstraints);
+
+        comparisonScroll.setViewportView(comparisonPanel);
+
+        outputTabs.addTab(bundle.getString("UI.ComparisonTab"), comparisonScroll); // NOI18N
+
         jSplitPane1.setRightComponent(outputTabs);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1517,8 +1588,15 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
     private void simulateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulateButtonActionPerformed
         if (simulator != null) {
+            if (simulator.getData() != null) {
+                prevSimulator = simulator;
+                prevReactorCode = currentReactorCode;
+                prevReactorOldCode = currentReactorOldCode;
+            }
             simulator.cancel(true);
         }
+        currentReactorCode = reactor.getCode();
+        currentReactorOldCode = reactor.getOldCode();
         File csvFile = null;
         int csvLimit = -1;
         if (csvOutputCheck.isSelected()) {
@@ -1535,14 +1613,19 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         simulatedReactor.setCode(reactor.getCode());
         outputTabs.setSelectedComponent(outputPane);
         simulator = new AutomationSimulator(simulatedReactor, outputArea, reactorButtonPanels, csvFile, csvLimit);
+        if (prevSimulator != null) {
+            simulator.addPropertyChangeListener(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent evt) {
+                    if ("completed".equals(evt.getPropertyName()) && Boolean.TRUE.equals(evt.getNewValue())) {
+                        updateComparison();
+                    }
+                }
+            });
+        }
         simulator.execute();        
     }//GEN-LAST:event_simulateButtonActionPerformed
     
-    /**
-     * The reactor that was last simulated.
-     */
-    private Reactor simulatedReactor = null;
-
     private void euReactorRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_euReactorRadioActionPerformed
         reactor.setFluid(false);
         updateCodeField();
@@ -1825,6 +1908,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         texturePackLabel.setText(BUNDLE.getString("UI.TexturePackDefault"));
         saveAdvancedConfig();
     }//GEN-LAST:event_texturePackClearButtonActionPerformed
+
+    private void comparisonCopyCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comparisonCopyCodeButtonActionPerformed
+        StringSelection selection = new StringSelection(comparisonCodeField.getText());
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
+    }//GEN-LAST:event_comparisonCopyCodeButtonActionPerformed
     
     private void updateReactorButtons() {
         for (int row = 0; row < reactorButtons.length; row++) {
@@ -1853,7 +1941,122 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         maxHeatLabel.setText(String.format(BUNDLE.getString("UI.MaxHeatSpecific"), reactor.getMaxHeat()));
         heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
         heatSpinnerModel.setValue(Math.min(((Number) heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
-        temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
+        temperatureEffectsLabel.setText(String.format(BUNDLE.getString("UI.TemperatureEffectsSpecific"), (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
+    }
+    
+    /**
+     * Builds an integer comparison string using the resource bundle, based on whether both left and right values are non-default, or just one.
+     * @param comparison the comparison type, for looking up the appropriate keys in the resource bundle, between "Comparison." and ".Both", ".LeftOnly", or ".RightOnly"
+     * @param left the left-side value of the comparison
+     * @param right the right-side value of the comparison
+     * @param defaultValue the default value for the relevant entry, and if either left or right is equal to it, that value can be omitted as not applicable.
+     * If both are equal to this, the method should not even be called.
+     * @return a string to show the comparison between the two values.
+     */
+    private String buildIntComparisonString(String comparisonType, int left, int right, int defaultValue) {
+        if (right == defaultValue) {
+            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".LeftOnly"), left);
+        } else if (left == defaultValue) {
+            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".RightOnly"), right);
+        } else {
+            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".Both"), left - right, left, right);
+        }
+    }
+    
+    private void updateComparison() {
+        if (showOldStyleReactorCodeCheck.isSelected()) {
+            comparisonCodeField.setText(prevReactorOldCode);
+        } else {
+            comparisonCodeField.setText(prevReactorCode);
+        }
+        StringBuilder text = new StringBuilder(1000);
+        text.append("<html>");
+        SimulationData leftData = simulator.getData();
+        SimulationData rightData = prevSimulator.getData();
+        if (leftData.timeToBelow50 != Integer.MAX_VALUE || rightData.timeToBelow50 != Integer.MAX_VALUE) {
+            text.append(BUNDLE.getString("Comparison.Prefix.TimeToBelow50"));
+            text.append(buildIntComparisonString("Time", leftData.timeToBelow50, rightData.timeToBelow50, Integer.MAX_VALUE));
+        }
+        if (leftData.timeToBurn != Integer.MAX_VALUE || rightData.timeToBurn != Integer.MAX_VALUE) {
+            text.append(BUNDLE.getString("Comparison.Prefix.TimeToBurn"));
+            text.append(buildIntComparisonString("Time", leftData.timeToBurn, rightData.timeToBurn, Integer.MAX_VALUE));
+        }
+        if (leftData.timeToEvaporate != Integer.MAX_VALUE || rightData.timeToEvaporate != Integer.MAX_VALUE) {
+            text.append(BUNDLE.getString("Comparison.Prefix.TimeToEvaporate"));
+            text.append(buildIntComparisonString("Time", leftData.timeToEvaporate, rightData.timeToEvaporate, Integer.MAX_VALUE));
+        }
+        if (leftData.timeToHurt != Integer.MAX_VALUE || rightData.timeToHurt != Integer.MAX_VALUE) {
+            text.append(BUNDLE.getString("Comparison.Prefix.TimeToHurt"));
+            text.append(buildIntComparisonString("Time", leftData.timeToHurt, rightData.timeToHurt, Integer.MAX_VALUE));
+        }
+        if (leftData.timeToLava != Integer.MAX_VALUE || rightData.timeToLava != Integer.MAX_VALUE) {
+            text.append(BUNDLE.getString("Comparison.Prefix.TimeToLava"));
+            text.append(buildIntComparisonString("Time", leftData.timeToLava, rightData.timeToLava, Integer.MAX_VALUE));
+        }
+        if (leftData.timeToXplode != Integer.MAX_VALUE || rightData.timeToXplode != Integer.MAX_VALUE) {
+            text.append(BUNDLE.getString("Comparison.Prefix.TimeToXplode"));
+            text.append(buildIntComparisonString("Time", leftData.timeToXplode, rightData.timeToXplode, Integer.MAX_VALUE));
+        }
+        DecimalFormat cdf = new DecimalFormat(BUNDLE.getString("Comparison.CompareDecimalFormat"));
+        DecimalFormat sdf = new DecimalFormat(BUNDLE.getString("Comparison.SimpleDecimalFormat"));
+        if (leftData.totalRodCount > 0 && rightData.totalRodCount > 0) {
+            text.append(BUNDLE.getString("Comparison.Prefix.Predeplete"));
+            if (leftData.predepleteTotalEUoutput > 0) {
+                if (rightData.predepleteTotalEUoutput > 0) {
+                    text.append(String.format(BUNDLE.getString("Comparison.EUEUoutput"), 
+                            cdf.format(leftData.predepleteTotalEUoutput - rightData.predepleteTotalEUoutput),
+                            sdf.format(leftData.predepleteTotalEUoutput),
+                            sdf.format(rightData.predepleteTotalEUoutput),
+                            cdf.format(leftData.predepleteAvgEUoutput - rightData.predepleteAvgEUoutput),
+                            sdf.format(leftData.predepleteAvgEUoutput),
+                            sdf.format(rightData.predepleteAvgEUoutput),
+                            cdf.format(leftData.predepleteMinEUoutput - rightData.predepleteMinEUoutput),
+                            sdf.format(leftData.predepleteMinEUoutput),
+                            sdf.format(rightData.predepleteMinEUoutput),
+                            cdf.format(leftData.predepleteMaxEUoutput - rightData.predepleteMaxEUoutput),
+                            sdf.format(leftData.predepleteMaxEUoutput),
+                            sdf.format(rightData.predepleteMaxEUoutput)));
+                } else {
+                    text.append(String.format(BUNDLE.getString("Comparison.EUHUoutput"), 
+                            sdf.format(leftData.predepleteTotalEUoutput),
+                            sdf.format(rightData.predepleteTotalHUoutput),
+                            sdf.format(leftData.predepleteAvgEUoutput),
+                            sdf.format(rightData.predepleteAvgHUoutput),
+                            sdf.format(leftData.predepleteMinEUoutput),
+                            sdf.format(rightData.predepleteMinHUoutput),
+                            sdf.format(leftData.predepleteMaxEUoutput),
+                            sdf.format(rightData.predepleteMaxHUoutput)));                    
+                }
+            } else {
+                if (rightData.predepleteTotalEUoutput > 0) {
+                    text.append(String.format(BUNDLE.getString("Comparison.HUEUoutput"), 
+                            sdf.format(leftData.predepleteTotalHUoutput),
+                            sdf.format(rightData.predepleteTotalEUoutput),
+                            sdf.format(leftData.predepleteAvgHUoutput),
+                            sdf.format(rightData.predepleteAvgEUoutput),
+                            sdf.format(leftData.predepleteMinHUoutput),
+                            sdf.format(rightData.predepleteMinEUoutput),
+                            sdf.format(leftData.predepleteMaxHUoutput),
+                            sdf.format(rightData.predepleteMaxEUoutput)));                    
+                } else {
+                    text.append(String.format(BUNDLE.getString("Comparison.HUHUoutput"), 
+                            cdf.format(leftData.predepleteTotalHUoutput - rightData.predepleteTotalHUoutput),
+                            sdf.format(leftData.predepleteTotalHUoutput),
+                            sdf.format(rightData.predepleteTotalHUoutput),
+                            cdf.format(leftData.predepleteAvgHUoutput - rightData.predepleteAvgHUoutput),
+                            sdf.format(leftData.predepleteAvgHUoutput),
+                            sdf.format(rightData.predepleteAvgHUoutput),
+                            cdf.format(leftData.predepleteMinHUoutput - rightData.predepleteMinHUoutput),
+                            sdf.format(leftData.predepleteMinHUoutput),
+                            sdf.format(rightData.predepleteMinHUoutput),
+                            cdf.format(leftData.predepleteMaxHUoutput - rightData.predepleteMaxHUoutput),
+                            sdf.format(leftData.predepleteMaxHUoutput),
+                            sdf.format(rightData.predepleteMaxHUoutput)));                    
+                }
+            }
+        }
+        text.append("</html>");
+        comparisonLabel.setText(text.toString());
     }
     
     /**
@@ -1881,6 +2084,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton clearGridButton;
     private javax.swing.JTextField codeField;
+    private javax.swing.JTextField comparisonCodeField;
+    private javax.swing.JButton comparisonCopyCodeButton;
+    private javax.swing.JLabel comparisonLabel;
     private javax.swing.JTextArea componentArea;
     private javax.swing.JToggleButton componentHeatExchangerButton;
     private javax.swing.JLabel componentHeatLabel;
