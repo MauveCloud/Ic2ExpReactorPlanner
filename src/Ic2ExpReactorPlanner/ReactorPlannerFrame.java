@@ -2304,6 +2304,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
      */
     public static void main(final String args[]) {
 
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionDialogDisplay());
+        System.setProperty("sun.awt.exception.handler", ExceptionDialogDisplay.class.getName());
+        
         /* Create and display the form */
         SwingUtilities.invokeLater(new Runnable() {
 
