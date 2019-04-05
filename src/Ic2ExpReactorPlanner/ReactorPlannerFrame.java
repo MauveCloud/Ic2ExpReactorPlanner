@@ -1501,6 +1501,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         comparisonPanel.add(jLabel18, gridBagConstraints);
 
+        comparisonLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         comparisonLabel.setText(bundle.getString("Comparison.Default")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -2281,6 +2282,18 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     simpleDecimal(leftData.ventCoolingCapacity),
                     simpleDecimal(rightData.ventCoolingCapacity)));
         }
+        text.append("<br>");
+        
+        text.append(BUNDLE.getString("Comparison.MaterialsHeading"));
+        Reactor tempReactor = new Reactor();
+        tempReactor.setCode(currentReactorCode);
+        Reactor prevReactor = new Reactor();
+        prevReactor.setCode(prevReactorCode);
+        text.append(tempReactor.getMaterials().buildComparisonString(prevReactor.getMaterials()));
+        text.append("<br>");
+        
+        text.append(BUNDLE.getString("Comparison.ComponentsHeading"));
+        text.append(tempReactor.getComponentList().buildComparisonString(prevReactor.getComponentList()));
         
         text.append("</html>");
         comparisonLabel.setText(text.toString());

@@ -1,9 +1,12 @@
 package Ic2ExpReactorPlanner;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.SortedMap;
+import java.util.SortedSet;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * Represents a list of materials (such as for an IndustrialCraft2 Nuclear Reactor and components).
@@ -139,15 +142,41 @@ public final class MaterialsList {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder(1000);
+        DecimalFormat materialDecimalFormat = new DecimalFormat(BUNDLE.getString("UI.MaterialDecimalFormat"));
         for (Map.Entry<String, Double> entrySet : materials.entrySet()) {
             double count = entrySet.getValue();
-            String formattedNumber = String.format("%,.2f", count); //NOI18N
-            if (Math.abs(count - Math.round(count)) < 0.001) {
-                formattedNumber = String.format("%,d", (int)Math.round(count)); //NOI18N
-            }
+            String formattedNumber = materialDecimalFormat.format(count);
             result.append(String.format("%s %s\n", formattedNumber, entrySet.getKey())); //NOI18N
         }
         return result.toString();
     }
     
+    public String buildComparisonString(MaterialsList rhs) {
+        StringBuilder result = new StringBuilder(1000);
+        SortedSet<String> keys = new TreeSet<>(materials.keySet());
+        keys.addAll(rhs.materials.keySet());
+        DecimalFormat comparisonDecimalFormat = new DecimalFormat(BUNDLE.getString("Comparison.CompareDecimalFormat"));
+        DecimalFormat simpleDecimalFormat = new DecimalFormat(BUNDLE.getString("Comparison.SimpleDecimalFormat"));
+        for (String key : keys) {
+            double left = 0;
+            if (materials.containsKey(key)) {
+                left = materials.get(key);
+            }
+            double right = 0;
+            if (rhs.materials.containsKey(key)) {
+                right = rhs.materials.get(key);
+            }
+            String color = "orange";
+            if (left < right) {
+                color = "green";
+            } else if (left > right) {
+                color = "red";
+            }
+            result.append(String.format(BUNDLE.getString("Comparison.MaterialsEntry"), color, 
+                    comparisonDecimalFormat.format(left - right), key, 
+                    simpleDecimalFormat.format(left), 
+                    simpleDecimalFormat.format(right)));
+        }
+        return result.toString();
+    }
 }
