@@ -877,7 +877,7 @@
                             <Component class="javax.swing.JLabel" name="versionLabel">
                               <Properties>
                                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="String.format(BUNDLE.getString(&quot;UI.VersionNumber&quot;), VERSION)" type="code"/>
+                                  <Connection code="formatBundle(&quot;UI.VersionNumber&quot;, VERSION)" type="code"/>
                                 </Property>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
