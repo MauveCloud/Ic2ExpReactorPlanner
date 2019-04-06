@@ -5,6 +5,8 @@
  */
 package Ic2ExpReactorPlanner;
 
+import static Ic2ExpReactorPlanner.BundleHelper.formatI18n;
+import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
 import Ic2ExpReactorPlanner.components.ReactorItem;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
@@ -376,7 +378,7 @@ public class Reactor {
                         setComponentAt(y, x, ComponentFactory.createComponent("quadFuelRodUranium"));
                         break;
                     case 4:
-                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.DepletedIsotope"), y, x));
+                        warnings.append(formatI18n("Warning.DepletedIsotope", y, x));
                         break;
                     case 5:
                         setComponentAt(y, x, ComponentFactory.createComponent("neutronReflector"));
@@ -436,7 +438,7 @@ public class Reactor {
                         setComponentAt(y, x, ComponentFactory.createComponent("coolantCell60k"));
                         break;
                     case 24:
-                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Heating"), y, x));
+                        warnings.append(formatI18n("Warning.Heating", y, x));
                         break;
                     case 32:
                         setComponentAt(y, x, ComponentFactory.createComponent("fuelRodThorium"));
@@ -448,13 +450,13 @@ public class Reactor {
                         setComponentAt(y, x, ComponentFactory.createComponent("quadFuelRodThorium"));
                         break;
                     case 35:
-                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Plutonium"), y, x));
+                        warnings.append(formatI18n("Warning.Plutonium", y, x));
                         break;
                     case 36:
-                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.DualPlutonium"), y, x));
+                        warnings.append(formatI18n("Warning.DualPlutonium", y, x));
                         break;
                     case 37:
-                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.QuadPlutonium"), y, x));
+                        warnings.append(formatI18n("Warning.QuadPlutonium", y, x));
                         break;
                     case 38:
                         setComponentAt(y, x, ComponentFactory.createComponent("iridiumNeutronReflector"));
@@ -478,14 +480,14 @@ public class Reactor {
                         setComponentAt(y, x, ComponentFactory.createComponent("coolantCellNak360k"));
                         break;
                     default:
-                        warnings.append(String.format(java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Unrecognized"), nextValue, y, x));
+                        warnings.append(formatI18n("Warning.Unrecognized", nextValue, y, x));
                         break;
                 }
             }
         }
         if (warnings.length() > 0) {
             warnings.setLength(warnings.length() - 1);  // to remove last newline character
-            JOptionPane.showMessageDialog(null, warnings, java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle").getString("Warning.Title"), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, warnings, getI18n("Warning.Title"), JOptionPane.WARNING_MESSAGE);
         }
     }
 

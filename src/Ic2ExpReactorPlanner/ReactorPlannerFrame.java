@@ -5,6 +5,8 @@
  */
 package Ic2ExpReactorPlanner;
 
+import static Ic2ExpReactorPlanner.BundleHelper.formatI18n;
+import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
 import Ic2ExpReactorPlanner.components.ReactorItem;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -81,8 +83,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     
     private final LinkedList<JButton> componentDetailButtons = new LinkedList<>();
     
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
-    
     private static final Properties ADVANCED_CONFIG = new Properties();
     
     /**
@@ -117,7 +117,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if ("empty".equals(button.getActionCommand())) {
-                        placingLabel.setText(BUNDLE.getString("UI.ComponentPlacingDefault"));
+                        placingLabel.setText(getI18n("UI.ComponentPlacingDefault"));
                         paletteComponentId = 0;
                     } else if (button.getActionCommand() != null) {
                         ReactorItem tempComponent = ComponentFactory.getDefaultComponent(button.getActionCommand());
@@ -126,7 +126,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             if (paletteComponents[paletteComponentId] == null) {
                                 paletteComponents[paletteComponentId] = ComponentFactory.createComponent(paletteComponentId);
                             }
-                            placingLabel.setText(formatBundle("UI.ComponentPlacingSpecific",
+                            placingLabel.setText(formatI18n("UI.ComponentPlacingSpecific",
                                     paletteComponents[paletteComponentId].toString()));
                             componentHeatSpinner.setValue(paletteComponents[paletteComponentId].getInitialHeat());
                             placingThresholdSpinner.setValue(paletteComponents[paletteComponentId].getAutomationThreshold());
@@ -147,10 +147,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 GridBagConstraints constraints = new GridBagConstraints();
                 constraints.weightx = 0;
                 constraints.weighty = 0;
-                JButton automationButton = new JButton(BUNDLE.getString("UI.AutomateButton"));
-                automationButton.setFont(Font.decode(BUNDLE.getString("UI.AutomateButtonFont")));
+                JButton automationButton = new JButton(getI18n("UI.AutomateButton"));
+                automationButton.setFont(Font.decode(getI18n("UI.AutomateButtonFont")));
                 automationButton.setMargin(new Insets(-2, 0, -2, 0));
-                automationButton.setToolTipText(BUNDLE.getString("UI.AutomationTooltip"));
+                automationButton.setToolTipText(getI18n("UI.AutomationTooltip"));
                 automationButton.setFocusable(false);
                 automationButton.addActionListener(new ActionListener() {
 
@@ -160,9 +160,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         selectedRow = finalRow;
                         selectedColumn = finalCol;
                         if (component == null) {
-                            selectedComponentLabel.setText(formatBundle("UI.NoComponentRowCol", finalRow, finalCol));
+                            selectedComponentLabel.setText(formatI18n("UI.NoComponentRowCol", finalRow, finalCol));
                         } else {
-                            selectedComponentLabel.setText(formatBundle("UI.ChosenComponentRowCol", component.toString(), finalRow, finalCol));
+                            selectedComponentLabel.setText(formatI18n("UI.ChosenComponentRowCol", component.toString(), finalRow, finalCol));
                             thresholdSpinner.setValue(component.getAutomationThreshold());
                             pauseSpinner.setValue(component.getReactorPause());
                         }
@@ -174,8 +174,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 reactorButtonPanels[row][col].add(new JLabel(), constraints);
                 constraints.gridwidth = GridBagConstraints.REMAINDER;
                 constraints.anchor = GridBagConstraints.EAST;
-                JButton infoButton = new JButton(BUNDLE.getString("UI.ComponentInfoButton"));
-                infoButton.setFont(Font.decode(BUNDLE.getString("UI.ComponentInfoButtonFont")));
+                JButton infoButton = new JButton(getI18n("UI.ComponentInfoButton"));
+                infoButton.setFont(Font.decode(getI18n("UI.ComponentInfoButtonFont")));
                 infoButton.setMargin(new Insets(-2, 0, -2, 0));
                 infoButton.setFocusable(false);
                 infoButton.addActionListener(new ActionListener() {
@@ -185,17 +185,17 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         if (simulatedReactor != null) {
                             final ReactorItem component = simulatedReactor.getComponentAt(finalRow, finalCol);
                             if (component == null) {
-                                componentArea.setText(formatBundle("UI.NoComponentLastSimRowCol", finalRow, finalCol));
+                                componentArea.setText(formatI18n("UI.NoComponentLastSimRowCol", finalRow, finalCol));
                             } else {
-                                componentArea.setText(formatBundle("UI.ComponentInfoLastSimRowCol", component.toString(), finalRow, finalCol, component.info));
+                                componentArea.setText(formatI18n("UI.ComponentInfoLastSimRowCol", component.toString(), finalRow, finalCol, component.info));
                             }
                         } else {
-                            componentArea.setText(BUNDLE.getString("UI.NoSimulationRun"));
+                            componentArea.setText(getI18n("UI.NoSimulationRun"));
                         }
                         outputTabs.setSelectedComponent(componentPane);
                     }
                 });
-                infoButton.setToolTipText(BUNDLE.getString("UI.ComponentInfoButtonTooltip"));
+                infoButton.setToolTipText(getI18n("UI.ComponentInfoButtonTooltip"));
                 reactorButtonPanels[row][col].add(infoButton, constraints);
                 componentDetailButtons.add(infoButton);
                 constraints.weightx = 1.0;
@@ -240,10 +240,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         reactor.setComponentAt(finalRow, finalCol, componentToPlace);
                         materialsArea.setText(reactor.getMaterials().toString());
                         componentListArea.setText(reactor.getComponentList().toString());
-                        maxHeatLabel.setText(formatBundle("UI.MaxHeatSpecific", reactor.getMaxHeat()));
+                        maxHeatLabel.setText(formatI18n("UI.MaxHeatSpecific", reactor.getMaxHeat()));
                         heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
                         heatSpinnerModel.setValue(Math.min(((Number)heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
-                        temperatureEffectsLabel.setText(formatBundle("UI.TemperatureEffectsSpecific", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
+                        temperatureEffectsLabel.setText(formatI18n("UI.TemperatureEffectsSpecific", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
                         int buttonSize = Math.min(reactorButtons[finalRow][finalCol].getWidth(), reactorButtons[finalRow][finalCol].getHeight());
                         if (buttonSize > 2 && componentToPlace != null && componentToPlace.image != null) {
                             reactorButtons[finalRow][finalCol].setIcon(new ImageIcon(componentToPlace.image.getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
@@ -272,7 +272,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             reactor.setComponentAt(finalRow, finalCol, null);
                             materialsArea.setText(reactor.getMaterials().toString());
                             componentListArea.setText(reactor.getComponentList().toString());
-                            maxHeatLabel.setText(formatBundle("UI.MaxHeatSpecific", reactor.getMaxHeat()));
+                            maxHeatLabel.setText(formatI18n("UI.MaxHeatSpecific", reactor.getMaxHeat()));
                             heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
                             heatSpinnerModel.setValue(Math.min(((Number) heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
                             temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
@@ -364,7 +364,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 File texturePackFile = new File(texturePackName);
                 if (texturePackFile.isFile()) {
                     textureChooser.setSelectedFile(texturePackFile);
-                    texturePackLabel.setText(formatBundle("UI.TexturePackSpecific", texturePackName));
+                    texturePackLabel.setText(formatI18n("UI.TexturePackSpecific", texturePackName));
                 }
             }
             String csvFileName = ADVANCED_CONFIG.getProperty("csvFile");
@@ -930,7 +930,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         jPanel8.add(placingLabel, gridBagConstraints);
 
-        versionLabel.setText(formatBundle("UI.VersionNumber", VERSION));
+        versionLabel.setText(formatI18n("UI.VersionNumber", VERSION));
         versionLabel.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -1576,7 +1576,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         outputArea.setText(null);
         materialsArea.setText(reactor.getMaterials().toString());
         componentListArea.setText(reactor.getComponentList().toString());
-        maxHeatLabel.setText(formatBundle("UI.MaxHeatSpecific", reactor.getMaxHeat()));
+        maxHeatLabel.setText(formatI18n("UI.MaxHeatSpecific", reactor.getMaxHeat()));
         heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
         heatSpinnerModel.setValue(Math.min(((Number) heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
         temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
@@ -1742,7 +1742,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private void togglePulseConfigTab() {
         if (pulsedReactorCheck.isSelected()) {
             if (outputTabs.indexOfComponent(pulsePanel) < 0) {
-                outputTabs.insertTab(BUNDLE.getString("UI.PulseConfigurationTab"), null, pulsePanel, null, outputTabs.indexOfComponent(outputPane) + 1);
+                outputTabs.insertTab(getI18n("UI.PulseConfigurationTab"), null, pulsePanel, null, outputTabs.indexOfComponent(outputPane) + 1);
             }
         } else {
             outputTabs.remove(pulsePanel);
@@ -1806,7 +1806,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 }
             }
             if (reactorHasGT508Components) {
-                int result = JOptionPane.showConfirmDialog(this, BUNDLE.getString("UI.RemoveGT508ComponentsText"), BUNDLE.getString("UI.RemoveAddonComponentsTitle"), JOptionPane.YES_NO_OPTION);
+                int result = JOptionPane.showConfirmDialog(this, getI18n("UI.RemoveGT508ComponentsText"), getI18n("UI.RemoveAddonComponentsTitle"), JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION) {
                     for (int row = 0; row < 6; row++) {
                         for (int col = 0; col < 9; col++) {
@@ -1844,7 +1844,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 }
             }
             if (reactorHasGT509Components) {
-                int result = JOptionPane.showConfirmDialog(this, BUNDLE.getString("UI.RemoveGT509ComponentsText"), BUNDLE.getString("UI.RemoveAddonComponentsTitle"), JOptionPane.YES_NO_OPTION);
+                int result = JOptionPane.showConfirmDialog(this, getI18n("UI.RemoveGT509ComponentsText"), getI18n("UI.RemoveAddonComponentsTitle"), JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION) {
                     for (int row = 0; row < 6; row++) {
                         for (int col = 0; col < 9; col++) {
@@ -1897,14 +1897,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         textureChooser.showOpenDialog(this);
         if (textureChooser.getSelectedFile() != null) {
             ADVANCED_CONFIG.setProperty("texturePack", textureChooser.getSelectedFile().getAbsolutePath());
-            texturePackLabel.setText(formatBundle("UI.TexturePackSpecific", textureChooser.getSelectedFile().getAbsolutePath()));
+            texturePackLabel.setText(formatI18n("UI.TexturePackSpecific", textureChooser.getSelectedFile().getAbsolutePath()));
             saveAdvancedConfig();
         }
     }//GEN-LAST:event_texturePackBrowseButtonActionPerformed
 
     private void texturePackClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texturePackClearButtonActionPerformed
         ADVANCED_CONFIG.remove("texturePack");
-        texturePackLabel.setText(BUNDLE.getString("UI.TexturePackDefault"));
+        texturePackLabel.setText(getI18n("UI.TexturePackDefault"));
         saveAdvancedConfig();
     }//GEN-LAST:event_texturePackClearButtonActionPerformed
 
@@ -1937,10 +1937,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
         materialsArea.setText(reactor.getMaterials().toString());
         componentListArea.setText(reactor.getComponentList().toString());
-        maxHeatLabel.setText(formatBundle("UI.MaxHeatSpecific", reactor.getMaxHeat()));
+        maxHeatLabel.setText(formatI18n("UI.MaxHeatSpecific", reactor.getMaxHeat()));
         heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
         heatSpinnerModel.setValue(Math.min(((Number) heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
-        temperatureEffectsLabel.setText(formatBundle("UI.TemperatureEffectsSpecific", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
+        temperatureEffectsLabel.setText(formatI18n("UI.TemperatureEffectsSpecific", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
     }
     
     /**
@@ -1954,11 +1954,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
      */
     private String buildIntComparisonString(String comparisonType, int left, int right, int defaultValue) {
         if (right == defaultValue) {
-            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".LeftOnly"), left);
+            return String.format(getI18n("Comparison." + comparisonType + ".LeftOnly"), left);
         } else if (left == defaultValue) {
-            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".RightOnly"), right);
+            return String.format(getI18n("Comparison." + comparisonType + ".RightOnly"), right);
         } else {
-            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".Both"), left - right, left, right);
+            return String.format(getI18n("Comparison." + comparisonType + ".Both"), left - right, left, right);
         }
     }
     
@@ -1976,9 +1976,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
      */
     private String buildColoredIntComparisonString(String comparisonType, int left, int right, int defaultValue, int threshold) {
         if (right == defaultValue) {
-            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".LeftOnly"), left);
+            return String.format(getI18n("Comparison." + comparisonType + ".LeftOnly"), left);
         } else if (left == defaultValue) {
-            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".RightOnly"), right);
+            return String.format(getI18n("Comparison." + comparisonType + ".RightOnly"), right);
         } else {
             String color = "orange";
             if (Math.abs(left - right) > Math.abs(threshold)) {
@@ -1988,12 +1988,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     color = "red";
                 }
             }
-            return String.format(BUNDLE.getString("Comparison." + comparisonType + ".Both"), color, left - right, left, right);
+            return String.format(getI18n("Comparison." + comparisonType + ".Both"), color, left - right, left, right);
         }
     }
     
-    private final DecimalFormat comparisonFormat = new DecimalFormat(BUNDLE.getString("Comparison.CompareDecimalFormat"));
-    private final DecimalFormat simpleFormat = new DecimalFormat(BUNDLE.getString("Comparison.SimpleDecimalFormat"));
+    private final DecimalFormat comparisonFormat = new DecimalFormat(getI18n("Comparison.CompareDecimalFormat"));
+    private final DecimalFormat simpleFormat = new DecimalFormat(getI18n("Comparison.SimpleDecimalFormat"));
     
     private String colorDecimal(double value, double threshold) {
         String color = "orange";
@@ -2026,38 +2026,38 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         SimulationData leftData = simulator.getData();
         SimulationData rightData = prevSimulator.getData();
         if (leftData.timeToBelow50 != Integer.MAX_VALUE || rightData.timeToBelow50 != Integer.MAX_VALUE) {
-            text.append(BUNDLE.getString("Comparison.Prefix.TimeToBelow50"));
+            text.append(getI18n("Comparison.Prefix.TimeToBelow50"));
             text.append(buildColoredIntComparisonString("Time", leftData.timeToBelow50, rightData.timeToBelow50, Integer.MAX_VALUE, 1));
         }
         if (leftData.timeToBurn != Integer.MAX_VALUE || rightData.timeToBurn != Integer.MAX_VALUE) {
-            text.append(BUNDLE.getString("Comparison.Prefix.TimeToBurn"));
+            text.append(getI18n("Comparison.Prefix.TimeToBurn"));
             text.append(buildColoredIntComparisonString("Time", leftData.timeToBurn, rightData.timeToBurn, Integer.MAX_VALUE, 1));
         }
         if (leftData.timeToEvaporate != Integer.MAX_VALUE || rightData.timeToEvaporate != Integer.MAX_VALUE) {
-            text.append(BUNDLE.getString("Comparison.Prefix.TimeToEvaporate"));
+            text.append(getI18n("Comparison.Prefix.TimeToEvaporate"));
             text.append(buildColoredIntComparisonString("Time", leftData.timeToEvaporate, rightData.timeToEvaporate, Integer.MAX_VALUE, 1));
         }
         if (leftData.timeToHurt != Integer.MAX_VALUE || rightData.timeToHurt != Integer.MAX_VALUE) {
-            text.append(BUNDLE.getString("Comparison.Prefix.TimeToHurt"));
+            text.append(getI18n("Comparison.Prefix.TimeToHurt"));
             text.append(buildColoredIntComparisonString("Time", leftData.timeToHurt, rightData.timeToHurt, Integer.MAX_VALUE, 1));
         }
         if (leftData.timeToLava != Integer.MAX_VALUE || rightData.timeToLava != Integer.MAX_VALUE) {
-            text.append(BUNDLE.getString("Comparison.Prefix.TimeToLava"));
+            text.append(getI18n("Comparison.Prefix.TimeToLava"));
             text.append(buildColoredIntComparisonString("Time", leftData.timeToLava, rightData.timeToLava, Integer.MAX_VALUE, 1));
         }
         if (leftData.timeToXplode != Integer.MAX_VALUE || rightData.timeToXplode != Integer.MAX_VALUE) {
-            text.append(BUNDLE.getString("Comparison.Prefix.TimeToXplode"));
+            text.append(getI18n("Comparison.Prefix.TimeToXplode"));
             text.append(buildColoredIntComparisonString("Time", leftData.timeToXplode, rightData.timeToXplode, Integer.MAX_VALUE, 1));
         }
         if (leftData.firstComponentBrokenTime != Integer.MAX_VALUE || rightData.firstComponentBrokenTime != Integer.MAX_VALUE) {
-            text.append(BUNDLE.getString("Comparison.Prefix.PrebreakTime"));
+            text.append(getI18n("Comparison.Prefix.PrebreakTime"));
             text.append(buildIntComparisonString("Time", leftData.firstComponentBrokenTime, rightData.firstComponentBrokenTime, Integer.MAX_VALUE));
 
             if (leftData.firstComponentBrokenTime != Integer.MAX_VALUE && rightData.firstComponentBrokenTime != Integer.MAX_VALUE) {
-                text.append(BUNDLE.getString("Comparison.Prefix.Prebreak"));
+                text.append(getI18n("Comparison.Prefix.Prebreak"));
                 if (leftData.prebreakTotalEUoutput > 0) {
                     if (rightData.prebreakTotalEUoutput > 0) {
-                        text.append(formatBundle("Comparison.EUEUoutput",
+                        text.append(formatI18n("Comparison.EUEUoutput",
                                 colorDecimal(leftData.prebreakTotalEUoutput - rightData.prebreakTotalEUoutput, 1000),
                                 simpleDecimal(leftData.prebreakTotalEUoutput),
                                 simpleDecimal(rightData.prebreakTotalEUoutput),
@@ -2071,7 +2071,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                 simpleDecimal(leftData.prebreakMaxEUoutput),
                                 simpleDecimal(rightData.prebreakMaxEUoutput)));
                     } else {
-                        text.append(formatBundle("Comparison.EUHUoutput",
+                        text.append(formatI18n("Comparison.EUHUoutput",
                                 simpleDecimal(leftData.prebreakTotalEUoutput),
                                 simpleDecimal(rightData.prebreakTotalHUoutput),
                                 simpleDecimal(leftData.prebreakAvgEUoutput),
@@ -2083,7 +2083,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                 } else {
                     if (rightData.prebreakTotalEUoutput > 0) {
-                        text.append(formatBundle("Comparison.HUEUoutput",
+                        text.append(formatI18n("Comparison.HUEUoutput",
                                 simpleDecimal(leftData.prebreakTotalHUoutput),
                                 simpleDecimal(rightData.prebreakTotalEUoutput),
                                 simpleDecimal(leftData.prebreakAvgHUoutput),
@@ -2093,7 +2093,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                 simpleDecimal(leftData.prebreakMaxHUoutput),
                                 simpleDecimal(rightData.prebreakMaxEUoutput)));
                     } else {
-                        text.append(formatBundle("Comparison.HUHUoutput",
+                        text.append(formatI18n("Comparison.HUHUoutput",
                                 colorDecimal(leftData.prebreakTotalHUoutput - rightData.prebreakTotalHUoutput, 1000),
                                 simpleDecimal(leftData.prebreakTotalHUoutput),
                                 simpleDecimal(rightData.prebreakTotalHUoutput),
@@ -2112,14 +2112,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             text.append("<br>");
         }
         if (leftData.firstRodDepletedTime != Integer.MAX_VALUE || rightData.firstRodDepletedTime != Integer.MAX_VALUE) {
-            text.append(BUNDLE.getString("Comparison.Prefix.PredepleteTime"));
+            text.append(getI18n("Comparison.Prefix.PredepleteTime"));
             text.append(buildIntComparisonString("Time", leftData.firstRodDepletedTime, rightData.firstRodDepletedTime, Integer.MAX_VALUE));
 
             if (leftData.totalRodCount > 0 && rightData.totalRodCount > 0) {
-                text.append(BUNDLE.getString("Comparison.Prefix.Predeplete"));
+                text.append(getI18n("Comparison.Prefix.Predeplete"));
                 if (leftData.predepleteTotalEUoutput > 0) {
                     if (rightData.predepleteTotalEUoutput > 0) {
-                        text.append(formatBundle("Comparison.EUEUoutput",
+                        text.append(formatI18n("Comparison.EUEUoutput",
                                 colorDecimal(leftData.predepleteTotalEUoutput - rightData.predepleteTotalEUoutput, 1000),
                                 simpleDecimal(leftData.predepleteTotalEUoutput),
                                 simpleDecimal(rightData.predepleteTotalEUoutput),
@@ -2133,7 +2133,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                 simpleDecimal(leftData.predepleteMaxEUoutput),
                                 simpleDecimal(rightData.predepleteMaxEUoutput)));
                     } else {
-                        text.append(formatBundle("Comparison.EUHUoutput",
+                        text.append(formatI18n("Comparison.EUHUoutput",
                                 simpleDecimal(leftData.predepleteTotalEUoutput),
                                 simpleDecimal(rightData.predepleteTotalHUoutput),
                                 simpleDecimal(leftData.predepleteAvgEUoutput),
@@ -2145,7 +2145,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                 } else {
                     if (rightData.predepleteTotalEUoutput > 0) {
-                        text.append(formatBundle("Comparison.HUEUoutput",
+                        text.append(formatI18n("Comparison.HUEUoutput",
                                 simpleDecimal(leftData.predepleteTotalHUoutput),
                                 simpleDecimal(rightData.predepleteTotalEUoutput),
                                 simpleDecimal(leftData.predepleteAvgHUoutput),
@@ -2155,7 +2155,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                 simpleDecimal(leftData.predepleteMaxHUoutput),
                                 simpleDecimal(rightData.predepleteMaxEUoutput)));
                     } else {
-                        text.append(formatBundle("Comparison.HUHUoutput",
+                        text.append(formatI18n("Comparison.HUHUoutput",
                                 colorDecimal(leftData.predepleteTotalHUoutput - rightData.predepleteTotalHUoutput, 1000),
                                 simpleDecimal(leftData.predepleteTotalHUoutput),
                                 simpleDecimal(rightData.predepleteTotalHUoutput),
@@ -2170,11 +2170,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                 simpleDecimal(rightData.predepleteMaxHUoutput)));
                     }
                 }
-                text.append(formatBundle("Comparison.PredepleteMinTemp", 
+                text.append(formatI18n("Comparison.PredepleteMinTemp", 
                         colorDecimal(leftData.predepleteMinTemp - rightData.predepleteMinTemp, 10),
                         simpleDecimal(leftData.predepleteMinTemp),
                         simpleDecimal(rightData.predepleteMinTemp)));
-                text.append(formatBundle("Comparison.PredepleteMaxTemp", 
+                text.append(formatI18n("Comparison.PredepleteMaxTemp", 
                         colorDecimal(leftData.predepleteMaxTemp - rightData.predepleteMaxTemp, 10),
                         simpleDecimal(leftData.predepleteMaxTemp),
                         simpleDecimal(rightData.predepleteMaxTemp)));
@@ -2182,12 +2182,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             text.append("<br>");
         }
         
-        text.append(BUNDLE.getString("Comparison.Prefix.PostSimulationTime"));
+        text.append(getI18n("Comparison.Prefix.PostSimulationTime"));
         text.append(buildIntComparisonString("Time", leftData.totalReactorTicks, rightData.totalReactorTicks, Integer.MAX_VALUE));
-        text.append(BUNDLE.getString("Comparison.Prefix.PostSimulation"));
+        text.append(getI18n("Comparison.Prefix.PostSimulation"));
         if (leftData.totalEUoutput > 0) {
             if (rightData.totalEUoutput > 0) {
-                text.append(formatBundle("Comparison.EUEUoutput",
+                text.append(formatI18n("Comparison.EUEUoutput",
                         colorDecimal(leftData.totalEUoutput - rightData.totalEUoutput, 1000),
                         simpleDecimal(leftData.totalEUoutput),
                         simpleDecimal(rightData.totalEUoutput),
@@ -2201,7 +2201,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         simpleDecimal(leftData.maxEUoutput),
                         simpleDecimal(rightData.maxEUoutput)));
             } else {
-                text.append(formatBundle("Comparison.EUHUoutput",
+                text.append(formatI18n("Comparison.EUHUoutput",
                         simpleDecimal(leftData.totalEUoutput),
                         simpleDecimal(rightData.totalHUoutput),
                         simpleDecimal(leftData.avgEUoutput),
@@ -2213,7 +2213,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             }
         } else {
             if (rightData.totalEUoutput > 0) {
-                text.append(formatBundle("Comparison.HUEUoutput",
+                text.append(formatI18n("Comparison.HUEUoutput",
                         simpleDecimal(leftData.totalHUoutput),
                         simpleDecimal(rightData.totalEUoutput),
                         simpleDecimal(leftData.avgHUoutput),
@@ -2223,7 +2223,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         simpleDecimal(leftData.maxHUoutput),
                         simpleDecimal(rightData.maxEUoutput)));
             } else {
-                text.append(formatBundle("Comparison.HUHUoutput",
+                text.append(formatI18n("Comparison.HUHUoutput",
                         colorDecimal(leftData.totalHUoutput - rightData.totalHUoutput, 1000),
                         simpleDecimal(leftData.totalHUoutput),
                         simpleDecimal(rightData.totalHUoutput),
@@ -2238,51 +2238,51 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         simpleDecimal(rightData.maxHUoutput)));
             }
         }
-        text.append(formatBundle("Comparison.PostsimMinTemp",
+        text.append(formatI18n("Comparison.PostsimMinTemp",
                 colorDecimal(leftData.minTemp - rightData.minTemp, 10),
                 simpleDecimal(leftData.minTemp),
                 simpleDecimal(rightData.minTemp)));
-        text.append(formatBundle("Comparison.PostsimMaxTemp",
+        text.append(formatI18n("Comparison.PostsimMaxTemp",
                 colorDecimal(leftData.maxTemp - rightData.maxTemp, 10),
                 simpleDecimal(leftData.maxTemp),
                 simpleDecimal(rightData.maxTemp)));
         text.append("<br>");
         
         if (leftData.hullHeating != 0 || rightData.hullHeating != 0) {
-            text.append(formatBundle("Comparison.HullHeating",
+            text.append(formatI18n("Comparison.HullHeating",
                     colorDecimal(leftData.hullHeating - rightData.hullHeating, -1),
                     simpleDecimal(leftData.hullHeating),
                     simpleDecimal(rightData.hullHeating)));
         }
         if (leftData.componentHeating != 0 || rightData.componentHeating != 0) {
-            text.append(formatBundle("Comparison.ComponentHeating",
+            text.append(formatI18n("Comparison.ComponentHeating",
                     colorDecimal(leftData.componentHeating - rightData.componentHeating, -1),
                     simpleDecimal(leftData.componentHeating),
                     simpleDecimal(rightData.componentHeating)));
         }
         if (leftData.hullCooling != 0 || rightData.hullCooling != 0) {
-            text.append(formatBundle("Comparison.HullCooling",
+            text.append(formatI18n("Comparison.HullCooling",
                     colorDecimal(leftData.hullCooling - rightData.hullCooling, 1),
                     simpleDecimal(leftData.hullCooling),
                     simpleDecimal(rightData.hullCooling)));
-            text.append(formatBundle("Comparison.HullCoolingPossible",
+            text.append(formatI18n("Comparison.HullCoolingPossible",
                     colorDecimal(leftData.hullCoolingCapacity - rightData.hullCoolingCapacity, 1),
                     simpleDecimal(leftData.hullCoolingCapacity),
                     simpleDecimal(rightData.hullCoolingCapacity)));
         }
         if (leftData.ventCooling != 0 || rightData.ventCooling != 0) {
-            text.append(formatBundle("Comparison.VentCooling",
+            text.append(formatI18n("Comparison.VentCooling",
                     colorDecimal(leftData.ventCooling - rightData.ventCooling, 1),
                     simpleDecimal(leftData.ventCooling),
                     simpleDecimal(rightData.ventCooling)));
-            text.append(formatBundle("Comparison.VentCoolingPossible",
+            text.append(formatI18n("Comparison.VentCoolingPossible",
                     colorDecimal(leftData.ventCoolingCapacity - rightData.ventCoolingCapacity, 1),
                     simpleDecimal(leftData.ventCoolingCapacity),
                     simpleDecimal(rightData.ventCoolingCapacity)));
         }
         text.append("<br>");
         
-        text.append(BUNDLE.getString("Comparison.MaterialsHeading"));
+        text.append(getI18n("Comparison.MaterialsHeading"));
         Reactor tempReactor = new Reactor();
         tempReactor.setCode(currentReactorCode);
         Reactor prevReactor = new Reactor();
@@ -2290,17 +2290,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         text.append(tempReactor.getMaterials().buildComparisonString(prevReactor.getMaterials()));
         text.append("<br>");
         
-        text.append(BUNDLE.getString("Comparison.ComponentsHeading"));
+        text.append(getI18n("Comparison.ComponentsHeading"));
         text.append(tempReactor.getComponentList().buildComparisonString(prevReactor.getComponentList()));
         
         text.append("</html>");
         comparisonLabel.setText(text.toString());
-    }
-    
-    // convenience method to combine calls to String.format with calls to BUNDLE.getString, 
-    // since nearly every format string used is now pulled from the ResourceBundle.
-    private static String formatBundle(String key, Object... values) {
-        return String.format(BUNDLE.getString(key), values);
     }
     
     /**

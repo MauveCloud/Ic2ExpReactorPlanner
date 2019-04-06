@@ -1,5 +1,6 @@
 package Ic2ExpReactorPlanner;
 
+import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
 import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -18,28 +19,28 @@ public final class MaterialsList {
     private static final ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
     
     // pre-load localized material names as constants to make code more readable.
-    public static final String ALLOY = BUNDLE.getString("MaterialName.AdvancedAlloy");
-    public static final String COAL = BUNDLE.getString("MaterialName.Coal");
-    public static final String COPPER = BUNDLE.getString("MaterialName.Copper");
-    public static final String DIAMOND = BUNDLE.getString("MaterialName.Diamond");
-    public static final String DISTILLED_WATER = BUNDLE.getString("MaterialName.DistilledWater");
-    public static final String GOLD = BUNDLE.getString("MaterialName.Gold");
+    public static final String ALLOY = getI18n("MaterialName.AdvancedAlloy");
+    public static final String COAL = getI18n("MaterialName.Coal");
+    public static final String COPPER = getI18n("MaterialName.Copper");
+    public static final String DIAMOND = getI18n("MaterialName.Diamond");
+    public static final String DISTILLED_WATER = getI18n("MaterialName.DistilledWater");
+    public static final String GOLD = getI18n("MaterialName.Gold");
     // Since GT 5.09 allows different materials for making the "empty cell" (steel, tin, or PTFE), the helium cell is treated as a primitive material instead of a crafted item that can be further broken down.
-    public static final String HELIUM = BUNDLE.getString("MaterialName.HeliumCell");
-    public static final String GLOWSTONE = BUNDLE.getString("MaterialName.GlowstoneDust");
-    public static final String IRIDIUM = BUNDLE.getString("MaterialName.Iridium");
-    public static final String IRON = BUNDLE.getString("MaterialName.Iron");
-    public static final String LAPIS = BUNDLE.getString("MaterialName.LapisLazuli");
-    public static final String LEAD = BUNDLE.getString("MaterialName.Lead");
-    public static final String MOX = BUNDLE.getString("MaterialName.MoxFuel");
-    public static final String NAQUADAH = BUNDLE.getString("MaterialName.EnrichedNaquadah");
-    public static final String POTASSIUM = BUNDLE.getString("MaterialName.Potassium");
-    public static final String REDSTONE = BUNDLE.getString("MaterialName.Redstone");
-    public static final String RUBBER = BUNDLE.getString("MaterialName.Rubber");
-    public static final String SODIUM = BUNDLE.getString("MaterialName.Sodium");
-    public static final String THORIUM = BUNDLE.getString("MaterialName.Thorium");
-    public static final String TIN = BUNDLE.getString("MaterialName.Tin");
-    public static final String URANIUM = BUNDLE.getString("MaterialName.UraniumFuel");
+    public static final String HELIUM = getI18n("MaterialName.HeliumCell");
+    public static final String GLOWSTONE = getI18n("MaterialName.GlowstoneDust");
+    public static final String IRIDIUM = getI18n("MaterialName.Iridium");
+    public static final String IRON = getI18n("MaterialName.Iron");
+    public static final String LAPIS = getI18n("MaterialName.LapisLazuli");
+    public static final String LEAD = getI18n("MaterialName.Lead");
+    public static final String MOX = getI18n("MaterialName.MoxFuel");
+    public static final String NAQUADAH = getI18n("MaterialName.EnrichedNaquadah");
+    public static final String POTASSIUM = getI18n("MaterialName.Potassium");
+    public static final String REDSTONE = getI18n("MaterialName.Redstone");
+    public static final String RUBBER = getI18n("MaterialName.Rubber");
+    public static final String SODIUM = getI18n("MaterialName.Sodium");
+    public static final String THORIUM = getI18n("MaterialName.Thorium");
+    public static final String TIN = getI18n("MaterialName.Tin");
+    public static final String URANIUM = getI18n("MaterialName.UraniumFuel");
     
     // some materials lists for crafted items that are part of reactor components without themselves being reactor components.
     public static final MaterialsList ELECTRONIC_CIRCUIT = new MaterialsList(IRON, 2, REDSTONE, 2, COPPER, 6, RUBBER);
@@ -142,7 +143,7 @@ public final class MaterialsList {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder(1000);
-        DecimalFormat materialDecimalFormat = new DecimalFormat(BUNDLE.getString("UI.MaterialDecimalFormat"));
+        DecimalFormat materialDecimalFormat = new DecimalFormat(getI18n("UI.MaterialDecimalFormat"));
         for (Map.Entry<String, Double> entrySet : materials.entrySet()) {
             double count = entrySet.getValue();
             String formattedNumber = materialDecimalFormat.format(count);
@@ -155,8 +156,8 @@ public final class MaterialsList {
         StringBuilder result = new StringBuilder(1000);
         SortedSet<String> keys = new TreeSet<>(materials.keySet());
         keys.addAll(rhs.materials.keySet());
-        DecimalFormat comparisonDecimalFormat = new DecimalFormat(BUNDLE.getString("Comparison.CompareDecimalFormat"));
-        DecimalFormat simpleDecimalFormat = new DecimalFormat(BUNDLE.getString("Comparison.SimpleDecimalFormat"));
+        DecimalFormat comparisonDecimalFormat = new DecimalFormat(getI18n("Comparison.CompareDecimalFormat"));
+        DecimalFormat simpleDecimalFormat = new DecimalFormat(getI18n("Comparison.SimpleDecimalFormat"));
         for (String key : keys) {
             double left = 0;
             if (materials.containsKey(key)) {
@@ -172,7 +173,7 @@ public final class MaterialsList {
             } else if (left > right) {
                 color = "red";
             }
-            result.append(String.format(BUNDLE.getString("Comparison.MaterialsEntry"), color, 
+            result.append(String.format(getI18n("Comparison.MaterialsEntry"), color, 
                     comparisonDecimalFormat.format(left - right), key, 
                     simpleDecimalFormat.format(left), 
                     simpleDecimalFormat.format(right)));

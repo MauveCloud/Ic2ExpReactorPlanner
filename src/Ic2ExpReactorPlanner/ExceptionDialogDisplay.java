@@ -19,12 +19,12 @@ public class ExceptionDialogDisplay implements Thread.UncaughtExceptionHandler {
     
     public static void showExceptionDialog(final Throwable e) {
         // Mostly copied from https://stackoverflow.com/questions/14011492/text-wrap-in-joptionpane/14011536#14011536
-        StringBuilder sb = new StringBuilder("Error: ");
+        StringBuilder sb = new StringBuilder("Error: "); //NOI18N
         sb.append(e.getMessage());
-        sb.append("\n");
+        sb.append("\n"); //NOI18N
         for (StackTraceElement ste : e.getStackTrace()) {
             sb.append(ste.toString());
-            sb.append("\n");
+            sb.append("\n"); //NOI18N
         }
         JTextArea jta = new JTextArea(sb.toString());
         jta.setEditable(false);
@@ -34,7 +34,7 @@ public class ExceptionDialogDisplay implements Thread.UncaughtExceptionHandler {
                 return new Dimension(480, 320);
             }
         };
-        JOptionPane.showMessageDialog(null, jsp, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, jsp, "Error", JOptionPane.ERROR_MESSAGE); //NOI18N
     }
 
     @Override
