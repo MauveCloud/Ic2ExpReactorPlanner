@@ -434,8 +434,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.FuelRodUranium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;FuelRodUranium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="fuelRodUranium" noResource="true"/>
                               </Properties>
@@ -445,8 +445,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.DualFuelRodUranium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;DualFuelRodUranium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="dualFuelRodUranium" noResource="true"/>
                               </Properties>
@@ -456,8 +456,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.QuadFuelRodUranium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;QuadFuelRodUranium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="quadFuelRodUranium" noResource="true"/>
                               </Properties>
@@ -467,8 +467,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.FuelRodMox" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;FuelRodMox&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="fuelRodMox" noResource="true"/>
                               </Properties>
@@ -478,8 +478,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.DualFuelRodMox" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;DualFuelRodMox&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="dualFuelRodMox" noResource="true"/>
                               </Properties>
@@ -489,8 +489,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.QuadFuelRodMox" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;QuadFuelRodMox&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="quadFuelRodMox" noResource="true"/>
                               </Properties>
@@ -500,8 +500,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.NeutronReflector" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;NeutronReflector&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="neutronReflector" noResource="true"/>
                               </Properties>
@@ -511,8 +511,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ThickNeutronReflector" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;ThickNeutronReflector&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="thickNeutronReflector" noResource="true"/>
                               </Properties>
@@ -522,8 +522,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.HeatVent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;HeatVent&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="heatVent" noResource="true"/>
                               </Properties>
@@ -533,8 +533,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.AdvancedHeatVent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;AdvancedHeatVent&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="advancedHeatVent" noResource="true"/>
                               </Properties>
@@ -544,8 +544,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ReactorHeatVent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;ReactorHeatVent&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="reactorHeatVent" noResource="true"/>
                               </Properties>
@@ -555,8 +555,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ComponentHeatVent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;ComponentHeatVent&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="componentHeatVent" noResource="true"/>
                               </Properties>
@@ -566,8 +566,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.OverclockedHeatVent" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;OverclockedHeatVent&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="overclockedHeatVent" noResource="true"/>
                               </Properties>
@@ -577,8 +577,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell10k" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;CoolantCell10k&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCell10k" noResource="true"/>
                               </Properties>
@@ -588,8 +588,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell30k" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;CoolantCell30k&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCell30k" noResource="true"/>
                               </Properties>
@@ -599,8 +599,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell60k" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;CoolantCell60k&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCell60k" noResource="true"/>
                               </Properties>
@@ -610,8 +610,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.HeatExchanger" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;HeatExchanger&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="heatExchanger" noResource="true"/>
                               </Properties>
@@ -621,8 +621,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.AdvancedHeatExchanger" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;AdvancedHeatExchanger&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="advancedHeatExchanger" noResource="true"/>
                               </Properties>
@@ -632,8 +632,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ReactorHeatExchanger" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;ReactorHeatExchanger&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coreHeatExchanger" noResource="true"/>
                               </Properties>
@@ -643,8 +643,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ComponentHeatExchanger" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;ComponentHeatExchanger&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="componentHeatExchanger" noResource="true"/>
                               </Properties>
@@ -654,8 +654,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ReactorPlating" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;ReactorPlating&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="reactorPlating" noResource="true"/>
                               </Properties>
@@ -665,8 +665,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.HeatCapacityReactorPlating" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;HeatCapacityReactorPlating&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="heatCapacityReactorPlating" noResource="true"/>
                               </Properties>
@@ -676,8 +676,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.ContainmentReactorPlating" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;ContainmentReactorPlating&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="containmentReactorPlating" noResource="true"/>
                               </Properties>
@@ -687,8 +687,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.RshCondensator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;RshCondensator&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="rshCondensator" noResource="true"/>
                               </Properties>
@@ -698,8 +698,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.LzhCondensator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;LzhCondensator&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="lzhCondensator" noResource="true"/>
                               </Properties>
@@ -709,8 +709,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.FuelRodThorium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;FuelRodThorium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="fuelRodThorium" noResource="true"/>
                               </Properties>
@@ -720,8 +720,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.DualFuelRodThorium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;DualFuelRodThorium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="dualFuelRodThorium" noResource="true"/>
                               </Properties>
@@ -731,8 +731,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.QuadFuelRodThorium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;QuadFuelRodThorium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="quadFuelRodThorium" noResource="true"/>
                               </Properties>
@@ -742,8 +742,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell60kHelium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;CoolantCell60kHelium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellHelium60k" noResource="true"/>
                               </Properties>
@@ -753,8 +753,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell180kHelium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;CoolantCell180kHelium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellHelium180k" noResource="true"/>
                               </Properties>
@@ -764,8 +764,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell360kHelium" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;CoolantCell360kHelium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellHelium360k" noResource="true"/>
                               </Properties>
@@ -775,8 +775,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell60kNak" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;CoolantCell60kNak&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellNak60k" noResource="true"/>
                               </Properties>
@@ -786,8 +786,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell180kNak" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;CoolantCell180kNak&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellNak180k" noResource="true"/>
                               </Properties>
@@ -797,8 +797,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.CoolantCell360kNak" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;CoolantCell360kNak&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellNak360k" noResource="true"/>
                               </Properties>
@@ -808,8 +808,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.IridiumNeutronReflector" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;IridiumNeutronReflector&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="iridiumNeutronReflector" noResource="true"/>
                               </Properties>
@@ -819,8 +819,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.FuelRodNaquadah" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;FuelRodNaquadah&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="fuelRodNaquadah" noResource="true"/>
                               </Properties>
@@ -830,8 +830,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.DualFuelRodNaquadah" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;DualFuelRodNaquadah&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="dualFuelRodNaquadah" noResource="true"/>
                               </Properties>
@@ -841,8 +841,8 @@
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                   <ComponentRef name="componentsGroup"/>
                                 </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="ComponentName.QuadFuelRodNaquadah" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;QuadFuelRodNaquadah&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="quadFuelRodNaquadah" noResource="true"/>
                               </Properties>

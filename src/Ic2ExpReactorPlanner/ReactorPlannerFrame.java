@@ -723,192 +723,192 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentsPanel.add(emptyButton);
 
         componentsGroup.add(fuelRodUraniumButton);
-        fuelRodUraniumButton.setToolTipText(bundle.getString("ComponentName.FuelRodUranium")); // NOI18N
+        fuelRodUraniumButton.setToolTipText(buildTooltipInfo("FuelRodUranium"));
         fuelRodUraniumButton.setActionCommand("fuelRodUranium"); // NOI18N
         componentsPanel.add(fuelRodUraniumButton);
 
         componentsGroup.add(dualFuelRodUraniumButton);
-        dualFuelRodUraniumButton.setToolTipText(bundle.getString("ComponentName.DualFuelRodUranium")); // NOI18N
+        dualFuelRodUraniumButton.setToolTipText(buildTooltipInfo("DualFuelRodUranium"));
         dualFuelRodUraniumButton.setActionCommand("dualFuelRodUranium"); // NOI18N
         componentsPanel.add(dualFuelRodUraniumButton);
 
         componentsGroup.add(quadFuelRodUraniumButton);
-        quadFuelRodUraniumButton.setToolTipText(bundle.getString("ComponentName.QuadFuelRodUranium")); // NOI18N
+        quadFuelRodUraniumButton.setToolTipText(buildTooltipInfo("QuadFuelRodUranium"));
         quadFuelRodUraniumButton.setActionCommand("quadFuelRodUranium"); // NOI18N
         componentsPanel.add(quadFuelRodUraniumButton);
 
         componentsGroup.add(fuelRodMoxButton);
-        fuelRodMoxButton.setToolTipText(bundle.getString("ComponentName.FuelRodMox")); // NOI18N
+        fuelRodMoxButton.setToolTipText(buildTooltipInfo("FuelRodMox"));
         fuelRodMoxButton.setActionCommand("fuelRodMox"); // NOI18N
         componentsPanel.add(fuelRodMoxButton);
 
         componentsGroup.add(dualFuelRodMoxButton);
-        dualFuelRodMoxButton.setToolTipText(bundle.getString("ComponentName.DualFuelRodMox")); // NOI18N
+        dualFuelRodMoxButton.setToolTipText(buildTooltipInfo("DualFuelRodMox"));
         dualFuelRodMoxButton.setActionCommand("dualFuelRodMox"); // NOI18N
         componentsPanel.add(dualFuelRodMoxButton);
 
         componentsGroup.add(quadFuelRodMoxButton);
-        quadFuelRodMoxButton.setToolTipText(bundle.getString("ComponentName.QuadFuelRodMox")); // NOI18N
+        quadFuelRodMoxButton.setToolTipText(buildTooltipInfo("QuadFuelRodMox"));
         quadFuelRodMoxButton.setActionCommand("quadFuelRodMox"); // NOI18N
         componentsPanel.add(quadFuelRodMoxButton);
 
         componentsGroup.add(neutronReflectorButton);
-        neutronReflectorButton.setToolTipText(bundle.getString("ComponentName.NeutronReflector")); // NOI18N
+        neutronReflectorButton.setToolTipText(buildTooltipInfo("NeutronReflector"));
         neutronReflectorButton.setActionCommand("neutronReflector"); // NOI18N
         componentsPanel.add(neutronReflectorButton);
 
         componentsGroup.add(thickNeutronReflectorButton);
-        thickNeutronReflectorButton.setToolTipText(bundle.getString("ComponentName.ThickNeutronReflector")); // NOI18N
+        thickNeutronReflectorButton.setToolTipText(buildTooltipInfo("ThickNeutronReflector"));
         thickNeutronReflectorButton.setActionCommand("thickNeutronReflector"); // NOI18N
         componentsPanel.add(thickNeutronReflectorButton);
 
         componentsGroup.add(heatVentButton);
-        heatVentButton.setToolTipText(bundle.getString("ComponentName.HeatVent")); // NOI18N
+        heatVentButton.setToolTipText(buildTooltipInfo("HeatVent"));
         heatVentButton.setActionCommand("heatVent"); // NOI18N
         componentsPanel.add(heatVentButton);
 
         componentsGroup.add(advancedHeatVentButton);
-        advancedHeatVentButton.setToolTipText(bundle.getString("ComponentName.AdvancedHeatVent")); // NOI18N
+        advancedHeatVentButton.setToolTipText(buildTooltipInfo("AdvancedHeatVent"));
         advancedHeatVentButton.setActionCommand("advancedHeatVent"); // NOI18N
         componentsPanel.add(advancedHeatVentButton);
 
         componentsGroup.add(reactorHeatVentButton);
-        reactorHeatVentButton.setToolTipText(bundle.getString("ComponentName.ReactorHeatVent")); // NOI18N
+        reactorHeatVentButton.setToolTipText(buildTooltipInfo("ReactorHeatVent"));
         reactorHeatVentButton.setActionCommand("reactorHeatVent"); // NOI18N
         componentsPanel.add(reactorHeatVentButton);
 
         componentsGroup.add(componentHeatVentButton);
-        componentHeatVentButton.setToolTipText(bundle.getString("ComponentName.ComponentHeatVent")); // NOI18N
+        componentHeatVentButton.setToolTipText(buildTooltipInfo("ComponentHeatVent"));
         componentHeatVentButton.setActionCommand("componentHeatVent"); // NOI18N
         componentsPanel.add(componentHeatVentButton);
 
         componentsGroup.add(overclockedHeatVentButton);
-        overclockedHeatVentButton.setToolTipText(bundle.getString("ComponentName.OverclockedHeatVent")); // NOI18N
+        overclockedHeatVentButton.setToolTipText(buildTooltipInfo("OverclockedHeatVent"));
         overclockedHeatVentButton.setActionCommand("overclockedHeatVent"); // NOI18N
         componentsPanel.add(overclockedHeatVentButton);
 
         componentsGroup.add(coolantCell10kButton);
-        coolantCell10kButton.setToolTipText(bundle.getString("ComponentName.CoolantCell10k")); // NOI18N
+        coolantCell10kButton.setToolTipText(buildTooltipInfo("CoolantCell10k"));
         coolantCell10kButton.setActionCommand("coolantCell10k"); // NOI18N
         componentsPanel.add(coolantCell10kButton);
 
         componentsGroup.add(coolantCell30kButton);
-        coolantCell30kButton.setToolTipText(bundle.getString("ComponentName.CoolantCell30k")); // NOI18N
+        coolantCell30kButton.setToolTipText(buildTooltipInfo("CoolantCell30k"));
         coolantCell30kButton.setActionCommand("coolantCell30k"); // NOI18N
         componentsPanel.add(coolantCell30kButton);
 
         componentsGroup.add(coolantCell60kButton);
-        coolantCell60kButton.setToolTipText(bundle.getString("ComponentName.CoolantCell60k")); // NOI18N
+        coolantCell60kButton.setToolTipText(buildTooltipInfo("CoolantCell60k"));
         coolantCell60kButton.setActionCommand("coolantCell60k"); // NOI18N
         componentsPanel.add(coolantCell60kButton);
 
         componentsGroup.add(heatExchangerButton);
-        heatExchangerButton.setToolTipText(bundle.getString("ComponentName.HeatExchanger")); // NOI18N
+        heatExchangerButton.setToolTipText(buildTooltipInfo("HeatExchanger"));
         heatExchangerButton.setActionCommand("heatExchanger"); // NOI18N
         componentsPanel.add(heatExchangerButton);
 
         componentsGroup.add(advancedHeatExchangerButton);
-        advancedHeatExchangerButton.setToolTipText(bundle.getString("ComponentName.AdvancedHeatExchanger")); // NOI18N
+        advancedHeatExchangerButton.setToolTipText(buildTooltipInfo("AdvancedHeatExchanger"));
         advancedHeatExchangerButton.setActionCommand("advancedHeatExchanger"); // NOI18N
         componentsPanel.add(advancedHeatExchangerButton);
 
         componentsGroup.add(coreHeatExchangerButton);
-        coreHeatExchangerButton.setToolTipText(bundle.getString("ComponentName.ReactorHeatExchanger")); // NOI18N
+        coreHeatExchangerButton.setToolTipText(buildTooltipInfo("ReactorHeatExchanger"));
         coreHeatExchangerButton.setActionCommand("coreHeatExchanger"); // NOI18N
         componentsPanel.add(coreHeatExchangerButton);
 
         componentsGroup.add(componentHeatExchangerButton);
-        componentHeatExchangerButton.setToolTipText(bundle.getString("ComponentName.ComponentHeatExchanger")); // NOI18N
+        componentHeatExchangerButton.setToolTipText(buildTooltipInfo("ComponentHeatExchanger"));
         componentHeatExchangerButton.setActionCommand("componentHeatExchanger"); // NOI18N
         componentsPanel.add(componentHeatExchangerButton);
 
         componentsGroup.add(reactorPlatingButton);
-        reactorPlatingButton.setToolTipText(bundle.getString("ComponentName.ReactorPlating")); // NOI18N
+        reactorPlatingButton.setToolTipText(buildTooltipInfo("ReactorPlating"));
         reactorPlatingButton.setActionCommand("reactorPlating"); // NOI18N
         componentsPanel.add(reactorPlatingButton);
 
         componentsGroup.add(heatCapacityReactorPlatingButton);
-        heatCapacityReactorPlatingButton.setToolTipText(bundle.getString("ComponentName.HeatCapacityReactorPlating")); // NOI18N
+        heatCapacityReactorPlatingButton.setToolTipText(buildTooltipInfo("HeatCapacityReactorPlating"));
         heatCapacityReactorPlatingButton.setActionCommand("heatCapacityReactorPlating"); // NOI18N
         componentsPanel.add(heatCapacityReactorPlatingButton);
 
         componentsGroup.add(containmentReactorPlatingButton);
-        containmentReactorPlatingButton.setToolTipText(bundle.getString("ComponentName.ContainmentReactorPlating")); // NOI18N
+        containmentReactorPlatingButton.setToolTipText(buildTooltipInfo("ContainmentReactorPlating"));
         containmentReactorPlatingButton.setActionCommand("containmentReactorPlating"); // NOI18N
         componentsPanel.add(containmentReactorPlatingButton);
 
         componentsGroup.add(rshCondensatorButton);
-        rshCondensatorButton.setToolTipText(bundle.getString("ComponentName.RshCondensator")); // NOI18N
+        rshCondensatorButton.setToolTipText(buildTooltipInfo("RshCondensator"));
         rshCondensatorButton.setActionCommand("rshCondensator"); // NOI18N
         componentsPanel.add(rshCondensatorButton);
 
         componentsGroup.add(lzhCondensatorButton);
-        lzhCondensatorButton.setToolTipText(bundle.getString("ComponentName.LzhCondensator")); // NOI18N
+        lzhCondensatorButton.setToolTipText(buildTooltipInfo("LzhCondensator"));
         lzhCondensatorButton.setActionCommand("lzhCondensator"); // NOI18N
         componentsPanel.add(lzhCondensatorButton);
 
         componentsGroup.add(fuelRodThoriumButton);
-        fuelRodThoriumButton.setToolTipText(bundle.getString("ComponentName.FuelRodThorium")); // NOI18N
+        fuelRodThoriumButton.setToolTipText(buildTooltipInfo("FuelRodThorium"));
         fuelRodThoriumButton.setActionCommand("fuelRodThorium"); // NOI18N
         componentsPanel.add(fuelRodThoriumButton);
 
         componentsGroup.add(dualFuelRodThoriumButton);
-        dualFuelRodThoriumButton.setToolTipText(bundle.getString("ComponentName.DualFuelRodThorium")); // NOI18N
+        dualFuelRodThoriumButton.setToolTipText(buildTooltipInfo("DualFuelRodThorium"));
         dualFuelRodThoriumButton.setActionCommand("dualFuelRodThorium"); // NOI18N
         componentsPanel.add(dualFuelRodThoriumButton);
 
         componentsGroup.add(quadFuelRodThoriumButton);
-        quadFuelRodThoriumButton.setToolTipText(bundle.getString("ComponentName.QuadFuelRodThorium")); // NOI18N
+        quadFuelRodThoriumButton.setToolTipText(buildTooltipInfo("QuadFuelRodThorium"));
         quadFuelRodThoriumButton.setActionCommand("quadFuelRodThorium"); // NOI18N
         componentsPanel.add(quadFuelRodThoriumButton);
 
         componentsGroup.add(coolantCellHelium60kButton);
-        coolantCellHelium60kButton.setToolTipText(bundle.getString("ComponentName.CoolantCell60kHelium")); // NOI18N
+        coolantCellHelium60kButton.setToolTipText(buildTooltipInfo("CoolantCell60kHelium"));
         coolantCellHelium60kButton.setActionCommand("coolantCellHelium60k"); // NOI18N
         componentsPanel.add(coolantCellHelium60kButton);
 
         componentsGroup.add(coolantCellHelium180kButton);
-        coolantCellHelium180kButton.setToolTipText(bundle.getString("ComponentName.CoolantCell180kHelium")); // NOI18N
+        coolantCellHelium180kButton.setToolTipText(buildTooltipInfo("CoolantCell180kHelium"));
         coolantCellHelium180kButton.setActionCommand("coolantCellHelium180k"); // NOI18N
         componentsPanel.add(coolantCellHelium180kButton);
 
         componentsGroup.add(coolantCellHelium360kButton);
-        coolantCellHelium360kButton.setToolTipText(bundle.getString("ComponentName.CoolantCell360kHelium")); // NOI18N
+        coolantCellHelium360kButton.setToolTipText(buildTooltipInfo("CoolantCell360kHelium"));
         coolantCellHelium360kButton.setActionCommand("coolantCellHelium360k"); // NOI18N
         componentsPanel.add(coolantCellHelium360kButton);
 
         componentsGroup.add(coolantCellNak60kButton);
-        coolantCellNak60kButton.setToolTipText(bundle.getString("ComponentName.CoolantCell60kNak")); // NOI18N
+        coolantCellNak60kButton.setToolTipText(buildTooltipInfo("CoolantCell60kNak"));
         coolantCellNak60kButton.setActionCommand("coolantCellNak60k"); // NOI18N
         componentsPanel.add(coolantCellNak60kButton);
 
         componentsGroup.add(coolantCellNak180kButton);
-        coolantCellNak180kButton.setToolTipText(bundle.getString("ComponentName.CoolantCell180kNak")); // NOI18N
+        coolantCellNak180kButton.setToolTipText(buildTooltipInfo("CoolantCell180kNak"));
         coolantCellNak180kButton.setActionCommand("coolantCellNak180k"); // NOI18N
         componentsPanel.add(coolantCellNak180kButton);
 
         componentsGroup.add(coolantCellNak360kButton);
-        coolantCellNak360kButton.setToolTipText(bundle.getString("ComponentName.CoolantCell360kNak")); // NOI18N
+        coolantCellNak360kButton.setToolTipText(buildTooltipInfo("CoolantCell360kNak"));
         coolantCellNak360kButton.setActionCommand("coolantCellNak360k"); // NOI18N
         componentsPanel.add(coolantCellNak360kButton);
 
         componentsGroup.add(iridiumNeutronReflectorButton);
-        iridiumNeutronReflectorButton.setToolTipText(bundle.getString("ComponentName.IridiumNeutronReflector")); // NOI18N
+        iridiumNeutronReflectorButton.setToolTipText(buildTooltipInfo("IridiumNeutronReflector"));
         iridiumNeutronReflectorButton.setActionCommand("iridiumNeutronReflector"); // NOI18N
         componentsPanel.add(iridiumNeutronReflectorButton);
 
         componentsGroup.add(fuelRodNaquadahButton);
-        fuelRodNaquadahButton.setToolTipText(bundle.getString("ComponentName.FuelRodNaquadah")); // NOI18N
+        fuelRodNaquadahButton.setToolTipText(buildTooltipInfo("FuelRodNaquadah"));
         fuelRodNaquadahButton.setActionCommand("fuelRodNaquadah"); // NOI18N
         componentsPanel.add(fuelRodNaquadahButton);
 
         componentsGroup.add(dualFuelRodNaquadahButton);
-        dualFuelRodNaquadahButton.setToolTipText(bundle.getString("ComponentName.DualFuelRodNaquadah")); // NOI18N
+        dualFuelRodNaquadahButton.setToolTipText(buildTooltipInfo("DualFuelRodNaquadah"));
         dualFuelRodNaquadahButton.setActionCommand("dualFuelRodNaquadah"); // NOI18N
         componentsPanel.add(dualFuelRodNaquadahButton);
 
         componentsGroup.add(quadFuelRodNaquadahButton);
-        quadFuelRodNaquadahButton.setToolTipText(bundle.getString("ComponentName.QuadFuelRodNaquadah")); // NOI18N
+        quadFuelRodNaquadahButton.setToolTipText(buildTooltipInfo("QuadFuelRodNaquadah"));
         quadFuelRodNaquadahButton.setActionCommand("quadFuelRodNaquadah"); // NOI18N
         componentsPanel.add(quadFuelRodNaquadahButton);
 
@@ -1988,7 +1988,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     color = "red";
                 }
             }
-            return String.format(getI18n("Comparison." + comparisonType + ".Both"), color, left - right, left, right);
+            return String.format(getI18n("Comparison." + comparisonType + ".BothColored"), color, left - right, left, right);
         }
     }
     
@@ -2295,6 +2295,23 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         
         text.append("</html>");
         comparisonLabel.setText(text.toString());
+    }
+
+    /**
+     * @param compType Component type to read from the bundle object
+     * @return Assembled tooltip string
+     */
+    private String buildTooltipInfo(final String compType) {
+        // modified from Pull Request by kekzdealer: https://github.com/MauveCloud/Ic2ExpReactorPlanner/pull/67
+    	final StringBuilder result = new StringBuilder(500);
+    	
+    	result.append("<html>");
+    	result.append(getI18n("ComponentName." +compType));
+    	result.append("<br>");
+    	result.append(getI18n("ComponentData." +compType));
+    	result.append("</html>");
+    	
+    	return result.toString();
     }
     
     /**
