@@ -34,7 +34,6 @@ import java.text.DecimalFormat;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.Properties;
-import java.util.ResourceBundle;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
