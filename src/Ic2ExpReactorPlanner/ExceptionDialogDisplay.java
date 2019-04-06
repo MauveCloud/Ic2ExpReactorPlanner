@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
  */
 public class ExceptionDialogDisplay implements Thread.UncaughtExceptionHandler {
     
-    public static void showExceptionDialog(Throwable e) {
+    public static void showExceptionDialog(final Throwable e) {
         // Mostly copied from https://stackoverflow.com/questions/14011492/text-wrap-in-joptionpane/14011536#14011536
         StringBuilder sb = new StringBuilder("Error: ");
         sb.append(e.getMessage());
@@ -38,7 +38,7 @@ public class ExceptionDialogDisplay implements Thread.UncaughtExceptionHandler {
     }
 
     @Override
-    public void uncaughtException(Thread t, Throwable e) {
+    public void uncaughtException(final Thread t, final Throwable e) {
         showExceptionDialog(e);
     }
     

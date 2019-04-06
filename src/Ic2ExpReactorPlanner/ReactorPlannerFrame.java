@@ -33,8 +33,6 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
@@ -1657,7 +1655,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             String code = Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor).toString();
             codeField.setText(code.replaceAll("[^0-9A-Za-z(),.?|:/+=]+", ""));
         } catch (UnsupportedFlavorException | IOException ex) {
-            Logger.getLogger(ReactorPlannerFrame.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionDialogDisplay.showExceptionDialog(ex);
         }
     }//GEN-LAST:event_pasteCodeButtonActionPerformed
 

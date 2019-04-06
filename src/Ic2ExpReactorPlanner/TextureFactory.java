@@ -12,8 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javax.imageio.ImageIO;
@@ -48,7 +46,7 @@ public class TextureFactory {
                             try (InputStream entryStream = TEXTURE_PACK.getInputStream(entry)) {
                                 result = ImageIO.read(entryStream);
                             } catch (IOException ex) {
-                                // ignore
+                                // ignore, fall back to default texture.
                             }
                         }
                     }
@@ -60,14 +58,14 @@ public class TextureFactory {
             try (InputStream stream = TextureFactory.class.getResourceAsStream("/assets/ic2/textures/items/" + imageNames[0])) {
                 result = ImageIO.read(stream);
             } catch (IOException ex) {
-                Logger.getLogger(TextureFactory.class.getName()).log(Level.SEVERE, null, ex);
+                ExceptionDialogDisplay.showExceptionDialog(ex);
             }
         }
         if (result == null && TextureFactory.class.getResource("/assets/gregtech/textures/items/" + imageNames[0]) != null) {
             try (InputStream stream = TextureFactory.class.getResourceAsStream("/assets/gregtech/textures/items/" + imageNames[0])) {
                 result = ImageIO.read(stream);
             } catch (IOException ex) {
-                Logger.getLogger(TextureFactory.class.getName()).log(Level.SEVERE, null, ex);
+                ExceptionDialogDisplay.showExceptionDialog(ex);
             }
         }
         return result;

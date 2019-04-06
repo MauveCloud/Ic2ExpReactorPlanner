@@ -332,8 +332,8 @@ public class Reactor {
                         }
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace(System.err);
+            } catch (NumberFormatException e) {
+                ExceptionDialogDisplay.showExceptionDialog(e);
             }
         } else {
             String tempCode = code;
