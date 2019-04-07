@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'application'
 
 sourceCompatibility = '1.7'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -14,10 +15,12 @@ if (!hasProperty('mainClass')) {
     ext.mainClass = 'Ic2ExpReactorPlanner.ReactorPlannerFrame'
 }
 
+mainClassName = ext.mainClass
+
 sourceSets {
   main {
     java {
-      srcDir 'src'
+      srcDirs 'src'
     }
     resources {
       srcDir 'resources'
@@ -46,4 +49,26 @@ dependencies {
     // You can read more about how to add dependency here:
     //   http://www.gradle.org/docs/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
     testCompile group: 'junit', name: 'junit', version: '4.10'
+}
+
+jar {
+    from('src') {
+        include 'assets/**/*.png'
+        include 'Ic2ExpReactorPlanner/Bundle*.properties'
+    }
+    manifest {
+        attributes 'Main-Class': 'Ic2ExpReactorPlanner.ReactorPlannerFrame'
+    }
+}
+
+
+task processSource(type: Copy) {
+    from sourceSets.main.java
+    inputs.property 'erpVersion', erpVersion
+    filter { line -> line.replaceAll('@VERSION@', erpVersion) }
+    into "$buildDir/src"
+}
+
+compileJava {
+    source = processSource.outputs
 }

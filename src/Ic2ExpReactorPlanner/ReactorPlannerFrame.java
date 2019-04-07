@@ -55,7 +55,7 @@ import javax.swing.event.DocumentListener;
  */
 public class ReactorPlannerFrame extends javax.swing.JFrame {
 
-    private static final String VERSION = "2.3.3";
+    private static final String VERSION = "@VERSION@";
     
     private final Reactor reactor = new Reactor();
     
