@@ -45,6 +45,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
+import javax.swing.ToolTipManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -106,6 +107,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
      */
     public ReactorPlannerFrame() {
         initComponents();
+        ToolTipManager.sharedInstance().setDismissDelay((int)30e3);
         Enumeration<AbstractButton> buttons = componentsGroup.getElements();
         if (heatSpinner.getModel() instanceof SpinnerNumberModel) {
             heatSpinnerModel = (SpinnerNumberModel)heatSpinner.getModel();

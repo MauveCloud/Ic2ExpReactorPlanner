@@ -61,6 +61,17 @@ jar {
     }
 }
 
+task processAssets(type: Copy) {
+    from('src') {
+        include 'assets/**/*.png'
+        include 'Ic2ExpReactorPlanner/Bundle*.properties'
+    }
+    into 'build/classes/java/main'
+}
+
+run {
+    run.dependsOn processAssets
+}
 
 task processSource(type: Copy) {
     from sourceSets.main.java

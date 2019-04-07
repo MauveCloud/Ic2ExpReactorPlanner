@@ -496,6 +496,10 @@ public class Reactor {
         BigintStorage storage = BigintStorage.inputBase64(code);
         // read the code revision from the code itself instead of making it part of the prefix.
         int codeRevision = storage.extract(255);
+        // Check if the code revision is supported yet.
+        if (codeRevision > 1) {
+            throw new IllegalArgumentException("Unsupported code revision in reactor code.");
+        }
         // for code revision 1 or newer, read whether the reactor is pulsed and/or automated next.
         if (codeRevision >= 1) {
             pulsed = storage.extract(1) > 0;
