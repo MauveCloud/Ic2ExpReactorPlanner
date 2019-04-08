@@ -7,6 +7,7 @@ package Ic2ExpReactorPlanner;
 
 import static Ic2ExpReactorPlanner.BundleHelper.formatI18n;
 import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
+import Ic2ExpReactorPlanner.components.FuelRod;
 import Ic2ExpReactorPlanner.components.ReactorItem;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -107,6 +108,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
      */
     public ReactorPlannerFrame() {
         initComponents();
+        advancedScroll.getVerticalScrollBar().setUnitIncrement(16);
         ToolTipManager.sharedInstance().setDismissDelay((int)30e3);
         Enumeration<AbstractButton> buttons = componentsGroup.getElements();
         if (heatSpinner.getModel() instanceof SpinnerNumberModel) {
@@ -360,6 +362,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             enableGT509ComponentsCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("enableGT509Components", "true")));
             showOldStyleReactorCodeCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("showOldStyleReactorCode", "false")));
             showComponentPreconfigCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("showComponentPreconfigControls", "true")));
+            gt509BehaviorCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("gt509ReactorBehavior", "true")));
+            FuelRod.setGT509Behavior(gt509BehaviorCheck.isSelected());
             String texturePackName = ADVANCED_CONFIG.getProperty("texturePack");
             if (texturePackName != null) {
                 File texturePackFile = new File(texturePackName);
@@ -391,6 +395,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             ADVANCED_CONFIG.setProperty("enableGT509Components", Boolean.toString(enableGT509ComponentsCheck.isSelected()));
             ADVANCED_CONFIG.setProperty("showOldStyleReactorCode", Boolean.toString(showOldStyleReactorCodeCheck.isSelected()));
             ADVANCED_CONFIG.setProperty("showComponentPreconfigControls", Boolean.toString(showComponentPreconfigCheck.isSelected()));
+            ADVANCED_CONFIG.setProperty("gt509ReactorBehavior", Boolean.toString(gt509BehaviorCheck.isSelected()));
             if (csvChooser.getSelectedFile() != null) {
                 ADVANCED_CONFIG.setProperty("csvFile", csvChooser.getSelectedFile().getAbsolutePath());
             }
@@ -541,6 +546,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         texturePackBrowseButton = new javax.swing.JButton();
         texturePackClearButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        gt509BehaviorCheck = new javax.swing.JCheckBox();
         comparisonScroll = new javax.swing.JScrollPane();
         javax.swing.JPanel comparisonPanel = new javax.swing.JPanel();
         javax.swing.JLabel jLabel17 = new javax.swing.JLabel();
@@ -1430,7 +1436,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         texturePackLabel.setText(bundle.getString("UI.TexturePackDefault")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(6, 2, 2, 2);
         advancedPanel.add(texturePackLabel, gridBagConstraints);
 
@@ -1442,7 +1447,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         advancedPanel.add(texturePackBrowseButton, gridBagConstraints);
 
@@ -1459,10 +1463,23 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         jLabel5.setText(bundle.getString("UI.TexturePackHelp")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(6, 2, 2, 2);
         advancedPanel.add(jLabel5, gridBagConstraints);
+
+        gt509BehaviorCheck.setText(bundle.getString("UI.GT509ReactorBehavior")); // NOI18N
+        gt509BehaviorCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gt509BehaviorCheckActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weighty = 1.0;
+        advancedPanel.add(gt509BehaviorCheck, gridBagConstraints);
 
         advancedScroll.setViewportView(advancedPanel);
 
@@ -1913,6 +1930,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         StringSelection selection = new StringSelection(comparisonCodeField.getText());
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
     }//GEN-LAST:event_comparisonCopyCodeButtonActionPerformed
+
+    private void gt509BehaviorCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gt509BehaviorCheckActionPerformed
+        FuelRod.setGT509Behavior(gt509BehaviorCheck.isSelected());
+        saveAdvancedConfig();
+    }//GEN-LAST:event_gt509BehaviorCheckActionPerformed
     
     private void updateReactorButtons() {
         for (int row = 0; row < reactorButtons.length; row++) {
@@ -2387,6 +2409,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton fuelRodNaquadahButton;
     private javax.swing.JToggleButton fuelRodThoriumButton;
     private javax.swing.JToggleButton fuelRodUraniumButton;
+    private javax.swing.JCheckBox gt509BehaviorCheck;
     private javax.swing.JToggleButton heatCapacityReactorPlatingButton;
     private javax.swing.JToggleButton heatExchangerButton;
     private javax.swing.JSpinner heatSpinner;

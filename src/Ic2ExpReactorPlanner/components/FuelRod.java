@@ -21,6 +21,12 @@ public class FuelRod extends ReactorItem {
     private final int rodCount;
     private final boolean moxStyle;
     
+    private static boolean GT509behavior = false;
+    
+    public static void setGT509Behavior(boolean value) {
+        GT509behavior = value;
+    }
+    
     public FuelRod(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials, 
             final int energyMult, final double heatMult, final int rodCount, final boolean moxStyle) {
         super(id, baseName, name, image, maxDamage, maxHeat, sourceMod, materials);
@@ -113,7 +119,12 @@ public class FuelRod extends ReactorItem {
     public double generateEnergy() {
         int pulses = countNeutronNeighbors() + (rodCount == 1 ? 1 : (rodCount == 2) ? 2 : 3);
         double energy = energyMult * pulses;
-        if (moxStyle) {
+        if (GT509behavior || "GT5.09".equals(sourceMod)) {
+            energy *= 2;
+            if (moxStyle) {
+                energy *= (1 + 1.5 * parent.getCurrentHeat() / parent.getMaxHeat());
+            }
+        } else if (moxStyle) {
             energy *= (1 + 4.0 * parent.getCurrentHeat() / parent.getMaxHeat());
         }
         minEUGenerated = Math.min(minEUGenerated, energy);
