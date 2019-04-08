@@ -20,9 +20,9 @@ public class Vent extends ReactorItem {
     private final int hullDraw;
     private final int sideVent;
     
-    public Vent(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials,
+    public Vent(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod,
             final int selfVent, final int hullDraw, final int sideVent) {
-        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod, materials);
+        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod);
         this.selfVent = selfVent;
         this.hullDraw = hullDraw;
         this.sideVent = sideVent;

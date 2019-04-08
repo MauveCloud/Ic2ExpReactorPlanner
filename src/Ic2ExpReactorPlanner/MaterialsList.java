@@ -1,9 +1,10 @@
 package Ic2ExpReactorPlanner;
 
 import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
+import Ic2ExpReactorPlanner.components.ReactorItem;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
@@ -14,9 +15,8 @@ import java.util.TreeSet;
  * @author Brian McCloud
  */
 public final class MaterialsList {
-    
+
     private final SortedMap<String, Double> materials = new TreeMap<>();
-    private static final ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
     
     // pre-load localized material names as constants to make code more readable.
     public static final String ALLOY = getI18n("MaterialName.AdvancedAlloy");
@@ -52,46 +52,8 @@ public final class MaterialsList {
     // TODO: rework MaterialsList to allow alternate lists based on config such as Minecraft version (IC2 for MC 1.8 eliminated empty cells, so coolant cells have to be made with universal fluid cells instead)
     public static final MaterialsList COOLANT_CELL = new MaterialsList(1.0 / 3, TIN, DISTILLED_WATER, LAPIS);
     public static final MaterialsList IRIDIUM_PLATE = new MaterialsList(4, IRIDIUM, 4, ALLOY, DIAMOND);
-    
-    // Predefined materials lists for components based on their recipes (not pre-expanded, to reduce the risk of mistakes).
-    public static final MaterialsList FUEL_ROD_URANIUM = new MaterialsList(IRON, URANIUM);
-    public static final MaterialsList DUAL_FUEL_ROD_URANIUM = new MaterialsList(IRON, 2, FUEL_ROD_URANIUM);
-    public static final MaterialsList QUAD_FUEL_ROD_URANIUM = new MaterialsList(3, IRON, 2, COPPER, 4, FUEL_ROD_URANIUM);
-    public static final MaterialsList FUEL_ROD_MOX = new MaterialsList(IRON, MOX);
-    public static final MaterialsList DUAL_FUEL_ROD_MOX = new MaterialsList(IRON, 2, FUEL_ROD_MOX);
-    public static final MaterialsList QUAD_FUEL_ROD_MOX = new MaterialsList(3, IRON, 2, COPPER, 4, FUEL_ROD_MOX);
-    public static final MaterialsList NEUTRON_REFLECTOR = new MaterialsList(COPPER, 4, TIN, 4, COAL);
-    public static final MaterialsList THICK_NEUTRON_REFLECTOR = new MaterialsList(4, NEUTRON_REFLECTOR, 5, COPPER);
-    public static final MaterialsList HEAT_VENT = new MaterialsList(ELECTRIC_MOTOR, 4, IRON, 4, IRON_BARS);
-    public static final MaterialsList ADVANCED_HEAT_VENT = new MaterialsList(2, HEAT_VENT, 6, IRON_BARS, DIAMOND);
-    public static final MaterialsList REACTOR_HEAT_VENT = new MaterialsList(HEAT_VENT, 8, COPPER);
-    public static final MaterialsList COMPONENT_HEAT_VENT = new MaterialsList(HEAT_VENT, 4, TIN, 4, IRON_BARS);
-    public static final MaterialsList OVERCLOCKED_HEAT_VENT = new MaterialsList(REACTOR_HEAT_VENT, 4, GOLD);
-    public static final MaterialsList COOLANT_CELL_10K = new MaterialsList(COOLANT_CELL, 4, TIN);
-    public static final MaterialsList COOLANT_CELL_30K = new MaterialsList(3, COOLANT_CELL_10K, 6, TIN);
-    public static final MaterialsList COOLANT_CELL_60K = new MaterialsList(2, COOLANT_CELL_30K, 6, TIN, IRON);
-    public static final MaterialsList HEAT_EXCHANGER = new MaterialsList(ELECTRONIC_CIRCUIT, 3, TIN, 5, COPPER);
-    public static final MaterialsList ADVANCED_HEAT_EXCHANGER = new MaterialsList(2, HEAT_EXCHANGER, 2, ELECTRONIC_CIRCUIT, COPPER, 4, LAPIS);
-    public static final MaterialsList REACTOR_HEAT_EXCHANGER = new MaterialsList(HEAT_EXCHANGER, 8, COPPER);
-    public static final MaterialsList COMPONENT_HEAT_EXCHANGER = new MaterialsList(HEAT_EXCHANGER, 4, GOLD);
-    public static final MaterialsList REACTOR_PLATING = new MaterialsList(LEAD, ALLOY);
-    public static final MaterialsList HEAT_CAPACITY_REACTOR_PLATING = new MaterialsList(REACTOR_PLATING, 8, COPPER);
-    public static final MaterialsList CONTAINMENT_REACTOR_PLATING = new MaterialsList(REACTOR_PLATING, 2, ALLOY);
-    public static final MaterialsList RSH_CONDENSATOR = new MaterialsList(HEAT_VENT, HEAT_EXCHANGER, 7, REDSTONE);
-    public static final MaterialsList LZH_CONDENSATOR = new MaterialsList(2, RSH_CONDENSATOR, REACTOR_HEAT_VENT, REACTOR_HEAT_EXCHANGER, 9, LAPIS, 4, REDSTONE);
-    public static final MaterialsList FUEL_ROD_THORIUM = new MaterialsList(IRON, 3, THORIUM);
-    public static final MaterialsList DUAL_FUEL_ROD_THORIUM = new MaterialsList(IRON, 2, FUEL_ROD_THORIUM);
-    public static final MaterialsList QUAD_FUEL_ROD_THORIUM = new MaterialsList(3, IRON, 2, COPPER, 4, FUEL_ROD_THORIUM);
-    public static final MaterialsList COOLANT_CELL_60K_HELIUM = new MaterialsList(HELIUM, 4, TIN);
-    public static final MaterialsList COOLANT_CELL_180K_HELIUM = new MaterialsList(3, COOLANT_CELL_60K_HELIUM, 6, TIN);
-    public static final MaterialsList COOLANT_CELL_360K_HELIUM = new MaterialsList(2, COOLANT_CELL_180K_HELIUM, 6, TIN, 9, COPPER);
-    public static final MaterialsList COOLANT_CELL_60K_NAK = new MaterialsList(COOLANT_CELL_10K, 4, TIN, 2, POTASSIUM, 2, SODIUM);
-    public static final MaterialsList COOLANT_CELL_180K_NAK = new MaterialsList(3, COOLANT_CELL_60K_NAK, 6, TIN);
-    public static final MaterialsList COOLANT_CELL_360K_NAK = new MaterialsList(2, COOLANT_CELL_180K_NAK, 6, TIN, 9, COPPER);
-    public static final MaterialsList IRIDIUM_NEUTRON_REFLECTOR = new MaterialsList(6, THICK_NEUTRON_REFLECTOR, 18, COPPER, IRIDIUM_PLATE);
-    public static final MaterialsList FUEL_ROD_NAQUADAH = new MaterialsList(IRON, 3, NAQUADAH);
-    public static final MaterialsList DUAL_FUEL_ROD_NAQUADAH = new MaterialsList(IRON, 2, FUEL_ROD_NAQUADAH);
-    public static final MaterialsList QUAD_FUEL_ROD_NAQUADAH = new MaterialsList(3, IRON, 2, COPPER, 4, FUEL_ROD_NAQUADAH);
+        
+    private static Map<String, MaterialsList> componentMaterialsMap = buildComponentMaterialsMap();
     
     /**
      * Creates an empty materials list.
@@ -136,6 +98,8 @@ public final class MaterialsList {
                     }
                 }
                 itemCount = 1;
+            } else {
+                throw new IllegalArgumentException("Invalid material type: " + material.getClass().getName());
             }
         }
     }
@@ -180,4 +144,52 @@ public final class MaterialsList {
         }
         return result.toString();
     }
+
+    public static MaterialsList getMaterialsForComponent(ReactorItem component) {
+        return componentMaterialsMap.get(component.baseName);
+    }
+    
+    private static Map<String, MaterialsList> buildComponentMaterialsMap() {
+        Map<String, MaterialsList> result = new HashMap<>(50);
+        result.put("fuelRodUranium", new MaterialsList(IRON, URANIUM));
+        result.put("dualFuelRodUranium", new MaterialsList(IRON, 2, result.get("fuelRodUranium")));
+        result.put("quadFuelRodUranium", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodUranium")));
+        result.put("fuelRodMox", new MaterialsList(IRON, MOX));
+        result.put("dualFuelRodMox", new MaterialsList(IRON, 2, result.get("fuelRodMox")));
+        result.put("quadFuelRodMox", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodMox")));
+        result.put("neutronReflector", new MaterialsList(COPPER, 4, TIN, 4, COAL));
+        result.put("thickNeutronReflector", new MaterialsList(4, result.get("neutronReflector"), 5, COPPER));
+        result.put("heatVent", new MaterialsList(ELECTRIC_MOTOR, 4, IRON, 4, IRON_BARS));
+        result.put("advancedHeatVent", new MaterialsList(2, result.get("heatVent"), 6, IRON_BARS, DIAMOND));
+        result.put("reactorHeatVent", new MaterialsList(result.get("heatVent"), 8, COPPER));
+        result.put("componentHeatVent", new MaterialsList(result.get("heatVent"), 4, TIN, 4, IRON_BARS));
+        result.put("overclockedHeatVent", new MaterialsList(result.get("reactorHeatVent"), 4, GOLD));
+        result.put("coolantCell10k", new MaterialsList(COOLANT_CELL, 4, TIN));
+        result.put("coolantCell30k", new MaterialsList(3, result.get("coolantCell10k"), 6, TIN));
+        result.put("coolantCell60k", new MaterialsList(2, result.get("coolantCell30k"), 6, TIN, IRON));
+        result.put("heatExchanger", new MaterialsList(ELECTRONIC_CIRCUIT, 3, TIN, 5, COPPER));
+        result.put("advancedHeatExchanger", new MaterialsList(2, result.get("heatExchanger"), 2, ELECTRONIC_CIRCUIT, COPPER, 4, LAPIS));
+        result.put("coreHeatExchanger", new MaterialsList(result.get("heatExchanger"), 8, COPPER));
+        result.put("componentHeatExchanger", new MaterialsList(result.get("heatExchanger"), 4, GOLD));
+        result.put("reactorPlating", new MaterialsList(LEAD, ALLOY));
+        result.put("heatCapacityReactorPlating", new MaterialsList(result.get("reactorPlating"), 8, COPPER));
+        result.put("containmentReactorPlating", new MaterialsList(result.get("reactorPlating"), 2, ALLOY));
+        result.put("rshCondensator", new MaterialsList(result.get("heatVent"), result.get("heatExchanger"), 7, REDSTONE));
+        result.put("lzhCondensator", new MaterialsList(2, result.get("rshCondensator"), result.get("reactorHeatVent"), result.get("coreHeatExchanger"), 9, LAPIS, 4, REDSTONE));
+        result.put("fuelRodThorium", new MaterialsList(IRON, 3, THORIUM));
+        result.put("dualFuelRodThorium", new MaterialsList(IRON, 2, result.get("fuelRodThorium")));
+        result.put("quadFuelRodThorium", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodThorium")));
+        result.put("coolantCellHelium60k", new MaterialsList(HELIUM, 4, TIN));
+        result.put("coolantCellHelium180k", new MaterialsList(3, result.get("coolantCellHelium60k"), 6, TIN));
+        result.put("coolantCellHelium360k", new MaterialsList(2, result.get("coolantCellHelium180k"), 6, TIN, 9, COPPER));
+        result.put("coolantCellNak60k", new MaterialsList(result.get("coolantCell10k"), 4, TIN, 2, POTASSIUM, 2, SODIUM));
+        result.put("coolantCellNak180k", new MaterialsList(3, result.get("coolantCellNak60k"), 6, TIN));
+        result.put("coolantCellNak360k", new MaterialsList(2, result.get("coolantCellNak180k"), 6, TIN, 9, COPPER));
+        result.put("iridiumNeutronReflector", new MaterialsList(6, result.get("thickNeutronReflector"), 18, COPPER, IRIDIUM_PLATE));
+        result.put("fuelRodNaquadah", new MaterialsList(IRON, 3, NAQUADAH));
+        result.put("dualFuelRodNaquadah", new MaterialsList(IRON, 2, result.get("fuelRodNaquadah")));
+        result.put("quadFuelRodNaquadah", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodNaquadah")));
+        return result;
+    }
+    
 }

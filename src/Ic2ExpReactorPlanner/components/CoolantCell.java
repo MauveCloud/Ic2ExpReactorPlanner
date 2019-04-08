@@ -14,8 +14,8 @@ import java.awt.Image;
  */
 public class CoolantCell extends ReactorItem {
     
-    public CoolantCell(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials) {
-        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod, materials);
+    public CoolantCell(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod) {
+        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod);
     }
     
     public CoolantCell(final CoolantCell other) {

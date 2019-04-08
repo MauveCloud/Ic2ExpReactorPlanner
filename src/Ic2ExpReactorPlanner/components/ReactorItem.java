@@ -7,7 +7,6 @@ package Ic2ExpReactorPlanner.components;
 
 import Ic2ExpReactorPlanner.MaterialsList;
 import Ic2ExpReactorPlanner.Reactor;
-import Ic2ExpReactorPlanner.TextureFactory;
 import java.awt.Image;
 import java.util.ResourceBundle;
 
@@ -24,7 +23,6 @@ public class ReactorItem {
     public final double maxDamage;
     public final double maxHeat;
     public final String sourceMod; // for potentially adjusting controls based on whether the mod is in use, will be null to indicate the item is part of base IC2.
-    public final MaterialsList materials;
     
     // Simulation setting values
     private double initialHeat = 0;
@@ -102,7 +100,7 @@ public class ReactorItem {
     
     protected static final ResourceBundle BUNDLE = ResourceBundle.getBundle("Ic2ExpReactorPlanner/Bundle");
     
-    protected ReactorItem(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials) {
+    protected ReactorItem(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod) {
         this.id = id;
         this.baseName = baseName;
         this.name = name;
@@ -115,7 +113,6 @@ public class ReactorItem {
             automationThreshold = (int)(maxDamage * 1.1);
         }
         this.sourceMod = sourceMod;
-        this.materials = materials;
     }
     
     // Protected copy constructor for use by subclasses.  Generalized copying should be done with a method in ComponentFactory (which can check which subclass copy constructor to use).
@@ -130,7 +127,6 @@ public class ReactorItem {
         this.automationThreshold = other.automationThreshold;
         this.reactorPause = other.reactorPause;
         this.sourceMod = other.sourceMod;
-        this.materials = other.materials;
     }
 
     /**

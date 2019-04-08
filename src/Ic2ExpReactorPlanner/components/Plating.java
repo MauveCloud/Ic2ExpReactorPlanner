@@ -19,8 +19,8 @@ public class Plating extends ReactorItem {
     
     private final int heatAdjustment;
     
-    public Plating(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials, final int heatAdjustment, final double explosionPowerMultiplier) {
-        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod, materials);
+    public Plating(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final int heatAdjustment, final double explosionPowerMultiplier) {
+        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod);
         this.heatAdjustment = heatAdjustment;
         this.explosionPowerMultiplier = explosionPowerMultiplier;
     }

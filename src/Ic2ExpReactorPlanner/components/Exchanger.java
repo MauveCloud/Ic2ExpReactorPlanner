@@ -19,8 +19,8 @@ public class Exchanger extends ReactorItem {
     private final int switchSide;
     private final int switchReactor;
     
-    public Exchanger(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final MaterialsList materials, final int switchSide, final int switchReactor) {
-        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod, materials);
+    public Exchanger(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, final int switchSide, final int switchReactor) {
+        super(id, baseName, name, image, maxDamage, maxHeat, sourceMod);
         this.switchSide = switchSide;
         this.switchReactor = switchReactor;
     }

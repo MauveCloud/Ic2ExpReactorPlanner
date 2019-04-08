@@ -6,6 +6,8 @@
 package Ic2ExpReactorPlanner;
 
 import java.awt.Dimension;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -18,15 +20,11 @@ import javax.swing.JTextArea;
 public class ExceptionDialogDisplay implements Thread.UncaughtExceptionHandler {
     
     public static void showExceptionDialog(final Throwable e) {
-        // Mostly copied from https://stackoverflow.com/questions/14011492/text-wrap-in-joptionpane/14011536#14011536
-        StringBuilder sb = new StringBuilder("Error: "); //NOI18N
-        sb.append(e.toString());
-        sb.append("\n"); //NOI18N
-        for (StackTraceElement ste : e.getStackTrace()) {
-            sb.append(ste.toString());
-            sb.append("\n"); //NOI18N
-        }
-        JTextArea jta = new JTextArea(sb.toString());
+        // Modified from https://stackoverflow.com/questions/14011492/text-wrap-in-joptionpane/14011536#14011536
+        // also used https://stackoverflow.com/questions/4812570/how-to-store-printstacktrace-into-a-string/4812589#4812589
+        StringWriter errors = new StringWriter(5000);
+        e.printStackTrace(new PrintWriter(errors));
+        JTextArea jta = new JTextArea(errors.toString());
         jta.setEditable(false);
         JScrollPane jsp = new JScrollPane(jta) {
             @Override
