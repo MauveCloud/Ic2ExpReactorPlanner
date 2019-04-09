@@ -74,7 +74,7 @@ public final class MaterialsList {
     
     /**
      * Creates a materials list with the specified items in it.
-     * @param materials the materials to add, which can be strings that each represent a single material or other MaterialsList objects, and either can be preceded by an integer as a count.
+     * @param materials the materials to add, which can be strings that each represent a single material or other MaterialsList objects, and either can be preceded by a number as a count.
      * @throws IllegalArgumentException if other object types are passed as arguments.
      */
     public MaterialsList(Object... materials) {
@@ -83,7 +83,7 @@ public final class MaterialsList {
     
     /**
      * Adds the specified items to this materials list.
-     * @param materials the materials to add, which can be strings that each represent a single material or other MaterialsList objects, and either can be preceded by an integer as a count.
+     * @param materials the materials to add, which can be strings that each represent a single material or other MaterialsList objects, and either can be preceded by a number as a count.
      * @throws IllegalArgumentException if other object types are passed as arguments.
      */
     public void add(Object... materials) {
@@ -126,7 +126,7 @@ public final class MaterialsList {
         return result.toString();
     }
     
-    public String buildComparisonString(MaterialsList rhs) {
+    public String buildComparisonString(MaterialsList rhs, boolean alwaysDiff) {
         StringBuilder result = new StringBuilder(1000);
         SortedSet<String> keys = new TreeSet<>(materials.keySet());
         keys.addAll(rhs.materials.keySet());
@@ -147,10 +147,12 @@ public final class MaterialsList {
             } else if (left > right) {
                 color = "red";
             }
-            result.append(String.format(getI18n("Comparison.MaterialsEntry"), color, 
-                    comparisonDecimalFormat.format(left - right), key, 
-                    simpleDecimalFormat.format(left), 
-                    simpleDecimalFormat.format(right)));
+            if (alwaysDiff || left != right) {
+                result.append(String.format(getI18n("Comparison.MaterialsEntry"), color,
+                        comparisonDecimalFormat.format(left - right), key,
+                        simpleDecimalFormat.format(left),
+                        simpleDecimalFormat.format(right)));
+            }
         }
         return result.toString();
     }

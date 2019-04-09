@@ -78,10 +78,7 @@ public class Reactor {
     public void clearGrid() {
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[row].length; col++) {
-                if (grid[row][col] != null) {
-                    grid[row][col].removeFromReactor();
-                }
-                grid[row][col] = null;
+                setComponentAt(row, col, null);
             }
         }
     }
@@ -157,8 +154,8 @@ public class Reactor {
         MaterialsList result = new MaterialsList();
         for (int col = 0; col < grid[0].length; col++) {
             for (int row = 0; row < grid.length; row++) {
-                if (grid[row][col] != null) {
-                    result.add(MaterialsList.getMaterialsForComponent(grid[row][col]));
+                if (getComponentAt(row, col) != null) {
+                    result.add(MaterialsList.getMaterialsForComponent(getComponentAt(row, col)));
                 }
             }
         }
@@ -169,8 +166,8 @@ public class Reactor {
         MaterialsList result = new MaterialsList();
         for (int col = 0; col < grid[0].length; col++) {
             for (int row = 0; row < grid.length; row++) {
-                if (grid[row][col] != null) {
-                    result.add(grid[row][col].name);
+                if (getComponentAt(row, col) != null) {
+                    result.add(getComponentAt(row, col).name);
                 }
             }
         }
@@ -595,7 +592,7 @@ public class Reactor {
         StringBuilder result = new StringBuilder(108);
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[row].length; col++) {
-                final ReactorItem component = grid[row][col];
+                final ReactorItem component = getComponentAt(row, col);
                 final int id = (component != null) ? component.id : 0;
                 result.append(String.format("%02X", id)); //NOI18N 
                 if (component != null && (component.getInitialHeat() > 0 

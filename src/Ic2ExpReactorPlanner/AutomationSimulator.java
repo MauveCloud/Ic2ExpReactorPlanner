@@ -83,7 +83,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
     
     private int lapisUsed = 0;
     
-    private MaterialsList replacedItems = new MaterialsList();
+    private final MaterialsList replacedItems = new MaterialsList();
     
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(getI18n("Simulation.DecimalFormat"));
     
@@ -312,6 +312,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 }
                 final String replacedItemsString = replacedItems.toString();
                 if (!replacedItemsString.isEmpty()) {
+                    data.replacedItems = new MaterialsList(replacedItems);
                     publish(formatI18n("Simulation.ComponentsReplaced", replacedItemsString));
                 }
                 
