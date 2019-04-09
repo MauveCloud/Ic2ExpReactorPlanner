@@ -2011,10 +2011,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_gt509BehaviorCheckActionPerformed
 
     private void useGTRecipesCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useGTRecipesCheckActionPerformed
-        if (useGTRecipesCheck.isSelected()) {
-            expandAdvancedAlloyCheck.setSelected(false);
-            MaterialsList.setExpandAdvancedAlloy(false);
-        }
         useUfcForCoolantCellsCheck.setEnabled(!useGTRecipesCheck.isSelected());
         expandAdvancedAlloyCheck.setEnabled(!useGTRecipesCheck.isSelected());
         MaterialsList.setUseGTRecipes(useGTRecipesCheck.isSelected());
@@ -2142,13 +2138,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     }
     
     private void updateComparison() {
+        if (simulator == null || simulator.getData() == null || prevSimulator == null || prevSimulator.getData() == null) {
+            return;
+        }
         if (showOldStyleReactorCodeCheck.isSelected()) {
             comparisonCodeField.setText(prevReactorOldCode);
         } else {
             comparisonCodeField.setText(prevReactorCode);
-        }
-        if (simulator == null || simulator.getData() == null || prevSimulator == null || prevSimulator.getData() == null) {
-            return;
         }
         comparisonScroll.getVerticalScrollBar().setUnitIncrement(16);
         StringBuilder text = new StringBuilder(1000);

@@ -20,6 +20,7 @@ public final class MaterialsList {
     
     private static boolean useGTRecipes = false;
     private static boolean useUfcForCoolantCells = false;
+    private static boolean expandAdvancedAlloy = false;
     
     // pre-load localized material names as constants to make code more readable.
     public static final String ALUMINIUM = getI18n("MaterialName.Aluminium");
@@ -168,6 +169,7 @@ public final class MaterialsList {
     }
     
     public static void setExpandAdvancedAlloy(boolean value) {
+        expandAdvancedAlloy = value;
         if (value) {
             alloy = new MaterialsList(3.0 / 2, IRON, 3.0 / 2, BRONZE, 3.0 / 2, TIN);
         } else {
@@ -181,10 +183,18 @@ public final class MaterialsList {
         useGTRecipes = value;
         if (value) {
             coolantCell = new MaterialsList(EMPTY_CELL, DISTILLED_WATER, LAPIS);
-        } else if (useUfcForCoolantCells) {
-            coolantCell = new MaterialsList(4, TIN_ITEM_CASING, GLASS_PANE, DISTILLED_WATER, LAPIS);
+            alloy = new MaterialsList(getI18n("MaterialName.AdvancedAlloy"));
         } else {
-            coolantCell = new MaterialsList(1.0 / 3, TIN, DISTILLED_WATER, LAPIS);
+            if (useUfcForCoolantCells) {
+                coolantCell = new MaterialsList(4, TIN_ITEM_CASING, GLASS_PANE, DISTILLED_WATER, LAPIS);
+            } else {
+                coolantCell = new MaterialsList(1.0 / 3, TIN, DISTILLED_WATER, LAPIS);
+            }
+            if (expandAdvancedAlloy) {
+                alloy = new MaterialsList(3.0 / 2, IRON, 3.0 / 2, BRONZE, 3.0 / 2, TIN);
+            } else {
+                alloy = new MaterialsList(getI18n("MaterialName.AdvancedAlloy"));
+            }
         }
         componentMaterialsMap = buildComponentMaterialsMap();
     }
