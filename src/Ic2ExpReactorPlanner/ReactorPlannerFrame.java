@@ -2031,7 +2031,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_expandAdvancedAlloyCheckActionPerformed
 
     private void copyComparisonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyComparisonButtonActionPerformed
-        StringSelection selection = new StringSelection(comparisonLabel.getText().replace("<br>", "\n").replaceAll("<[^>]+>", ""));
+        HtmlSelection selection = new HtmlSelection(comparisonLabel.getText());
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
     }//GEN-LAST:event_copyComparisonButtonActionPerformed
 
