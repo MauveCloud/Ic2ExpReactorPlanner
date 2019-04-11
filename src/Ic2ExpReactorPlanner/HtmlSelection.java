@@ -11,7 +11,14 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.rtf.RTFEditorKit;
 
 /**
  * Represents a clipboard selection of html text, to allow pasting into editors that support it, such as OpenOffice Writer.
@@ -22,6 +29,7 @@ public class HtmlSelection implements Transferable, ClipboardOwner {
 
     private final DataFlavor htmlFlavor = new DataFlavor("text/html; charset=utf-8", null);
     private final DataFlavor plainFlavor = new DataFlavor("text/plain; charset=utf-8", null);
+    private final DataFlavor rtfFlavor = new DataFlavor("text/rtf", null);
     
     private final String data;
     
@@ -33,13 +41,14 @@ public class HtmlSelection implements Transferable, ClipboardOwner {
     public DataFlavor[] getTransferDataFlavors() {
             return new DataFlavor[] {
                 htmlFlavor,
-                plainFlavor
+                plainFlavor,
+                rtfFlavor
             };
     }
 
     @Override
     public boolean isDataFlavorSupported(final DataFlavor flavor) {
-        return flavor.equals(htmlFlavor) || flavor.equals(plainFlavor);
+        return flavor.equals(htmlFlavor) || flavor.equals(plainFlavor) || flavor.equals(rtfFlavor);
     }
 
     @Override
@@ -48,6 +57,8 @@ public class HtmlSelection implements Transferable, ClipboardOwner {
             return new ByteArrayInputStream(data.getBytes("utf-8"));
         } else if (flavor.equals(plainFlavor)) {
             return new ByteArrayInputStream(data.replace("<br>", "\n").replaceAll("<[^>]+>", "").getBytes("utf-8"));
+        } else if (flavor.equals(rtfFlavor)) {
+            return new ByteArrayInputStream(convertToRTF(data).getBytes("us-ascii"));
         } else {
             throw new UnsupportedFlavorException(flavor);
         }
@@ -56,6 +67,30 @@ public class HtmlSelection implements Transferable, ClipboardOwner {
     @Override
     public void lostOwnership(final Clipboard clipboard, final Transferable contents) {
         // no-op
+    }
+    
+    // modified from https://stackoverflow.com/questions/2091803/how-to-convert-html-to-rtf-in-java
+    // only tested to handle html tags expected to be output by the planner's comparison feature.
+    private static String convertToRTF(final String htmlStr) {
+
+        OutputStream os = new ByteArrayOutputStream();
+        HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+        RTFEditorKit rtfEditorKit = new RTFEditorKit();
+        String rtfStr = null;
+
+        String tempStr = htmlStr.replace("</font>", "#END_FONT#").replace("<br>", "#NEW_LINE#");
+        InputStream is = new ByteArrayInputStream(tempStr.getBytes());
+        try {
+            Document doc = htmlEditorKit.createDefaultDocument();
+            htmlEditorKit.read(is, doc, 0);
+            rtfEditorKit.write(os, doc, 0, doc.getLength());
+            rtfStr = os.toString();
+            rtfStr = rtfStr.replace("#NEW_LINE#", "\\line ");
+            rtfStr = rtfStr.replace("#END_FONT#", "\\cf0 ");
+        } catch (IOException | BadLocationException e) {
+            e.printStackTrace();
+        }
+        return rtfStr;
     }
     
 }
