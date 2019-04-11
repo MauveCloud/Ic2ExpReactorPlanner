@@ -517,6 +517,17 @@
                                 <Property name="actionCommand" type="java.lang.String" value="thickNeutronReflector" noResource="true"/>
                               </Properties>
                             </Component>
+                            <Component class="javax.swing.JToggleButton" name="iridiumNeutronReflectorButton">
+                              <Properties>
+                                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                                  <ComponentRef name="componentsGroup"/>
+                                </Property>
+                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="buildTooltipInfo(&quot;IridiumNeutronReflector&quot;)" type="code"/>
+                                </Property>
+                                <Property name="actionCommand" type="java.lang.String" value="iridiumNeutronReflector" noResource="true"/>
+                              </Properties>
+                            </Component>
                             <Component class="javax.swing.JToggleButton" name="heatVentButton">
                               <Properties>
                                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
@@ -724,6 +735,7 @@
                                   <Connection code="buildTooltipInfo(&quot;DualFuelRodThorium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="dualFuelRodThorium" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="quadFuelRodThoriumButton">
@@ -735,6 +747,7 @@
                                   <Connection code="buildTooltipInfo(&quot;QuadFuelRodThorium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="quadFuelRodThorium" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="coolantCellHelium60kButton">
@@ -746,6 +759,7 @@
                                   <Connection code="buildTooltipInfo(&quot;CoolantCell60kHelium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellHelium60k" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="coolantCellHelium180kButton">
@@ -757,6 +771,7 @@
                                   <Connection code="buildTooltipInfo(&quot;CoolantCell180kHelium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellHelium180k" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="coolantCellHelium360kButton">
@@ -768,6 +783,7 @@
                                   <Connection code="buildTooltipInfo(&quot;CoolantCell360kHelium&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellHelium360k" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="coolantCellNak60kButton">
@@ -779,6 +795,7 @@
                                   <Connection code="buildTooltipInfo(&quot;CoolantCell60kNak&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellNak60k" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="coolantCellNak180kButton">
@@ -790,6 +807,7 @@
                                   <Connection code="buildTooltipInfo(&quot;CoolantCell180kNak&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellNak180k" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="coolantCellNak360kButton">
@@ -801,17 +819,7 @@
                                   <Connection code="buildTooltipInfo(&quot;CoolantCell360kNak&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="coolantCellNak360k" noResource="true"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JToggleButton" name="iridiumNeutronReflectorButton">
-                              <Properties>
-                                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                                  <ComponentRef name="componentsGroup"/>
-                                </Property>
-                                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="buildTooltipInfo(&quot;IridiumNeutronReflector&quot;)" type="code"/>
-                                </Property>
-                                <Property name="actionCommand" type="java.lang.String" value="iridiumNeutronReflector" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="fuelRodNaquadahButton">
@@ -823,6 +831,7 @@
                                   <Connection code="buildTooltipInfo(&quot;FuelRodNaquadah&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="fuelRodNaquadah" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="dualFuelRodNaquadahButton">
@@ -834,6 +843,7 @@
                                   <Connection code="buildTooltipInfo(&quot;DualFuelRodNaquadah&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="dualFuelRodNaquadah" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="quadFuelRodNaquadahButton">
@@ -845,6 +855,7 @@
                                   <Connection code="buildTooltipInfo(&quot;QuadFuelRodNaquadah&quot;)" type="code"/>
                                 </Property>
                                 <Property name="actionCommand" type="java.lang.String" value="quadFuelRodNaquadah" noResource="true"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -1685,6 +1696,76 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                   <SubComponents>
+                    <Container class="javax.swing.JPanel" name="jPanel10">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+                      </AuxValues>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JLabel" name="jLabel20">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.MinecraftVersion" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            </Property>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+                          </AuxValues>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="mcVersionCombo">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="6">
+                                <StringItem index="0" value="1.12.2"/>
+                                <StringItem index="1" value="1.11.2"/>
+                                <StringItem index="2" value="1.10.2"/>
+                                <StringItem index="3" value="1.9.4"/>
+                                <StringItem index="4" value="1.8.9"/>
+                                <StringItem index="5" value="1.7.10"/>
+                              </StringArray>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mcVersionComboActionPerformed"/>
+                          </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                          </AuxValues>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel21">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                              <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.GregTechVersion" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="gtVersionCombo">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="new DefaultComboBoxModel&lt;String&gt;&#xd;&#xa;(new String[]{getI18n(&quot;UI.GregTechVersionNone&quot;), &quot;5.08&quot;, &quot;5.09&quot;})" type="code"/>
+                            </Property>
+                            <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="getI18n(&quot;UI.GregTechVersionNone&quot;)" type="code"/>
+                            </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gtVersionComboActionPerformed"/>
+                          </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                          </AuxValues>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                     <Component class="javax.swing.JCheckBox" name="showComponentDetailButtonsCheck">
                       <Properties>
                         <Property name="selected" type="boolean" value="true"/>
@@ -1815,51 +1896,6 @@
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                           <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="6" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="18" weightX="1.0" weightY="0.0"/>
-                        </Constraint>
-                      </Constraints>
-                    </Component>
-                    <Component class="javax.swing.JCheckBox" name="gt509BehaviorCheck">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.GT509ReactorBehavior" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gt509BehaviorCheckActionPerformed"/>
-                      </Events>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
-                        </Constraint>
-                      </Constraints>
-                    </Component>
-                    <Component class="javax.swing.JCheckBox" name="useGTRecipesCheck">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.UseGTRecipes" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="useGTRecipesCheckActionPerformed"/>
-                      </Events>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
-                        </Constraint>
-                      </Constraints>
-                    </Component>
-                    <Component class="javax.swing.JCheckBox" name="useUfcForCoolantCellsCheck">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="Ic2ExpReactorPlanner/Bundle.properties" key="UI.UseUfcForCoolantCells" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="useUfcForCoolantCellsCheckActionPerformed"/>
-                      </Events>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
                         </Constraint>
                       </Constraints>
                     </Component>

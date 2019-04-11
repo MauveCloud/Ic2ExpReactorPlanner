@@ -14,6 +14,8 @@ import java.awt.Image;
  */
 public class Reflector extends ReactorItem {
     
+    private static String mcVersion = "1.12.2";
+    
     public Reflector(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod) {
         super(id, baseName, name, image, maxDamage, maxHeat, sourceMod);
     }
@@ -46,5 +48,17 @@ public class Reflector extends ReactorItem {
             applyDamage(component.getRodCount());
         }
         return 0;
+    }
+    
+    @Override
+    public double getMaxHeat() {
+        if (maxHeat > 1 && "1.7.10".equals(mcVersion)) {
+            return maxHeat / 3;
+        }
+        return maxHeat;
+    }
+    
+    public static void setMcVersion(String newVersion) {
+        mcVersion = newVersion;
     }
 }

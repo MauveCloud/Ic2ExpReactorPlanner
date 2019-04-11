@@ -9,6 +9,7 @@ import static Ic2ExpReactorPlanner.BundleHelper.formatI18n;
 import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
 import Ic2ExpReactorPlanner.components.FuelRod;
 import Ic2ExpReactorPlanner.components.ReactorItem;
+import Ic2ExpReactorPlanner.components.Reflector;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -38,6 +39,7 @@ import java.util.Properties;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -362,11 +364,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             enableGT509ComponentsCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("enableGT509Components", "true")));
             showOldStyleReactorCodeCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("showOldStyleReactorCode", "false")));
             showComponentPreconfigCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("showComponentPreconfigControls", "true")));
-            gt509BehaviorCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("gt509ReactorBehavior", "false")));
-            useGTRecipesCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("useGTrecipes", "false")));
-            useUfcForCoolantCellsCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("useUfcForCoolant", "false")));
+            String mcVersion = ADVANCED_CONFIG.getProperty("mcVersion", "1.12.2");
+            String gtVersion = ADVANCED_CONFIG.getProperty("gtVersion", "none");
+            mcVersionCombo.setSelectedItem(mcVersion);
+            if (!"none".equals(gtVersion)) {
+                gtVersionCombo.setSelectedItem(gtVersion);
+            }
             expandAdvancedAlloyCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("expandAdvancedAlloy", "false")));
-            FuelRod.setGT509Behavior(gt509BehaviorCheck.isSelected());
+//            FuelRod.setGT509Behavior(gt509BehaviorCheck.isSelected());
             String texturePackName = ADVANCED_CONFIG.getProperty("texturePack");
             if (texturePackName != null) {
                 File texturePackFile = new File(texturePackName);
@@ -384,9 +389,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             enableGT508ComponentsCheckActionPerformed(null);
             enableGT509ComponentsCheckActionPerformed(null);
             showComponentPreconfigCheckActionPerformed(null);
-            useUfcForCoolantCellsCheckActionPerformed(null);
             expandAdvancedAlloyCheckActionPerformed(null);
-            useGTRecipesCheckActionPerformed(null);
+            gtVersionComboActionPerformed(null);
+            mcVersionComboActionPerformed(null);
         } catch (FileNotFoundException ex) {
             // ignore, this might just mean the file hasn't been created yet.
         } catch (IOException | NullPointerException ex) {
@@ -401,9 +406,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             ADVANCED_CONFIG.setProperty("enableGT509Components", Boolean.toString(enableGT509ComponentsCheck.isSelected()));
             ADVANCED_CONFIG.setProperty("showOldStyleReactorCode", Boolean.toString(showOldStyleReactorCodeCheck.isSelected()));
             ADVANCED_CONFIG.setProperty("showComponentPreconfigControls", Boolean.toString(showComponentPreconfigCheck.isSelected()));
-            ADVANCED_CONFIG.setProperty("gt509ReactorBehavior", Boolean.toString(gt509BehaviorCheck.isSelected()));
-            ADVANCED_CONFIG.setProperty("useGTrecipes", Boolean.toString(useGTRecipesCheck.isSelected()));
-            ADVANCED_CONFIG.setProperty("useUfcForCoolant", Boolean.toString(useUfcForCoolantCellsCheck.isSelected()));
+            ADVANCED_CONFIG.setProperty("mcVersion", mcVersionCombo.getSelectedItem().toString());
+            if (getI18n("UI.GregTechVersionNone").equals(gtVersionCombo.getSelectedItem().toString())) {
+                ADVANCED_CONFIG.setProperty("gtVersion", "none");
+            } else {
+                ADVANCED_CONFIG.setProperty("gtVersion", gtVersionCombo.getSelectedItem().toString());
+            }
             ADVANCED_CONFIG.setProperty("expandAdvancedAlloy", Boolean.toString(expandAdvancedAlloyCheck.isSelected()));
             if (csvChooser.getSelectedFile() != null) {
                 ADVANCED_CONFIG.setProperty("csvFile", csvChooser.getSelectedFile().getAbsolutePath());
@@ -457,6 +465,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         quadFuelRodMoxButton = new javax.swing.JToggleButton();
         neutronReflectorButton = new javax.swing.JToggleButton();
         thickNeutronReflectorButton = new javax.swing.JToggleButton();
+        iridiumNeutronReflectorButton = new javax.swing.JToggleButton();
         heatVentButton = new javax.swing.JToggleButton();
         advancedHeatVentButton = new javax.swing.JToggleButton();
         reactorHeatVentButton = new javax.swing.JToggleButton();
@@ -483,7 +492,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         coolantCellNak60kButton = new javax.swing.JToggleButton();
         coolantCellNak180kButton = new javax.swing.JToggleButton();
         coolantCellNak360kButton = new javax.swing.JToggleButton();
-        iridiumNeutronReflectorButton = new javax.swing.JToggleButton();
         fuelRodNaquadahButton = new javax.swing.JToggleButton();
         dualFuelRodNaquadahButton = new javax.swing.JToggleButton();
         quadFuelRodNaquadahButton = new javax.swing.JToggleButton();
@@ -546,6 +554,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         javax.swing.JLabel csvHelpLabel = new javax.swing.JLabel();
         advancedScroll = new javax.swing.JScrollPane();
         advancedPanel = new javax.swing.JPanel();
+        javax.swing.JPanel jPanel10 = new javax.swing.JPanel();
+        javax.swing.JLabel jLabel20 = new javax.swing.JLabel();
+        mcVersionCombo = new javax.swing.JComboBox<>();
+        jLabel21 = new javax.swing.JLabel();
+        gtVersionCombo = new javax.swing.JComboBox<>();
         showComponentDetailButtonsCheck = new javax.swing.JCheckBox();
         enableGT508ComponentsCheck = new javax.swing.JCheckBox();
         enableGT509ComponentsCheck = new javax.swing.JCheckBox();
@@ -555,9 +568,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         texturePackBrowseButton = new javax.swing.JButton();
         texturePackClearButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        gt509BehaviorCheck = new javax.swing.JCheckBox();
-        useGTRecipesCheck = new javax.swing.JCheckBox();
-        useUfcForCoolantCellsCheck = new javax.swing.JCheckBox();
         expandAdvancedAlloyCheck = new javax.swing.JCheckBox();
         comparisonScroll = new javax.swing.JScrollPane();
         javax.swing.JPanel comparisonPanel = new javax.swing.JPanel();
@@ -785,6 +795,11 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         thickNeutronReflectorButton.setActionCommand("thickNeutronReflector"); // NOI18N
         componentsPanel.add(thickNeutronReflectorButton);
 
+        componentsGroup.add(iridiumNeutronReflectorButton);
+        iridiumNeutronReflectorButton.setToolTipText(buildTooltipInfo("IridiumNeutronReflector"));
+        iridiumNeutronReflectorButton.setActionCommand("iridiumNeutronReflector"); // NOI18N
+        componentsPanel.add(iridiumNeutronReflectorButton);
+
         componentsGroup.add(heatVentButton);
         heatVentButton.setToolTipText(buildTooltipInfo("HeatVent"));
         heatVentButton.setActionCommand("heatVent"); // NOI18N
@@ -878,61 +893,67 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentsGroup.add(dualFuelRodThoriumButton);
         dualFuelRodThoriumButton.setToolTipText(buildTooltipInfo("DualFuelRodThorium"));
         dualFuelRodThoriumButton.setActionCommand("dualFuelRodThorium"); // NOI18N
+        dualFuelRodThoriumButton.setEnabled(false);
         componentsPanel.add(dualFuelRodThoriumButton);
 
         componentsGroup.add(quadFuelRodThoriumButton);
         quadFuelRodThoriumButton.setToolTipText(buildTooltipInfo("QuadFuelRodThorium"));
         quadFuelRodThoriumButton.setActionCommand("quadFuelRodThorium"); // NOI18N
+        quadFuelRodThoriumButton.setEnabled(false);
         componentsPanel.add(quadFuelRodThoriumButton);
 
         componentsGroup.add(coolantCellHelium60kButton);
         coolantCellHelium60kButton.setToolTipText(buildTooltipInfo("CoolantCell60kHelium"));
         coolantCellHelium60kButton.setActionCommand("coolantCellHelium60k"); // NOI18N
+        coolantCellHelium60kButton.setEnabled(false);
         componentsPanel.add(coolantCellHelium60kButton);
 
         componentsGroup.add(coolantCellHelium180kButton);
         coolantCellHelium180kButton.setToolTipText(buildTooltipInfo("CoolantCell180kHelium"));
         coolantCellHelium180kButton.setActionCommand("coolantCellHelium180k"); // NOI18N
+        coolantCellHelium180kButton.setEnabled(false);
         componentsPanel.add(coolantCellHelium180kButton);
 
         componentsGroup.add(coolantCellHelium360kButton);
         coolantCellHelium360kButton.setToolTipText(buildTooltipInfo("CoolantCell360kHelium"));
         coolantCellHelium360kButton.setActionCommand("coolantCellHelium360k"); // NOI18N
+        coolantCellHelium360kButton.setEnabled(false);
         componentsPanel.add(coolantCellHelium360kButton);
 
         componentsGroup.add(coolantCellNak60kButton);
         coolantCellNak60kButton.setToolTipText(buildTooltipInfo("CoolantCell60kNak"));
         coolantCellNak60kButton.setActionCommand("coolantCellNak60k"); // NOI18N
+        coolantCellNak60kButton.setEnabled(false);
         componentsPanel.add(coolantCellNak60kButton);
 
         componentsGroup.add(coolantCellNak180kButton);
         coolantCellNak180kButton.setToolTipText(buildTooltipInfo("CoolantCell180kNak"));
         coolantCellNak180kButton.setActionCommand("coolantCellNak180k"); // NOI18N
+        coolantCellNak180kButton.setEnabled(false);
         componentsPanel.add(coolantCellNak180kButton);
 
         componentsGroup.add(coolantCellNak360kButton);
         coolantCellNak360kButton.setToolTipText(buildTooltipInfo("CoolantCell360kNak"));
         coolantCellNak360kButton.setActionCommand("coolantCellNak360k"); // NOI18N
+        coolantCellNak360kButton.setEnabled(false);
         componentsPanel.add(coolantCellNak360kButton);
-
-        componentsGroup.add(iridiumNeutronReflectorButton);
-        iridiumNeutronReflectorButton.setToolTipText(buildTooltipInfo("IridiumNeutronReflector"));
-        iridiumNeutronReflectorButton.setActionCommand("iridiumNeutronReflector"); // NOI18N
-        componentsPanel.add(iridiumNeutronReflectorButton);
 
         componentsGroup.add(fuelRodNaquadahButton);
         fuelRodNaquadahButton.setToolTipText(buildTooltipInfo("FuelRodNaquadah"));
         fuelRodNaquadahButton.setActionCommand("fuelRodNaquadah"); // NOI18N
+        fuelRodNaquadahButton.setEnabled(false);
         componentsPanel.add(fuelRodNaquadahButton);
 
         componentsGroup.add(dualFuelRodNaquadahButton);
         dualFuelRodNaquadahButton.setToolTipText(buildTooltipInfo("DualFuelRodNaquadah"));
         dualFuelRodNaquadahButton.setActionCommand("dualFuelRodNaquadah"); // NOI18N
+        dualFuelRodNaquadahButton.setEnabled(false);
         componentsPanel.add(dualFuelRodNaquadahButton);
 
         componentsGroup.add(quadFuelRodNaquadahButton);
         quadFuelRodNaquadahButton.setToolTipText(buildTooltipInfo("QuadFuelRodNaquadah"));
         quadFuelRodNaquadahButton.setActionCommand("quadFuelRodNaquadah"); // NOI18N
+        quadFuelRodNaquadahButton.setEnabled(false);
         componentsPanel.add(quadFuelRodNaquadahButton);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1381,6 +1402,36 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
         advancedPanel.setLayout(new java.awt.GridBagLayout());
 
+        jLabel20.setText(bundle.getString("UI.MinecraftVersion")); // NOI18N
+        jPanel10.add(jLabel20);
+
+        mcVersionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1.12.2", "1.11.2", "1.10.2", "1.9.4", "1.8.9", "1.7.10" }));
+        mcVersionCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mcVersionComboActionPerformed(evt);
+            }
+        });
+        jPanel10.add(mcVersionCombo);
+
+        jLabel21.setText(bundle.getString("UI.GregTechVersion")); // NOI18N
+        jPanel10.add(jLabel21);
+
+        gtVersionCombo.setModel(new DefaultComboBoxModel<String>
+            (new String[]{getI18n("UI.GregTechVersionNone"), "5.08", "5.09"}));
+        gtVersionCombo.setSelectedItem(getI18n("UI.GregTechVersionNone"));
+        gtVersionCombo.setEnabled(false);
+        gtVersionCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gtVersionComboActionPerformed(evt);
+            }
+        });
+        jPanel10.add(gtVersionCombo);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        advancedPanel.add(jPanel10, gridBagConstraints);
+
         showComponentDetailButtonsCheck.setSelected(true);
         showComponentDetailButtonsCheck.setText(bundle.getString("UI.ShowComponentDetailButtons")); // NOI18N
         showComponentDetailButtonsCheck.addActionListener(new java.awt.event.ActionListener() {
@@ -1484,39 +1535,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(6, 2, 2, 2);
         advancedPanel.add(jLabel5, gridBagConstraints);
-
-        gt509BehaviorCheck.setText(bundle.getString("UI.GT509ReactorBehavior")); // NOI18N
-        gt509BehaviorCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gt509BehaviorCheckActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        advancedPanel.add(gt509BehaviorCheck, gridBagConstraints);
-
-        useGTRecipesCheck.setText(bundle.getString("UI.UseGTRecipes")); // NOI18N
-        useGTRecipesCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                useGTRecipesCheckActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        advancedPanel.add(useGTRecipesCheck, gridBagConstraints);
-
-        useUfcForCoolantCellsCheck.setText(bundle.getString("UI.UseUfcForCoolantCells")); // NOI18N
-        useUfcForCoolantCellsCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                useUfcForCoolantCellsCheckActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        advancedPanel.add(useUfcForCoolantCellsCheck, gridBagConstraints);
 
         expandAdvancedAlloyCheck.setText(bundle.getString("UI.ExpandAdvancedAlloy")); // NOI18N
         expandAdvancedAlloyCheck.addActionListener(new java.awt.event.ActionListener() {
@@ -2005,25 +2023,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
     }//GEN-LAST:event_comparisonCopyCodeButtonActionPerformed
 
-    private void gt509BehaviorCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gt509BehaviorCheckActionPerformed
-        FuelRod.setGT509Behavior(gt509BehaviorCheck.isSelected());
-        saveAdvancedConfig();
-    }//GEN-LAST:event_gt509BehaviorCheckActionPerformed
-
-    private void useGTRecipesCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useGTRecipesCheckActionPerformed
-        useUfcForCoolantCellsCheck.setEnabled(!useGTRecipesCheck.isSelected());
-        expandAdvancedAlloyCheck.setEnabled(!useGTRecipesCheck.isSelected());
-        MaterialsList.setUseGTRecipes(useGTRecipesCheck.isSelected());
-        materialsArea.setText(reactor.getMaterials().toString());
-        saveAdvancedConfig();
-    }//GEN-LAST:event_useGTRecipesCheckActionPerformed
-
-    private void useUfcForCoolantCellsCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useUfcForCoolantCellsCheckActionPerformed
-        MaterialsList.setUseUfcForCoolantCells(useUfcForCoolantCellsCheck.isSelected());
-        materialsArea.setText(reactor.getMaterials().toString());
-        saveAdvancedConfig();
-    }//GEN-LAST:event_useUfcForCoolantCellsCheckActionPerformed
-
     private void expandAdvancedAlloyCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expandAdvancedAlloyCheckActionPerformed
         MaterialsList.setExpandAdvancedAlloy(expandAdvancedAlloyCheck.isSelected());
         materialsArea.setText(reactor.getMaterials().toString());
@@ -2038,6 +2037,96 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private void onlyShowDiffCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onlyShowDiffCheckActionPerformed
         updateComparison();
     }//GEN-LAST:event_onlyShowDiffCheckActionPerformed
+
+    private void mcVersionComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mcVersionComboActionPerformed
+        String mcVersion = mcVersionCombo.getSelectedItem().toString();
+        Reflector.setMcVersion(mcVersion);
+        if ("1.7.10".equals(mcVersion)) {
+            gtVersionCombo.setEnabled(true);
+            String gtVersion = gtVersionCombo.getSelectedItem().toString();
+            iridiumNeutronReflectorButton.setEnabled("5.08".equals(gtVersion) || "5.09".equals(gtVersion));
+            expandAdvancedAlloyCheck.setEnabled("5.08".equals(gtVersion) || "5.09".equals(gtVersion));
+            reactorCoolantInjectorCheckbox.setSelected(false);
+            reactorCoolantInjectorCheckbox.setEnabled(false);
+            MaterialsList.setUseUfcForCoolantCells(false);
+            MaterialsList.setExpandAdvancedAlloy(expandAdvancedAlloyCheck.isSelected() && !("5.08".equals(gtVersion) || "5.09".equals(gtVersion)));
+            MaterialsList.setGTVersion(("5.08".equals(gtVersion) || "5.09".equals(gtVersion)) ? gtVersion : "none");
+            FuelRod.setGT509Behavior("5.09".equals(gtVersion));
+        } else {
+            gtVersionCombo.setSelectedItem(getI18n("UI.GregTechVersionNone"));
+            gtVersionCombo.setEnabled(false);
+            iridiumNeutronReflectorButton.setEnabled(true);
+            expandAdvancedAlloyCheck.setEnabled(true);
+            reactorCoolantInjectorCheckbox.setEnabled(true);
+            MaterialsList.setUseUfcForCoolantCells(true);
+            MaterialsList.setExpandAdvancedAlloy(expandAdvancedAlloyCheck.isSelected());
+            FuelRod.setGT509Behavior(false);
+        }
+        materialsArea.setText(reactor.getMaterials().toString());
+        saveAdvancedConfig();
+    }//GEN-LAST:event_mcVersionComboActionPerformed
+
+    private void gtVersionComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gtVersionComboActionPerformed
+        String mcVersion = mcVersionCombo.getSelectedItem().toString();
+        String gtVersion = gtVersionCombo.getSelectedItem().toString();
+        if ("5.08".equals(gtVersion)) {
+            iridiumNeutronReflectorButton.setEnabled(true);
+            fuelRodThoriumButton.setEnabled(true);
+            dualFuelRodThoriumButton.setEnabled(true);
+            quadFuelRodThoriumButton.setEnabled(true);
+            coolantCellHelium60kButton.setEnabled(true);
+            coolantCellHelium180kButton.setEnabled(true);
+            coolantCellHelium360kButton.setEnabled(true);
+            coolantCellNak60kButton.setEnabled(true);
+            coolantCellNak180kButton.setEnabled(true);
+            coolantCellNak360kButton.setEnabled(true);
+            fuelRodNaquadahButton.setEnabled(false);
+            dualFuelRodNaquadahButton.setEnabled(false);
+            quadFuelRodNaquadahButton.setEnabled(false);
+            expandAdvancedAlloyCheck.setEnabled(false);
+            MaterialsList.setExpandAdvancedAlloy(false);
+            MaterialsList.setGTVersion("5.08");
+            FuelRod.setGT509Behavior(false);
+        } else if ("5.09".equals(gtVersion)) {
+            iridiumNeutronReflectorButton.setEnabled(true);
+            fuelRodThoriumButton.setEnabled(true);
+            dualFuelRodThoriumButton.setEnabled(true);
+            quadFuelRodThoriumButton.setEnabled(true);
+            coolantCellHelium60kButton.setEnabled(true);
+            coolantCellHelium180kButton.setEnabled(true);
+            coolantCellHelium360kButton.setEnabled(true);
+            coolantCellNak60kButton.setEnabled(true);
+            coolantCellNak180kButton.setEnabled(true);
+            coolantCellNak360kButton.setEnabled(true);
+            fuelRodNaquadahButton.setEnabled(true);
+            dualFuelRodNaquadahButton.setEnabled(true);
+            quadFuelRodNaquadahButton.setEnabled(true);
+            expandAdvancedAlloyCheck.setEnabled(false);
+            MaterialsList.setExpandAdvancedAlloy(false);
+            MaterialsList.setGTVersion("5.09");
+            FuelRod.setGT509Behavior(true);
+        } else {
+            iridiumNeutronReflectorButton.setEnabled(!"1.7.10".equals(mcVersion));
+            fuelRodThoriumButton.setEnabled(false);
+            dualFuelRodThoriumButton.setEnabled(false);
+            quadFuelRodThoriumButton.setEnabled(false);
+            coolantCellHelium60kButton.setEnabled(false);
+            coolantCellHelium180kButton.setEnabled(false);
+            coolantCellHelium360kButton.setEnabled(false);
+            coolantCellNak60kButton.setEnabled(false);
+            coolantCellNak180kButton.setEnabled(false);
+            coolantCellNak360kButton.setEnabled(false);
+            fuelRodNaquadahButton.setEnabled(false);
+            dualFuelRodNaquadahButton.setEnabled(false);
+            quadFuelRodNaquadahButton.setEnabled(false);
+            expandAdvancedAlloyCheck.setEnabled(true);
+            MaterialsList.setExpandAdvancedAlloy(expandAdvancedAlloyCheck.isSelected());
+            MaterialsList.setGTVersion("none");
+            FuelRod.setGT509Behavior(false);
+        }
+        materialsArea.setText(reactor.getMaterials().toString());
+        saveAdvancedConfig();
+    }//GEN-LAST:event_gtVersionComboActionPerformed
     
     private void updateReactorButtons() {
         for (int row = 0; row < reactorButtons.length; row++) {
@@ -2588,12 +2677,13 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton fuelRodNaquadahButton;
     private javax.swing.JToggleButton fuelRodThoriumButton;
     private javax.swing.JToggleButton fuelRodUraniumButton;
-    private javax.swing.JCheckBox gt509BehaviorCheck;
+    private javax.swing.JComboBox<String> gtVersionCombo;
     private javax.swing.JToggleButton heatCapacityReactorPlatingButton;
     private javax.swing.JToggleButton heatExchangerButton;
     private javax.swing.JSpinner heatSpinner;
     private javax.swing.JToggleButton heatVentButton;
     private javax.swing.JToggleButton iridiumNeutronReflectorButton;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
@@ -2604,6 +2694,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel maxHeatLabel;
     private javax.swing.JLabel maxSimulationTicksLabel;
     private javax.swing.JSpinner maxSimulationTicksSpinner;
+    private javax.swing.JComboBox<String> mcVersionCombo;
     private javax.swing.JToggleButton neutronReflectorButton;
     private javax.swing.JSpinner offPulseSpinner;
     private javax.swing.JSpinner onPulseSpinner;
@@ -2646,8 +2737,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel texturePackLabel;
     private javax.swing.JToggleButton thickNeutronReflectorButton;
     private javax.swing.JSpinner thresholdSpinner;
-    private javax.swing.JCheckBox useGTRecipesCheck;
-    private javax.swing.JCheckBox useUfcForCoolantCellsCheck;
     private javax.swing.JLabel versionLabel;
     // End of variables declaration//GEN-END:variables
 }

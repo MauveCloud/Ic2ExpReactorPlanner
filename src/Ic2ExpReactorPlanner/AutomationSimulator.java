@@ -132,7 +132,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
                         ReactorItem component = reactor.getComponentAt(row, col);
-                        if (component != null && (component.maxHeat > 1 || component.maxDamage > 1)) {
+                        if (component != null && (component.getMaxHeat() > 1 || component.maxDamage > 1)) {
                             csvOut.printf(getI18n("CSVData.HeaderComponentName"), component.name, row, col);
                         }
                         if (component != null && component.producesOutput()) {
@@ -265,9 +265,9 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                     for (int row = 0; row < 6; row++) {
                         for (int col = 0; col < 9; col++) {
                             ReactorItem component = reactor.getComponentAt(row, col);
-                            if (component != null && (component.maxHeat > 1 || component.maxDamage > 1)) {
+                            if (component != null && (component.getMaxHeat() > 1 || component.maxDamage > 1)) {
                                 double componentValue = component.getCurrentDamage();
-                                if (component.maxHeat > 1) {
+                                if (component.getMaxHeat() > 1) {
                                     componentValue = component.getCurrentHeat();
                                 }
                                 csvOut.printf(getI18n("CSVData.EntryComponentValue"), componentValue);
@@ -461,7 +461,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                             component.info.append(formatI18n("ComponentInfo.GeneratedHeat", component.getMinHeatGenerated(), component.getMaxHeatGenerated()));
                         }
                         if (component.getMaxReachedHeat() > 0) {
-                            component.info.append(formatI18n("ComponentInfo.ReachedHeat", component.getMaxReachedHeat(), component.maxHeat));
+                            component.info.append(formatI18n("ComponentInfo.ReachedHeat", component.getMaxReachedHeat(), component.getMaxHeat()));
                         }
                     }
                 }
@@ -605,7 +605,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
             for (int col = 0; col < 9; col++) {
                 ReactorItem component = reactor.getComponentAt(row, col);
                 if (component != null && reactor.isAutomated()) {
-                    if (component.maxHeat > 1) {
+                    if (component.getMaxHeat() > 1) {
                         if (component.getAutomationThreshold() > component.getInitialHeat() && component.getCurrentHeat() >= component.getAutomationThreshold()) {
                             component.clearCurrentHeat();
                             replacedItems.add(component.name);

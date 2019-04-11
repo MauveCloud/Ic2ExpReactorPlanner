@@ -21,11 +21,13 @@ public class ReactorItem {
     public final String name; // this is expected to be localized, for display usage.
     public final Image image;
     public final double maxDamage;
-    public final double maxHeat;
+    protected double maxHeat; public double getMaxHeat() { return maxHeat; }
     public final String sourceMod; // for potentially adjusting controls based on whether the mod is in use, will be null to indicate the item is part of base IC2.
     
     // Simulation setting values
     private double initialHeat = 0;
+
+    
 
     public double getInitialHeat() {
         return initialHeat;
@@ -261,9 +263,9 @@ public class ReactorItem {
             double result = 0.0;
             double tempHeat = getCurrentHeat();
             tempHeat += heat;
-            if (tempHeat > maxHeat) {
-                result = maxHeat - tempHeat + 1;
-                tempHeat = maxHeat;
+            if (tempHeat > getMaxHeat()) {
+                result = getMaxHeat() - tempHeat + 1;
+                tempHeat = getMaxHeat();
             } else if (tempHeat < 0.0) {
                 result = tempHeat;
                 tempHeat = 0.0;
@@ -301,7 +303,7 @@ public class ReactorItem {
      * @return true if the component has broken either from damage (e.g. neutron reflectors, fuel rods) or from heat (e.g. heat vents, coolant cells), false otherwise.
      */
     public boolean isBroken() {
-        return currentHeat >= maxHeat || currentDamage >= maxDamage;
+        return currentHeat >= getMaxHeat() || currentDamage >= maxDamage;
     }
     
     /**

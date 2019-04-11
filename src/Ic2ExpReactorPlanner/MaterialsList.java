@@ -21,9 +21,12 @@ public final class MaterialsList {
     private static boolean useGTRecipes = false;
     private static boolean useUfcForCoolantCells = false;
     private static boolean expandAdvancedAlloy = false;
+    private static String gtVersion = "none";
     
     // pre-load localized material names as constants to make code more readable.
     public static final String ALUMINIUM = getI18n("MaterialName.Aluminium");
+    public static final String BERYLLIUM = getI18n("MaterialName.Beryllium");
+    public static final String BRONZE = getI18n("MaterialName.Bronze");
     public static final String COAL = getI18n("MaterialName.Coal");
     public static final String COPPER = getI18n("MaterialName.Copper");
     public static final String DIAMOND = getI18n("MaterialName.Diamond");
@@ -31,6 +34,7 @@ public final class MaterialsList {
     // Since GT 5.09 allows different materials for making the "empty cell" (steel, tin, or PTFE), it is treated as a primitive material for GT recipes instead of a crafted item that can be further broken down.
     public static final String EMPTY_CELL = getI18n("MaterialName.EmptyCell");
     public static final String GOLD = getI18n("MaterialName.Gold");
+    public static final String GRAPHITE = getI18n("MaterialName.Graphite");
     public static final String HELIUM = getI18n("MaterialName.Helium");
     public static final String GLASS = getI18n("MaterialName.Glass");
     public static final String GLOWSTONE = getI18n("MaterialName.GlowstoneDust");
@@ -49,19 +53,19 @@ public final class MaterialsList {
     public static final String URANIUM = getI18n("MaterialName.UraniumFuel");
 
     // Special materials lists for items that may expand differently.
+    public static MaterialsList basicCircuit = new MaterialsList(IRON, 2, REDSTONE, 2, COPPER, 6, RUBBER);
+    public static MaterialsList advancedCircuit = new MaterialsList(basicCircuit, 4, REDSTONE, 2, LAPIS, 2, GLOWSTONE);
     public static MaterialsList alloy = new MaterialsList(getI18n("MaterialName.AdvancedAlloy"));
     public static MaterialsList coolantCell = new MaterialsList(1.0 / 3, TIN, DISTILLED_WATER, LAPIS);
     public static MaterialsList iridiumPlate = new MaterialsList(4, IRIDIUM, 4, alloy, DIAMOND);
     
     // some materials lists for crafted items that are part of reactor components without themselves being reactor components.
-    public static final MaterialsList ELECTRONIC_CIRCUIT = new MaterialsList(IRON, 2, REDSTONE, 2, COPPER, 6, RUBBER);
-    public static final MaterialsList ADVANCED_CIRCUIT = new MaterialsList(ELECTRONIC_CIRCUIT, 4, REDSTONE, 2, LAPIS, 2, GLOWSTONE);
     public static final MaterialsList TIN_ITEM_CASING = new MaterialsList(0.5, TIN);
     public static final MaterialsList COIL = new MaterialsList(IRON, 8.0 / 3, COPPER);
     public static final MaterialsList ELECTRIC_MOTOR = new MaterialsList(IRON, 2, COIL, 2, TIN_ITEM_CASING);
     public static final MaterialsList IRON_BARS = new MaterialsList(6.0 / 16, IRON);
     public static final MaterialsList GLASS_PANE = new MaterialsList(6.0 / 16, GLASS);
-    public static final MaterialsList BRONZE = new MaterialsList(1.0 / 4, TIN, 3.0 / 4, COPPER);
+    public static final MaterialsList TIN_ALLOY = new MaterialsList(0.5, TIN, 0.5, IRON);
 
 
     private static Map<String, MaterialsList> componentMaterialsMap = buildComponentMaterialsMap();
@@ -179,12 +183,16 @@ public final class MaterialsList {
         componentMaterialsMap = buildComponentMaterialsMap();
     }
     
-    public static void setUseGTRecipes(boolean value) {
-        useGTRecipes = value;
-        if (value) {
+    public static void setGTVersion(String value) {
+        gtVersion = value;
+        if ("5.08".equals(value) || "5.09".equals(value)) {
             coolantCell = new MaterialsList(EMPTY_CELL, DISTILLED_WATER, LAPIS);
             alloy = new MaterialsList(getI18n("MaterialName.AdvancedAlloy"));
+            basicCircuit = new MaterialsList(getI18n("MaterialName.BasicCircuit"));
+            advancedCircuit = new MaterialsList(getI18n("MaterialName.AdvancedCircuit"));
         } else {
+            basicCircuit = new MaterialsList(IRON, 2, REDSTONE, 2, COPPER, 6, RUBBER);
+            advancedCircuit = new MaterialsList(basicCircuit, 4, REDSTONE, 2, LAPIS, 2, GLOWSTONE);
             if (useUfcForCoolantCells) {
                 coolantCell = new MaterialsList(4, TIN_ITEM_CASING, GLASS_PANE, DISTILLED_WATER, LAPIS);
             } else {
@@ -196,6 +204,7 @@ public final class MaterialsList {
                 alloy = new MaterialsList(getI18n("MaterialName.AdvancedAlloy"));
             }
         }
+        iridiumPlate = new MaterialsList(4, IRIDIUM, 4, alloy, DIAMOND);
         componentMaterialsMap = buildComponentMaterialsMap();
     }
     
@@ -211,9 +220,14 @@ public final class MaterialsList {
         result.put("fuelRodMox", new MaterialsList(IRON, MOX));
         result.put("dualFuelRodMox", new MaterialsList(IRON, 2, result.get("fuelRodMox")));
         result.put("quadFuelRodMox", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodMox")));
-        result.put("neutronReflector", new MaterialsList(COPPER, 4, TIN, 4, COAL));
-        result.put("thickNeutronReflector", new MaterialsList(4, result.get("neutronReflector"), 5, COPPER));
-        if (useGTRecipes) {
+        if ("5.09".equals(gtVersion)) {
+            result.put("neutronReflector", new MaterialsList(6, TIN_ALLOY, 2, GRAPHITE, BERYLLIUM));
+            result.put("thickNeutronReflector", new MaterialsList(4, result.get("neutronReflector"), 2, BERYLLIUM));
+        } else {
+            result.put("neutronReflector", new MaterialsList(COPPER, 4, TIN, 4, COAL));
+            result.put("thickNeutronReflector", new MaterialsList(4, result.get("neutronReflector"), 5, COPPER));
+        }
+        if ("5.08".equals(gtVersion) || "5.09".equals(gtVersion)) {
             result.put("heatVent", new MaterialsList(4, ALUMINIUM, 4, IRON_BARS));
         } else {
             result.put("heatVent", new MaterialsList(ELECTRIC_MOTOR, 4, IRON, 4, IRON_BARS));
@@ -225,13 +239,13 @@ public final class MaterialsList {
         result.put("coolantCell10k", new MaterialsList(coolantCell, 4, TIN));
         result.put("coolantCell30k", new MaterialsList(3, result.get("coolantCell10k"), 6, TIN));
         result.put("coolantCell60k", new MaterialsList(2, result.get("coolantCell30k"), 6, TIN, IRON));
-        result.put("heatExchanger", new MaterialsList(ELECTRONIC_CIRCUIT, 3, TIN, 5, COPPER));
-        result.put("advancedHeatExchanger", new MaterialsList(2, result.get("heatExchanger"), 2, ELECTRONIC_CIRCUIT, COPPER, 4, LAPIS));
+        result.put("heatExchanger", new MaterialsList(basicCircuit, 3, TIN, 5, COPPER));
+        result.put("advancedHeatExchanger", new MaterialsList(2, result.get("heatExchanger"), 2, basicCircuit, COPPER, 4, LAPIS));
         result.put("coreHeatExchanger", new MaterialsList(result.get("heatExchanger"), 8, COPPER));
         result.put("componentHeatExchanger", new MaterialsList(result.get("heatExchanger"), 4, GOLD));
         result.put("reactorPlating", new MaterialsList(LEAD, alloy));
         result.put("heatCapacityReactorPlating", new MaterialsList(result.get("reactorPlating"), 8, COPPER));
-        if (useGTRecipes) {
+        if ("5.08".equals(gtVersion) || "5.09".equals(gtVersion)) {
             result.put("containmentReactorPlating", new MaterialsList(result.get("reactorPlating"), LEAD));
         } else {
             result.put("containmentReactorPlating", new MaterialsList(result.get("reactorPlating"), 2, alloy));

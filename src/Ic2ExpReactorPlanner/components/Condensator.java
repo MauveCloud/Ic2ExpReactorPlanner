@@ -29,7 +29,7 @@ public class Condensator extends ReactorItem {
         }
         currentCondensatorCooling += heat;
         bestCondensatorCooling = Math.max(currentCondensatorCooling, bestCondensatorCooling);
-        double acceptedHeat = Math.min(heat, maxHeat - heat);
+        double acceptedHeat = Math.min(heat, getMaxHeat() - heat);
         double result = heat - acceptedHeat;
         currentHeat += acceptedHeat;
         maxReachedHeat = Math.max(maxReachedHeat, currentHeat);
@@ -38,7 +38,7 @@ public class Condensator extends ReactorItem {
 
     @Override
     public boolean needsCoolantInjected() {
-        return currentHeat > 0.85 * maxHeat;
+        return currentHeat > 0.85 * getMaxHeat();
     }
     
     @Override

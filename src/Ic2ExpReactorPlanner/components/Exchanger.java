@@ -54,10 +54,10 @@ public class Exchanger extends ReactorItem {
         double myHeat = 0;
         if (switchSide > 0) {
             for (ReactorItem heatableNeighbor : heatableNeighbors) {
-                double mymed = getCurrentHeat() * 100.0 / maxHeat;
-                double heatablemed = heatableNeighbor.getCurrentHeat() * 100.0 / heatableNeighbor.maxHeat;
+                double mymed = getCurrentHeat() * 100.0 / getMaxHeat();
+                double heatablemed = heatableNeighbor.getCurrentHeat() * 100.0 / heatableNeighbor.getMaxHeat();
 
-                double add = (int) (heatableNeighbor.maxHeat / 100.0 * (heatablemed + mymed / 2.0));
+                double add = (int) (heatableNeighbor.getMaxHeat() / 100.0 * (heatablemed + mymed / 2.0));
                 if (add > switchSide) {
                     add = switchSide;
                 }
@@ -87,7 +87,7 @@ public class Exchanger extends ReactorItem {
             }
         }
         if (switchReactor > 0) {
-            double mymed = getCurrentHeat() * 100.0 / maxHeat;
+            double mymed = getCurrentHeat() * 100.0 / getMaxHeat();
             double Reactormed = parent.getCurrentHeat() * 100.0 / parent.getMaxHeat();
 
             int add = (int) Math.round(parent.getMaxHeat() / 100.0 * (Reactormed + mymed / 2.0));
