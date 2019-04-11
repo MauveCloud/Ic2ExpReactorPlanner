@@ -2430,10 +2430,19 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             simpleDecimal(rightData.predepleteMinTemp)));
                 }
                 if (alwaysDiff || Math.abs(leftData.predepleteMaxTemp - rightData.predepleteMaxTemp) > 10) {
+                    String leftMaxTempDecimal = simpleDecimal(leftData.predepleteMaxTemp);
+                    String rightMaxTempDecimal = simpleDecimal(rightData.predepleteMaxTemp);
+                    if ((leftData.predepleteMaxTemp >= tempReactor.getMaxHeat() * 0.85) != (rightData.predepleteMaxTemp >= prevReactor.getMaxHeat() * 0.85)) {
+                        if (leftData.predepleteMaxTemp >= tempReactor.getMaxHeat() * 0.85) {
+                            leftMaxTempDecimal = "<font color=\"red\">" + leftMaxTempDecimal + "</font>";
+                            rightMaxTempDecimal = "<font color=\"green\">" + rightMaxTempDecimal + "</font>";
+                        } else {
+                            leftMaxTempDecimal = "<font color=\"green\">" + leftMaxTempDecimal + "</font>";
+                            rightMaxTempDecimal = "<font color=\"red\">" + rightMaxTempDecimal + "</font>";
+                        }
+                    }
                     text.append(formatI18n("Comparison.PredepleteMaxTemp",
-                            colorDecimal(leftData.predepleteMaxTemp - rightData.predepleteMaxTemp, moxStyleReactor ? 10 : -10),
-                            simpleDecimal(leftData.predepleteMaxTemp),
-                            simpleDecimal(rightData.predepleteMaxTemp)));
+                            colorDecimal(leftData.predepleteMaxTemp - rightData.predepleteMaxTemp, moxStyleReactor ? 10 : -10), leftMaxTempDecimal, rightMaxTempDecimal));
                 }
             }
             text.append("<br>");
@@ -2512,10 +2521,19 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     simpleDecimal(rightData.minTemp)));
         }
         if (alwaysDiff || Math.abs(leftData.maxTemp - rightData.maxTemp) > 10) {
+            String leftMaxTempDecimal = simpleDecimal(leftData.maxTemp);
+            String rightMaxTempDecimal = simpleDecimal(rightData.maxTemp);
+            if ((leftData.maxTemp >= tempReactor.getMaxHeat() * 0.85) != (rightData.maxTemp >= prevReactor.getMaxHeat() * 0.85)) {
+                if (leftData.maxTemp >= tempReactor.getMaxHeat() * 0.85) {
+                    leftMaxTempDecimal = "<font color=\"red\">" + leftMaxTempDecimal + "</font>";
+                    rightMaxTempDecimal = "<font color=\"green\">" + rightMaxTempDecimal + "</font>";
+                } else {
+                    leftMaxTempDecimal = "<font color=\"green\">" + leftMaxTempDecimal + "</font>";
+                    rightMaxTempDecimal = "<font color=\"red\">" + rightMaxTempDecimal + "</font>";
+                }
+            }
             text.append(formatI18n("Comparison.PostsimMaxTemp",
-                    colorDecimal(leftData.maxTemp - rightData.maxTemp, moxStyleReactor ? 10 : -10),
-                    simpleDecimal(leftData.maxTemp),
-                    simpleDecimal(rightData.maxTemp)));
+                    colorDecimal(leftData.maxTemp - rightData.maxTemp, moxStyleReactor ? 10 : -10), leftMaxTempDecimal, rightMaxTempDecimal));
         }
         text.append("<br>");
         
