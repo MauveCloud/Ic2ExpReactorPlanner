@@ -360,8 +360,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         try (FileInputStream configStream = new FileInputStream("erpprefs.xml")) {
             ADVANCED_CONFIG.loadFromXML(configStream);
             showComponentDetailButtonsCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("showComponentDetailButtons", "true")));
-            enableGT508ComponentsCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("enableGT508Components", "true")));
-            enableGT509ComponentsCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("enableGT509Components", "true")));
             showOldStyleReactorCodeCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("showOldStyleReactorCode", "false")));
             showComponentPreconfigCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("showComponentPreconfigControls", "true")));
             String mcVersion = ADVANCED_CONFIG.getProperty("mcVersion", "1.12.2");
@@ -386,8 +384,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 csvFileLabel.setText(csvFileName);
             }
             showComponentDetailButtonsCheckActionPerformed(null);
-            enableGT508ComponentsCheckActionPerformed(null);
-            enableGT509ComponentsCheckActionPerformed(null);
             showComponentPreconfigCheckActionPerformed(null);
             expandAdvancedAlloyCheckActionPerformed(null);
             gtVersionComboActionPerformed(null);
@@ -402,8 +398,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private void saveAdvancedConfig() {
         try (FileOutputStream configStream = new FileOutputStream("erpprefs.xml")) {
             ADVANCED_CONFIG.setProperty("showComponentDetailButtons", Boolean.toString(showComponentDetailButtonsCheck.isSelected()));
-            ADVANCED_CONFIG.setProperty("enableGT508Components", Boolean.toString(enableGT508ComponentsCheck.isSelected()));
-            ADVANCED_CONFIG.setProperty("enableGT509Components", Boolean.toString(enableGT509ComponentsCheck.isSelected()));
             ADVANCED_CONFIG.setProperty("showOldStyleReactorCode", Boolean.toString(showOldStyleReactorCodeCheck.isSelected()));
             ADVANCED_CONFIG.setProperty("showComponentPreconfigControls", Boolean.toString(showComponentPreconfigCheck.isSelected()));
             ADVANCED_CONFIG.setProperty("mcVersion", mcVersionCombo.getSelectedItem().toString());
@@ -560,8 +554,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         gtVersionCombo = new javax.swing.JComboBox<>();
         showComponentDetailButtonsCheck = new javax.swing.JCheckBox();
-        enableGT508ComponentsCheck = new javax.swing.JCheckBox();
-        enableGT509ComponentsCheck = new javax.swing.JCheckBox();
         showOldStyleReactorCodeCheck = new javax.swing.JCheckBox();
         showComponentPreconfigCheck = new javax.swing.JCheckBox();
         texturePackLabel = new javax.swing.JLabel();
@@ -1249,6 +1241,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         jSplitPane1.setTopComponent(jPanel2);
 
         outputTabs.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        outputTabs.setPreferredSize(new java.awt.Dimension(900, 220));
 
         outputArea.setEditable(false);
         outputArea.setColumns(20);
@@ -1445,34 +1438,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         advancedPanel.add(showComponentDetailButtonsCheck, gridBagConstraints);
-
-        enableGT508ComponentsCheck.setSelected(true);
-        enableGT508ComponentsCheck.setText(bundle.getString("UI.EnableGT508Components")); // NOI18N
-        enableGT508ComponentsCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enableGT508ComponentsCheckActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        advancedPanel.add(enableGT508ComponentsCheck, gridBagConstraints);
-
-        enableGT509ComponentsCheck.setSelected(true);
-        enableGT509ComponentsCheck.setText(bundle.getString("UI.EnableGT509Components")); // NOI18N
-        enableGT509ComponentsCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enableGT509ComponentsCheckActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        advancedPanel.add(enableGT509ComponentsCheck, gridBagConstraints);
 
         showOldStyleReactorCodeCheck.setText(bundle.getString("UI.ShowOldStyleReactorCode")); // NOI18N
         showOldStyleReactorCodeCheck.addActionListener(new java.awt.event.ActionListener() {
@@ -1895,82 +1860,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
         saveAdvancedConfig();
     }//GEN-LAST:event_showComponentDetailButtonsCheckActionPerformed
-
-    private void enableGT508ComponentsCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableGT508ComponentsCheckActionPerformed
-        Enumeration<AbstractButton> elements = componentsGroup.getElements();
-        while (elements.hasMoreElements()) {
-            AbstractButton element = elements.nextElement();
-            ReactorItem component = ComponentFactory.getDefaultComponent(element.getActionCommand());
-            if (component != null && "GT5.08".equals(component.sourceMod)) {
-                element.setEnabled(enableGT508ComponentsCheck.isSelected());
-            }
-        }
-        if (!enableGT508ComponentsCheck.isSelected()) {
-            boolean reactorHasGT508Components = false;
-            for (int row = 0; row < 6; row++) {
-                for (int col = 0; col < 9; col++) {
-                    ReactorItem component = reactor.getComponentAt(row, col);
-                    if (component != null && "GT5.08".equals(component.sourceMod)) {
-                        reactorHasGT508Components = true;
-                    }
-                }
-            }
-            if (reactorHasGT508Components) {
-                int result = JOptionPane.showConfirmDialog(this, getI18n("UI.RemoveGT508ComponentsText"), getI18n("UI.RemoveAddonComponentsTitle"), JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION) {
-                    for (int row = 0; row < 6; row++) {
-                        for (int col = 0; col < 9; col++) {
-                            ReactorItem component = reactor.getComponentAt(row, col);
-                            if (component != null && "GT5.08".equals(component.sourceMod)) {
-                                reactor.setComponentAt(row, col, null);
-                            }
-                        }
-                    }
-                    updateReactorButtons();
-                    updateCodeField();
-                }
-            }
-        }
-        saveAdvancedConfig();
-    }//GEN-LAST:event_enableGT508ComponentsCheckActionPerformed
-
-    private void enableGT509ComponentsCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableGT509ComponentsCheckActionPerformed
-        Enumeration<AbstractButton> elements = componentsGroup.getElements();
-        while (elements.hasMoreElements()) {
-            AbstractButton element = elements.nextElement();
-            ReactorItem component = ComponentFactory.getDefaultComponent(element.getActionCommand());
-            if (component != null && "GT5.09".equals(component.sourceMod)) {
-                element.setEnabled(enableGT509ComponentsCheck.isSelected());
-            }
-        }
-        if (!enableGT509ComponentsCheck.isSelected()) {
-            boolean reactorHasGT509Components = false;
-            for (int row = 0; row < 6; row++) {
-                for (int col = 0; col < 9; col++) {
-                    ReactorItem component = reactor.getComponentAt(row, col);
-                    if (component != null && "GT5.09".equals(component.sourceMod)) {
-                        reactorHasGT509Components = true;
-                    }
-                }
-            }
-            if (reactorHasGT509Components) {
-                int result = JOptionPane.showConfirmDialog(this, getI18n("UI.RemoveGT509ComponentsText"), getI18n("UI.RemoveAddonComponentsTitle"), JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION) {
-                    for (int row = 0; row < 6; row++) {
-                        for (int col = 0; col < 9; col++) {
-                            ReactorItem component = reactor.getComponentAt(row, col);
-                            if (component != null && "GT5.09".equals(component.sourceMod)) {
-                                reactor.setComponentAt(row, col, null);
-                            }
-                        }
-                    }
-                    updateReactorButtons();
-                    updateCodeField();
-                }
-            }
-        }
-        saveAdvancedConfig();
-    }//GEN-LAST:event_enableGT509ComponentsCheckActionPerformed
 
     private void showOldStyleReactorCodeCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showOldStyleReactorCodeCheckActionPerformed
         updateCodeField();
@@ -2686,8 +2575,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton dualFuelRodThoriumButton;
     private javax.swing.JToggleButton dualFuelRodUraniumButton;
     private javax.swing.JToggleButton emptyButton;
-    private javax.swing.JCheckBox enableGT508ComponentsCheck;
-    private javax.swing.JCheckBox enableGT509ComponentsCheck;
     private javax.swing.JRadioButton euReactorRadio;
     private javax.swing.JCheckBox expandAdvancedAlloyCheck;
     private javax.swing.JRadioButton fluidReactorRadio;
