@@ -369,7 +369,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 gtVersionCombo.setSelectedItem(gtVersion);
             }
             expandAdvancedAlloyCheck.setSelected(Boolean.valueOf(ADVANCED_CONFIG.getProperty("expandAdvancedAlloy", "false")));
-//            FuelRod.setGT509Behavior(gt509BehaviorCheck.isSelected());
             String texturePackName = ADVANCED_CONFIG.getProperty("texturePack");
             if (texturePackName != null) {
                 File texturePackFile = new File(texturePackName);
@@ -2126,6 +2125,9 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
         comparisonScroll.getVerticalScrollBar().setUnitIncrement(16);
         StringBuilder text = new StringBuilder(1000);
+        StringBuilder prebreakText = new StringBuilder(500);
+        StringBuilder predepleteText = new StringBuilder(500);
+        StringBuilder postsimText = new StringBuilder(500);
         boolean alwaysDiff = !onlyShowDiffCheck.isSelected();
         text.append("<html>");
         SimulationData leftData = simulator.getData();
@@ -2155,18 +2157,19 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             text.append(buildColoredIntComparisonString("Time", leftData.timeToXplode, rightData.timeToXplode, Integer.MAX_VALUE, 1));
         }
         if (leftData.firstComponentBrokenTime != Integer.MAX_VALUE || rightData.firstComponentBrokenTime != Integer.MAX_VALUE) {
-            text.append(getI18n("Comparison.Prefix.PrebreakTime"));
-            text.append(buildIntComparisonString("Time", leftData.firstComponentBrokenTime, rightData.firstComponentBrokenTime, Integer.MAX_VALUE));
+            if (alwaysDiff || Math.abs(leftData.firstComponentBrokenTime - rightData.firstComponentBrokenTime) > 10) {
+                text.append(buildIntComparisonString("Time", leftData.firstComponentBrokenTime, rightData.firstComponentBrokenTime, Integer.MAX_VALUE));
+            }
 
             if (leftData.firstComponentBrokenTime != Integer.MAX_VALUE && rightData.firstComponentBrokenTime != Integer.MAX_VALUE) {
-                text.append(getI18n("Comparison.Prefix.Prebreak"));
+                prebreakText.append(getI18n("Comparison.Prefix.Prebreak"));
                 if (leftData.prebreakTotalEUoutput > 0) {
                     if (rightData.prebreakTotalEUoutput > 0) {
                         if (alwaysDiff || Math.abs(leftData.prebreakTotalEUoutput - rightData.prebreakTotalEUoutput) > 1000
                                 || Math.abs(leftData.prebreakAvgEUoutput - rightData.prebreakAvgEUoutput) > 0.1
                                 || Math.abs(leftData.prebreakMinEUoutput - rightData.prebreakMinEUoutput) > 0.1
                                 || Math.abs(leftData.prebreakMaxEUoutput - rightData.prebreakMaxEUoutput) > 0.1) {
-                            text.append(formatI18n("Comparison.EUEUoutput",
+                            prebreakText.append(formatI18n("Comparison.EUEUoutput",
                                     colorDecimal(leftData.prebreakTotalEUoutput - rightData.prebreakTotalEUoutput, 1000),
                                     simpleDecimal(leftData.prebreakTotalEUoutput),
                                     simpleDecimal(rightData.prebreakTotalEUoutput),
@@ -2181,7 +2184,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                     simpleDecimal(rightData.prebreakMaxEUoutput)));
                         }
                     } else {
-                        text.append(formatI18n("Comparison.EUHUoutput",
+                        prebreakText.append(formatI18n("Comparison.EUHUoutput",
                                 simpleDecimal(leftData.prebreakTotalEUoutput),
                                 simpleDecimal(rightData.prebreakTotalHUoutput),
                                 simpleDecimal(leftData.prebreakAvgEUoutput),
@@ -2193,7 +2196,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                 } else {
                     if (rightData.prebreakTotalEUoutput > 0) {
-                        text.append(formatI18n("Comparison.HUEUoutput",
+                        prebreakText.append(formatI18n("Comparison.HUEUoutput",
                                 simpleDecimal(leftData.prebreakTotalHUoutput),
                                 simpleDecimal(rightData.prebreakTotalEUoutput),
                                 simpleDecimal(leftData.prebreakAvgHUoutput),
@@ -2207,7 +2210,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                 || Math.abs(leftData.prebreakAvgHUoutput - rightData.prebreakAvgHUoutput) > 0.1
                                 || Math.abs(leftData.prebreakMinHUoutput - rightData.prebreakMinHUoutput) > 0.1
                                 || Math.abs(leftData.prebreakMaxHUoutput - rightData.prebreakMaxHUoutput) > 0.1) {
-                            text.append(formatI18n("Comparison.HUHUoutput",
+                            prebreakText.append(formatI18n("Comparison.HUHUoutput",
                                     colorDecimal(leftData.prebreakTotalHUoutput - rightData.prebreakTotalHUoutput, 1000),
                                     simpleDecimal(leftData.prebreakTotalHUoutput),
                                     simpleDecimal(rightData.prebreakTotalHUoutput),
@@ -2224,6 +2227,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                 }
             }
+        }
+        if (prebreakText.length() > 0) {
+            text.append(getI18n("Comparison.Prefix.PrebreakTime"));
+            text.append(prebreakText);
             text.append("<br>");
         }
         Reactor tempReactor = new Reactor();
@@ -2244,18 +2251,19 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             }
         }
         if (leftData.firstRodDepletedTime != Integer.MAX_VALUE || rightData.firstRodDepletedTime != Integer.MAX_VALUE) {
-            text.append(getI18n("Comparison.Prefix.PredepleteTime"));
-            text.append(buildIntComparisonString("Time", leftData.firstRodDepletedTime, rightData.firstRodDepletedTime, Integer.MAX_VALUE));
+            if (alwaysDiff || Math.abs(leftData.firstRodDepletedTime - rightData.firstRodDepletedTime) > 10) {
+                text.append(getI18n("Comparison.Prefix.PredepleteTime"));
+                text.append(buildIntComparisonString("Time", leftData.firstRodDepletedTime, rightData.firstRodDepletedTime, Integer.MAX_VALUE));
+            }
 
             if (leftData.totalRodCount > 0 && rightData.totalRodCount > 0) {
-                text.append(getI18n("Comparison.Prefix.Predeplete"));
                 if (leftData.predepleteTotalEUoutput > 0) {
                     if (rightData.predepleteTotalEUoutput > 0) {
                         if (alwaysDiff || Math.abs(leftData.predepleteTotalEUoutput - rightData.predepleteTotalEUoutput) > 1000
                                 || Math.abs(leftData.predepleteAvgEUoutput - rightData.predepleteAvgEUoutput) > 0.1
                                 || Math.abs(leftData.predepleteMinEUoutput - rightData.predepleteMinEUoutput) > 0.1
                                 || Math.abs(leftData.predepleteMaxEUoutput - rightData.predepleteMaxEUoutput) > 0.1) {
-                            text.append(formatI18n("Comparison.EUEUoutput",
+                            predepleteText.append(formatI18n("Comparison.EUEUoutput",
                                     colorDecimal(leftData.predepleteTotalEUoutput - rightData.predepleteTotalEUoutput, 1000),
                                     simpleDecimal(leftData.predepleteTotalEUoutput),
                                     simpleDecimal(rightData.predepleteTotalEUoutput),
@@ -2270,7 +2278,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                     simpleDecimal(rightData.predepleteMaxEUoutput)));
                         }
                     } else {
-                        text.append(formatI18n("Comparison.EUHUoutput",
+                        predepleteText.append(formatI18n("Comparison.EUHUoutput",
                                 simpleDecimal(leftData.predepleteTotalEUoutput),
                                 simpleDecimal(rightData.predepleteTotalHUoutput),
                                 simpleDecimal(leftData.predepleteAvgEUoutput),
@@ -2282,7 +2290,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                 } else {
                     if (rightData.predepleteTotalEUoutput > 0) {
-                        text.append(formatI18n("Comparison.HUEUoutput",
+                        predepleteText.append(formatI18n("Comparison.HUEUoutput",
                                 simpleDecimal(leftData.predepleteTotalHUoutput),
                                 simpleDecimal(rightData.predepleteTotalEUoutput),
                                 simpleDecimal(leftData.predepleteAvgHUoutput),
@@ -2296,7 +2304,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                 || Math.abs(leftData.predepleteAvgHUoutput - rightData.predepleteAvgHUoutput) > 0.1
                                 || Math.abs(leftData.predepleteMinHUoutput - rightData.predepleteMinHUoutput) > 0.1
                                 || Math.abs(leftData.predepleteMaxHUoutput - rightData.predepleteMaxHUoutput) > 0.1) {
-                            text.append(formatI18n("Comparison.HUHUoutput",
+                            predepleteText.append(formatI18n("Comparison.HUHUoutput",
                                     colorDecimal(leftData.predepleteTotalHUoutput - rightData.predepleteTotalHUoutput, 1000),
                                     simpleDecimal(leftData.predepleteTotalHUoutput),
                                     simpleDecimal(rightData.predepleteTotalHUoutput),
@@ -2313,7 +2321,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     }
                 }
                 if (alwaysDiff || Math.abs(leftData.predepleteMinTemp - rightData.predepleteMinTemp) > 10) {
-                    text.append(formatI18n("Comparison.PredepleteMinTemp",
+                    predepleteText.append(formatI18n("Comparison.PredepleteMinTemp",
                             colorDecimal(leftData.predepleteMinTemp - rightData.predepleteMinTemp, moxStyleReactor ? 10 : -10),
                             simpleDecimal(leftData.predepleteMinTemp),
                             simpleDecimal(rightData.predepleteMinTemp)));
@@ -2330,23 +2338,28 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             rightMaxTempDecimal = "<font color=\"red\">" + rightMaxTempDecimal + "</font>";
                         }
                     }
-                    text.append(formatI18n("Comparison.PredepleteMaxTemp",
+                    predepleteText.append(formatI18n("Comparison.PredepleteMaxTemp",
                             colorDecimal(leftData.predepleteMaxTemp - rightData.predepleteMaxTemp, moxStyleReactor ? 10 : -10), leftMaxTempDecimal, rightMaxTempDecimal));
                 }
             }
+        }
+        if (predepleteText.length() > 0) {
+            text.append(getI18n("Comparison.Prefix.Predeplete"));
+            text.append(predepleteText);
             text.append("<br>");
         }
-        
-        text.append(getI18n("Comparison.Prefix.PostSimulationTime"));
-        text.append(buildIntComparisonString("Time", leftData.totalReactorTicks, rightData.totalReactorTicks, Integer.MAX_VALUE));
-        text.append(getI18n("Comparison.Prefix.PostSimulation"));
+
+        if (alwaysDiff || Math.abs(leftData.totalReactorTicks - rightData.totalReactorTicks) > 10) {
+            text.append(getI18n("Comparison.Prefix.PostSimulationTime"));
+            text.append(buildIntComparisonString("Time", leftData.totalReactorTicks, rightData.totalReactorTicks, Integer.MAX_VALUE));
+        }
         if (leftData.totalEUoutput > 0) {
             if (rightData.totalEUoutput > 0) {
                 if (alwaysDiff || Math.abs(leftData.totalEUoutput - rightData.totalEUoutput) > 1000
                         || Math.abs(leftData.avgEUoutput - rightData.avgEUoutput) > 0.1
                         || Math.abs(leftData.minEUoutput - rightData.minEUoutput) > 0.1
                         || Math.abs(leftData.maxEUoutput - rightData.maxEUoutput) > 0.1) {
-                    text.append(formatI18n("Comparison.EUEUoutput",
+                    postsimText.append(formatI18n("Comparison.EUEUoutput",
                             colorDecimal(leftData.totalEUoutput - rightData.totalEUoutput, 1000),
                             simpleDecimal(leftData.totalEUoutput),
                             simpleDecimal(rightData.totalEUoutput),
@@ -2361,7 +2374,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             simpleDecimal(rightData.maxEUoutput)));
                 }
             } else {
-                text.append(formatI18n("Comparison.EUHUoutput",
+                postsimText.append(formatI18n("Comparison.EUHUoutput",
                         simpleDecimal(leftData.totalEUoutput),
                         simpleDecimal(rightData.totalHUoutput),
                         simpleDecimal(leftData.avgEUoutput),
@@ -2373,7 +2386,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             }
         } else {
             if (rightData.totalEUoutput > 0) {
-                text.append(formatI18n("Comparison.HUEUoutput",
+                postsimText.append(formatI18n("Comparison.HUEUoutput",
                         simpleDecimal(leftData.totalHUoutput),
                         simpleDecimal(rightData.totalEUoutput),
                         simpleDecimal(leftData.avgHUoutput),
@@ -2387,7 +2400,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         || Math.abs(leftData.avgHUoutput - rightData.avgHUoutput) > 0.1
                         || Math.abs(leftData.minHUoutput - rightData.minHUoutput) > 0.1
                         || Math.abs(leftData.maxHUoutput - rightData.maxHUoutput) > 0.1) {
-                    text.append(formatI18n("Comparison.HUHUoutput",
+                    postsimText.append(formatI18n("Comparison.HUHUoutput",
                             colorDecimal(leftData.totalHUoutput - rightData.totalHUoutput, 1000),
                             simpleDecimal(leftData.totalHUoutput),
                             simpleDecimal(rightData.totalHUoutput),
@@ -2404,7 +2417,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             }
         }
         if (alwaysDiff || Math.abs(leftData.minTemp - rightData.minTemp) > 10) {
-            text.append(formatI18n("Comparison.PostsimMinTemp",
+            postsimText.append(formatI18n("Comparison.PostsimMinTemp",
                     colorDecimal(leftData.minTemp - rightData.minTemp, moxStyleReactor ? 10 : -10),
                     simpleDecimal(leftData.minTemp),
                     simpleDecimal(rightData.minTemp)));
@@ -2421,10 +2434,14 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                     rightMaxTempDecimal = "<font color=\"red\">" + rightMaxTempDecimal + "</font>";
                 }
             }
-            text.append(formatI18n("Comparison.PostsimMaxTemp",
+            postsimText.append(formatI18n("Comparison.PostsimMaxTemp",
                     colorDecimal(leftData.maxTemp - rightData.maxTemp, moxStyleReactor ? 10 : -10), leftMaxTempDecimal, rightMaxTempDecimal));
         }
-        text.append("<br>");
+        if (postsimText.length() > 0) {
+            text.append(getI18n("Comparison.Prefix.PostSimulation"));
+            text.append(postsimText);
+            text.append("<br>");
+        }
         
         if ((leftData.hullHeating != 0 || rightData.hullHeating != 0) && (alwaysDiff || Math.abs(leftData.hullHeating - rightData.hullHeating) > 1)) {
             text.append(formatI18n("Comparison.HullHeating",
@@ -2486,6 +2503,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         if (!replacedDiff.isEmpty()) {
             text.append(getI18n("Comparison.ComponentsReplacedHeading"));
             text.append(replacedDiff);
+        }
+        
+        if (text.toString().replace("<html>", "").replace("<br>", "").isEmpty()) {
+            text.append(getI18n("Comparison.NoDifferences"));
         }
         
         text.append("</html>");
