@@ -2353,8 +2353,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             text.append(getI18n("Comparison.Prefix.PostSimulationTime"));
             text.append(buildIntComparisonString("Time", leftData.totalReactorTicks, rightData.totalReactorTicks, Integer.MAX_VALUE));
         }
-        if (leftData.totalEUoutput > 0) {
-            if (rightData.totalEUoutput > 0) {
+        if (!tempReactor.isFluid()) {
+            if (!prevReactor.isFluid()) {
                 if (alwaysDiff || Math.abs(leftData.totalEUoutput - rightData.totalEUoutput) > 1000
                         || Math.abs(leftData.avgEUoutput - rightData.avgEUoutput) > 0.1
                         || Math.abs(leftData.minEUoutput - rightData.minEUoutput) > 0.1
@@ -2385,7 +2385,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                         simpleDecimal(rightData.maxHUoutput)));
             }
         } else {
-            if (rightData.totalEUoutput > 0) {
+            if (!prevReactor.isFluid()) {
                 postsimText.append(formatI18n("Comparison.HUEUoutput",
                         simpleDecimal(leftData.totalHUoutput),
                         simpleDecimal(rightData.totalEUoutput),

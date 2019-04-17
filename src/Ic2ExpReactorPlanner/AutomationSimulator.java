@@ -319,11 +319,11 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 if (reactorTicks > 0) {
                     data.totalReactorTicks = reactorTicks;
                     if (reactor.isFluid()) {
+                        data.totalHUoutput = 40 * totalHeatOutput;
+                        data.avgHUoutput = 2 * totalHeatOutput / reactorTicks;
+                        data.minHUoutput = 2 * minHeatOutput;
+                        data.maxHUoutput = 2 * maxHeatOutput;
                         if (totalHeatOutput > 0) {
-                            data.totalHUoutput = 40 * totalHeatOutput;
-                            data.avgHUoutput = 2 * totalHeatOutput / reactorTicks;
-                            data.minHUoutput = 2 * minHeatOutput;
-                            data.maxHUoutput = 2 * maxHeatOutput;
                             publish(formatI18n("Simulation.HeatOutputs", 
                                     DECIMAL_FORMAT.format(40 * totalHeatOutput), 
                                     DECIMAL_FORMAT.format(2 * totalHeatOutput / reactorTicks), 
@@ -334,11 +334,11 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                             }
                         }
                     } else {
+                        data.totalEUoutput = totalEUoutput;
+                        data.avgEUoutput = totalEUoutput / (reactorTicks * 20);
+                        data.minEUoutput = minEUoutput / 20.0;
+                        data.maxEUoutput = maxEUoutput / 20.0;
                         if (totalEUoutput > 0) {
-                            data.totalEUoutput = totalEUoutput;
-                            data.avgEUoutput = totalEUoutput / (reactorTicks * 20);
-                            data.minEUoutput = minEUoutput / 20.0;
-                            data.maxEUoutput = maxEUoutput / 20.0;
                             publish(formatI18n("Simulation.EUOutputs", 
                                     DECIMAL_FORMAT.format(totalEUoutput), 
                                     DECIMAL_FORMAT.format(totalEUoutput / (reactorTicks * 20)), 
