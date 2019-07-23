@@ -2130,6 +2130,10 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         StringBuilder postsimText = new StringBuilder(500);
         boolean alwaysDiff = !onlyShowDiffCheck.isSelected();
         text.append("<html>");
+        Reactor tempReactor = new Reactor();
+        tempReactor.setCode(currentReactorCode);
+        Reactor prevReactor = new Reactor();
+        prevReactor.setCode(prevReactorCode);
         SimulationData leftData = simulator.getData();
         SimulationData rightData = prevSimulator.getData();
         if ((leftData.timeToBelow50 != Integer.MAX_VALUE || rightData.timeToBelow50 != Integer.MAX_VALUE) && (alwaysDiff || leftData.timeToBelow50 != rightData.timeToBelow50)) {
@@ -2163,66 +2167,74 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
 
             if (leftData.firstComponentBrokenTime != Integer.MAX_VALUE && rightData.firstComponentBrokenTime != Integer.MAX_VALUE) {
                 prebreakText.append(getI18n("Comparison.Prefix.Prebreak"));
-                if (leftData.prebreakTotalEUoutput > 0) {
-                    if (rightData.prebreakTotalEUoutput > 0) {
-                        if (alwaysDiff || Math.abs(leftData.prebreakTotalEUoutput - rightData.prebreakTotalEUoutput) > 1000
-                                || Math.abs(leftData.prebreakAvgEUoutput - rightData.prebreakAvgEUoutput) > 0.1
-                                || Math.abs(leftData.prebreakMinEUoutput - rightData.prebreakMinEUoutput) > 0.1
-                                || Math.abs(leftData.prebreakMaxEUoutput - rightData.prebreakMaxEUoutput) > 0.1) {
-                            prebreakText.append(formatI18n("Comparison.EUEUoutput",
-                                    colorDecimal(leftData.prebreakTotalEUoutput - rightData.prebreakTotalEUoutput, 1000),
+                if (!tempReactor.isFluid()) {
+                    if (!prevReactor.isFluid()) {
+                        if (leftData.prebreakMinEUoutput <= leftData.prebreakMaxEUoutput && rightData.prebreakMinEUoutput <= rightData.prebreakMaxEUoutput) {
+                            if (alwaysDiff || Math.abs(leftData.prebreakTotalEUoutput - rightData.prebreakTotalEUoutput) > 1000
+                                    || Math.abs(leftData.prebreakAvgEUoutput - rightData.prebreakAvgEUoutput) > 0.1
+                                    || Math.abs(leftData.prebreakMinEUoutput - rightData.prebreakMinEUoutput) > 0.1
+                                    || Math.abs(leftData.prebreakMaxEUoutput - rightData.prebreakMaxEUoutput) > 0.1) {
+                                prebreakText.append(formatI18n("Comparison.EUEUoutput",
+                                        colorDecimal(leftData.prebreakTotalEUoutput - rightData.prebreakTotalEUoutput, 1000),
+                                        simpleDecimal(leftData.prebreakTotalEUoutput),
+                                        simpleDecimal(rightData.prebreakTotalEUoutput),
+                                        colorDecimal(leftData.prebreakAvgEUoutput - rightData.prebreakAvgEUoutput, 0.1),
+                                        simpleDecimal(leftData.prebreakAvgEUoutput),
+                                        simpleDecimal(rightData.prebreakAvgEUoutput),
+                                        colorDecimal(leftData.prebreakMinEUoutput - rightData.prebreakMinEUoutput, 0.1),
+                                        simpleDecimal(leftData.prebreakMinEUoutput),
+                                        simpleDecimal(rightData.prebreakMinEUoutput),
+                                        colorDecimal(leftData.prebreakMaxEUoutput - rightData.prebreakMaxEUoutput, 0.1),
+                                        simpleDecimal(leftData.prebreakMaxEUoutput),
+                                        simpleDecimal(rightData.prebreakMaxEUoutput)));
+                            }
+                        }
+                    } else {
+                        if (leftData.prebreakMinEUoutput <= leftData.prebreakMaxEUoutput && rightData.prebreakMinHUoutput <= rightData.prebreakMaxHUoutput) {
+                            prebreakText.append(formatI18n("Comparison.EUHUoutput",
                                     simpleDecimal(leftData.prebreakTotalEUoutput),
-                                    simpleDecimal(rightData.prebreakTotalEUoutput),
-                                    colorDecimal(leftData.prebreakAvgEUoutput - rightData.prebreakAvgEUoutput, 0.1),
+                                    simpleDecimal(rightData.prebreakTotalHUoutput),
                                     simpleDecimal(leftData.prebreakAvgEUoutput),
-                                    simpleDecimal(rightData.prebreakAvgEUoutput),
-                                    colorDecimal(leftData.prebreakMinEUoutput - rightData.prebreakMinEUoutput, 0.1),
+                                    simpleDecimal(rightData.prebreakAvgHUoutput),
                                     simpleDecimal(leftData.prebreakMinEUoutput),
-                                    simpleDecimal(rightData.prebreakMinEUoutput),
-                                    colorDecimal(leftData.prebreakMaxEUoutput - rightData.prebreakMaxEUoutput, 0.1),
+                                    simpleDecimal(rightData.prebreakMinHUoutput),
                                     simpleDecimal(leftData.prebreakMaxEUoutput),
+                                    simpleDecimal(rightData.prebreakMaxHUoutput)));
+                        }
+                    }
+                } else {
+                    if (!prevReactor.isFluid()) {
+                        if (leftData.prebreakMinHUoutput <= leftData.prebreakMaxHUoutput && rightData.prebreakMinEUoutput <= rightData.prebreakMaxEUoutput) {
+                            prebreakText.append(formatI18n("Comparison.HUEUoutput",
+                                    simpleDecimal(leftData.prebreakTotalHUoutput),
+                                    simpleDecimal(rightData.prebreakTotalEUoutput),
+                                    simpleDecimal(leftData.prebreakAvgHUoutput),
+                                    simpleDecimal(rightData.prebreakAvgEUoutput),
+                                    simpleDecimal(leftData.prebreakMinHUoutput),
+                                    simpleDecimal(rightData.prebreakMinEUoutput),
+                                    simpleDecimal(leftData.prebreakMaxHUoutput),
                                     simpleDecimal(rightData.prebreakMaxEUoutput)));
                         }
                     } else {
-                        prebreakText.append(formatI18n("Comparison.EUHUoutput",
-                                simpleDecimal(leftData.prebreakTotalEUoutput),
-                                simpleDecimal(rightData.prebreakTotalHUoutput),
-                                simpleDecimal(leftData.prebreakAvgEUoutput),
-                                simpleDecimal(rightData.prebreakAvgHUoutput),
-                                simpleDecimal(leftData.prebreakMinEUoutput),
-                                simpleDecimal(rightData.prebreakMinHUoutput),
-                                simpleDecimal(leftData.prebreakMaxEUoutput),
-                                simpleDecimal(rightData.prebreakMaxHUoutput)));
-                    }
-                } else {
-                    if (rightData.prebreakTotalEUoutput > 0) {
-                        prebreakText.append(formatI18n("Comparison.HUEUoutput",
-                                simpleDecimal(leftData.prebreakTotalHUoutput),
-                                simpleDecimal(rightData.prebreakTotalEUoutput),
-                                simpleDecimal(leftData.prebreakAvgHUoutput),
-                                simpleDecimal(rightData.prebreakAvgEUoutput),
-                                simpleDecimal(leftData.prebreakMinHUoutput),
-                                simpleDecimal(rightData.prebreakMinEUoutput),
-                                simpleDecimal(leftData.prebreakMaxHUoutput),
-                                simpleDecimal(rightData.prebreakMaxEUoutput)));
-                    } else {
-                        if (alwaysDiff || Math.abs(leftData.prebreakTotalHUoutput - rightData.prebreakTotalHUoutput) > 1000
-                                || Math.abs(leftData.prebreakAvgHUoutput - rightData.prebreakAvgHUoutput) > 0.1
-                                || Math.abs(leftData.prebreakMinHUoutput - rightData.prebreakMinHUoutput) > 0.1
-                                || Math.abs(leftData.prebreakMaxHUoutput - rightData.prebreakMaxHUoutput) > 0.1) {
-                            prebreakText.append(formatI18n("Comparison.HUHUoutput",
-                                    colorDecimal(leftData.prebreakTotalHUoutput - rightData.prebreakTotalHUoutput, 1000),
-                                    simpleDecimal(leftData.prebreakTotalHUoutput),
-                                    simpleDecimal(rightData.prebreakTotalHUoutput),
-                                    colorDecimal(leftData.prebreakAvgHUoutput - rightData.prebreakAvgHUoutput, 0.1),
-                                    simpleDecimal(leftData.prebreakAvgHUoutput),
-                                    simpleDecimal(rightData.prebreakAvgHUoutput),
-                                    colorDecimal(leftData.prebreakMinHUoutput - rightData.prebreakMinHUoutput, 0.1),
-                                    simpleDecimal(leftData.prebreakMinHUoutput),
-                                    simpleDecimal(rightData.prebreakMinHUoutput),
-                                    colorDecimal(leftData.prebreakMaxHUoutput - rightData.prebreakMaxHUoutput, 0.1),
-                                    simpleDecimal(leftData.prebreakMaxHUoutput),
-                                    simpleDecimal(rightData.prebreakMaxHUoutput)));
+                        if (leftData.prebreakMinHUoutput <= leftData.prebreakMaxHUoutput && rightData.prebreakMinHUoutput <= rightData.prebreakMaxHUoutput) {
+                            if (alwaysDiff || Math.abs(leftData.prebreakTotalHUoutput - rightData.prebreakTotalHUoutput) > 1000
+                                    || Math.abs(leftData.prebreakAvgHUoutput - rightData.prebreakAvgHUoutput) > 0.1
+                                    || Math.abs(leftData.prebreakMinHUoutput - rightData.prebreakMinHUoutput) > 0.1
+                                    || Math.abs(leftData.prebreakMaxHUoutput - rightData.prebreakMaxHUoutput) > 0.1) {
+                                prebreakText.append(formatI18n("Comparison.HUHUoutput",
+                                        colorDecimal(leftData.prebreakTotalHUoutput - rightData.prebreakTotalHUoutput, 1000),
+                                        simpleDecimal(leftData.prebreakTotalHUoutput),
+                                        simpleDecimal(rightData.prebreakTotalHUoutput),
+                                        colorDecimal(leftData.prebreakAvgHUoutput - rightData.prebreakAvgHUoutput, 0.1),
+                                        simpleDecimal(leftData.prebreakAvgHUoutput),
+                                        simpleDecimal(rightData.prebreakAvgHUoutput),
+                                        colorDecimal(leftData.prebreakMinHUoutput - rightData.prebreakMinHUoutput, 0.1),
+                                        simpleDecimal(leftData.prebreakMinHUoutput),
+                                        simpleDecimal(rightData.prebreakMinHUoutput),
+                                        colorDecimal(leftData.prebreakMaxHUoutput - rightData.prebreakMaxHUoutput, 0.1),
+                                        simpleDecimal(leftData.prebreakMaxHUoutput),
+                                        simpleDecimal(rightData.prebreakMaxHUoutput)));
+                            }
                         }
                     }
                 }
@@ -2233,10 +2245,6 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             text.append(prebreakText);
             text.append("<br>");
         }
-        Reactor tempReactor = new Reactor();
-        tempReactor.setCode(currentReactorCode);
-        Reactor prevReactor = new Reactor();
-        prevReactor.setCode(prevReactorCode);
         boolean moxStyleReactor = false;
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 9; col++) {
@@ -2257,49 +2265,56 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             }
 
             if (leftData.totalRodCount > 0 && rightData.totalRodCount > 0) {
-                if (leftData.predepleteTotalEUoutput > 0) {
-                    if (rightData.predepleteTotalEUoutput > 0) {
-                        if (alwaysDiff || Math.abs(leftData.predepleteTotalEUoutput - rightData.predepleteTotalEUoutput) > 1000
-                                || Math.abs(leftData.predepleteAvgEUoutput - rightData.predepleteAvgEUoutput) > 0.1
-                                || Math.abs(leftData.predepleteMinEUoutput - rightData.predepleteMinEUoutput) > 0.1
-                                || Math.abs(leftData.predepleteMaxEUoutput - rightData.predepleteMaxEUoutput) > 0.1) {
-                            predepleteText.append(formatI18n("Comparison.EUEUoutput",
-                                    colorDecimal(leftData.predepleteTotalEUoutput - rightData.predepleteTotalEUoutput, 1000),
+                if (!tempReactor.isFluid()) {
+                    if (!prevReactor.isFluid()) {
+                        if (leftData.predepleteMinEUoutput <= leftData.predepleteMaxEUoutput && rightData.predepleteMinEUoutput <= rightData.predepleteMaxEUoutput) {
+                            if (alwaysDiff || Math.abs(leftData.predepleteTotalEUoutput - rightData.predepleteTotalEUoutput) > 1000
+                                    || Math.abs(leftData.predepleteAvgEUoutput - rightData.predepleteAvgEUoutput) > 0.1
+                                    || Math.abs(leftData.predepleteMinEUoutput - rightData.predepleteMinEUoutput) > 0.1
+                                    || Math.abs(leftData.predepleteMaxEUoutput - rightData.predepleteMaxEUoutput) > 0.1) {
+                                predepleteText.append(formatI18n("Comparison.EUEUoutput",
+                                        colorDecimal(leftData.predepleteTotalEUoutput - rightData.predepleteTotalEUoutput, 1000),
+                                        simpleDecimal(leftData.predepleteTotalEUoutput),
+                                        simpleDecimal(rightData.predepleteTotalEUoutput),
+                                        colorDecimal(leftData.predepleteAvgEUoutput - rightData.predepleteAvgEUoutput, 0.1),
+                                        simpleDecimal(leftData.predepleteAvgEUoutput),
+                                        simpleDecimal(rightData.predepleteAvgEUoutput),
+                                        colorDecimal(leftData.predepleteMinEUoutput - rightData.predepleteMinEUoutput, 0.1),
+                                        simpleDecimal(leftData.predepleteMinEUoutput),
+                                        simpleDecimal(rightData.predepleteMinEUoutput),
+                                        colorDecimal(leftData.predepleteMaxEUoutput - rightData.predepleteMaxEUoutput, 0.1),
+                                        simpleDecimal(leftData.predepleteMaxEUoutput),
+                                        simpleDecimal(rightData.predepleteMaxEUoutput)));
+                            }
+                        }
+                    } else {
+                        if (leftData.predepleteMinEUoutput <= leftData.predepleteMaxEUoutput && rightData.predepleteMinHUoutput <= rightData.predepleteMaxHUoutput) {
+                            predepleteText.append(formatI18n("Comparison.EUHUoutput",
                                     simpleDecimal(leftData.predepleteTotalEUoutput),
-                                    simpleDecimal(rightData.predepleteTotalEUoutput),
-                                    colorDecimal(leftData.predepleteAvgEUoutput - rightData.predepleteAvgEUoutput, 0.1),
+                                    simpleDecimal(rightData.predepleteTotalHUoutput),
                                     simpleDecimal(leftData.predepleteAvgEUoutput),
-                                    simpleDecimal(rightData.predepleteAvgEUoutput),
-                                    colorDecimal(leftData.predepleteMinEUoutput - rightData.predepleteMinEUoutput, 0.1),
+                                    simpleDecimal(rightData.predepleteAvgHUoutput),
                                     simpleDecimal(leftData.predepleteMinEUoutput),
-                                    simpleDecimal(rightData.predepleteMinEUoutput),
-                                    colorDecimal(leftData.predepleteMaxEUoutput - rightData.predepleteMaxEUoutput, 0.1),
+                                    simpleDecimal(rightData.predepleteMinHUoutput),
                                     simpleDecimal(leftData.predepleteMaxEUoutput),
+                                    simpleDecimal(rightData.predepleteMaxHUoutput)));
+                        }
+                    }
+                } else {
+                    if (!prevReactor.isFluid()) {
+                        if (leftData.predepleteMinHUoutput <= leftData.predepleteMaxHUoutput && rightData.predepleteMinEUoutput <= rightData.predepleteMaxEUoutput) {
+                            predepleteText.append(formatI18n("Comparison.HUEUoutput",
+                                    simpleDecimal(leftData.predepleteTotalHUoutput),
+                                    simpleDecimal(rightData.predepleteTotalEUoutput),
+                                    simpleDecimal(leftData.predepleteAvgHUoutput),
+                                    simpleDecimal(rightData.predepleteAvgEUoutput),
+                                    simpleDecimal(leftData.predepleteMinHUoutput),
+                                    simpleDecimal(rightData.predepleteMinEUoutput),
+                                    simpleDecimal(leftData.predepleteMaxHUoutput),
                                     simpleDecimal(rightData.predepleteMaxEUoutput)));
                         }
                     } else {
-                        predepleteText.append(formatI18n("Comparison.EUHUoutput",
-                                simpleDecimal(leftData.predepleteTotalEUoutput),
-                                simpleDecimal(rightData.predepleteTotalHUoutput),
-                                simpleDecimal(leftData.predepleteAvgEUoutput),
-                                simpleDecimal(rightData.predepleteAvgHUoutput),
-                                simpleDecimal(leftData.predepleteMinEUoutput),
-                                simpleDecimal(rightData.predepleteMinHUoutput),
-                                simpleDecimal(leftData.predepleteMaxEUoutput),
-                                simpleDecimal(rightData.predepleteMaxHUoutput)));
-                    }
-                } else {
-                    if (rightData.predepleteTotalEUoutput > 0) {
-                        predepleteText.append(formatI18n("Comparison.HUEUoutput",
-                                simpleDecimal(leftData.predepleteTotalHUoutput),
-                                simpleDecimal(rightData.predepleteTotalEUoutput),
-                                simpleDecimal(leftData.predepleteAvgHUoutput),
-                                simpleDecimal(rightData.predepleteAvgEUoutput),
-                                simpleDecimal(leftData.predepleteMinHUoutput),
-                                simpleDecimal(rightData.predepleteMinEUoutput),
-                                simpleDecimal(leftData.predepleteMaxHUoutput),
-                                simpleDecimal(rightData.predepleteMaxEUoutput)));
-                    } else {
+                        if (leftData.predepleteMinHUoutput <= leftData.predepleteMaxHUoutput && rightData.predepleteMinHUoutput <= rightData.predepleteMaxHUoutput) {
                         if (alwaysDiff || Math.abs(leftData.predepleteTotalHUoutput - rightData.predepleteTotalHUoutput) > 1000
                                 || Math.abs(leftData.predepleteAvgHUoutput - rightData.predepleteAvgHUoutput) > 0.1
                                 || Math.abs(leftData.predepleteMinHUoutput - rightData.predepleteMinHUoutput) > 0.1
@@ -2318,28 +2333,31 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                                     simpleDecimal(leftData.predepleteMaxHUoutput),
                                     simpleDecimal(rightData.predepleteMaxHUoutput)));
                         }
-                    }
-                }
-                if (alwaysDiff || Math.abs(leftData.predepleteMinTemp - rightData.predepleteMinTemp) > 10) {
-                    predepleteText.append(formatI18n("Comparison.PredepleteMinTemp",
-                            colorDecimal(leftData.predepleteMinTemp - rightData.predepleteMinTemp, moxStyleReactor ? 10 : -10),
-                            simpleDecimal(leftData.predepleteMinTemp),
-                            simpleDecimal(rightData.predepleteMinTemp)));
-                }
-                if (alwaysDiff || Math.abs(leftData.predepleteMaxTemp - rightData.predepleteMaxTemp) > 10) {
-                    String leftMaxTempDecimal = simpleDecimal(leftData.predepleteMaxTemp);
-                    String rightMaxTempDecimal = simpleDecimal(rightData.predepleteMaxTemp);
-                    if ((leftData.predepleteMaxTemp >= tempReactor.getMaxHeat() * 0.85) != (rightData.predepleteMaxTemp >= prevReactor.getMaxHeat() * 0.85)) {
-                        if (leftData.predepleteMaxTemp >= tempReactor.getMaxHeat() * 0.85) {
-                            leftMaxTempDecimal = "<font color=\"red\">" + leftMaxTempDecimal + "</font>";
-                            rightMaxTempDecimal = "<font color=\"green\">" + rightMaxTempDecimal + "</font>";
-                        } else {
-                            leftMaxTempDecimal = "<font color=\"green\">" + leftMaxTempDecimal + "</font>";
-                            rightMaxTempDecimal = "<font color=\"red\">" + rightMaxTempDecimal + "</font>";
                         }
                     }
-                    predepleteText.append(formatI18n("Comparison.PredepleteMaxTemp",
-                            colorDecimal(leftData.predepleteMaxTemp - rightData.predepleteMaxTemp, moxStyleReactor ? 10 : -10), leftMaxTempDecimal, rightMaxTempDecimal));
+                }
+                if (leftData.predepleteMinTemp <= leftData.predepleteMaxTemp && rightData.predepleteMinTemp <= rightData.predepleteMaxTemp) {
+                    if (alwaysDiff || Math.abs(leftData.predepleteMinTemp - rightData.predepleteMinTemp) > 10) {
+                        predepleteText.append(formatI18n("Comparison.PredepleteMinTemp",
+                                colorDecimal(leftData.predepleteMinTemp - rightData.predepleteMinTemp, moxStyleReactor ? 10 : -10),
+                                simpleDecimal(leftData.predepleteMinTemp),
+                                simpleDecimal(rightData.predepleteMinTemp)));
+                    }
+                    if (alwaysDiff || Math.abs(leftData.predepleteMaxTemp - rightData.predepleteMaxTemp) > 10) {
+                        String leftMaxTempDecimal = simpleDecimal(leftData.predepleteMaxTemp);
+                        String rightMaxTempDecimal = simpleDecimal(rightData.predepleteMaxTemp);
+                        if ((leftData.predepleteMaxTemp >= tempReactor.getMaxHeat() * 0.85) != (rightData.predepleteMaxTemp >= prevReactor.getMaxHeat() * 0.85)) {
+                            if (leftData.predepleteMaxTemp >= tempReactor.getMaxHeat() * 0.85) {
+                                leftMaxTempDecimal = "<font color=\"red\">" + leftMaxTempDecimal + "</font>";
+                                rightMaxTempDecimal = "<font color=\"green\">" + rightMaxTempDecimal + "</font>";
+                            } else {
+                                leftMaxTempDecimal = "<font color=\"green\">" + leftMaxTempDecimal + "</font>";
+                                rightMaxTempDecimal = "<font color=\"red\">" + rightMaxTempDecimal + "</font>";
+                            }
+                        }
+                        predepleteText.append(formatI18n("Comparison.PredepleteMaxTemp",
+                                colorDecimal(leftData.predepleteMaxTemp - rightData.predepleteMaxTemp, moxStyleReactor ? 10 : -10), leftMaxTempDecimal, rightMaxTempDecimal));
+                    }
                 }
             }
         }
@@ -2355,87 +2373,97 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         }
         if (!tempReactor.isFluid()) {
             if (!prevReactor.isFluid()) {
-                if (alwaysDiff || Math.abs(leftData.totalEUoutput - rightData.totalEUoutput) > 1000
-                        || Math.abs(leftData.avgEUoutput - rightData.avgEUoutput) > 0.1
-                        || Math.abs(leftData.minEUoutput - rightData.minEUoutput) > 0.1
-                        || Math.abs(leftData.maxEUoutput - rightData.maxEUoutput) > 0.1) {
-                    postsimText.append(formatI18n("Comparison.EUEUoutput",
-                            colorDecimal(leftData.totalEUoutput - rightData.totalEUoutput, 1000),
-                            simpleDecimal(leftData.totalEUoutput),
-                            simpleDecimal(rightData.totalEUoutput),
-                            colorDecimal(leftData.avgEUoutput - rightData.avgEUoutput, 0.1),
-                            simpleDecimal(leftData.avgEUoutput),
-                            simpleDecimal(rightData.avgEUoutput),
-                            colorDecimal(leftData.minEUoutput - rightData.minEUoutput, 0.1),
-                            simpleDecimal(leftData.minEUoutput),
-                            simpleDecimal(rightData.minEUoutput),
-                            colorDecimal(leftData.maxEUoutput - rightData.maxEUoutput, 0.1),
-                            simpleDecimal(leftData.maxEUoutput),
-                            simpleDecimal(rightData.maxEUoutput)));
+                if (leftData.minEUoutput <= leftData.maxEUoutput && rightData.minEUoutput <= rightData.maxEUoutput) {
+                    if (alwaysDiff || Math.abs(leftData.totalEUoutput - rightData.totalEUoutput) > 1000
+                            || Math.abs(leftData.avgEUoutput - rightData.avgEUoutput) > 0.1
+                            || Math.abs(leftData.minEUoutput - rightData.minEUoutput) > 0.1
+                            || Math.abs(leftData.maxEUoutput - rightData.maxEUoutput) > 0.1) {
+                        postsimText.append(formatI18n("Comparison.EUEUoutput",
+                                colorDecimal(leftData.totalEUoutput - rightData.totalEUoutput, 1000),
+                                simpleDecimal(leftData.totalEUoutput),
+                                simpleDecimal(rightData.totalEUoutput),
+                                colorDecimal(leftData.avgEUoutput - rightData.avgEUoutput, 0.1),
+                                simpleDecimal(leftData.avgEUoutput),
+                                simpleDecimal(rightData.avgEUoutput),
+                                colorDecimal(leftData.minEUoutput - rightData.minEUoutput, 0.1),
+                                simpleDecimal(leftData.minEUoutput),
+                                simpleDecimal(rightData.minEUoutput),
+                                colorDecimal(leftData.maxEUoutput - rightData.maxEUoutput, 0.1),
+                                simpleDecimal(leftData.maxEUoutput),
+                                simpleDecimal(rightData.maxEUoutput)));
+                    }
                 }
             } else {
-                postsimText.append(formatI18n("Comparison.EUHUoutput",
-                        simpleDecimal(leftData.totalEUoutput),
-                        simpleDecimal(rightData.totalHUoutput),
-                        simpleDecimal(leftData.avgEUoutput),
-                        simpleDecimal(rightData.avgHUoutput),
-                        simpleDecimal(leftData.minEUoutput),
-                        simpleDecimal(rightData.minHUoutput),
-                        simpleDecimal(leftData.maxEUoutput),
-                        simpleDecimal(rightData.maxHUoutput)));
-            }
-        } else {
-            if (!prevReactor.isFluid()) {
-                postsimText.append(formatI18n("Comparison.HUEUoutput",
-                        simpleDecimal(leftData.totalHUoutput),
-                        simpleDecimal(rightData.totalEUoutput),
-                        simpleDecimal(leftData.avgHUoutput),
-                        simpleDecimal(rightData.avgEUoutput),
-                        simpleDecimal(leftData.minHUoutput),
-                        simpleDecimal(rightData.minEUoutput),
-                        simpleDecimal(leftData.maxHUoutput),
-                        simpleDecimal(rightData.maxEUoutput)));
-            } else {
-                if (alwaysDiff || Math.abs(leftData.totalHUoutput - rightData.totalHUoutput) > 1000
-                        || Math.abs(leftData.avgHUoutput - rightData.avgHUoutput) > 0.1
-                        || Math.abs(leftData.minHUoutput - rightData.minHUoutput) > 0.1
-                        || Math.abs(leftData.maxHUoutput - rightData.maxHUoutput) > 0.1) {
-                    postsimText.append(formatI18n("Comparison.HUHUoutput",
-                            colorDecimal(leftData.totalHUoutput - rightData.totalHUoutput, 1000),
-                            simpleDecimal(leftData.totalHUoutput),
+                if (leftData.minEUoutput <= leftData.maxEUoutput && rightData.minHUoutput <= rightData.maxHUoutput) {
+                    postsimText.append(formatI18n("Comparison.EUHUoutput",
+                            simpleDecimal(leftData.totalEUoutput),
                             simpleDecimal(rightData.totalHUoutput),
-                            colorDecimal(leftData.avgHUoutput - rightData.avgHUoutput, 0.1),
-                            simpleDecimal(leftData.avgHUoutput),
+                            simpleDecimal(leftData.avgEUoutput),
                             simpleDecimal(rightData.avgHUoutput),
-                            colorDecimal(leftData.minHUoutput - rightData.minHUoutput, 0.1),
-                            simpleDecimal(leftData.minHUoutput),
+                            simpleDecimal(leftData.minEUoutput),
                             simpleDecimal(rightData.minHUoutput),
-                            colorDecimal(leftData.maxHUoutput - rightData.maxHUoutput, 0.1),
-                            simpleDecimal(leftData.maxHUoutput),
+                            simpleDecimal(leftData.maxEUoutput),
                             simpleDecimal(rightData.maxHUoutput)));
                 }
             }
-        }
-        if (alwaysDiff || Math.abs(leftData.minTemp - rightData.minTemp) > 10) {
-            postsimText.append(formatI18n("Comparison.PostsimMinTemp",
-                    colorDecimal(leftData.minTemp - rightData.minTemp, moxStyleReactor ? 10 : -10),
-                    simpleDecimal(leftData.minTemp),
-                    simpleDecimal(rightData.minTemp)));
-        }
-        if (alwaysDiff || Math.abs(leftData.maxTemp - rightData.maxTemp) > 10) {
-            String leftMaxTempDecimal = simpleDecimal(leftData.maxTemp);
-            String rightMaxTempDecimal = simpleDecimal(rightData.maxTemp);
-            if ((leftData.maxTemp >= tempReactor.getMaxHeat() * 0.85) != (rightData.maxTemp >= prevReactor.getMaxHeat() * 0.85)) {
-                if (leftData.maxTemp >= tempReactor.getMaxHeat() * 0.85) {
-                    leftMaxTempDecimal = "<font color=\"red\">" + leftMaxTempDecimal + "</font>";
-                    rightMaxTempDecimal = "<font color=\"green\">" + rightMaxTempDecimal + "</font>";
-                } else {
-                    leftMaxTempDecimal = "<font color=\"green\">" + leftMaxTempDecimal + "</font>";
-                    rightMaxTempDecimal = "<font color=\"red\">" + rightMaxTempDecimal + "</font>";
+        } else {
+            if (!prevReactor.isFluid()) {
+                if (leftData.minHUoutput <= leftData.maxHUoutput && rightData.minEUoutput <= rightData.maxEUoutput) {
+                    postsimText.append(formatI18n("Comparison.HUEUoutput",
+                            simpleDecimal(leftData.totalHUoutput),
+                            simpleDecimal(rightData.totalEUoutput),
+                            simpleDecimal(leftData.avgHUoutput),
+                            simpleDecimal(rightData.avgEUoutput),
+                            simpleDecimal(leftData.minHUoutput),
+                            simpleDecimal(rightData.minEUoutput),
+                            simpleDecimal(leftData.maxHUoutput),
+                            simpleDecimal(rightData.maxEUoutput)));
+                }
+            } else {
+                if (leftData.minHUoutput <= leftData.maxHUoutput && rightData.minHUoutput <= rightData.maxHUoutput) {
+                    if (alwaysDiff || Math.abs(leftData.totalHUoutput - rightData.totalHUoutput) > 1000
+                            || Math.abs(leftData.avgHUoutput - rightData.avgHUoutput) > 0.1
+                            || Math.abs(leftData.minHUoutput - rightData.minHUoutput) > 0.1
+                            || Math.abs(leftData.maxHUoutput - rightData.maxHUoutput) > 0.1) {
+                        postsimText.append(formatI18n("Comparison.HUHUoutput",
+                                colorDecimal(leftData.totalHUoutput - rightData.totalHUoutput, 1000),
+                                simpleDecimal(leftData.totalHUoutput),
+                                simpleDecimal(rightData.totalHUoutput),
+                                colorDecimal(leftData.avgHUoutput - rightData.avgHUoutput, 0.1),
+                                simpleDecimal(leftData.avgHUoutput),
+                                simpleDecimal(rightData.avgHUoutput),
+                                colorDecimal(leftData.minHUoutput - rightData.minHUoutput, 0.1),
+                                simpleDecimal(leftData.minHUoutput),
+                                simpleDecimal(rightData.minHUoutput),
+                                colorDecimal(leftData.maxHUoutput - rightData.maxHUoutput, 0.1),
+                                simpleDecimal(leftData.maxHUoutput),
+                                simpleDecimal(rightData.maxHUoutput)));
+                    }
                 }
             }
-            postsimText.append(formatI18n("Comparison.PostsimMaxTemp",
-                    colorDecimal(leftData.maxTemp - rightData.maxTemp, moxStyleReactor ? 10 : -10), leftMaxTempDecimal, rightMaxTempDecimal));
+        }
+        if (leftData.minTemp <= leftData.maxTemp && rightData.minTemp <= rightData.maxTemp) {
+            if (alwaysDiff || Math.abs(leftData.minTemp - rightData.minTemp) > 10) {
+                postsimText.append(formatI18n("Comparison.PostsimMinTemp",
+                        colorDecimal(leftData.minTemp - rightData.minTemp, moxStyleReactor ? 10 : -10),
+                        simpleDecimal(leftData.minTemp),
+                        simpleDecimal(rightData.minTemp)));
+            }
+            if (alwaysDiff || Math.abs(leftData.maxTemp - rightData.maxTemp) > 10) {
+                String leftMaxTempDecimal = simpleDecimal(leftData.maxTemp);
+                String rightMaxTempDecimal = simpleDecimal(rightData.maxTemp);
+                if ((leftData.maxTemp >= tempReactor.getMaxHeat() * 0.85) != (rightData.maxTemp >= prevReactor.getMaxHeat() * 0.85)) {
+                    if (leftData.maxTemp >= tempReactor.getMaxHeat() * 0.85) {
+                        leftMaxTempDecimal = "<font color=\"red\">" + leftMaxTempDecimal + "</font>";
+                        rightMaxTempDecimal = "<font color=\"green\">" + rightMaxTempDecimal + "</font>";
+                    } else {
+                        leftMaxTempDecimal = "<font color=\"green\">" + leftMaxTempDecimal + "</font>";
+                        rightMaxTempDecimal = "<font color=\"red\">" + rightMaxTempDecimal + "</font>";
+                    }
+                }
+                postsimText.append(formatI18n("Comparison.PostsimMaxTemp",
+                        colorDecimal(leftData.maxTemp - rightData.maxTemp, moxStyleReactor ? 10 : -10), leftMaxTempDecimal, rightMaxTempDecimal));
+            }
         }
         if (postsimText.length() > 0) {
             text.append(getI18n("Comparison.Prefix.PostSimulation"));

@@ -239,7 +239,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                             currentInactiveTime++;
                             if (reactor.isAutomated() && pauseTimer > 0) {
                                 pauseTimer--;
-                            } else if ((reactor.isPulsed() && reactor.getCurrentHeat() <= resumeTemp && (reactorTicks % clockPeriod) < onPulseDuration) || (reactor.isAutomated() && pauseTimer <= 0)) {
+                            } else if ((reactor.isPulsed() && reactor.getCurrentHeat() <= resumeTemp && (reactorTicks % clockPeriod) < onPulseDuration)) {
                                 active = true;
                                 minInactiveTime = Math.min(currentInactiveTime, minInactiveTime);
                                 maxInactiveTime = Math.max(currentInactiveTime, maxInactiveTime);
