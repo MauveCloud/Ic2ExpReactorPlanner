@@ -132,7 +132,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 9; col++) {
                         ReactorItem component = reactor.getComponentAt(row, col);
-                        if (component != null && (component.getMaxHeat() > 1 || component.maxDamage > 1)) {
+                        if (component != null && (component.getMaxHeat() > 1 || component.getMaxDamage() > 1)) {
                             csvOut.printf(getI18n("CSVData.HeaderComponentName"), component.name, row, col);
                         }
                         if (component != null && component.producesOutput()) {
@@ -265,7 +265,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                     for (int row = 0; row < 6; row++) {
                         for (int col = 0; col < 9; col++) {
                             ReactorItem component = reactor.getComponentAt(row, col);
-                            if (component != null && (component.getMaxHeat() > 1 || component.maxDamage > 1)) {
+                            if (component != null && (component.getMaxHeat() > 1 || component.getMaxDamage() > 1)) {
                                 double componentValue = component.getCurrentDamage();
                                 if (component.getMaxHeat() > 1) {
                                     componentValue = component.getCurrentHeat();
@@ -629,7 +629,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                                 currentActiveTime = 0;
                             }
                         }
-                    } else if (component.isBroken() || (component.maxDamage > 1 && component.getCurrentDamage() >= component.getAutomationThreshold())) {
+                    } else if (component.isBroken() || (component.getMaxDamage() > 1 && component.getCurrentDamage() >= component.getAutomationThreshold())) {
                         component.clearDamage();
                         replacedItems.add(component.name);
                         component.info.append(formatI18n("ComponentInfo.ReplacedTime", reactorTicks));

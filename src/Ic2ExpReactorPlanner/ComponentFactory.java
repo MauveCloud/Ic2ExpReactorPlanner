@@ -36,7 +36,7 @@ public class ComponentFactory {
         new FuelRod(4, "fuelRodMox", getI18n("ComponentName.FuelRodMox"), TextureFactory.getImage("reactorMOXSimple.png", "mox.png"), 10e3, 1, null, 100, 2, 1, true),
         new FuelRod(5, "dualFuelRodMox", getI18n("ComponentName.DualFuelRodMox"), TextureFactory.getImage("reactorMOXDual.png", "dual_mox.png"), 10e3, 1, null, 200, 4, 2, true),
         new FuelRod(6, "quadFuelRodMox", getI18n("ComponentName.QuadFuelRodMox"), TextureFactory.getImage("reactorMOXQuad.png", "quad_mox.png"), 10e3, 1, null, 400, 8, 4, true),
-        new Reflector(7, "neutronReflector", getI18n("ComponentName.NeutronReflector"), TextureFactory.getImage("reactorReflector.png", "neutron_reflector.png"), 40e3, 1, null),
+        new Reflector(7, "neutronReflector", getI18n("ComponentName.NeutronReflector"), TextureFactory.getImage("reactorReflector.png", "neutron_reflector.png"), 30e3, 1, null),
         new Reflector(8, "thickNeutronReflector", getI18n("ComponentName.ThickNeutronReflector"), TextureFactory.getImage("reactorReflectorThick.png", "thick_neutron_reflector.png"), 120e3, 1, null),
         new Vent(9, "heatVent", getI18n("ComponentName.HeatVent"), TextureFactory.getImage("reactorVent.png", "heat_vent.png"), 1, 1000, null, 6, 0, 0),
         new Vent(10, "advancedHeatVent", getI18n("ComponentName.AdvancedHeatVent"), TextureFactory.getImage("reactorVentDiamond.png", "advanced_heat_vent.png"), 1, 1000, null, 12, 0, 0),

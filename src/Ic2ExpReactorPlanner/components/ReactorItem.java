@@ -20,7 +20,7 @@ public class ReactorItem {
     public final String baseName; // this is the non-localized version, for internal program use
     public final String name; // this is expected to be localized, for display usage.
     public final Image image;
-    public final double maxDamage;
+    protected double maxDamage; public double getMaxDamage() { return maxDamage; }
     protected double maxHeat; public double getMaxHeat() { return maxHeat; }
     public final String sourceMod; // for potentially adjusting controls based on whether the mod is in use, will be null to indicate the item is part of base IC2.
     
@@ -303,7 +303,7 @@ public class ReactorItem {
      * @return true if the component has broken either from damage (e.g. neutron reflectors, fuel rods) or from heat (e.g. heat vents, coolant cells), false otherwise.
      */
     public boolean isBroken() {
-        return currentHeat >= getMaxHeat() || currentDamage >= maxDamage;
+        return currentHeat >= getMaxHeat() || currentDamage >= getMaxDamage();
     }
     
     /**

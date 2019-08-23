@@ -31,7 +31,7 @@ public class Reflector extends ReactorItem {
 
     @Override
     public double generateHeat() {
-        ReactorItem component = parent.getComponentAt(row + 1, col);
+        ReactorItem component = parent.getComponentAt(row - 1, col);
         if (component != null) {
             applyDamage(component.getRodCount());
         }
@@ -51,11 +51,11 @@ public class Reflector extends ReactorItem {
     }
     
     @Override
-    public double getMaxHeat() {
-        if (maxHeat > 1 && "1.7.10".equals(mcVersion)) {
-            return maxHeat / 3;
+    public double getMaxDamage() {
+        if (maxDamage > 1 && "1.7.10".equals(mcVersion)) {
+            return maxDamage / 3;
         }
-        return maxHeat;
+        return maxDamage;
     }
     
     public static void setMcVersion(String newVersion) {
