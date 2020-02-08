@@ -494,7 +494,7 @@ public class Reactor {
         // read the code revision from the code itself instead of making it part of the prefix.
         int codeRevision = storage.extract(255);
         // Check if the code revision is supported yet.
-        if (codeRevision > 1) {
+        if (codeRevision > 2) {
             throw new IllegalArgumentException("Unsupported code revision in reactor code.");
         }
         // for code revision 1 or newer, read whether the reactor is pulsed and/or automated next.
@@ -507,8 +507,10 @@ public class Reactor {
             for (int col = 0; col < grid[row].length; col++) {
                 int componentId = 0;
                 // Changes may be coming to the number of components available, so make sure to check the code revision number.
-                if (codeRevision >= 0) {
+                if (codeRevision <= 1) {
                     componentId = storage.extract(38);
+                } else {
+                    componentId = storage.extract(44);
                 }
                 if (componentId != 0) {
                     ReactorItem component = ComponentFactory.createComponent(componentId);
@@ -574,16 +576,16 @@ public class Reactor {
                     } else {
                         storage.store(0, 1);
                     }
-                    storage.store(id, 38);
+                    storage.store(id, 44);
                 } else {
-                    storage.store(0, 38);
+                    storage.store(0, 44);
                 }
             }
         }
         storage.store(automated ? 1 : 0, 1);
         storage.store(pulsed ? 1 : 0, 1);
         // store the code revision, allowing values up to 255 (8 bits) before adjusting how it is stored in the code.
-        storage.store(1, 255);
+        storage.store(2, 255);
         return storage.outputBase64();
     }
 

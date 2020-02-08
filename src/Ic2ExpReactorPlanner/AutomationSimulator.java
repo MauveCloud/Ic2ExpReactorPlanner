@@ -413,7 +413,7 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                     if (reactor.getCurrentHeat() < reactor.getMaxHeat()) {
                         if (reactor.getCurrentHeat() == 0.0) {
                             publish(formatI18n("Simulation.ReactorCooldownTime", reactorCooldownTime));
-                        } else {
+                        } else if (reactorCooldownTime > 0) {
                             publish(formatI18n("Simulation.ReactorResidualHeat", reactor.getCurrentHeat(), reactorCooldownTime));
                         }
                         publish(formatI18n("Simulation.TotalCooldownTime", cooldownTicks));

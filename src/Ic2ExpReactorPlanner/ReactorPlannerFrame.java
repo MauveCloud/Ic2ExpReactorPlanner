@@ -59,6 +59,7 @@ import javax.swing.event.DocumentListener;
  */
 public class ReactorPlannerFrame extends javax.swing.JFrame {
 
+    // use command line -PerpVersion=(whatever) when building to set actual version.
     private static final String VERSION = "@VERSION@";
     
     private final Reactor reactor = new Reactor();
@@ -488,6 +489,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         fuelRodNaquadahButton = new javax.swing.JToggleButton();
         dualFuelRodNaquadahButton = new javax.swing.JToggleButton();
         quadFuelRodNaquadahButton = new javax.swing.JToggleButton();
+        fuelRodCoaxiumButton = new javax.swing.JToggleButton();
+        dualFuelRodCoaxiumButton = new javax.swing.JToggleButton();
+        quadFuelRodCoaxiumButton = new javax.swing.JToggleButton();
+        fuelRodCesiumButton = new javax.swing.JToggleButton();
+        dualFuelRodCesiumButton = new javax.swing.JToggleButton();
+        quadFuelRodCesiumButton = new javax.swing.JToggleButton();
         javax.swing.JPanel jPanel8 = new javax.swing.JPanel();
         placingLabel = new javax.swing.JLabel();
         versionLabel = new javax.swing.JLabel();
@@ -737,7 +744,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                 componentsPanelComponentResized(evt);
             }
         });
-        componentsPanel.setLayout(new java.awt.GridLayout(5, 8));
+        componentsPanel.setLayout(new java.awt.GridLayout(6, 8));
 
         componentsGroup.add(emptyButton);
         emptyButton.setActionCommand("empty"); // NOI18N
@@ -946,6 +953,36 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         quadFuelRodNaquadahButton.setActionCommand("quadFuelRodNaquadah"); // NOI18N
         quadFuelRodNaquadahButton.setEnabled(false);
         componentsPanel.add(quadFuelRodNaquadahButton);
+
+        componentsGroup.add(fuelRodCoaxiumButton);
+        fuelRodCoaxiumButton.setToolTipText(buildTooltipInfo("FuelRodCoaxium"));
+        fuelRodCoaxiumButton.setActionCommand("fuelRodCoaxium"); // NOI18N
+        componentsPanel.add(fuelRodCoaxiumButton);
+
+        componentsGroup.add(dualFuelRodCoaxiumButton);
+        dualFuelRodCoaxiumButton.setToolTipText(buildTooltipInfo("DualFuelRodCoaxium"));
+        dualFuelRodCoaxiumButton.setActionCommand("dualFuelRodCoaxium"); // NOI18N
+        componentsPanel.add(dualFuelRodCoaxiumButton);
+
+        componentsGroup.add(quadFuelRodCoaxiumButton);
+        quadFuelRodCoaxiumButton.setToolTipText(buildTooltipInfo("QuadFuelRodCoaxium"));
+        quadFuelRodCoaxiumButton.setActionCommand("quadFuelRodCoaxium"); // NOI18N
+        componentsPanel.add(quadFuelRodCoaxiumButton);
+
+        componentsGroup.add(fuelRodCesiumButton);
+        fuelRodCesiumButton.setToolTipText(buildTooltipInfo("FuelRodCesium"));
+        fuelRodCesiumButton.setActionCommand("fuelRodCesium"); // NOI18N
+        componentsPanel.add(fuelRodCesiumButton);
+
+        componentsGroup.add(dualFuelRodCesiumButton);
+        dualFuelRodCesiumButton.setToolTipText(buildTooltipInfo("DualFuelRodCesium"));
+        dualFuelRodCesiumButton.setActionCommand("dualFuelRodCesium"); // NOI18N
+        componentsPanel.add(dualFuelRodCesiumButton);
+
+        componentsGroup.add(quadFuelRodCesiumButton);
+        quadFuelRodCesiumButton.setToolTipText(buildTooltipInfo("QuadFuelRodCesium"));
+        quadFuelRodCesiumButton.setActionCommand("quadFuelRodCesium"); // NOI18N
+        componentsPanel.add(quadFuelRodCesiumButton);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -2619,6 +2656,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner csvLimitSpinner;
     private javax.swing.JCheckBox csvOutputCheck;
     private javax.swing.JPanel csvPanel;
+    private javax.swing.JToggleButton dualFuelRodCesiumButton;
+    private javax.swing.JToggleButton dualFuelRodCoaxiumButton;
     private javax.swing.JToggleButton dualFuelRodMoxButton;
     private javax.swing.JToggleButton dualFuelRodNaquadahButton;
     private javax.swing.JToggleButton dualFuelRodThoriumButton;
@@ -2627,6 +2666,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton euReactorRadio;
     private javax.swing.JCheckBox expandAdvancedAlloyCheck;
     private javax.swing.JRadioButton fluidReactorRadio;
+    private javax.swing.JToggleButton fuelRodCesiumButton;
+    private javax.swing.JToggleButton fuelRodCoaxiumButton;
     private javax.swing.JToggleButton fuelRodMoxButton;
     private javax.swing.JToggleButton fuelRodNaquadahButton;
     private javax.swing.JToggleButton fuelRodThoriumButton;
@@ -2666,6 +2707,8 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner placingThresholdSpinner;
     private javax.swing.JPanel pulsePanel;
     private javax.swing.JCheckBox pulsedReactorCheck;
+    private javax.swing.JToggleButton quadFuelRodCesiumButton;
+    private javax.swing.JToggleButton quadFuelRodCoaxiumButton;
     private javax.swing.JToggleButton quadFuelRodMoxButton;
     private javax.swing.JToggleButton quadFuelRodNaquadahButton;
     private javax.swing.JToggleButton quadFuelRodThoriumButton;
