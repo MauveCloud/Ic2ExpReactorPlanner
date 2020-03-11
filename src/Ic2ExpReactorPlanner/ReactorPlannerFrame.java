@@ -281,7 +281,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
                             maxHeatLabel.setText(formatI18n("UI.MaxHeatSpecific", reactor.getMaxHeat()));
                             heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
                             heatSpinnerModel.setValue(Math.min(((Number) heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
-                            temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
+                            temperatureEffectsLabel.setText(formatI18n("UI.TemperatureEffectsSpecific", (int) (reactor.getMaxHeat() * 0.4), (int) (reactor.getMaxHeat() * 0.5), (int) (reactor.getMaxHeat() * 0.7), (int) (reactor.getMaxHeat() * 0.85), (int) (reactor.getMaxHeat() * 1.0)));
                             reactorButtons[finalRow][finalCol].setIcon(null);
                             reactorButtons[finalRow][finalCol].setToolTipText(null);
                             reactorButtons[finalRow][finalCol].setBackground(Color.LIGHT_GRAY);
@@ -1690,7 +1690,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         maxHeatLabel.setText(formatI18n("UI.MaxHeatSpecific", reactor.getMaxHeat()));
         heatSpinnerModel.setMaximum(reactor.getMaxHeat() - 1);
         heatSpinnerModel.setValue(Math.min(((Number) heatSpinnerModel.getValue()).intValue(), reactor.getMaxHeat() - 1));
-        temperatureEffectsLabel.setText(String.format("Burn: %,d  Evaporate: %,d  Hurt: %,d  Lava: %,d  Explode: %,d", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
+        temperatureEffectsLabel.setText(formatI18n("UI.TemperatureEffectsSpecific", (int)(reactor.getMaxHeat() * 0.4), (int)(reactor.getMaxHeat() * 0.5), (int)(reactor.getMaxHeat() * 0.7), (int)(reactor.getMaxHeat() * 0.85), (int)(reactor.getMaxHeat() * 1.0)));
         lockCode = true;
         codeField.setText(null);
         lockCode = false;
