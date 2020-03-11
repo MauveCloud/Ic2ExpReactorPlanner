@@ -27,9 +27,7 @@ public final class MaterialsList {
     public static final String ALUMINIUM = getI18n("MaterialName.Aluminium");
     public static final String BERYLLIUM = getI18n("MaterialName.Beryllium");
     public static final String BRONZE = getI18n("MaterialName.Bronze");
-    public static final String CESIUM = getI18n("MaterialName.CesiumFuel");
     public static final String COAL = getI18n("MaterialName.Coal");
-    public static final String COAXIUM = getI18n("MaterialName.CoaxiumFuel");
     public static final String COPPER = getI18n("MaterialName.Copper");
     public static final String DIAMOND = getI18n("MaterialName.Diamond");
     public static final String DISTILLED_WATER = getI18n("MaterialName.DistilledWater");
@@ -267,13 +265,6 @@ public final class MaterialsList {
         result.put("fuelRodNaquadah", new MaterialsList(IRON, 3, NAQUADAH));
         result.put("dualFuelRodNaquadah", new MaterialsList(IRON, 2, result.get("fuelRodNaquadah")));
         result.put("quadFuelRodNaquadah", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodNaquadah")));
-        result.put("fuelRodCoaxium", new MaterialsList(4, IRIDIUM, 36, DIAMOND, 3, COAXIUM));
-        result.put("dualFuelRodCoaxium", new MaterialsList(IRON, 2, result.get("fuelRodCoaxium")));
-        result.put("quadFuelRodCoaxium", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodCoaxium")));
-        result.put("fuelRodCesium", new MaterialsList(IRON, 3, CESIUM));
-        result.put("dualFuelRodCesium", new MaterialsList(IRON, 2, result.get("fuelRodCesium")));
-        result.put("quadFuelRodCesium", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodCesium")));
-
         return result;
     }
     

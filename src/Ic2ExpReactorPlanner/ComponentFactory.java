@@ -36,7 +36,7 @@ public class ComponentFactory {
         new FuelRod(4, "fuelRodMox", getI18n("ComponentName.FuelRodMox"), TextureFactory.getImage("reactorMOXSimple.png", "mox.png"), 10e3, 1, null, 100, 2, 1, true),
         new FuelRod(5, "dualFuelRodMox", getI18n("ComponentName.DualFuelRodMox"), TextureFactory.getImage("reactorMOXDual.png", "dual_mox.png"), 10e3, 1, null, 200, 4, 2, true),
         new FuelRod(6, "quadFuelRodMox", getI18n("ComponentName.QuadFuelRodMox"), TextureFactory.getImage("reactorMOXQuad.png", "quad_mox.png"), 10e3, 1, null, 400, 8, 4, true),
-        new Reflector(7, "neutronReflector", getI18n("ComponentName.NeutronReflector"), TextureFactory.getImage("reactorReflector.png", "neutron_reflector.png"), 30e3, 1, null),
+        new Reflector(7, "neutronReflector", getI18n("ComponentName.NeutronReflector"), TextureFactory.getImage("reactorReflector.png", "neutron_reflector.png"), 40e3, 1, null),
         new Reflector(8, "thickNeutronReflector", getI18n("ComponentName.ThickNeutronReflector"), TextureFactory.getImage("reactorReflectorThick.png", "thick_neutron_reflector.png"), 120e3, 1, null),
         new Vent(9, "heatVent", getI18n("ComponentName.HeatVent"), TextureFactory.getImage("reactorVent.png", "heat_vent.png"), 1, 1000, null, 6, 0, 0),
         new Vent(10, "advancedHeatVent", getI18n("ComponentName.AdvancedHeatVent"), TextureFactory.getImage("reactorVentDiamond.png", "advanced_heat_vent.png"), 1, 1000, null, 12, 0, 0),
@@ -68,12 +68,7 @@ public class ComponentFactory {
         new FuelRod(36, "fuelRodNaquadah", getI18n("ComponentName.FuelRodNaquadah"), TextureFactory.getImage("gt.Naquadahcell.png"), 100e3, 1, "GT5.09", 100, 2, 1, true),
         new FuelRod(37, "dualFuelRodNaquadah", getI18n("ComponentName.DualFuelRodNaquadah"), TextureFactory.getImage("gt.Double_Naquadahcell.png"), 100e3, 1, "GT5.09", 200, 4, 2, true),
         new FuelRod(38, "quadFuelRodNaquadah", getI18n("ComponentName.QuadFuelRodNaquadah"), TextureFactory.getImage("gt.Quad_Naquadahcell.png"), 100e3, 1, "GT5.09", 400, 8, 4, true),
-        new FuelRod(39, "fuelRodCoaxium", getI18n("ComponentName.FuelRodCoaxium"), TextureFactory.getImage("coaxium_rod.png"), 20e3, 1, "Coaxium", 100, 0, 1, false),
-        new FuelRod(40, "dualFuelRodCoaxium", getI18n("ComponentName.DualFuelRodCoaxium"), TextureFactory.getImage("coaxium_rod_dual.png"), 20e3, 1, "Coaxium", 200, 0, 2, false),
-        new FuelRod(41, "quadFuelRodCoaxium", getI18n("ComponentName.QuadFuelRodCoaxium"), TextureFactory.getImage("coaxium_rod_quad.png"), 20e3, 1, "Coaxium", 400, 0, 4, false),
-        new FuelRod(42, "fuelRodCesium", getI18n("ComponentName.FuelRodCesium"), TextureFactory.getImage("coaxium_rod.png"), 10861, 1, "Coaxium", 200, 1, 1, false),
-        new FuelRod(43, "dualFuelRodCesium", getI18n("ComponentName.DualFuelRodCesium"), TextureFactory.getImage("coaxium_rod_dual.png"), 10861, 1, "Coaxium", 400, 6, 2, false),
-        new FuelRod(44, "quadFuelRodCesium", getI18n("ComponentName.QuadFuelRodCesium"), TextureFactory.getImage("coaxium_rod_quad.png"), 10861, 1, "Coaxium", 800, 24, 4, false),
+        
     };
     
     private static final Map<String, ReactorItem> ITEM_MAP = makeItemMap();

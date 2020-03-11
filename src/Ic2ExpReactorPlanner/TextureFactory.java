@@ -29,11 +29,10 @@ public class TextureFactory {
     // paths within the texture pack zip to check for the texture images.
     private static final String[] ASSET_PATHS = {
         "",
-        "/assets/ic2/textures/items/",
-        "/assets/ic2/textures/items/reactor/",
-        "/assets/ic2/textures/items/reactor/fuel_rod/",
-        "/assets/gregtech/textures/items/",
-        "/assets/fm/textures/items/",
+        "assets/ic2/textures/items/",
+        "assets/ic2/textures/items/reactor/",
+        "assets/ic2/textures/items/reactor/fuel_rod/",
+        "assets/gregtech/textures/items/",
     };
     
     public static Image getImage(String... imageNames) {
@@ -55,13 +54,18 @@ public class TextureFactory {
             }
         }
                 
-        for (String asset_path : ASSET_PATHS) {
-            if (result == null && TextureFactory.class.getResource(asset_path + imageNames[0]) != null) {
-                try (InputStream stream = TextureFactory.class.getResourceAsStream(asset_path + imageNames[0])) {
-                    result = ImageIO.read(stream);
-                } catch (IOException ex) {
-                    ExceptionDialogDisplay.showExceptionDialog(ex);
-                }
+        if (result == null && TextureFactory.class.getResource("/assets/ic2/textures/items/" + imageNames[0]) != null) {
+            try (InputStream stream = TextureFactory.class.getResourceAsStream("/assets/ic2/textures/items/" + imageNames[0])) {
+                result = ImageIO.read(stream);
+            } catch (IOException ex) {
+                ExceptionDialogDisplay.showExceptionDialog(ex);
+            }
+        }
+        if (result == null && TextureFactory.class.getResource("/assets/gregtech/textures/items/" + imageNames[0]) != null) {
+            try (InputStream stream = TextureFactory.class.getResourceAsStream("/assets/gregtech/textures/items/" + imageNames[0])) {
+                result = ImageIO.read(stream);
+            } catch (IOException ex) {
+                ExceptionDialogDisplay.showExceptionDialog(ex);
             }
         }
         return result;
