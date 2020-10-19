@@ -342,6 +342,11 @@ public class Reactor {
             if (tempCode.matches("[0-9a-z]+")) { //NOI18N
                 // Possibly a code from Talonius's old planner
                 handleTaloniusCode(tempCode);
+            } else if (code.matches("[0-9A-Za-z+/=]+")) { //NOI18N
+                // Try to handle it as a newer code with the "erp=" prefix stripped
+                readCodeString(code);
+            } else if (!code.isEmpty()) {
+                JOptionPane.showMessageDialog(null, String.format(getI18n("Warning.InvalidReactorCode"), code), getI18n("Warning.Title"), JOptionPane.WARNING_MESSAGE);
             }
         }
     }
