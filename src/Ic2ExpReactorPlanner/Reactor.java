@@ -55,6 +55,8 @@ public class Reactor {
     
     // maximum paramatter types for a reactor component (current initial heat, automation threshold, reactor pause
     private static final int MAX_PARAM_TYPES = 3;
+
+    public static final int MAX_COMPONENT_HEAT = 1_080_000;
     
     public ReactorItem getComponentAt(final int row, final int column) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
