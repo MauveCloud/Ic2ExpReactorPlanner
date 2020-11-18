@@ -34,6 +34,7 @@ public class TextureFactory {
         "assets/ic2/textures/items/reactor/fuel_rod/",
         "assets/gregtech/textures/items/",
         "assets/fm/textures/items/",
+        "assets/gtnh/textures/items/",
     };
     
     public static Image getImage(String... imageNames) {
