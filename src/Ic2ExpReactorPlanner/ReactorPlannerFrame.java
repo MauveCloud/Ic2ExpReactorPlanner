@@ -900,6 +900,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentsGroup.add(fuelRodThoriumButton);
         fuelRodThoriumButton.setToolTipText(buildTooltipInfo("FuelRodThorium"));
         fuelRodThoriumButton.setActionCommand("fuelRodThorium"); // NOI18N
+        fuelRodThoriumButton.setEnabled(false);
         componentsPanel.add(fuelRodThoriumButton);
 
         componentsGroup.add(dualFuelRodThoriumButton);
@@ -1019,36 +1020,43 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         componentsGroup.add(fuelRodNaquadriaButton);
         fuelRodNaquadriaButton.setToolTipText(buildTooltipInfo("FuelRodNaquadria"));
         fuelRodNaquadriaButton.setActionCommand("fuelRodNaquadria"); // NOI18N
+        fuelRodNaquadriaButton.setEnabled(false);
         componentsPanel.add(fuelRodNaquadriaButton);
 
         componentsGroup.add(dualFuelRodNaquadriaButton);
         dualFuelRodNaquadriaButton.setToolTipText(buildTooltipInfo("DualFuelRodNaquadria"));
         dualFuelRodNaquadriaButton.setActionCommand("dualFuelRodNaquadria"); // NOI18N
+        dualFuelRodNaquadriaButton.setEnabled(false);
         componentsPanel.add(dualFuelRodNaquadriaButton);
 
         componentsGroup.add(quadFuelRodNaquadriaButton);
         quadFuelRodNaquadriaButton.setToolTipText(buildTooltipInfo("QuadFuelRodNaquadria"));
         quadFuelRodNaquadriaButton.setActionCommand("quadFuelRodNaquadria"); // NOI18N
+        quadFuelRodNaquadriaButton.setEnabled(false);
         componentsPanel.add(quadFuelRodNaquadriaButton);
         
         componentsGroup.add(fuelRodTiberiumButton);
         fuelRodTiberiumButton.setToolTipText(buildTooltipInfo("FuelRodTiberium"));
         fuelRodTiberiumButton.setActionCommand("fuelRodTiberium"); // NOI18N
+        fuelRodTiberiumButton.setEnabled(false);
         componentsPanel.add(fuelRodTiberiumButton);
 
         componentsGroup.add(dualFuelRodTiberiumButton);
         dualFuelRodTiberiumButton.setToolTipText(buildTooltipInfo("DualFuelRodTiberium"));
         dualFuelRodTiberiumButton.setActionCommand("dualFuelRodTiberium"); // NOI18N
+        dualFuelRodTiberiumButton.setEnabled(false);
         componentsPanel.add(dualFuelRodTiberiumButton);
 
         componentsGroup.add(quadFuelRodTiberiumButton);
         quadFuelRodTiberiumButton.setToolTipText(buildTooltipInfo("QuadFuelRodTiberium"));
         quadFuelRodTiberiumButton.setActionCommand("quadFuelRodTiberium"); // NOI18N
+        quadFuelRodTiberiumButton.setEnabled(false);
         componentsPanel.add(quadFuelRodTiberiumButton);
         
         componentsGroup.add(fuelRodTheCoreButton);
         fuelRodTheCoreButton.setToolTipText(buildTooltipInfo("FuelRodTheCore"));
         fuelRodTheCoreButton.setActionCommand("fuelRodTheCore"); // NOI18N
+        fuelRodTheCoreButton.setEnabled(false);
         componentsPanel.add(fuelRodTheCoreButton);
         
         componentsGroup.add(coolantCellSpace180kButton);
