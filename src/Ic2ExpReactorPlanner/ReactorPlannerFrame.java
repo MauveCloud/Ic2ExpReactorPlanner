@@ -1121,7 +1121,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(componentHeatLabel, gridBagConstraints);
 
-        componentHeatSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 360000, 1));
+        componentHeatSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, Reactor.MAX_COMPONENT_HEAT, 1));
         componentHeatSpinner.setMinimumSize(new java.awt.Dimension(70, 20));
         componentHeatSpinner.setPreferredSize(new java.awt.Dimension(70, 20));
         componentHeatSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -1140,7 +1140,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         temperatureAndComponentsPanel.add(placingThresholdLabel, gridBagConstraints);
 
-        placingThresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, 360000, 1));
+        placingThresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, Reactor.MAX_COMPONENT_HEAT, 1));
         placingThresholdSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
         placingThresholdSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
         placingThresholdSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -1409,7 +1409,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         automationPanel.add(jLabel12, gridBagConstraints);
 
-        thresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, 360000, 1));
+        thresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(9000, 0, Reactor.MAX_COMPONENT_HEAT, 1));
         thresholdSpinner.setMinimumSize(new java.awt.Dimension(100, 20));
         thresholdSpinner.setPreferredSize(new java.awt.Dimension(100, 20));
         thresholdSpinner.addChangeListener(new javax.swing.event.ChangeListener() {

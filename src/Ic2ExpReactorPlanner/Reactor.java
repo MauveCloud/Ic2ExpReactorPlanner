@@ -55,6 +55,8 @@ public class Reactor {
     
     // maximum paramatter types for a reactor component (current initial heat, automation threshold, reactor pause
     private static final int MAX_PARAM_TYPES = 3;
+
+    public static final int MAX_COMPONENT_HEAT = 1_080_000;
     
     public ReactorItem getComponentAt(final int row, final int column) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
@@ -498,6 +500,11 @@ public class Reactor {
         BigintStorage storage = BigintStorage.inputBase64(code);
         // read the code revision from the code itself instead of making it part of the prefix.
         int codeRevision = storage.extract(255);
+        int maxComponentHeat;
+        if (codeRevision == 3)
+            maxComponentHeat = (int)1080e3;
+        else
+            maxComponentHeat = (int)360e3;
         // Check if the code revision is supported yet.
         if (codeRevision > 3) {
             throw new IllegalArgumentException("Unsupported code revision in reactor code.");
@@ -523,9 +530,9 @@ public class Reactor {
                     ReactorItem component = ComponentFactory.createComponent(componentId);
                     int hasSpecialAutomationConfig = storage.extract(1);
                     if (hasSpecialAutomationConfig > 0) {
-                        component.setInitialHeat(storage.extract((int)360e3));
+                        component.setInitialHeat(storage.extract(maxComponentHeat));
                         if (codeRevision == 0 || (codeRevision >= 1 && automated)) {
-                            component.setAutomationThreshold(storage.extract((int)360e3));
+                            component.setAutomationThreshold(storage.extract(maxComponentHeat));
                             component.setReactorPause(storage.extract((int)10e3));
                         }
                     }
@@ -576,9 +583,9 @@ public class Reactor {
                     if (component.getInitialHeat() > 0 || component.getAutomationThreshold() != ComponentFactory.getDefaultComponent(id).getAutomationThreshold() || component.getReactorPause() != ComponentFactory.getDefaultComponent(id).getReactorPause()) {
                         if (automated) {
                             storage.store(component.getReactorPause(), (int)10e3);
-                            storage.store(component.getAutomationThreshold(), (int)360e3);
+                            storage.store(component.getAutomationThreshold(), (int)1080e3);
                         }
-                        storage.store((int)component.getInitialHeat(), (int)360e3);
+                        storage.store((int)component.getInitialHeat(), (int)1080e3);
                         storage.store(1, 1);
                     } else {
                         storage.store(0, 1);
