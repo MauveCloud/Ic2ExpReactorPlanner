@@ -27,6 +27,7 @@ public final class MaterialsList {
     public static final String ALUMINIUM = getI18n("MaterialName.Aluminium");
     public static final String BERYLLIUM = getI18n("MaterialName.Beryllium");
     public static final String BRONZE = getI18n("MaterialName.Bronze");
+    public static final String CALLISTOICEDUST = getI18n("MaterialName.CallistoIceDust");
     public static final String CESIUM = getI18n("MaterialName.CesiumFuel");
     public static final String COAL = getI18n("MaterialName.Coal");
     public static final String COAXIUM = getI18n("MaterialName.CoaxiumFuel");
@@ -35,23 +36,30 @@ public final class MaterialsList {
     public static final String DISTILLED_WATER = getI18n("MaterialName.DistilledWater");
     // Since GT 5.09 allows different materials for making the "empty cell" (steel, tin, or PTFE), it is treated as a primitive material for GT recipes instead of a crafted item that can be further broken down.
     public static final String EMPTY_CELL = getI18n("MaterialName.EmptyCell");
+    public static final String ENRICHEDNAQUADAH = getI18n("MaterialName.EnrichedNaquadah");
+    public static final String FLUXEDELECTRUM = getI18n("MaterialName.FluxedElectrum");//too long
     public static final String GOLD = getI18n("MaterialName.Gold");
     public static final String GRAPHITE = getI18n("MaterialName.Graphite");
-    public static final String HELIUM = getI18n("MaterialName.Helium");
     public static final String GLASS = getI18n("MaterialName.Glass");
     public static final String GLOWSTONE = getI18n("MaterialName.GlowstoneDust");
+    public static final String HELIUM = getI18n("MaterialName.Helium");
     public static final String IRIDIUM = getI18n("MaterialName.Iridium");
     public static final String IRON = getI18n("MaterialName.Iron");
     public static final String LAPIS = getI18n("MaterialName.LapisLazuli");
     public static final String LEAD = getI18n("MaterialName.Lead");
+    public static final String LEDOXDUST = getI18n("MaterialName.LedoxDust");
     public static final String MOX = getI18n("MaterialName.MoxFuel");
-    public static final String NAQUADAH = getI18n("MaterialName.EnrichedNaquadah");
+    public static final String NAQUADRIA = getI18n("MaterialName.Naquadria");    
+    public static final String PLATINUM = getI18n("MaterialName.Platinum");
     public static final String POTASSIUM = getI18n("MaterialName.Potassium");
     public static final String REDSTONE = getI18n("MaterialName.Redstone");
+    public static final String REINFORCEDGLASS = getI18n("MaterialName.ReinforcedGlass");//alt recipes
     public static final String RUBBER = getI18n("MaterialName.Rubber");
     public static final String SODIUM = getI18n("MaterialName.Sodium");
     public static final String THORIUM = getI18n("MaterialName.Thorium");
+    public static final String TIBERIUM = getI18n("MaterialName.Tiberium");        
     public static final String TIN = getI18n("MaterialName.Tin");
+    public static final String TUNGSTEN = getI18n("MaterialName.Tungsten");
     public static final String URANIUM = getI18n("MaterialName.UraniumFuel");
 
     // Special materials lists for items that may expand differently.
@@ -215,7 +223,7 @@ public final class MaterialsList {
     }
     
     private static Map<String, MaterialsList> buildComponentMaterialsMap() {
-        Map<String, MaterialsList> result = new HashMap<>(50);
+        Map<String, MaterialsList> result = new HashMap<>(63);//result.put+2? Added 14, but I can't really tell if that's right
         result.put("fuelRodUranium", new MaterialsList(IRON, URANIUM));
         result.put("dualFuelRodUranium", new MaterialsList(IRON, 2, result.get("fuelRodUranium")));
         result.put("quadFuelRodUranium", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodUranium")));
@@ -264,7 +272,7 @@ public final class MaterialsList {
         result.put("coolantCellNak180k", new MaterialsList(3, result.get("coolantCellNak60k"), 6, TIN));
         result.put("coolantCellNak360k", new MaterialsList(2, result.get("coolantCellNak180k"), 6, TIN, 9, COPPER));
         result.put("iridiumNeutronReflector", new MaterialsList(6, result.get("thickNeutronReflector"), 18, COPPER, iridiumPlate));
-        result.put("fuelRodNaquadah", new MaterialsList(IRON, 3, NAQUADAH));
+        result.put("fuelRodNaquadah", new MaterialsList(IRON, 3, ENRICHEDNAQUADAH));
         result.put("dualFuelRodNaquadah", new MaterialsList(IRON, 2, result.get("fuelRodNaquadah")));
         result.put("quadFuelRodNaquadah", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodNaquadah")));
         result.put("fuelRodCoaxium", new MaterialsList(4, IRIDIUM, 36, DIAMOND, 3, COAXIUM));
@@ -273,6 +281,20 @@ public final class MaterialsList {
         result.put("fuelRodCesium", new MaterialsList(IRON, 3, CESIUM));
         result.put("dualFuelRodCesium", new MaterialsList(IRON, 2, result.get("fuelRodCesium")));
         result.put("quadFuelRodCesium", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodCesium")));
+        result.put("fuelRodNaquadahGTNH", new MaterialsList(4, IRON, 4, TUNGSTEN, 1, PLATINUM, 3, ENRICHEDNAQUADAH));
+        result.put("dualFuelRodNaquadahGTNH", new MaterialsList(IRON, TUNGSTEN, 2, result.get("fuelRodNaquadahGTNH")));
+        result.put("quadFuelRodNaquadahGTNH", new MaterialsList(3, IRON, 3, TUNGSTEN, 4, result.get("fuelRodNaquadahGTNH")));
+        result.put("fuelRodNaquadria", new MaterialsList(4, IRON, 4, TUNGSTEN, 1, PLATINUM, 3, NAQUADRIA));
+        result.put("dualFuelRodNaquadria", new MaterialsList(IRON, TUNGSTEN, 2, result.get("fuelRodNaquadria")));
+        result.put("quadFuelRodNaquadria", new MaterialsList(3, IRON, 3, TUNGSTEN, 4, result.get("fuelRodNaquadria")));
+        result.put("fuelRodTiberium", new MaterialsList(4, IRON, 4, TUNGSTEN, 1, PLATINUM, 3, TIBERIUM));
+        result.put("dualFuelRodTiberium", new MaterialsList(IRON, TUNGSTEN, 2, result.get("fuelRodTiberium")));
+        result.put("quadFuelRodTiberium", new MaterialsList(3, IRON, 3, TUNGSTEN, 4, result.get("fuelRodTiberium")));
+        result.put("fuelRodTheCore", new MaterialsList(96, IRON, 96, TUNGSTEN, 128, TIBERIUM, 32, result.get("fuelRodNaquadah")));
+        result.put("coolantCellSpace180k", new MaterialsList(0.5, CALLISTOICEDUST, 0.5, LEDOXDUST, 1000, DISTILLED_WATER, LAPIS, REINFORCEDGLASS, 2, IRON, 2, TUNGSTEN));
+        result.put("coolantCellSpace360k", new MaterialsList(1.5, IRON, 1.5, TUNGSTEN, 2, result.get("coolantCellSpace180k")));
+        result.put("coolantCellSpace540k", new MaterialsList(3, IRON, 3, TUNGSTEN, 3, result.get("coolantCellSpace180k")));
+        result.put("coolantCellSpace1080k", new MaterialsList(3, IRON, 3, TUNGSTEN, 9, FLUXEDELECTRUM, 3, result.get("coolantCellSpace540k")));
 
         return result;
     }

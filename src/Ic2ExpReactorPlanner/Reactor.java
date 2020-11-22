@@ -55,6 +55,8 @@ public class Reactor {
     
     // maximum paramatter types for a reactor component (current initial heat, automation threshold, reactor pause
     private static final int MAX_PARAM_TYPES = 3;
+
+    public static final int MAX_COMPONENT_HEAT = 1_080_000;
     
     public ReactorItem getComponentAt(final int row, final int column) {
         if (row >= 0 && row < grid.length && column >= 0 && column < grid[row].length) {
@@ -498,8 +500,13 @@ public class Reactor {
         BigintStorage storage = BigintStorage.inputBase64(code);
         // read the code revision from the code itself instead of making it part of the prefix.
         int codeRevision = storage.extract(255);
+        int maxComponentHeat;
+        if (codeRevision == 3)
+            maxComponentHeat = (int)1080e3;
+        else
+            maxComponentHeat = (int)360e3;
         // Check if the code revision is supported yet.
-        if (codeRevision > 2) {
+        if (codeRevision > 3) {
             throw new IllegalArgumentException("Unsupported code revision in reactor code.");
         }
         // for code revision 1 or newer, read whether the reactor is pulsed and/or automated next.
@@ -514,16 +521,18 @@ public class Reactor {
                 // Changes may be coming to the number of components available, so make sure to check the code revision number.
                 if (codeRevision <= 1) {
                     componentId = storage.extract(38);
-                } else {
+                } else if (codeRevision == 2) {
                     componentId = storage.extract(44);
+                } else {
+                    componentId = storage.extract(58);
                 }
                 if (componentId != 0) {
                     ReactorItem component = ComponentFactory.createComponent(componentId);
                     int hasSpecialAutomationConfig = storage.extract(1);
                     if (hasSpecialAutomationConfig > 0) {
-                        component.setInitialHeat(storage.extract((int)360e3));
+                        component.setInitialHeat(storage.extract(maxComponentHeat));
                         if (codeRevision == 0 || (codeRevision >= 1 && automated)) {
-                            component.setAutomationThreshold(storage.extract((int)360e3));
+                            component.setAutomationThreshold(storage.extract(maxComponentHeat));
                             component.setReactorPause(storage.extract((int)10e3));
                         }
                     }
@@ -574,23 +583,23 @@ public class Reactor {
                     if (component.getInitialHeat() > 0 || component.getAutomationThreshold() != ComponentFactory.getDefaultComponent(id).getAutomationThreshold() || component.getReactorPause() != ComponentFactory.getDefaultComponent(id).getReactorPause()) {
                         if (automated) {
                             storage.store(component.getReactorPause(), (int)10e3);
-                            storage.store(component.getAutomationThreshold(), (int)360e3);
+                            storage.store(component.getAutomationThreshold(), (int)1080e3);
                         }
-                        storage.store((int)component.getInitialHeat(), (int)360e3);
+                        storage.store((int)component.getInitialHeat(), (int)1080e3);
                         storage.store(1, 1);
                     } else {
                         storage.store(0, 1);
                     }
-                    storage.store(id, 44);
+                    storage.store(id, 58);
                 } else {
-                    storage.store(0, 44);
+                    storage.store(0, 58);
                 }
             }
         }
         storage.store(automated ? 1 : 0, 1);
         storage.store(pulsed ? 1 : 0, 1);
         // store the code revision, allowing values up to 255 (8 bits) before adjusting how it is stored in the code.
-        storage.store(2, 255);
+        storage.store(3, 255);
         return storage.outputBase64();
     }
 
