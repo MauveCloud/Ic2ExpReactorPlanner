@@ -35,6 +35,7 @@ public class TextureFactory {
         "assets/gregtech/textures/items/",
         "assets/fm/textures/items/",
         "assets/gtnh/textures/items/",
+        "assets/goodgenerator/textures/items/",
     };
     
     public static Image getImage(String... imageNames) {
@@ -62,6 +63,7 @@ public class TextureFactory {
                     result = ImageIO.read(stream);
                 } catch (IOException ex) {
                     ExceptionDialogDisplay.showExceptionDialog(ex);
+                    ex.printStackTrace();
                 }
             }
         }

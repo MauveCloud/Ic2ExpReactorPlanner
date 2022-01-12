@@ -335,6 +335,7 @@ public class Reactor {
                 }
             } catch (NumberFormatException e) {
                 ExceptionDialogDisplay.showExceptionDialog(e);
+                e.printStackTrace();
             }
         } else {
             String tempCode = code;
@@ -495,6 +496,7 @@ public class Reactor {
         }
     }
 
+    
     // reads a Base64 code string for the reactor, after stripping the prefix.
     private void readCodeString(final String code) {
         BigintStorage storage = BigintStorage.inputBase64(code);
@@ -524,7 +526,7 @@ public class Reactor {
                 } else if (codeRevision == 2) {
                     componentId = storage.extract(44);
                 } else {
-                    componentId = storage.extract(58);
+                    componentId = storage.extract(ComponentFactory.MAX_ID);
                 }
                 if (componentId != 0) {
                     ReactorItem component = ComponentFactory.createComponent(componentId);
@@ -590,9 +592,9 @@ public class Reactor {
                     } else {
                         storage.store(0, 1);
                     }
-                    storage.store(id, 58);
+                    storage.store(id, ComponentFactory.MAX_ID);
                 } else {
-                    storage.store(0, 58);
+                    storage.store(0, ComponentFactory.MAX_ID);
                 }
             }
         }

@@ -6,6 +6,11 @@
 package Ic2ExpReactorPlanner;
 
 import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import Ic2ExpReactorPlanner.components.Condensator;
 import Ic2ExpReactorPlanner.components.CoolantCell;
 import Ic2ExpReactorPlanner.components.Exchanger;
@@ -14,9 +19,6 @@ import Ic2ExpReactorPlanner.components.Plating;
 import Ic2ExpReactorPlanner.components.ReactorItem;
 import Ic2ExpReactorPlanner.components.Reflector;
 import Ic2ExpReactorPlanner.components.Vent;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Factory class to handle creating components by id or name.
@@ -24,6 +26,8 @@ import java.util.Map;
  */
 public class ComponentFactory {
     
+	public static int MAX_ID = 64;
+	
     private ComponentFactory() {
         // do nothing, this class should not be instantiated.
     }
@@ -88,6 +92,13 @@ public class ComponentFactory {
         new CoolantCell(56, "coolantCellSpace360k", getI18n("ComponentName.CoolantCell360kSpace"), TextureFactory.getImage("gt.360k_Space_Coolantcell.png"), 1, 360e3, "GTNH"),//many rods? Or I'm wrong
         new CoolantCell(57, "coolantCellSpace540k", getI18n("ComponentName.CoolantCell540kSpace"), TextureFactory.getImage("gt.540k_Space_Coolantcell.png"), 1, 540e3, "GTNH"),
         new CoolantCell(58, "coolantCellSpace1080k", getI18n("ComponentName.CoolantCell1080kSpace"), TextureFactory.getImage("gt.1080k_Space_Coolantcell.png"), 1, 1080e3, "GTNH"),
+        
+	    new FuelRod(59, "fuelRodCompressedUranium", getI18n("ComponentName.FuelRodCompressedUranium"), TextureFactory.getImage("rodCompressedUranium.png"), 50e3, 1, "GoodGenerator", 100, 1, 1, false),
+	    new FuelRod(60, "fuelRodDoubleCompressedUranium", getI18n("ComponentName.FuelRodDoubleCompressedUranium"), TextureFactory.getImage("rodCompressedUranium2.png"), 50e3, 1, "GoodGenerator", 100, 1, 2, false),
+	    new FuelRod(61, "fuelRodQuadCompressedUranium", getI18n("ComponentName.FuelRodQuadCompressedUranium"), TextureFactory.getImage("rodCompressedUranium4.png"), 50e3, 1, "GoodGenerator", 100, 1, 4, false),
+	    new FuelRod(62, "fuelRodCompressedPlutonium", getI18n("ComponentName.FuelRodCompressedPlutonium"), TextureFactory.getImage("rodCompressedPlutonium.png"), 50e3, 1, "GoodGenerator", 50, 1, 1, true),
+	    new FuelRod(63, "fuelRodDoubleCompressedPlutonium", getI18n("ComponentName.FuelRodDoubleCompressedPlutonium"), TextureFactory.getImage("rodCompressedPlutonium2.png"), 50e3, 1, "GoodGenerator", 50, 1, 2, true),
+	    new FuelRod(64, "fuelRodQuadCompressedPlutonium", getI18n("ComponentName.FuelRodQuadCompressedPlutonium"), TextureFactory.getImage("rodCompressedPlutonium4.png"), 50e3, 1, "GoodGenerator", 50, 1, 4, true),
     };
     
     private static final Map<String, ReactorItem> ITEM_MAP = makeItemMap();
