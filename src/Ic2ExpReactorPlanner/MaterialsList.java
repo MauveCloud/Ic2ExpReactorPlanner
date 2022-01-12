@@ -295,6 +295,12 @@ public final class MaterialsList {
         result.put("coolantCellSpace360k", new MaterialsList(1.5, IRON, 1.5, TUNGSTEN, 2, result.get("coolantCellSpace180k")));
         result.put("coolantCellSpace540k", new MaterialsList(3, IRON, 3, TUNGSTEN, 3, result.get("coolantCellSpace180k")));
         result.put("coolantCellSpace1080k", new MaterialsList(3, IRON, 3, TUNGSTEN, 9, FLUXEDELECTRUM, 3, result.get("coolantCellSpace540k")));
+        result.put("fuelRodCompressedUranium", new MaterialsList(IRON, URANIUM));
+        result.put("fuelRodDoubleCompressedUranium", new MaterialsList(IRON, 2, result.get("fuelRodUranium")));
+        result.put("fuelRodQuadCompressedUranium", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodUranium")));
+        result.put("fuelRodCompressedPlutonium", new MaterialsList(IRON, MOX));
+        result.put("fuelRodDoubleCompressedPlutonium", new MaterialsList(IRON, 2, result.get("fuelRodMox")));
+        result.put("fuelRodQuadCompressedPlutonium", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodMox")));
 
         return result;
     }

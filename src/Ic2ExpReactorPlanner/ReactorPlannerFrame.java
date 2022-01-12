@@ -1869,6 +1869,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             codeField.setText(code.replaceAll("[^0-9A-Za-z(),.?|:/+=]+", ""));
         } catch (UnsupportedFlavorException | IOException ex) {
             ExceptionDialogDisplay.showExceptionDialog(ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_pasteCodeButtonActionPerformed
 
@@ -2188,12 +2189,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             fuelRodNaquadahButton.setEnabled(false);
             dualFuelRodNaquadahButton.setEnabled(false); 
             quadFuelRodNaquadahButton.setEnabled(false);
-            fuelRodCesiumButton.setEnabled(false);            
-            dualFuelRodCesiumButton.setEnabled(false);
-            quadFuelRodCesiumButton.setEnabled(false);
-            fuelRodCoaxiumButton.setEnabled(false);            
-            dualFuelRodCoaxiumButton.setEnabled(false);
-            quadFuelRodCoaxiumButton.setEnabled(false);
+            fuelRodCesiumButton.setEnabled(true);            
+            dualFuelRodCesiumButton.setEnabled(true);
+            quadFuelRodCesiumButton.setEnabled(true);
+            fuelRodCoaxiumButton.setEnabled(true);            
+            dualFuelRodCoaxiumButton.setEnabled(true);
+            quadFuelRodCoaxiumButton.setEnabled(true);
             fuelRodNaquadahGTNHButton.setEnabled(true);//Couldn't get an if statement to work so
             dualFuelRodNaquadahGTNHButton.setEnabled(true);//I made GTNH versions
             quadFuelRodNaquadahGTNHButton.setEnabled(true);
@@ -2212,7 +2213,23 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             MaterialsList.setExpandAdvancedAlloy(false);
             MaterialsList.setGTVersion("GTNH");
             FuelRod.setGT509Behavior(false);
-            FuelRod.setGTNHBehavior(true);           
+            FuelRod.setGTNHBehavior(true);    
+            
+            // Enable Good Generator stuff
+            fuelRodCoaxiumButton.setToolTipText(buildTooltipInfo("FuelRodCompressedUranium"));
+            fuelRodCoaxiumButton.setActionCommand("fuelRodCompressedUranium"); // NOI18N
+            dualFuelRodCoaxiumButton.setToolTipText(buildTooltipInfo("FuelRodDoubleCompressedUranium"));
+            dualFuelRodCoaxiumButton.setActionCommand("fuelRodDoubleCompressedUranium"); // NOI18N
+            quadFuelRodCoaxiumButton.setToolTipText(buildTooltipInfo("FuelRodQuadCompressedUranium"));
+            quadFuelRodCoaxiumButton.setActionCommand("fuelRodQuadCompressedUranium"); // NOI18N
+            fuelRodCesiumButton.setToolTipText(buildTooltipInfo("FuelRodCompressedPlutonium"));
+            fuelRodCesiumButton.setActionCommand("fuelRodCompressedPlutonium"); // NOI18N
+            dualFuelRodCesiumButton.setToolTipText(buildTooltipInfo("FuelRodDoubleCompressedPlutonium"));
+            dualFuelRodCesiumButton.setActionCommand("fuelRodDoubleCompressedPlutonium"); // NOI18N
+            quadFuelRodCesiumButton.setToolTipText(buildTooltipInfo("FuelRodQuadCompressedPlutonium"));
+            quadFuelRodCesiumButton.setActionCommand("fuelRodQuadCompressedPlutonium"); // NOI18N
+            
+            
         } else {
             iridiumNeutronReflectorButton.setEnabled(!"1.7.10".equals(mcVersion));
             fuelRodThoriumButton.setEnabled(false);
@@ -2253,8 +2270,34 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             FuelRod.setGT509Behavior(false);
             FuelRod.setGTNHBehavior(false);
         }
+        if (!"GTNH".equals(gtVersion)) {
+        	fuelRodCoaxiumButton.setToolTipText(buildTooltipInfo("FuelRodCoaxium"));
+            fuelRodCoaxiumButton.setActionCommand("fuelRodCoaxium"); // NOI18N
+            dualFuelRodCoaxiumButton.setToolTipText(buildTooltipInfo("DualFuelRodCoaxium"));
+            dualFuelRodCoaxiumButton.setActionCommand("dualFuelRodCoaxium"); // NOI18N
+            quadFuelRodCoaxiumButton.setToolTipText(buildTooltipInfo("QuadFuelRodCoaxium"));
+            quadFuelRodCoaxiumButton.setActionCommand("quadFuelRodCoaxium"); // NOI18N
+            fuelRodCesiumButton.setToolTipText(buildTooltipInfo("FuelRodCesium"));
+            fuelRodCesiumButton.setActionCommand("fuelRodCesium"); // NOI18N
+            dualFuelRodCesiumButton.setToolTipText(buildTooltipInfo("DualFuelRodCesium"));
+            dualFuelRodCesiumButton.setActionCommand("dualFuelRodCesium"); // NOI18N
+            quadFuelRodCesiumButton.setToolTipText(buildTooltipInfo("QuadFuelRodCesium"));
+            quadFuelRodCesiumButton.setActionCommand("quadFuelRodCesium"); // NOI18N
+        }
         materialsArea.setText(reactor.getMaterials().toString());
-        saveAdvancedConfig();
+        Enumeration<AbstractButton> elements = componentsGroup.getElements();
+        while (elements.hasMoreElements()) {
+            AbstractButton button = elements.nextElement();
+            int buttonSize = Math.min(button.getWidth(), button.getHeight());
+            if (buttonSize > 2) {
+                final ReactorItem component = ComponentFactory.getDefaultComponent(button.getActionCommand());
+                if (component != null && component.image != null) {
+                    button.setIcon(new ImageIcon(component.image.getScaledInstance(buttonSize * 8 / 10, buttonSize * 8 / 10, Image.SCALE_FAST)));
+                } else {
+                    button.setIcon(null);
+                }
+            }
+        }
     }//GEN-LAST:event_gtVersionComboActionPerformed
     
     private void updateReactorButtons() {
