@@ -2,6 +2,8 @@ package Ic2ExpReactorPlanner;
 
 import static Ic2ExpReactorPlanner.BundleHelper.formatI18n;
 import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
+
+import Ic2ExpReactorPlanner.components.BreederCell;
 import Ic2ExpReactorPlanner.components.ReactorItem;
 import java.awt.Color;
 import java.io.File;
@@ -459,6 +461,8 @@ public class AutomationSimulator extends SwingWorker<Void, String> {
                                 component.info.append(formatI18n("ComponentInfo.GeneratedEU", component.getMinEUGenerated(), component.getMaxEUGenerated()));
                             }
                             component.info.append(formatI18n("ComponentInfo.GeneratedHeat", component.getMinHeatGenerated(), component.getMaxHeatGenerated()));
+                        } else if (component instanceof BreederCell) {
+                            component.info.append(formatI18n("ComponentInfo.BreederProgress",component.getCurrentDamage() > component.getMaxDamage() ? (int) component.getMaxDamage() : (int) component.getCurrentDamage(),(int) component.getMaxDamage()));
                         }
                         if (component.getMaxReachedHeat() > 0) {
                             component.info.append(formatI18n("ComponentInfo.ReachedHeat", component.getMaxReachedHeat(), component.getMaxHeat()));

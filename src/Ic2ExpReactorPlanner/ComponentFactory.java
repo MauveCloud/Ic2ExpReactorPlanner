@@ -6,14 +6,9 @@
 package Ic2ExpReactorPlanner;
 
 import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
-import Ic2ExpReactorPlanner.components.Condensator;
-import Ic2ExpReactorPlanner.components.CoolantCell;
-import Ic2ExpReactorPlanner.components.Exchanger;
-import Ic2ExpReactorPlanner.components.FuelRod;
-import Ic2ExpReactorPlanner.components.Plating;
-import Ic2ExpReactorPlanner.components.ReactorItem;
-import Ic2ExpReactorPlanner.components.Reflector;
-import Ic2ExpReactorPlanner.components.Vent;
+
+import Ic2ExpReactorPlanner.components.*;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,11 +78,25 @@ public class ComponentFactory {
         new FuelRod(51, "fuelRodTiberium", getI18n("ComponentName.FuelRodTiberium"), TextureFactory.getImage("gt.Tiberiumcell.png"), 50e3, 1, "GTNH", 100, 1, 1, false),
         new FuelRod(52, "dualFuelRodTiberium", getI18n("ComponentName.DualFuelRodTiberium"), TextureFactory.getImage("gt.Double_Tiberiumcell.png"), 50e3, 1, "GTNH", 200, 2, 2, false),
         new FuelRod(53, "quadFuelRodTiberium", getI18n("ComponentName.QuadFuelRodTiberium"), TextureFactory.getImage("gt.Quad_Tiberiumcell.png"), 50e3, 1, "GTNH", 400, 4, 4, false),
-        new FuelRod(54, "fuelRodTheCore", getI18n("ComponentName.FuelRodTheCore"), TextureFactory.getImage("gt.Core_Reactor_Cell.png"), 100e3, 1, "GTNH", 72534, 816, 32, false),//had to reverse engineer, maybe
+        new FuelRod(54, "fuelRodTheCore", getI18n("ComponentName.FuelRodTheCore"), TextureFactory.getImage("gt.Core_Reactor_Cell.png"), 100e3, 1, "GTNH", 12800, 64, 32, false),//had to reverse engineer, maybe
         new CoolantCell(55, "coolantCellSpace180k", getI18n("ComponentName.CoolantCell180kSpace"), TextureFactory.getImage("gt.180k_Space_Coolantcell.png"), 1, 180e3, "GTNH"),//it works differently with so
         new CoolantCell(56, "coolantCellSpace360k", getI18n("ComponentName.CoolantCell360kSpace"), TextureFactory.getImage("gt.360k_Space_Coolantcell.png"), 1, 360e3, "GTNH"),//many rods? Or I'm wrong
         new CoolantCell(57, "coolantCellSpace540k", getI18n("ComponentName.CoolantCell540kSpace"), TextureFactory.getImage("gt.540k_Space_Coolantcell.png"), 1, 540e3, "GTNH"),
         new CoolantCell(58, "coolantCellSpace1080k", getI18n("ComponentName.CoolantCell1080kSpace"), TextureFactory.getImage("gt.1080k_Space_Coolantcell.png"), 1, 1080e3, "GTNH"),
+        new CoolantCell(59, "coolantCellNeutronium1G", getI18n("ComponentName.CoolantCell1GNeutronium"), TextureFactory.getImage("gt.1g_Neutronium_Coolantcell.png"), 1, 1e9, "GT5.09"),
+        new GGFuelRod(60, "fuelRodCompressedUranium", getI18n("ComponentName.FuelRodCompressedUranium"), TextureFactory.getImage("gg.CompressedUranium.png"), 70000, 1, "GTNH" , 400, 2, 1, false, 0),
+        new GGFuelRod(61, "dualFuelRodCompressedUranium", getI18n("ComponentName.DualFuelRodCompressedUranium"), TextureFactory.getImage("gg.Double_CompressedUranium.png"), 70000, 1, "GTNH" , 800, 4, 2, false, 0),
+        new GGFuelRod(62, "quadFuelRodCompressedUranium", getI18n("ComponentName.QuadFuelRodCompressedUranium"), TextureFactory.getImage("gg.Quad_CompressedUranium.png"), 70000, 1, "GTNH" , 1600, 8, 4, false, 0),
+        new GGFuelRod(63, "fuelRodCompressedPlutonium", getI18n("ComponentName.FuelRodCompressedPlutonium"), TextureFactory.getImage("gg.CompressedPlutonium.png"), 30000, 1, "GTNH" , 200, 2, 1, false, 6),
+        new GGFuelRod(64, "dualFuelRodCompressedPlutonium", getI18n("ComponentName.DualFuelRodCompressedPlutonium"), TextureFactory.getImage("gg.Double_CompressedPlutonium.png"), 30000, 1, "GTNH" , 400, 4, 2, false, 6),
+        new GGFuelRod(65, "quadFuelRodCompressedPlutonium", getI18n("ComponentName.QuadFuelRodCompressedPlutonium"), TextureFactory.getImage("gg.Quad_CompressedPlutonium.png"), 30000, 1, "GTNH" , 800, 8, 4, false, 6),
+        new GGFuelRod(66, "fuelRodLiquidUranium", getI18n("ComponentName.FuelRodLiquidUranium"), TextureFactory.getImage("gg.LiquidUranium.png"), 6000, 1, "GTNH" , 4800, 16, 1, false, 0),
+        new GGFuelRod(67, "dualFuelRodLiquidUranium", getI18n("ComponentName.DualFuelRodLiquidUranium"), TextureFactory.getImage("gg.Double_LiquidUranium.png"), 6000, 1, "GTNH" , 9600, 32, 2, false, 0),
+        new GGFuelRod(68, "quadFuelRodLiquidUranium", getI18n("ComponentName.QuadFuelRodLiquidUranium"), TextureFactory.getImage("gg.Quad_LiquidUranium.png"), 6000, 1, "GTNH" , 19200, 64, 4, false, 0),
+        new GGFuelRod(69, "fuelRodLiquidPlutonium", getI18n("ComponentName.FuelRodLiquidPlutonium"), TextureFactory.getImage("gg.LiquidPlutonium.png"), 10000, 1, "GTNH" , 6400, 16, 1, false, 2),
+        new GGFuelRod(70, "dualFuelRodLiquidPlutonium", getI18n("ComponentName.DualFuelRodLiquidPlutonium"), TextureFactory.getImage("gg.Double_LiquidPlutonium.png"), 10000, 1, "GTNH" , 12800, 32, 2, false, 2),
+        new GGFuelRod(71, "quadFuelRodLiquidPlutonium", getI18n("ComponentName.QuadFuelRodLiquidPlutonium"), TextureFactory.getImage("gg.Quad_LiquidPlutonium.png"), 10000, 1, "GTNH" , 25600, 64, 4, false, 2),
+        new BreederCell(72, "fuelRodGlowstone", getI18n("ComponentName.FuelRodGlowstone"), TextureFactory.getImage("gt.GlowstoneCell.png"), 10000, 1, "GTNH", 3000, 1),
     };
     
     private static final Map<String, ReactorItem> ITEM_MAP = makeItemMap();
@@ -119,6 +128,10 @@ public class ComponentFactory {
                 return new Reflector((Reflector) source);
             } else if (aClass == Vent.class) {
                 return new Vent((Vent) source);
+            } else if (aClass == GGFuelRod.class) {
+                return new GGFuelRod((GGFuelRod) source);
+            } else if (aClass == BreederCell.class) {
+                return new BreederCell((BreederCell) source);
             }
         }
         return null;

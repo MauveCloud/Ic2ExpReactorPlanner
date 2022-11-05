@@ -8,6 +8,7 @@ package Ic2ExpReactorPlanner;
 import static Ic2ExpReactorPlanner.BundleHelper.formatI18n;
 import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
 import Ic2ExpReactorPlanner.components.FuelRod;
+import Ic2ExpReactorPlanner.components.GGFuelRod;
 import Ic2ExpReactorPlanner.components.ReactorItem;
 import Ic2ExpReactorPlanner.components.Reflector;
 import java.awt.Color;
@@ -44,7 +45,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
@@ -509,6 +509,20 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         coolantCellSpace360kButton = new javax.swing.JToggleButton();
         coolantCellSpace540kButton = new javax.swing.JToggleButton();
         coolantCellSpace1080kButton = new javax.swing.JToggleButton();
+        coolantCellNeutronium1GButton = new javax.swing.JToggleButton();
+        fuelRodCompressedUraniumButton = new javax.swing.JToggleButton();
+        dualFuelRodCompressedUraniumButton = new javax.swing.JToggleButton();
+        quadFuelRodCompressedUraniumButton = new javax.swing.JToggleButton();
+        fuelRodCompressedPlutoniumButton = new javax.swing.JToggleButton();
+        dualFuelRodCompressedPlutoniumButton = new javax.swing.JToggleButton();
+        quadFuelRodCompressedPlutoniumButton = new javax.swing.JToggleButton();
+        fuelRodLiquidUraniumButton = new javax.swing.JToggleButton();
+        dualFuelRodLiquidUraniumButton = new javax.swing.JToggleButton();
+        quadFuelRodLiquidUraniumButton = new javax.swing.JToggleButton();
+        fuelRodLiquidPlutoniumButton = new javax.swing.JToggleButton();
+        dualFuelRodLiquidPlutoniumButton = new javax.swing.JToggleButton();
+        quadFuelRodLiquidPlutoniumButton = new javax.swing.JToggleButton();
+        fuelRodGlowstone = new javax.swing.JToggleButton();
         javax.swing.JPanel jPanel8 = new javax.swing.JPanel();
         placingLabel = new javax.swing.JLabel();
         versionLabel = new javax.swing.JLabel();
@@ -951,6 +965,12 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         coolantCellNak360kButton.setEnabled(false);
         componentsPanel.add(coolantCellNak360kButton);
 
+        componentsGroup.add(coolantCellNeutronium1GButton);
+        coolantCellNeutronium1GButton.setToolTipText(buildTooltipInfo("CoolantCell1GNeutronium"));
+        coolantCellNeutronium1GButton.setActionCommand("coolantCellNeutronium1G"); // NOI18N
+        coolantCellNeutronium1GButton.setEnabled(false);
+        componentsPanel.add(coolantCellNeutronium1GButton);
+
         componentsGroup.add(fuelRodNaquadahButton);
         fuelRodNaquadahButton.setToolTipText(buildTooltipInfo("FuelRodNaquadah"));
         fuelRodNaquadahButton.setActionCommand("fuelRodNaquadah"); // NOI18N
@@ -1082,7 +1102,85 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
         coolantCellSpace1080kButton.setActionCommand("coolantCellSpace1080k"); // NOI18N
         coolantCellSpace1080kButton.setEnabled(false);
         componentsPanel.add(coolantCellSpace1080kButton);
-        
+
+        componentsGroup.add(fuelRodCompressedUraniumButton);
+        fuelRodCompressedUraniumButton.setToolTipText(buildTooltipInfo("FuelRodCompressedUranium"));
+        fuelRodCompressedUraniumButton.setActionCommand("fuelRodCompressedUranium");
+        fuelRodCompressedUraniumButton.setEnabled(false);
+        componentsPanel.add(fuelRodCompressedUraniumButton);
+
+        componentsGroup.add(dualFuelRodCompressedUraniumButton);
+        dualFuelRodCompressedUraniumButton.setToolTipText(buildTooltipInfo("DualFuelRodCompressedUranium"));
+        dualFuelRodCompressedUraniumButton.setActionCommand("dualFuelRodCompressedUranium");
+        dualFuelRodCompressedUraniumButton.setEnabled(false);
+        componentsPanel.add(dualFuelRodCompressedUraniumButton);
+
+        componentsGroup.add(quadFuelRodCompressedUraniumButton);
+        quadFuelRodCompressedUraniumButton.setToolTipText(buildTooltipInfo("QuadFuelRodCompressedUranium"));
+        quadFuelRodCompressedUraniumButton.setActionCommand("quadFuelRodCompressedUranium");
+        quadFuelRodCompressedUraniumButton.setEnabled(false);
+        componentsPanel.add(quadFuelRodCompressedUraniumButton);
+
+        componentsGroup.add(fuelRodCompressedPlutoniumButton);
+        fuelRodCompressedPlutoniumButton.setToolTipText(buildTooltipInfo("FuelRodCompressedPlutonium"));
+        fuelRodCompressedPlutoniumButton.setActionCommand("fuelRodCompressedPlutonium");
+        fuelRodCompressedPlutoniumButton.setEnabled(false);
+        componentsPanel.add(fuelRodCompressedPlutoniumButton);
+
+        componentsGroup.add(dualFuelRodCompressedPlutoniumButton);
+        dualFuelRodCompressedPlutoniumButton.setToolTipText(buildTooltipInfo("DualFuelRodCompressedPlutonium"));
+        dualFuelRodCompressedPlutoniumButton.setActionCommand("dualFuelRodCompressedPlutonium");
+        dualFuelRodCompressedPlutoniumButton.setEnabled(false);
+        componentsPanel.add(dualFuelRodCompressedPlutoniumButton);
+
+        componentsGroup.add(quadFuelRodCompressedPlutoniumButton);
+        quadFuelRodCompressedPlutoniumButton.setToolTipText(buildTooltipInfo("QuadFuelRodCompressedPlutonium"));
+        quadFuelRodCompressedPlutoniumButton.setActionCommand("quadFuelRodCompressedPlutonium");
+        quadFuelRodCompressedPlutoniumButton.setEnabled(false);
+        componentsPanel.add(quadFuelRodCompressedPlutoniumButton);
+
+        componentsGroup.add(fuelRodLiquidUraniumButton);
+        fuelRodLiquidUraniumButton.setToolTipText(buildTooltipInfo("FuelRodLiquidUranium"));
+        fuelRodLiquidUraniumButton.setActionCommand("fuelRodLiquidUranium");
+        fuelRodLiquidUraniumButton.setEnabled(false);
+        componentsPanel.add(fuelRodLiquidUraniumButton);
+
+        componentsGroup.add(dualFuelRodLiquidUraniumButton);
+        dualFuelRodLiquidUraniumButton.setToolTipText(buildTooltipInfo("DualFuelRodLiquidUranium"));
+        dualFuelRodLiquidUraniumButton.setActionCommand("dualFuelRodLiquidUranium");
+        dualFuelRodLiquidUraniumButton.setEnabled(false);
+        componentsPanel.add(dualFuelRodLiquidUraniumButton);
+
+        componentsGroup.add(quadFuelRodLiquidUraniumButton);
+        quadFuelRodLiquidUraniumButton.setToolTipText(buildTooltipInfo("QuadFuelRodLiquidUranium"));
+        quadFuelRodLiquidUraniumButton.setActionCommand("quadFuelRodLiquidUranium");
+        quadFuelRodLiquidUraniumButton.setEnabled(false);
+        componentsPanel.add(quadFuelRodLiquidUraniumButton);
+
+        componentsGroup.add(fuelRodLiquidPlutoniumButton);
+        fuelRodLiquidPlutoniumButton.setToolTipText(buildTooltipInfo("FuelRodLiquidPlutonium"));
+        fuelRodLiquidPlutoniumButton.setActionCommand("fuelRodLiquidPlutonium");
+        fuelRodLiquidPlutoniumButton.setEnabled(false);
+        componentsPanel.add(fuelRodLiquidPlutoniumButton);
+
+        componentsGroup.add(dualFuelRodLiquidPlutoniumButton);
+        dualFuelRodLiquidPlutoniumButton.setToolTipText(buildTooltipInfo("DualFuelRodLiquidPlutonium"));
+        dualFuelRodLiquidPlutoniumButton.setActionCommand("dualFuelRodLiquidPlutonium");
+        dualFuelRodLiquidPlutoniumButton.setEnabled(false);
+        componentsPanel.add(dualFuelRodLiquidPlutoniumButton);
+
+        componentsGroup.add(quadFuelRodLiquidPlutoniumButton);
+        quadFuelRodLiquidPlutoniumButton.setToolTipText(buildTooltipInfo("QuadFuelRodLiquidPlutonium"));
+        quadFuelRodLiquidPlutoniumButton.setActionCommand("quadFuelRodLiquidPlutonium");
+        quadFuelRodLiquidPlutoniumButton.setEnabled(false);
+        componentsPanel.add(quadFuelRodLiquidPlutoniumButton);
+
+        componentsGroup.add(fuelRodGlowstone);
+        fuelRodGlowstone.setToolTipText(buildTooltipInfo("FuelRodGlowstone"));
+        fuelRodGlowstone.setActionCommand("fuelRodGlowstone");
+        fuelRodGlowstone.setEnabled(false);
+        componentsPanel.add(fuelRodGlowstone);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -2107,6 +2205,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             coolantCellNak60kButton.setEnabled(true);
             coolantCellNak180kButton.setEnabled(true);
             coolantCellNak360kButton.setEnabled(true);
+            coolantCellNeutronium1GButton.setEnabled(false);
             fuelRodNaquadahButton.setEnabled(false);
             dualFuelRodNaquadahButton.setEnabled(false);
             quadFuelRodNaquadahButton.setEnabled(false);
@@ -2131,10 +2230,27 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             quadFuelRodTiberiumButton.setEnabled(false);
             fuelRodTheCoreButton.setEnabled(false);
             expandAdvancedAlloyCheck.setEnabled(false);
+
+            fuelRodCompressedUraniumButton.setEnabled(false);
+            dualFuelRodCompressedUraniumButton.setEnabled(false);
+            quadFuelRodCompressedUraniumButton.setEnabled(false);
+            fuelRodCompressedPlutoniumButton.setEnabled(false);
+            dualFuelRodCompressedPlutoniumButton.setEnabled(false);
+            quadFuelRodCompressedPlutoniumButton.setEnabled(false);
+            fuelRodLiquidUraniumButton.setEnabled(false);
+            dualFuelRodLiquidUraniumButton.setEnabled(false);
+            quadFuelRodLiquidUraniumButton.setEnabled(false);
+            fuelRodLiquidPlutoniumButton.setEnabled(false);
+            dualFuelRodLiquidPlutoniumButton.setEnabled(false);
+            quadFuelRodLiquidPlutoniumButton.setEnabled(false);
+
+            fuelRodGlowstone.setEnabled(false);
+
             MaterialsList.setExpandAdvancedAlloy(false);
             MaterialsList.setGTVersion("5.08");
             FuelRod.setGT509Behavior(false);
             FuelRod.setGTNHBehavior(false);
+            GGFuelRod.setGTNHBehavior(false);
         } else if ("5.09".equals(gtVersion)) {
             iridiumNeutronReflectorButton.setEnabled(true);
             fuelRodThoriumButton.setEnabled(true);
@@ -2146,6 +2262,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             coolantCellNak60kButton.setEnabled(true);
             coolantCellNak180kButton.setEnabled(true);
             coolantCellNak360kButton.setEnabled(true);
+            coolantCellNeutronium1GButton.setEnabled(true);
             fuelRodNaquadahButton.setEnabled(true);
             dualFuelRodNaquadahButton.setEnabled(true);
             quadFuelRodNaquadahButton.setEnabled(true);
@@ -2170,10 +2287,27 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             quadFuelRodTiberiumButton.setEnabled(false);
             fuelRodTheCoreButton.setEnabled(false);
             expandAdvancedAlloyCheck.setEnabled(false);
+
+            fuelRodCompressedUraniumButton.setEnabled(false);
+            dualFuelRodCompressedUraniumButton.setEnabled(false);
+            quadFuelRodCompressedUraniumButton.setEnabled(false);
+            fuelRodCompressedPlutoniumButton.setEnabled(false);
+            dualFuelRodCompressedPlutoniumButton.setEnabled(false);
+            quadFuelRodCompressedPlutoniumButton.setEnabled(false);
+            fuelRodLiquidUraniumButton.setEnabled(false);
+            dualFuelRodLiquidUraniumButton.setEnabled(false);
+            quadFuelRodLiquidUraniumButton.setEnabled(false);
+            fuelRodLiquidPlutoniumButton.setEnabled(false);
+            dualFuelRodLiquidPlutoniumButton.setEnabled(false);
+            quadFuelRodLiquidPlutoniumButton.setEnabled(false);
+
+            fuelRodGlowstone.setEnabled(false);
+
             MaterialsList.setExpandAdvancedAlloy(false);
             MaterialsList.setGTVersion("5.09");
             FuelRod.setGT509Behavior(true);
             FuelRod.setGTNHBehavior(false);
+            GGFuelRod.setGTNHBehavior(false);
         } else if ("GTNH".equals(gtVersion)) {
             iridiumNeutronReflectorButton.setEnabled(true);
             fuelRodThoriumButton.setEnabled(true);
@@ -2185,6 +2319,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             coolantCellNak60kButton.setEnabled(true);
             coolantCellNak180kButton.setEnabled(true);
             coolantCellNak360kButton.setEnabled(true);
+            coolantCellNeutronium1GButton.setEnabled(true);
             fuelRodNaquadahButton.setEnabled(false);
             dualFuelRodNaquadahButton.setEnabled(false); 
             quadFuelRodNaquadahButton.setEnabled(false);
@@ -2209,10 +2344,27 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             quadFuelRodTiberiumButton.setEnabled(true);
             fuelRodTheCoreButton.setEnabled(true);
             expandAdvancedAlloyCheck.setEnabled(false);
+
+            fuelRodCompressedUraniumButton.setEnabled(true);
+            dualFuelRodCompressedUraniumButton.setEnabled(true);
+            quadFuelRodCompressedUraniumButton.setEnabled(true);
+            fuelRodCompressedPlutoniumButton.setEnabled(true);
+            dualFuelRodCompressedPlutoniumButton.setEnabled(true);
+            quadFuelRodCompressedPlutoniumButton.setEnabled(true);
+            fuelRodLiquidUraniumButton.setEnabled(true);
+            dualFuelRodLiquidUraniumButton.setEnabled(true);
+            quadFuelRodLiquidUraniumButton.setEnabled(true);
+            fuelRodLiquidPlutoniumButton.setEnabled(true);
+            dualFuelRodLiquidPlutoniumButton.setEnabled(true);
+            quadFuelRodLiquidPlutoniumButton.setEnabled(true);
+
+            fuelRodGlowstone.setEnabled(true);
+
             MaterialsList.setExpandAdvancedAlloy(false);
             MaterialsList.setGTVersion("GTNH");
             FuelRod.setGT509Behavior(false);
-            FuelRod.setGTNHBehavior(true);           
+            FuelRod.setGTNHBehavior(true);
+            GGFuelRod.setGTNHBehavior(true);
         } else {
             iridiumNeutronReflectorButton.setEnabled(!"1.7.10".equals(mcVersion));
             fuelRodThoriumButton.setEnabled(false);
@@ -2224,6 +2376,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             coolantCellNak60kButton.setEnabled(false);
             coolantCellNak180kButton.setEnabled(false);
             coolantCellNak360kButton.setEnabled(false);
+            coolantCellNeutronium1GButton.setEnabled(false);
             fuelRodNaquadahButton.setEnabled(false);
             dualFuelRodNaquadahButton.setEnabled(false);
             quadFuelRodNaquadahButton.setEnabled(false);
@@ -2248,10 +2401,27 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
             quadFuelRodTiberiumButton.setEnabled(false);
             fuelRodTheCoreButton.setEnabled(false);
             expandAdvancedAlloyCheck.setEnabled(true);
+
+            fuelRodCompressedUraniumButton.setEnabled(false);
+            dualFuelRodCompressedUraniumButton.setEnabled(false);
+            quadFuelRodCompressedUraniumButton.setEnabled(false);
+            fuelRodCompressedPlutoniumButton.setEnabled(false);
+            dualFuelRodCompressedPlutoniumButton.setEnabled(false);
+            quadFuelRodCompressedPlutoniumButton.setEnabled(false);
+            fuelRodLiquidUraniumButton.setEnabled(false);
+            dualFuelRodLiquidUraniumButton.setEnabled(false);
+            quadFuelRodLiquidUraniumButton.setEnabled(false);
+            fuelRodLiquidPlutoniumButton.setEnabled(false);
+            dualFuelRodLiquidPlutoniumButton.setEnabled(false);
+            quadFuelRodLiquidPlutoniumButton.setEnabled(false);
+
+            fuelRodGlowstone.setEnabled(false);
+
             MaterialsList.setExpandAdvancedAlloy(expandAdvancedAlloyCheck.isSelected());
             MaterialsList.setGTVersion("none");
             FuelRod.setGT509Behavior(false);
             FuelRod.setGTNHBehavior(false);
+            GGFuelRod.setGTNHBehavior(false);
         }
         materialsArea.setText(reactor.getMaterials().toString());
         saveAdvancedConfig();
@@ -2856,6 +3026,7 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton coolantCellSpace360kButton;
     private javax.swing.JToggleButton coolantCellSpace540kButton;
     private javax.swing.JToggleButton coolantCellSpace1080kButton;
+    private javax.swing.JToggleButton coolantCellNeutronium1GButton;
     private javax.swing.JButton copyCodeButton;
     private javax.swing.JButton copyComparisonButton;
     private javax.swing.JToggleButton coreHeatExchangerButton;
@@ -2887,6 +3058,19 @@ public class ReactorPlannerFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton fuelRodThoriumButton;
     private javax.swing.JToggleButton fuelRodTiberiumButton;
     private javax.swing.JToggleButton fuelRodUraniumButton;
+    private javax.swing.JToggleButton fuelRodCompressedUraniumButton;
+    private javax.swing.JToggleButton dualFuelRodCompressedUraniumButton;
+    private javax.swing.JToggleButton quadFuelRodCompressedUraniumButton;
+    private javax.swing.JToggleButton fuelRodCompressedPlutoniumButton;
+    private javax.swing.JToggleButton dualFuelRodCompressedPlutoniumButton;
+    private javax.swing.JToggleButton quadFuelRodCompressedPlutoniumButton;
+    private javax.swing.JToggleButton fuelRodLiquidUraniumButton;
+    private javax.swing.JToggleButton dualFuelRodLiquidUraniumButton;
+    private javax.swing.JToggleButton quadFuelRodLiquidUraniumButton;
+    private javax.swing.JToggleButton fuelRodLiquidPlutoniumButton;
+    private javax.swing.JToggleButton dualFuelRodLiquidPlutoniumButton;
+    private javax.swing.JToggleButton quadFuelRodLiquidPlutoniumButton;
+    private javax.swing.JToggleButton fuelRodGlowstone;
     private javax.swing.JComboBox<String> gtVersionCombo;
     private javax.swing.JToggleButton heatCapacityReactorPlatingButton;
     private javax.swing.JToggleButton heatExchangerButton;

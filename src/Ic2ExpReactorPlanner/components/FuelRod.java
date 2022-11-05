@@ -5,7 +5,6 @@
  */
 package Ic2ExpReactorPlanner.components;
 
-import Ic2ExpReactorPlanner.MaterialsList;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +30,8 @@ public class FuelRod extends ReactorItem {
     public static void setGTNHBehavior(boolean value) {
         GTNHbehavior = value;
     }
-    
-    public FuelRod(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod, 
+
+    public FuelRod(final int id, final String baseName, final String name, final Image image, final double maxDamage, final double maxHeat, final String sourceMod,
             final int energyMult, final double heatMult, final int rodCount, final boolean moxStyle) {
         super(id, baseName, name, image, maxDamage, maxHeat, sourceMod);
         this.energyMult = energyMult;
@@ -48,7 +47,7 @@ public class FuelRod extends ReactorItem {
         this.rodCount = other.rodCount;
         this.moxStyle = other.moxStyle;
     }
-    
+
     @Override
     public boolean isNeutronReflector() {
         return !isBroken();
@@ -74,8 +73,8 @@ public class FuelRod extends ReactorItem {
         }
         return neutronNeighbors;
     }
-    
-    protected void handleHeat(final int heat) {
+
+    protected List<ReactorItem> getHeatableNeighbors() {
         List<ReactorItem> heatableNeighbors = new ArrayList<>(4);
         ReactorItem component = parent.getComponentAt(row + 1, col);
         if (component != null && component.isHeatAcceptor()) {
@@ -93,6 +92,32 @@ public class FuelRod extends ReactorItem {
         if (component != null && component.isHeatAcceptor()) {
             heatableNeighbors.add(component);
         }
+        return heatableNeighbors;
+    }
+
+    protected List<ReactorItem> getGTHeatableNeighbors() {
+        List<ReactorItem> heatableNeighbors = new ArrayList<>(4);
+        ReactorItem component = parent.getComponentAt(row, col - 1);
+        if (component != null && component.isHeatAcceptor()) {
+            heatableNeighbors.add(component);
+        }
+        component = parent.getComponentAt(row, col + 1);
+        if (component != null && component.isHeatAcceptor()) {
+            heatableNeighbors.add(component);
+        }
+        component = parent.getComponentAt(row + 1, col);
+        if (component != null && component.isHeatAcceptor()) {
+            heatableNeighbors.add(component);
+        }
+        component = parent.getComponentAt(row - 1, col);
+        if (component != null && component.isHeatAcceptor()) {
+            heatableNeighbors.add(component);
+        }
+        return heatableNeighbors;
+    }
+
+    protected void handleHeat(final int heat) {
+        List<ReactorItem> heatableNeighbors = getHeatableNeighbors();
         if (heatableNeighbors.isEmpty()) {
             parent.adjustCurrentHeat(heat);
             currentHullHeating = heat;
@@ -105,10 +130,26 @@ public class FuelRod extends ReactorItem {
             heatableNeighbors.get(0).adjustCurrentHeat(remainderHeat);
         }
     }
+
+    protected void handleGTHeat(final int heat) {
+        List<ReactorItem> heatableNeighbors = getGTHeatableNeighbors();
+        if (heatableNeighbors.isEmpty()) {
+            parent.adjustCurrentHeat(heat);
+            currentHullHeating = heat;
+        } else {
+            currentComponentHeating = heat;
+            int everCycleHeat = heat / rodCount;
+            for (int i = 0; i < heatableNeighbors.size(); i++) {
+                int toNeighborHeat = everCycleHeat / (heatableNeighbors.size() - i);
+                everCycleHeat -= toNeighborHeat;
+                heatableNeighbors.get(i).adjustCurrentHeat(rodCount * toNeighborHeat);
+            }
+        }
+    }
     
     @Override
     public double generateHeat() {
-        int pulses = countNeutronNeighbors() + (rodCount == 1 ? 1 : (rodCount == 2) ? 2 : 3);
+        int pulses = countNeutronNeighbors() + 1 + rodCount / 2;
         int heat = (int)(heatMult * pulses * (pulses + 1));
         if (moxStyle && parent.isFluid() && (parent.getCurrentHeat() / parent.getMaxHeat()) > 0.5) {
             heat *= 2;
@@ -116,13 +157,17 @@ public class FuelRod extends ReactorItem {
         currentHeatGenerated = heat;
         minHeatGenerated = Math.min(minHeatGenerated, heat);
         maxHeatGenerated = Math.max(maxHeatGenerated, heat);
-        handleHeat(heat);
+        if (GT509behavior || GTNHbehavior) {
+            handleGTHeat(heat);
+        } else {
+            handleHeat(heat);
+        }
         return currentHeatGenerated;
     }
 
     @Override
     public double generateEnergy() {
-        int pulses = countNeutronNeighbors() + (rodCount == 1 ? 1 : (rodCount == 2) ? 2 : 3);
+        int pulses = countNeutronNeighbors() + 1 + rodCount / 2;
         double energy = energyMult * pulses;
         if (GT509behavior || "GT5.09".equals(sourceMod)) {
             energy *= 2;//EUx2 if from GT5.09 or in GT5.09 mode
@@ -161,5 +206,5 @@ public class FuelRod extends ReactorItem {
         }
         return 0;
     }
-    
+
 }

@@ -3,12 +3,7 @@ package Ic2ExpReactorPlanner;
 import static Ic2ExpReactorPlanner.BundleHelper.getI18n;
 import Ic2ExpReactorPlanner.components.ReactorItem;
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Represents a list of materials (such as for an IndustrialCraft2 Nuclear Reactor and components).
@@ -61,6 +56,15 @@ public final class MaterialsList {
     public static final String TIN = getI18n("MaterialName.Tin");
     public static final String TUNGSTEN = getI18n("MaterialName.Tungsten");
     public static final String URANIUM = getI18n("MaterialName.UraniumFuel");
+    public static final String NEUTRONIUM = getI18n("MaterialName.Neutronium");
+    public static final String U238 = getI18n("MaterialName.U238");
+    public static final String CARBON = getI18n("MaterialName.Carbon");
+    public static final String ZIRCALOY_2 = getI18n("MaterialName.ZIRCALOY_2");
+    public static final String ZIRCALOY_4 = getI18n("MaterialName.ZIRCALOY_4");
+    public static final String Pu239 = getI18n("MaterialName.Pu239");
+    public static final String HSS_S = getI18n("MaterialName.HSS_S");
+    public static final String LIQUID_URANIUM = getI18n("MaterialName.LiquidUranium");
+    public static final String LIQUID_PLUTONIUM = getI18n("MaterialName.LiquidPlutonium");
 
     // Special materials lists for items that may expand differently.
     public static MaterialsList basicCircuit = new MaterialsList(IRON, 2, REDSTONE, 2, COPPER, 6, RUBBER);
@@ -123,7 +127,9 @@ public final class MaterialsList {
                     }
                 }
                 itemCount = 1;
-            } else {
+            } else if (material == null) {
+                throw new NullPointerException(Arrays.toString(materials));
+            }  else {
                 throw new IllegalArgumentException("Invalid material type: " + material.getClass().getName());
             }
         }
@@ -223,7 +229,7 @@ public final class MaterialsList {
     }
     
     private static Map<String, MaterialsList> buildComponentMaterialsMap() {
-        Map<String, MaterialsList> result = new HashMap<>(63);//result.put+2? Added 14, but I can't really tell if that's right
+        Map<String, MaterialsList> result = new HashMap<>(100);//result.put+2? Added 14, but I can't really tell if that's right
         result.put("fuelRodUranium", new MaterialsList(IRON, URANIUM));
         result.put("dualFuelRodUranium", new MaterialsList(IRON, 2, result.get("fuelRodUranium")));
         result.put("quadFuelRodUranium", new MaterialsList(3, IRON, 2, COPPER, 4, result.get("fuelRodUranium")));
@@ -295,7 +301,21 @@ public final class MaterialsList {
         result.put("coolantCellSpace360k", new MaterialsList(1.5, IRON, 1.5, TUNGSTEN, 2, result.get("coolantCellSpace180k")));
         result.put("coolantCellSpace540k", new MaterialsList(3, IRON, 3, TUNGSTEN, 3, result.get("coolantCellSpace180k")));
         result.put("coolantCellSpace1080k", new MaterialsList(3, IRON, 3, TUNGSTEN, 9, FLUXEDELECTRUM, 3, result.get("coolantCellSpace540k")));
-
+        result.put("coolantCellNeutronium1G", new MaterialsList(72, NEUTRONIUM, 4, IRIDIUM));
+        result.put("advancedFuelRod", new MaterialsList(4, ZIRCALOY_4, 1.0 / 2, ZIRCALOY_2));
+        result.put("fuelRodCompressedUranium", new MaterialsList(108, GRAPHITE, 36, U238, 9, TUNGSTEN, 9, CARBON, result.get("advancedFuelRod")));
+        result.put("dualFuelRodCompressedUranium", new MaterialsList(2, result.get("fuelRodCompressedUranium"), 2, ZIRCALOY_2));
+        result.put("quadFuelRodCompressedUranium", new MaterialsList(2, result.get("dualFuelRodCompressedUranium"), 2, ZIRCALOY_2));
+        result.put("fuelRodCompressedPlutonium", new MaterialsList(45, Pu239, 9, U238, 36, CARBON, 18, HSS_S, result.get("advancedFuelRod")));
+        result.put("dualFuelRodCompressedPlutonium", new MaterialsList(2, result.get("fuelRodCompressedPlutonium"), 2, ZIRCALOY_2));
+        result.put("quadFuelRodCompressedPlutonium", new MaterialsList(2, result.get("dualFuelRodCompressedPlutonium"), 2, ZIRCALOY_2));
+        result.put("fuelRodLiquidUranium", new MaterialsList(250, LIQUID_URANIUM, result.get("advancedFuelRod")));
+        result.put("dualFuelRodLiquidUranium", new MaterialsList(2, result.get("fuelRodLiquidUranium"), 2, ZIRCALOY_2));
+        result.put("quadFuelRodLiquidUranium", new MaterialsList(2, result.get("dualFuelRodLiquidUranium"), 2, ZIRCALOY_2));
+        result.put("fuelRodLiquidPlutonium", new MaterialsList(250, LIQUID_PLUTONIUM, result.get("advancedFuelRod")));
+        result.put("dualFuelRodLiquidPlutonium", new MaterialsList(2, result.get("fuelRodLiquidPlutonium"), 2, ZIRCALOY_2));
+        result.put("quadFuelRodLiquidPlutonium", new MaterialsList(2, result.get("fuelRodLiquidPlutonium"), 2, ZIRCALOY_2));
+        result.put("fuelRodGlowstone", new MaterialsList(9, GLOWSTONE, 250 , HELIUM));
         return result;
     }
     
