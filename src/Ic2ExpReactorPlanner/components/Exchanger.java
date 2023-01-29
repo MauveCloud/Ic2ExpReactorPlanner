@@ -79,11 +79,7 @@ public class Exchanger extends ReactorItem {
                     add = 0;
                 }
                 myHeat -= add;
-                if (add > 0) {
-                    currentComponentHeating += add;
-                }
-                add = heatableNeighbor.adjustCurrentHeat(add);
-                myHeat += add;
+                heatableNeighbor.adjustCurrentHeat(add);
             }
         }
         if (switchReactor > 0) {
@@ -113,11 +109,6 @@ public class Exchanger extends ReactorItem {
             }
             myHeat -= add;
             parent.adjustCurrentHeat(add);
-            if (add > 0) {
-                currentHullHeating = add;
-            } else {
-                currentHullCooling = -add;
-            }
         }
         adjustCurrentHeat(myHeat);
     }
